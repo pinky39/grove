@@ -1,35 +1,47 @@
 ﻿namespace Grove.Triggers
 {
-    using System;
-    using Events;
-    using Infrastructure;
+  using Events;
+  using Infrastructure;
 
-    class OnLifeChanged : Trigger, IReceive<LifeChangedEvent>
+  public class OnLifeChanged : Trigger, IReceive<LifeChangedEvent>
+  {
+    private readonly bool _isGain;
+    private readonly bool _isLoss;
+    private readonly bool _isOpponents;
+    private readonly bool _isYours;
+
+    private OnLifeChanged() {}
+
+    public OnLifeChanged(bool isYours = false, bool isOpponents = false, bool isGain = false, bool isLoss = false)
     {
-        private readonly Func<TriggeredAbility, Player, bool> _predicate;
-        private readonly bool _ifIncreased;
-
-        private OnLifeChanged() {}
-
-        public OnLifeChanged(Func<TriggeredAbility, Player, bool> predicate, bool ifIncreased = true)
-        {
-            _predicate = predicate;
-            _ifIncreased = ifIncreased;
-        }
-
-        public void Receive(LifeChangedEvent message)
-        {
-            if (message.OldValue == message.NewValue)
-                return;
-
-            var triggered = _ifIncreased
-                ? message.OldValue < message.NewValue   // Player gained life
-                : message.OldValue > message.NewValue;  // Player lost life
-
-            if (_predicate(Ability, message.Player) && triggered)
-            {
-                Set();
-            }
-        }
+      _isYours = isYours;
+      _isOpponents = isOpponents;
+      _isGain = isGain;
+      _isLoss = isLoss;
     }
+
+    public void Receive(LifeChangedEvent message)
+    {
+      if (_isYours && message.Player == Controller)
+      {
+        CheckGainLoss(message);
+      }
+      else if (_isOpponents && message.Player != Controller)
+      {
+        CheckGainLoss(message);
+      }
+    }
+
+    private void CheckGainLoss(LifeChangedEvent message)
+    {
+      if (_isGain && message.IsLifeGain)
+      {
+        Set(message);
+      }
+      else if (_isLoss && message.IsLifeLoss)
+      {
+        Set(message);
+      }
+    }
+  }
 }

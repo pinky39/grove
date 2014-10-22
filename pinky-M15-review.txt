@@ -73,10 +73,10 @@ o Turn to Frog
 o Wall of Fire
 o Wall of Mulch
 
-Accursed Spirit
-Krenko's Enforcer
-Juggernaut
-Welkin Tern
+o Accursed Spirit
+o Krenko's Enforcer
+o Juggernaut
+o Welkin Tern
 
 Ajani's Pridemate
 Resolute Archangel

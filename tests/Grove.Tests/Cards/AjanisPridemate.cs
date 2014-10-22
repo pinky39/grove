@@ -1,32 +1,23 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class AjanisPridemate
+  public class AjanisPridemate
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedAiScenario
-        {
-            [Fact]
-            public void GetCounter()
-            {                
-                var staff = C("Staff of the Sun Magus");
-                var adjani1 = C("Ajani's Pridemate");
-                var adjani2 = C("Ajani's Pridemate");
+      [Fact]
+      public void PlayDragoonsAndBoostPridemate()
+      {
+        Hand(P1, "Radiant's Dragoons");
+        Battlefield(P1, "Ajani's Pridemate", "Plains", "Plains", "Plains", "Plains");
 
-                Hand(P1, adjani2);
-                Battlefield(P1, staff, adjani1);
+        P2.Life = 3;
 
-                Exec(
-                  At(Step.FirstMain)
-                    .Cast(adjani2)
-                    .Verify(() =>
-                    {
-                        Equal(3, C(adjani1).Power);
-                        Equal(3, C(adjani1).Toughness);
-                    })
-                  );
-            }
-        }
+        RunGame(1);
+        Equal(0, P2.Life);
+      }
     }
+  }
 }

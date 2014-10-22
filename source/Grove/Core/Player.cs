@@ -146,7 +146,7 @@
             if (Life <= 0)
                 HasLost = true;
 
-            Publish(new LifeChangedEvent(this, oldValue));
+            Publish(new LifeChangedEvent(this, value, oldValue));
         }
     }
 
