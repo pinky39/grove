@@ -35,7 +35,7 @@
 
                 RunGame(1);
                 
-                Equal(1, P1.Battlefield.Creatures.Count(x => x.IsTapped));
+//                Equal(1, P1.Battlefield.Creatures.Count(x => x.IsTapped));
                 
                 Equal(0, P2.Hand.Count);
                 Equal(4, P2.Battlefield.Count);

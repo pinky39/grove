@@ -46,8 +46,8 @@
       _isBasicLand = cardType.Value.BasicLand;
 
       var type = _replace
-        ? _cardType.Value.Change(baseTypes: _changeTo)
-        : _cardType.Value.Add(baseTypes: _changeTo);
+        ? _cardType.Value.Change(subTypes: _changeTo)
+        : _cardType.Value.Add(subTypes: _changeTo);
 
       _typeSetter = new CardTypeSetter(type);
       _typeSetter.Initialize(ChangeTracker);

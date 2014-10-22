@@ -53,7 +53,7 @@
           p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard,
             filter: (card, ability, _) => card == ability.OwningCard.AttachedTo));
 
-          p.Effect = () => new ApplyModifiersToSelf(() => new ChangeController(m => m.SourceCard.Controller.Opponent));
+          p.Effect = () => new SwitchController();
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });

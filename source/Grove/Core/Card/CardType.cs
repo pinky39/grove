@@ -295,9 +295,9 @@
         baseT.UnionWith(ParseTypeString(baseTypes));
       }
 
-      if (superTypes != null)
+      if (subTypes != null)
       {
-        sub.UnionWith(ParseTypeString(superTypes));
+        sub.UnionWith(ParseTypeString(subTypes));
       }
 
       return new CardType(super, baseT, sub);
