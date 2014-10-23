@@ -23,7 +23,7 @@
 
           p.Trigger(new OnStepStart(activeTurn: true, passiveTurn: true, step: Step.Upkeep)
           {
-            Condition = (t, g) => g.Turn.PrevTurnEvents.HasLostLifeFor(t.Controller.Opponent)
+            Condition = (t, g) => g.Turn.PrevTurnEvents.HasLostLife(t.Controller.Opponent)
           });
 
           p.Effect = () => new ApplyModifiersToTargets(() => new AddCounters(

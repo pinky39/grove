@@ -232,6 +232,7 @@
     <Compile Include="Cards\FesteringWound.cs" />
     <Compile Include="Cards\FieldSurgeon.cs" />
     <Compile Include="Cards\FieryMantle.cs" />
+    <Compile Include="Cards\FirstResponse.cs" />
     <Compile Include="Cards\FledglingOsprey.cs" />
     <Compile Include="Cards\FleshToDust.cs" />
     <Compile Include="Cards\Flicker.cs" />
