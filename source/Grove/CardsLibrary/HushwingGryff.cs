@@ -20,7 +20,7 @@
                 .SimpleAbilities(Static.Flying, Static.Flash)
                 .ContinuousEffect(p =>
                 {
-                    p.Modifier = () => new DisableAllAbilities(a => false, s => false,
+                    p.Modifier = () => new DisableAbilities(a => false, s => false,
                       triggered => triggered.Triggers.Any(t => t is OnZoneChanged && (t as OnZoneChanged).To == Zone.Battlefield));
                     p.CardFilter = (card, effect) => card.Is().Creature;
                     p.ApplyOnlyToPermaments = false;

@@ -1,27 +1,29 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class Encrust
+  public class Encrust
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void Encrust()
-            {
-                var encrust = C("Encrust");
-                var bear = C("Grizzly Bears");
+      [Fact]
+      public void TapAndDisableActivatedAbilities()
+      {
+        var dragon = C("Shivan Hellkite");
+        
+        Hand(P1, "Encrust");
+        Battlefield(P1, "Island", "Island", "Island");        
+        Battlefield(P2, dragon, "Mountain", "Mountain");
 
-                Hand(P1, encrust);
-                Battlefield(P1, "Island", "Island", "Island");
+        P2.Life = 1;
+        
+        RunGame(2);
 
-                Battlefield(P2, bear);
-
-                RunGame(1);
-                
-                Equal(0, P1.Hand.Count);
-            }
-        }
+        Equal(1, P2.Life);
+        True(C(dragon).IsTapped);
+        
+      }
     }
+  }
 }

@@ -27,7 +27,7 @@
                 type: m => m.OwningCard.Type.Add(baseTypes: "creature")),
               () =>
                 {
-                  var modifier = new DisableAllAbilities(a => a.IsEquip, s => false, t => false);
+                  var modifier = new DisableAbilities(a => a.IsEquip, s => false, t => false);
                   modifier.AddLifetime(new OwningCardLifetime());
                   return modifier;
                 }

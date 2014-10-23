@@ -1571,7 +1571,7 @@
     <Compile Include="Core\Events\PermanentUntappedEvent.cs" />
     <Compile Include="Core\Player\PlayerType.cs" />
     <Compile Include="Core\Modifiers\AddDamageRedirection.cs" />
-    <Compile Include="Core\Modifiers\DisableAllAbilities.cs" />
+    <Compile Include="Core\Modifiers\DisableAbilities.cs" />
     <Compile Include="Core\Damage\PreventAllDamageFromSourceToTarget.cs" />
     <Compile Include="Core\Damage\DamageRedirection.cs" />
     <Compile Include="Core\Damage\DamageRedirections.cs" />
