@@ -133,7 +133,7 @@
         return false;
       }
 
-      if (_p.Condition(_card.Controller, Game) == false)
+      if (_p.Condition(_card, Game) == false)
       {
         return false;
       }
@@ -283,8 +283,7 @@
       public Cost Cost;
       public string KickerDescription = "Cast {0} with kicker.";
       public Action<Card> PutToZoneAfterResolve;
-
-      public Func<Player, Game, bool> Condition = delegate { return true; };
+      public Func<Card, Game, bool> Condition = delegate { return true; };
     }
   }
 }

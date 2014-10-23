@@ -144,7 +144,7 @@
         return false;
       }
 
-      if (!_p.Condition(this))
+      if (!_p.Condition(OwningCard, Game))
       {
         return false;
       }

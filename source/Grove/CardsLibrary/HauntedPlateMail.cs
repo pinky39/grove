@@ -49,7 +49,7 @@
               colors: L(CardColor.Colorless)){UntilEot = true},
             () => new DisableAllAbilities(a => a.IsEquip, s => false, t => false){UntilEot = true});
 
-          p.Condition = ability => ability.OwningCard.Controller.Battlefield.Creatures.None();
+          p.Condition = (card, _) => card.Controller.Battlefield.Creatures.None();
         });
     }
   }

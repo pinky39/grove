@@ -3,6 +3,8 @@
     using System;
     using Costs;
 
+  
+  
   public class ActivatedAbilityParameters : AbilityParameters
   {
     public bool ActivateAsSorcery;
@@ -11,6 +13,6 @@
     public Cost Cost;
     public Action<Card> PutToZoneAfterActivation = delegate { };
     public bool IsEquip = false;
-    public Func<ActivatedAbility, bool> Condition = delegate { return true; };
+    public Func<Card, Game, bool> Condition = delegate { return true; };
   }
 }
