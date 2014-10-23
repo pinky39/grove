@@ -27,7 +27,6 @@
               to: Zone.Battlefield,
               filter: (c, a, g) => c.Controller.Life < 20));
 
-            p.Trigger(new OnLifepointsLeft(ability => ability.OwningCard.Controller.Life < 20));
             p.Effect = () => new YourLifeBecomesEqual(20);
           });
     }
