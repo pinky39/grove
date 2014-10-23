@@ -25,10 +25,10 @@
             p.Text =
               "Whenever equipped creature deals combat damage to a player, you put a 2/2 green Wolf creature token onto the battlefield and that player puts the top ten cards of his or her library into his or her graveyard.";
 
-            p.Trigger(new OnDamageDealt(
-              combatOnly: true,
-              useAttachedToAsTriggerSource: true,
-              playerFilter: delegate { return true; }));
+            p.Trigger(new OnDamageDealt(dmg =>
+              dmg.IsCombat &&
+                dmg.IsDealtByEnchantedCreature &&
+                dmg.IsDealtToPlayer));              
 
             p.Effect = () => new CompoundEffect(
               new PlayerPutsTopCardsFromLibraryToGraveyard(P(e => e.Controller.Opponent), count: 10),

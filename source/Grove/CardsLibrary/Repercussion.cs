@@ -22,9 +22,7 @@
             p.Text =
               "Whenever a creature is dealt damage, Repercussion deals that much damage to that creature's controller.";
 
-            p.Trigger(new OnDamageDealt(
-              creatureFilter: delegate { return true; },
-              onlyByTriggerSource: false));
+            p.Trigger(new OnDamageDealt(dmg => dmg.IsDealtToCreature));              
 
             p.Effect = () => new DealExistingDamageToPlayer(
               P(e => e.TriggerMessage<DamageDealtEvent>().Damage),

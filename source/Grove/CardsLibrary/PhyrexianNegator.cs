@@ -22,9 +22,8 @@
           {
             p.Text = "Whenever Phyrexian Negator is dealt damage, sacrifice that many permanents.";
 
-            p.Trigger(new OnDamageDealt(
-              onlyByTriggerSource: false,
-              creatureFilter: (c, s, _) => c == s.Ability.SourceCard));
+            p.Trigger(new OnDamageDealt(dmg =>
+              dmg.IsDealtToOwningCard));
 
             p.Effect = () => new PlayerSacrificePermanents(
               count: P(e => e.TriggerMessage<DamageDealtEvent>().Damage.Amount),

@@ -24,10 +24,11 @@
           {
             p.Text =
               "Whenever equipped creature deals combat damage to a player, Sword of Fire and Ice deals 2 damage to target creature or player and you draw a card.";
-            p.Trigger(new OnDamageDealt(
-              combatOnly: true,
-              useAttachedToAsTriggerSource: true,
-              playerFilter: delegate { return true; }));
+            
+            p.Trigger(new OnDamageDealt(dmg =>
+             dmg.IsCombat &&
+               dmg.IsDealtByEnchantedCreature &&
+               dmg.IsDealtToPlayer));      
 
             p.Effect = () => new CompoundEffect(
               new DealDamageToTargets(2),

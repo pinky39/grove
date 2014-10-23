@@ -29,10 +29,10 @@
           {
             p.Text = "Whenever enchanted creature deals combat damage to a player, that player sacrifices a land.";
 
-            p.Trigger(new OnDamageDealt(
-              combatOnly: true,
-              useAttachedToAsTriggerSource: true,
-              playerFilter: delegate { return true; }));
+            p.Trigger(new OnDamageDealt(dmg => 
+              dmg.IsDealtToPlayer && 
+              dmg.IsCombat && 
+              dmg.IsDealtByEnchantedCreature));              
 
             p.Effect = () => new PlayersSacrificePermanents(
               count: 1,

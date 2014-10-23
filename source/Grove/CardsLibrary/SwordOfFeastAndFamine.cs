@@ -25,10 +25,10 @@
             p.Text =
               "Whenever equipped creature deals combat damage to a player, that player discards a card and you untap all lands you control.";
 
-            p.Trigger(new OnDamageDealt(
-              combatOnly: true,
-              useAttachedToAsTriggerSource: true,
-              playerFilter: delegate { return true; }));
+            p.Trigger(new OnDamageDealt(dmg =>
+              dmg.IsCombat &&
+                dmg.IsDealtByEnchantedCreature &&
+                dmg.IsDealtToPlayer));      
 
             p.Effect = () => new CompoundEffect(
               new OpponentDiscardsCards(selectedCount: 1),

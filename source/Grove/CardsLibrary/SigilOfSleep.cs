@@ -30,10 +30,9 @@
             p.Text =
               "Whenever enchanted creature deals damage to a player, return target creature that player controls to its owner's hand.";
 
-            p.Trigger(new OnDamageDealt(
-              combatOnly: false,
-              useAttachedToAsTriggerSource: true,
-              playerFilter: delegate { return true; }));
+            p.Trigger(new OnDamageDealt(dmg =>
+              dmg.IsDealtByEnchantedCreature &&
+                dmg.IsDealtToPlayer));              
 
             p.Effect = () => new ReturnToHand();
 

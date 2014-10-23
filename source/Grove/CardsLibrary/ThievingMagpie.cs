@@ -19,7 +19,11 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Thieving Magpie deals damage to an opponent, draw a card.";
-            p.Trigger(new OnDamageDealt(playerFilter: (player, e, dmg) => player == e.Controller.Opponent));
+
+            p.Trigger(new OnDamageDealt(dmg =>
+              dmg.IsDealtByOwningCard &&
+                dmg.IsDealtToOpponent));
+                            
             p.Effect = () => new DrawCards(1);
           });
     }

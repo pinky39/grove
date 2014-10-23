@@ -6,71 +6,91 @@
 
   public class OnDamageDealt : Trigger, IReceive<DamageDealtEvent>
   {
-    private readonly bool _combatOnly;
-    private readonly Func<Card, OnDamageDealt, Damage, bool> _creatureFilter;
-    private readonly bool _onlyByTriggerSource;
-    private readonly Func<Player, OnDamageDealt, Damage, bool> _playerFilter;
-    private readonly bool _useAttachedToAsTriggerSource;
+    private readonly Func<FilterParameters, bool> _filter;
 
     private OnDamageDealt() {}
 
-    public OnDamageDealt(bool combatOnly = false, bool useAttachedToAsTriggerSource = false,
-      bool onlyByTriggerSource = true,
-      Func<Card, OnDamageDealt, Damage, bool> creatureFilter = null,
-      Func<Player, OnDamageDealt, Damage, bool> playerFilter = null)
+    public OnDamageDealt(Func<FilterParameters, bool> filter)
     {
-      _combatOnly = combatOnly;
-      _useAttachedToAsTriggerSource = useAttachedToAsTriggerSource;
-      _onlyByTriggerSource = onlyByTriggerSource;
-      _creatureFilter = creatureFilter ?? delegate { return false; };
-      _playerFilter = playerFilter ?? delegate { return false; };
+      _filter = filter;
     }
 
     public void Receive(DamageDealtEvent message)
     {
-      if (_combatOnly && !message.Damage.IsCombat)
-        return;
-
-      var triggerCard = GetTriggerSource();
-
-      if (
-        (!_onlyByTriggerSource || (message.Damage.Source == triggerCard)) &&
-          IsValid(message)
-        )
-        Set(message);
-    }
-
-    private bool IsValid(DamageDealtEvent message)
-    {
-      var player = message.Receiver as Player;
-
-      if (player != null)
-        return _playerFilter(player, this, message.Damage);
-
-      var creature = message.Receiver as Card;
-
-      if (creature != null)
-        return _creatureFilter(creature, this, message.Damage);
-
-      return false;
-    }
-
-
-    private Card GetTriggerSource()
-    {
-      var triggerCard = Ability.OwningCard;
-
-      // if ability card is equipment or enchantment, set triggerCard to
-      // card to which ability card is attached
-      if (_useAttachedToAsTriggerSource && (triggerCard.Is().Enchantment || triggerCard.Is().Equipment))
+      if (_filter(new FilterParameters(message.Receiver, this, message.Damage)))
       {
-        if (!triggerCard.IsAttached)
-          return triggerCard;
+        Set(message);
+      }
+    }
 
-        triggerCard = triggerCard.AttachedTo;
+    public class FilterParameters
+    {
+      private readonly Damage _damage;
+      private readonly object _dealtTo;
+      private readonly OnDamageDealt _trigger;
+
+      public FilterParameters(object dealtTo, OnDamageDealt trigger, Damage damage)
+      {
+        _dealtTo = dealtTo;
+
+        _trigger = trigger;
+        _damage = damage;
       }
 
-      return triggerCard;
+      public bool IsDealtToPlayer
+      {
+        get { return _dealtTo is Player; }
+      }
+
+      public bool IsDealtToCreature
+      {
+        get { return _dealtTo is Card; }
+      }
+
+
+      public bool IsCombat
+      {
+        get { return _damage.IsCombat; }
+      }
+
+      public bool IsDealtByEnchantedCreature
+      {
+        get
+        {
+          var owningCard = _trigger.Ability.OwningCard;
+          return owningCard.AttachedTo == _damage.Source;
+        }
+      }
+
+      public Card Source
+      {
+        get { return _damage.Source; }
+      }
+
+      public bool IsDealtToYou
+      {
+        get { return _dealtTo == _trigger.Controller; }
+      }
+
+      public bool IsDealtByOwningCard
+      {
+        get { return _trigger.OwningCard == _damage.Source; }
+      }
+
+      public bool IsDealtToOpponent
+      {
+        get { return _dealtTo == _trigger.Controller.Opponent; }
+      }
+
+      public bool IsDealtToOwningCard
+      {
+        get { return _dealtTo == _trigger.OwningCard; }
+      }
+
+      public bool IsDealtToEnchantedCreature
+      {
+        get { return _dealtTo == _trigger.Ability.OwningCard.AttachedTo; }
+      }
     }
   }
 }

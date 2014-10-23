@@ -23,10 +23,11 @@
           {
             p.Text =
               "Whenever Flesh Reaver deals damage to a creature or opponent, Flesh Reaver deals that much damage to you.";
-            p.Trigger(new OnDamageDealt(
-              creatureFilter: delegate { return true; },
-              playerFilter: (player, tr, _) => tr.Ability.OwningCard.Controller != player));
-
+            
+            p.Trigger(new OnDamageDealt(dmg =>
+              dmg.IsDealtByOwningCard &&
+              (dmg.IsDealtToCreature || dmg.IsDealtToOpponent)));
+                            
             p.Effect = () => new DealExistingDamageToPlayer(
               P(e => e.TriggerMessage<DamageDealtEvent>().Damage),
               P(e => e.Controller));

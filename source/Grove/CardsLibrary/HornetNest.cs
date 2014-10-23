@@ -21,9 +21,8 @@
         {
           p.Text = "Whenever Hornet Nest is dealt damage, put that many 1/1 green Insect creature tokens with flying and deathtouch onto the battlefield.";
 
-          p.Trigger(new OnDamageDealt(
-              onlyByTriggerSource: false,
-              creatureFilter: (c, s, _) => c == s.Ability.SourceCard));
+          p.Trigger(new OnDamageDealt(dmg =>
+            dmg.IsDealtToOwningCard));              
 
           p.Effect = () => new CreateTokens(
             count: P(e => e.TriggerMessage<DamageDealtEvent>().Damage.Amount),

@@ -4,6 +4,7 @@
   {
     public readonly Damage Damage;
     public readonly object Receiver;
+    public Card Source { get { return Damage.Source; } }
 
     public DamageDealtEvent(object receiver, Damage damage)
     {

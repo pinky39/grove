@@ -39,10 +39,7 @@
         {
           p.Text = "Whenever equipped creature is dealt damage, destroy it.";
 
-          p.Trigger(new OnDamageDealt(
-            onlyByTriggerSource: false,
-            creatureFilter: (c, s, _) => c == s.Ability.SourceCard.AttachedTo));
-
+          p.Trigger(new OnDamageDealt(dmg => dmg.IsDealtToEnchantedCreature));            
           p.Effect = () => new DestroyPermanent(P(e => e.Source.OwningCard.AttachedTo));
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;

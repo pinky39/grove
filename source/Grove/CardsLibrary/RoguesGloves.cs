@@ -36,10 +36,10 @@
           {
             p.Text = "Whenever equipped creature deals combat damage to a player, you may draw a card.";
 
-            p.Trigger(new OnDamageDealt(
-              combatOnly: true,
-              useAttachedToAsTriggerSource: true,
-              playerFilter: delegate { return true; }));
+            p.Trigger(new OnDamageDealt(dmg =>
+              dmg.IsCombat &&
+              dmg.IsDealtByEnchantedCreature &&
+                dmg.IsDealtToPlayer));              
 
             p.Effect = () => new DrawCards(1);
             p.TriggerOnlyIfOwningCardIsInPlay = true;
