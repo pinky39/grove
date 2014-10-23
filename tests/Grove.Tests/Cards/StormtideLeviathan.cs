@@ -8,16 +8,19 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void Static()
+      public void AllLandsAreIslands()
       {
         var forest = C("Forest");
-        Hand(P1, "Fugitive Wizard");
-        Battlefield(P1, "Stormtide Leviathan", forest, "Grizzly Bears");
+        var wizard = C("Fugitive Wizard");
 
+        Hand(P1, wizard);
+        Battlefield(P1, "Stormtide Leviathan", forest);
+        Battlefield(P2, "Wall of Denial", "Mountain");
+        
         RunGame(1);
 
-        Equal(12, P2.Life);
-        Equal(4, P1.Battlefield.Count);
+        Equal(12, P2.Life);        
+        Equal(Zone.Battlefield, C(wizard).Zone);
         True(C(forest).Is("island"));
       }
     }
