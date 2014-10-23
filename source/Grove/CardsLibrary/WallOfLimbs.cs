@@ -27,9 +27,9 @@
           {
             p.Text = "Whenever you gain life, put a +1/+1 counter on Wall of Limbs.";
 
+            p.Trigger(new OnLifeChanged(life => life.IsGain && life.IsYours));
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), 1));
 
-            p.Trigger(new OnLifeChanged(isYours: true, isGain: true));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>
@@ -40,13 +40,17 @@
               new PayMana("{5}{B}{B}".Parse(), ManaUsage.Abilities),
               new Sacrifice());
 
-            p.Effect =
-              () => new ChangeLife(P(e => -e.Source.OwningCard.Power.GetValueOrDefault()), forTargetPlayer: true);
+            p.Effect = () => new ChangeLife(
+              P(e => -e.Source.OwningCard.Power.GetValueOrDefault()),
+              forTargetPlayer: true);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
 
-            p.TargetingRule(new EffectDealDamage(tp => tp.Card.Power.GetValueOrDefault()));
-            p.TimingRule(new OnSecondMain());
+            p.TimingRule(new Any(
+              new OnEndOfOpponentsTurn(),
+              new WhenOwningCardWillBeDestroyed()));
+
+            p.TargetingRule(new EffectOpponent());
           });
     }
   }

@@ -1,46 +1,57 @@
 ﻿namespace Grove.Triggers
 {
+  using System;
   using Events;
   using Infrastructure;
 
   public class OnLifeChanged : Trigger, IReceive<LifeChangedEvent>
   {
-    private readonly bool _isGain;
-    private readonly bool _isLoss;
-    private readonly bool _isOpponents;
-    private readonly bool _isYours;
+    private readonly Func<FilterParameters, bool> _filter;
 
     private OnLifeChanged() {}
 
-    public OnLifeChanged(bool isYours = false, bool isOpponents = false, bool isGain = false, bool isLoss = false)
+    public OnLifeChanged(Func<FilterParameters, bool> filter)
     {
-      _isYours = isYours;
-      _isOpponents = isOpponents;
-      _isGain = isGain;
-      _isLoss = isLoss;
+      _filter = filter;
     }
 
     public void Receive(LifeChangedEvent message)
     {
-      if (_isYours && message.Player == Controller)
+      if (_filter(new FilterParameters(message, this)))
       {
-        CheckGainLoss(message);
-      }
-      else if (_isOpponents && message.Player != Controller)
-      {
-        CheckGainLoss(message);
+        Set(message);
       }
     }
 
-    private void CheckGainLoss(LifeChangedEvent message)
+    public class FilterParameters
     {
-      if (_isGain && message.IsLifeGain)
+      private readonly LifeChangedEvent _message;
+      private readonly Trigger _trigger;
+
+      public FilterParameters(LifeChangedEvent message, Trigger trigger)
       {
-        Set(message);
+        _message = message;
+        _trigger = trigger;
       }
-      else if (_isLoss && message.IsLifeLoss)
+
+      public bool IsYours
       {
-        Set(message);
+        get { return _message.Player == _trigger.Controller; }
+      }
+
+      public bool IsOpponents
+      {
+        get { return !IsYours; }
+      }
+
+      public bool IsGain
+      {
+        get { return _message.IsLifeGain; }
+      }
+
+      public bool IsLoss
+      {
+        get { return _message.IsLifeLoss; }
       }
     }
   }

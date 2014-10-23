@@ -22,7 +22,7 @@
           {
             p.Text = "Whenever you gain life, you may put a +1/+1 counter on Ajani's Pridemate.";
 
-            p.Trigger(new OnLifeChanged(isYours: true, isGain: true));
+            p.Trigger(new OnLifeChanged(life =>life.IsYours && life.IsGain));
 
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1))
               .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
