@@ -28,7 +28,7 @@
           {
             p.Text = "{4}{R}: Nightfire Giant deals 2 damage to target creature or player.";
 
-            p.Cost = new PayMana("{4}{R}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{4}{R}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
             p.Effect = () => new DealDamageToTargets(2);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 

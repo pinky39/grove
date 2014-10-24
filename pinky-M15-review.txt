@@ -88,7 +88,7 @@ o First Response
 o Illusory Angel
 o Stormtide Leviathan
 o Encrust
-Nightfire Giant
+o Nightfire Giant
 Hoarding Dragon
 Stab Wound
 Wall of Frost
