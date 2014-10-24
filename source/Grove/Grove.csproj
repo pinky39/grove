@@ -544,6 +544,7 @@
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
     <Compile Include="Core\Modifiers\IncreaseMinBlockerCount.cs" />
+    <Compile Include="Core\Modifiers\AddPowerToughnessAsLongAsYouControlPermanent.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\Modifiers\OwnerControlsPermamentsLifetime.cs" />
     <Compile Include="Core\Modifiers\OwnerHasCardsInExile.cs" />
