@@ -89,7 +89,7 @@ o Illusory Angel
 o Stormtide Leviathan
 o Encrust
 o Nightfire Giant
-Hoarding Dragon
+o Hoarding Dragon
 Stab Wound
 Wall of Frost
 Phytotitan
