@@ -23,7 +23,7 @@
 
           p.Trigger(new OnPlayerDrawsCard((ability, player) => ability.OwningCard.Controller == player));
 
-          p.Effect = () => new ChangeLife(amount: 1, forYou: true);
+          p.Effect = () => new ChangeLife(amount: 1, yours: true);
         });
     }
   }

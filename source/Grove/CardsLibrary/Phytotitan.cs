@@ -34,7 +34,7 @@
 
                         tp.Trigger(new OnStepStart(
                           step: Step.Upkeep,
-                          onlyOnceAfterActivated: true,
+                          onlyOnce: true,
                           passiveTurn: false,
                           activeTurn: true));
 

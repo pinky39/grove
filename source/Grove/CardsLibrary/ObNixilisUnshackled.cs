@@ -27,7 +27,7 @@
               count: 1,
               validator: c => c.Is().Creature,
               text: "Select a creature to sacrifice."),
-            new ChangeLife(amount: -10, forOpponent: true));
+            new ChangeLife(amount: -10, opponents: true));
         })
         .TriggeredAbility(p =>
         {

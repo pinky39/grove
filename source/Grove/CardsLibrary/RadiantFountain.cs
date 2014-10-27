@@ -22,7 +22,7 @@
         {
           p.Text = "When Radiant Fountain enters the battlefield, you gain 2 life.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-          p.Effect = () => new ChangeLife(amount: 2, forYou: true);
+          p.Effect = () => new ChangeLife(amount: 2, yours: true);
         });
     }
   }

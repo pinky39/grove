@@ -17,8 +17,8 @@
         .Cast(p =>
           {
             p.Effect = () => new CompoundEffect(
-              new ChangeLife(amount:-4, forTargetPlayer: true),
-              new ChangeLife(amount: 4, forYou: true));
+              new ChangeLife(amount: -4, targetPlayers: true),
+              new ChangeLife(amount: 4, yours: true));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
             p.TargetingRule(new EffectOpponent());

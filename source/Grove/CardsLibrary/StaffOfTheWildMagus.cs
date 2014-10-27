@@ -26,7 +26,7 @@
             filter: (c, a, _) => c.Is("forest") &&
               c.Controller == a.OwningCard.Controller));
 
-          p.Effect = () => new ChangeLife(amount: 1, forYou: true);
+          p.Effect = () => new ChangeLife(amount: 1, yours: true);
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });

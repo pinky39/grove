@@ -18,7 +18,7 @@
                 .Cast(p =>
                 {
                     p.Text = "You gain 8 life.";
-                    p.Effect = () => new ChangeLife(amount: 8, forYou: true);
+                    p.Effect = () => new ChangeLife(amount: 8, yours: true);
                     p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new WhenYourLifeCanBecomeZero()));
                 });
         }

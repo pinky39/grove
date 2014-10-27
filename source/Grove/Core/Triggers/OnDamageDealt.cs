@@ -6,30 +6,30 @@
 
   public class OnDamageDealt : Trigger, IReceive<DamageDealtEvent>
   {
-    private readonly Func<FilterParameters, bool> _filter;
+    private readonly Func<Parameters, bool> _predicate;
 
     private OnDamageDealt() {}
 
-    public OnDamageDealt(Func<FilterParameters, bool> filter)
+    public OnDamageDealt(Func<Parameters, bool> predicate)
     {
-      _filter = filter;
+      _predicate = predicate;
     }
 
     public void Receive(DamageDealtEvent message)
     {
-      if (_filter(new FilterParameters(message.Receiver, this, message.Damage)))
+      if (_predicate(new Parameters(message.Receiver, this, message.Damage)))
       {
         Set(message);
       }
     }
 
-    public class FilterParameters
+    public class Parameters
     {
       private readonly Damage _damage;
       private readonly object _dealtTo;
       private readonly OnDamageDealt _trigger;
 
-      public FilterParameters(object dealtTo, OnDamageDealt trigger, Damage damage)
+      public Parameters(object dealtTo, OnDamageDealt trigger, Damage damage)
       {
         _dealtTo = dealtTo;
 

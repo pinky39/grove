@@ -512,6 +512,7 @@
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\BooleanEffectChoice.cs" />
     <Compile Include="Core\Effects\ChangeLife.cs" />
+    <Compile Include="Core\Effects\ChangeLifeOfEnchantedPermanentsController.cs" />
     <Compile Include="Core\Effects\ChangeZoneForSelectedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CreateCopyOfTargetCreature.cs" />

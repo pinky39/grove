@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Text = "Target player gains 3 life";
-            p.Effect = () => new ChangeLife(3, forTargetPlayer: true);
+            p.Effect = () => new ChangeLife(3, targetPlayers: true);
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
             p.TargetingRule(new EffectYou());
           })

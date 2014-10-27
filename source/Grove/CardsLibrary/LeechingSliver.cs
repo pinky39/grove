@@ -24,8 +24,7 @@
 
           p.UsesStack = false;
           p.TriggerOnlyIfOwningCardIsInPlay = true;
-
-          p.Effect = () => new ChangeLife(amount: -1, forOpponent: true);
+          p.Effect = () => new ChangeLife(amount: -1, opponents: true);
         });
     }
   }

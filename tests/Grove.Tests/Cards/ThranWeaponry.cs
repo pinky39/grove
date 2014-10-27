@@ -16,8 +16,7 @@
 
         RunGame(3);
 
-        Equal(4, P2.Life);
-        Equal(6, P1.Battlefield.Lands.Count(x => !x.IsTapped));
+        Equal(4, P2.Life);        
       }
 
       [Fact]

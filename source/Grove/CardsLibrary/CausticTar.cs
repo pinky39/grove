@@ -26,7 +26,7 @@
                   {
                     Text = "{T}: Target player loses 3 life.",
                     Cost = new Tap(),
-                    Effect = () => new ChangeLife(-3, forTargetPlayer: true)
+                    Effect = () => new ChangeLife(-3, targetPlayers: true)
                   };
 
                 ap.TargetSelector.AddEffect(trg => trg.Is.Player());

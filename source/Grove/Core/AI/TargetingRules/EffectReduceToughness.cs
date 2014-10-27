@@ -25,9 +25,8 @@
         .Select(x => new
           {
             Target = x,
-            Score = x.Life <= amount ? x.Score : 0
-          })
-        .Where(x => x.Score > 0)
+            Score = x.Life <= amount ? 2 * x.Score : x.Score
+          })        
         .OrderByDescending(x => x.Score)
         .Select(x => x.Target);
 

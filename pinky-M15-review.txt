@@ -90,7 +90,7 @@ o Stormtide Leviathan
 o Encrust
 o Nightfire Giant
 o Hoarding Dragon
-Stab Wound
+o Stab Wound
 Wall of Frost
 Phytotitan
 Satyr Wayfinder

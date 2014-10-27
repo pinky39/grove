@@ -19,7 +19,7 @@
           {
             p.Effect = () => new CompoundEffect(
               new DestroyTargetPermanents(),
-              new ChangeLife(amount: 4, forYou: true));
+              new ChangeLife(amount: 4, yours: true));
 
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(card => card.Is().Artifact || card.Is().Enchantment)

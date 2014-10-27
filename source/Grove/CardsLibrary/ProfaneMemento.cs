@@ -23,7 +23,7 @@
               to: Zone.Graveyard,
               filter: (c, a, _) => c.Owner != a.OwningCard.Controller && c.Is().Creature));
 
-            p.Effect = () => new ChangeLife(amount: 1, forYou: true);
+            p.Effect = () => new ChangeLife(amount: 1, yours: true);
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

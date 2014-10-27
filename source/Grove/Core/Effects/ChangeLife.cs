@@ -1,59 +1,70 @@
 ﻿namespace Grove.Effects
 {
-  using System;
-  using System.Linq;
-
   public class ChangeLife : Effect
   {
     private readonly DynParam<int> _amount;
-    private readonly bool _forOpponent;
-    private readonly bool _forTargetPlayer;
-    private readonly bool _forYou;
-    private readonly bool _useAttachedToAsYouSource;
+    private readonly bool _opponents;
+    private readonly bool _targetPlayers;
+    private readonly bool _yours;
     private Player _you;
 
     private ChangeLife() {}
 
-    public ChangeLife(DynParam<int> amount, bool forYou = false, bool forOpponent = false, bool forTargetPlayer = false,
-      bool useAttachedToAsYouSource = false)
+    public ChangeLife(DynParam<int> amount, bool yours = false, bool opponents = false, bool targetPlayers = false)
     {
       _amount = amount;
 
-      _forYou = forYou;
-      _forOpponent = forOpponent;
-      _forTargetPlayer = forTargetPlayer;
-      _useAttachedToAsYouSource = useAttachedToAsYouSource;
+      _yours = yours;
+      _opponents = opponents;
+      _targetPlayers = targetPlayers;
 
       RegisterDynamicParameters(amount);
     }
 
     protected override void Initialize()
     {
-      _you = _useAttachedToAsYouSource
-        ? Source.OwningCard.AttachedTo.Controller
-        : Source.OwningCard.Controller;
+      _you = Source.OwningCard.Controller;
     }
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return _forTargetPlayer && Targets.Effect.Any(x => x == player) && _amount.Value < 0 ? Math.Abs(_amount.Value) : 0;
+      if (_amount.Value >= 0)
+        return 0;
+
+
+      if (_yours && player == _you)
+      {
+        return _amount.Value;
+      }
+
+      if (_opponents && player == _you.Opponent)
+      {
+        return _amount.Value;
+      }
+
+      if (player == Target)
+      {
+        return _amount.Value;
+      }
+
+      return 0;
     }
 
     protected override void ResolveEffect()
     {
-      if (_forYou)
+      if (_yours)
       {
         _you.Life += _amount.Value;
       }
 
-      if (_forOpponent)
+      if (_opponents)
       {
         _you.Opponent.Life += _amount.Value;
       }
 
-      if (_forTargetPlayer)
+      if (_targetPlayers)
       {
-        Target.Player().Life += _amount;
+        Target.Player().Life += _amount.Value;
       }
     }
   }

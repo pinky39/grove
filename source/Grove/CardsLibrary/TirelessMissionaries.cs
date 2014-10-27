@@ -21,7 +21,7 @@
           {
             p.Text = "When Tireless Missionaries enters the battlefield, you gain 3 life.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new ChangeLife(amount: 3, forYou: true);
+            p.Effect = () => new ChangeLife(amount: 3, yours: true);
           });
     }
   }

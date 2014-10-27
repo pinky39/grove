@@ -22,7 +22,7 @@
             p.Text = "Whenever Tethered Skirge becomes the target of a spell or ability, you lose 1 life.";
 
             p.Trigger(new OnBeingTargetedBySpellOrAbility());
-            p.Effect = () => new ChangeLife(amount: -1, forYou: true);                     
+            p.Effect = () => new ChangeLife(amount: -1, yours: true);                     
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
