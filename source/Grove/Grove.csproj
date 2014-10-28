@@ -354,6 +354,7 @@
     <Compile Include="CardsLibrary\RummagingGoblin.cs" />
     <Compile Include="CardsLibrary\RuneclawBear.cs" />
     <Compile Include="CardsLibrary\SacredArmory.cs" />
+    <Compile Include="CardsLibrary\SaltRoadPatrol.cs" />
     <Compile Include="CardsLibrary\SanctifiedCharge.cs" />
     <Compile Include="CardsLibrary\Sanctimony.cs" />
     <Compile Include="CardsLibrary\SatyrWayfinder.cs" />
