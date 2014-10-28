@@ -21,7 +21,7 @@
             _selfModifiers.AddRange(modifiers);
         }
 
-        public override bool TargetsEffectSource { get { return true; } }
+        public override bool AffectsEffectSource { get { return true; } }
 
         public override int CalculateToughnessReduction(Card card)
         {

@@ -67,7 +67,7 @@
         }
 
         // e.g Nantuko Shade gives self a +1/+1 boost
-        if (Stack.TopSpell.TargetsEffectSource)
+        if (Stack.TopSpell.AffectsEffectSource)
         {
           return target == Stack.TopSpell.Source.OwningCard;
         }

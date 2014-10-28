@@ -4,7 +4,7 @@
   {
     public ExchangeCardsInBattlefieldAndGraveyard()
     {
-      AllTargetsMustBeValid = true;
+      AllTargetsMustBeValidForEffectToResolve = true;
     }
 
     protected override void ResolveEffect()

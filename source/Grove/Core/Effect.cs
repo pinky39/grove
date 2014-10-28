@@ -14,20 +14,37 @@
 
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
+    // Holds a list of effect parameters which must be evaluated either 
+    // when effect is created, put on stack or resolved.
     private readonly List<IDynamicParameter> _dynamicParameters = new List<IDynamicParameter>();
-    private readonly List<EffectTag> _tags = new List<EffectTag>();
-    private readonly Trackable<bool> _wasResolved = new Trackable<bool>();    
     
-    public Action<Effect> AfterResolve = delegate { };
-    protected bool AllTargetsMustBeValid;
-    public Action<Effect> BeforeResolve = delegate { };
-    public bool CanBeCountered = true;
-    public Func<Effect, bool> ShouldResolve = delegate { return true; };
+    // A list of tags to help AI determine what kind of effect is this
+    // and what to do in response.
+    private readonly List<EffectTag> _tags = new List<EffectTag>();
+    private readonly Trackable<bool> _wasResolved = new Trackable<bool>();
     private Value _toughnessReduction = 0;
-    public int TriggerOrderRule = TriggerOrder.Normal;
-
     private object _triggerMessage;
 
+    // Allows extending effect on the fly
+    public Action<Effect> AfterResolve = delegate { };
+    public Action<Effect> BeforeResolve = delegate { };
+
+    // If there are multiple targets and this is true all the targets
+    // must still be valid for effect to resolve
+    protected bool AllTargetsMustBeValidForEffectToResolve = false;
+
+    public bool CanBeCountered = true;
+        
+    // Allow custom checks if effect should resolve.
+    // Runs right before the Effect would resolve.
+    public Func<Effect, bool> ShouldResolve = delegate { return true; };
+    
+    // If multiple effect would be put on stack AI uses this to sort them.
+    public int TriggerOrderRule = TriggerOrder.Normal;
+
+
+    // AI uses this to evaluate if it should play some
+    // spells in response.
     public Value ToughnessReduction
     {
       get { return _toughnessReduction; }
@@ -38,14 +55,37 @@
       }
     }
 
-    public Player Controller { get { return Source.OwningCard.Controller; } }
-    public IEffectSource Source { get; private set; }
-    public int? X { get; private set; }
-    private bool WasResolved { get { return _wasResolved.Value; } set { _wasResolved.Value = value; } }
-    public Targets Targets { get; private set; }
-    public bool IsOnStack { get { return Stack.Contains(this); } }
+    public Player Controller
+    {
+      get { return Source.OwningCard.Controller; }
+    }
 
-    public virtual bool TargetsEffectSource { get { return false; } }
+    // Effect source can be Activated Ability, Triggered Ability or
+    // Casting Rule.
+    public IEffectSource Source { get; private set; }
+    
+    // If a spell has X, this is the chosen X value.
+    public int? X { get; private set; }
+
+    private bool WasResolved
+    {
+      get { return _wasResolved.Value; }
+      set { _wasResolved.Value = value; }
+    }
+    
+    public Targets Targets { get; private set; }
+
+    public bool IsOnStack
+    {
+      get { return Stack.Contains(this); }
+    }
+
+    // AI uses this to evaluate if it should play some
+    // spells in response.
+    public virtual bool AffectsEffectSource
+    {
+      get { return false; }
+    }
 
     public ITarget Target
     {
@@ -82,7 +122,10 @@
       }
     }
 
-    public CardColor[] Colors { get { return Source.OwningCard.Colors; } }
+    public CardColor[] Colors
+    {
+      get { return Source.OwningCard.Colors; }
+    }
 
     public bool HasColor(CardColor color)
     {
@@ -127,7 +170,9 @@
     }
 
     protected virtual void Initialize() {}
-
+    
+    // If a Triggered ability has created this effect
+    // this holds the trigger context.
     public T TriggerMessage<T>()
     {
       return (T) _triggerMessage;
@@ -177,25 +222,29 @@
       FinishResolve();
     }
 
+    // After all decisions created by this effect are run
+    // this is called to finish resolving the effect.
     public void FinishResolve()
     {
       if (WasResolved)
       {
-        Source.EffectResolved();
-
-        Publish(new EffectResolvedEvent(this));        
+        AfterResolve(this);
+        Source.EffectResolved();        
+        Publish(new EffectResolvedEvent(this));
         return;
       }
 
       EffectCountered(SpellCounterReason.IllegalTarget);
     }
 
+    // Before effect is resolved a last check is made if
+    // it can be resolved.
     public bool CanBeResolved()
     {
-      if (Targets.Effect.None())
+      if (Targets.Effect.Count == 0)
         return true;
 
-      if (AllTargetsMustBeValid == false)
+      if (AllTargetsMustBeValidForEffectToResolve == false)
       {
         return Targets.Effect.Any(IsValid);
       }
@@ -209,6 +258,8 @@
       return Source.ToString();
     }
 
+    // This is called when the effect is removed from stack
+    // and starts resolving.
     public void BeginResolve()
     {
       BeforeResolve(this);
@@ -220,8 +271,7 @@
           parameter.EvaluateOnResolve(this, Game);
         }
 
-        ResolveEffect();
-        AfterResolve(this);
+        ResolveEffect();        
       }
 
       WasResolved = true;
