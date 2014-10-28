@@ -23,7 +23,10 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Karn, Silver Golem blocks or becomes blocked, it gets -4/+4 until end of turn.";
-            p.Trigger(new OnBlock(becomesBlocked: true, blocks: true));
+            
+            p.Trigger(new WhenThisBecomesBlocked(triggerForEveryBlocker: false));
+            p.Trigger(new WhenThisBlocks());
+            
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(-4, 4) {UntilEot = true});
           })
         .ActivatedAbility(p =>

@@ -21,7 +21,10 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Dromosaur blocks or becomes blocked, it gets +2/-2 until end of turn.";
-            p.Trigger(new OnBlock(becomesBlocked: true, blocks: true));
+            
+            p.Trigger(new WhenThisBlocks());
+            p.Trigger(new WhenThisBecomesBlocked(triggerForEveryBlocker: false));
+            
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(2, -2) {UntilEot = true}) {ToughnessReduction = 2};
 

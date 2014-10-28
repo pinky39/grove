@@ -30,7 +30,8 @@
                       () => new AddPowerAndToughness(1, 1) {UntilEot = true}),                    
                   };
 
-                tp.Trigger(new OnBlock(becomesBlocked: true, triggerForEveryCreature: true));
+                tp.Trigger(new WhenThisBlocks());
+                tp.Trigger(new WhenThisBecomesBlocked(triggerForEveryBlocker: true));                
 
                 return new AddTriggeredAbility(new TriggeredAbility(tp));
               };

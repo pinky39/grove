@@ -33,7 +33,7 @@
         return;
 
       // if attacker was declared via UI do not generate marker again
-      if (Card.Controller.IsHuman && message.WasDeclared)
+      if (Marker > 0)
         return;
 
       Marker = message.Attacker.Card.Id;

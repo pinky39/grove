@@ -33,7 +33,10 @@
 
         foreach (var attacker in Result)
         {
-          Game.Combat.DeclareAttacker(attacker);
+          if (attacker.CanAttack)
+          {
+            Combat.AddAttacker(attacker);
+          }
         }
       }
 

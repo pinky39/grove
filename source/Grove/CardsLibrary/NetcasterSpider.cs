@@ -21,9 +21,7 @@
         .TriggeredAbility(p =>
         {
           p.Text = "Whenever Netcaster Spider blocks a creature with flying, Netcaster Spider gets +2/+0 until end of turn.";
-
-          p.Trigger(new OnBlock(blocks: true, attackerFilter: card => card.Has().Flying));
-
+          p.Trigger(new WhenThisBlocks(t => t.AttackerHas(c => c.Has().Flying)));          
           p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(2, 0){UntilEot = true});
         });
     }

@@ -22,7 +22,7 @@
           {
             p.Text =
               "Whenever Gang of Elk becomes blocked, it gets +2/+2 until end of turn for each creature blocking it.";
-            p.Trigger(new OnBlock(becomesBlocked: true, triggerForEveryCreature: true));
+            p.Trigger(new WhenThisBecomesBlocked(triggerForEveryBlocker: true));
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(2, 2) {UntilEot = true});
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }

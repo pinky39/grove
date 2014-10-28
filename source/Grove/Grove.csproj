@@ -1228,6 +1228,7 @@
     <Compile Include="Core\Triggers\OnPlayerDiscardsCard.cs" />
     <Compile Include="Core\Triggers\OnPlayerDrawsCard.cs" />
     <Compile Include="Core\Triggers\OnPlayerSearchesLibrary.cs" />
+    <Compile Include="Core\Triggers\WhenThisBlocks.cs" />
     <Compile Include="Infrastructure\ColorUtils.cs" />
     <Compile Include="Infrastructure\DictionaryEx.cs" />
     <Compile Include="Infrastructure\IReceive.cs" />
@@ -1540,7 +1541,7 @@
     <Compile Include="Core\Modifiers\ControllerSetter.cs" />
     <Compile Include="Core\Modifiers\PermanentLeavesBattlefieldLifetime.cs" />
     <Compile Include="Core\Modifiers\SetColors.cs" />
-    <Compile Include="Core\Triggers\OnBlock.cs" />
+    <Compile Include="Core\Triggers\WhenThisBecomesBlocked.cs" />
     <Compile Include="Core\Triggers\OnAttachmentDetached.cs" />
     <Compile Include="Core\Triggers\OnPermanentGetsTapped.cs" />
     <Compile Include="Core\Triggers\TriggerOrder.cs" />

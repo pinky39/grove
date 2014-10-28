@@ -26,7 +26,7 @@
               "Select a Soldier creature card in your hand.",
               c => c.Is().Creature && c.Is("soldier"),
               Zone.Hand,
-              afterCardPutToBattlefield: (card, game) => game.Combat.JoinAttack(card), count: 1);
+              afterCardPutToBattlefield: (card, game) => game.Combat.AddAttacker(card), count: 1);
         });
     }
   }

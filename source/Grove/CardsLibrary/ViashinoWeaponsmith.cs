@@ -20,7 +20,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Viashino Weaponsmith becomes blocked by a creature, Viashino Weaponsmith gets +2/+2 until end of turn.";
-            p.Trigger(new OnBlock(becomesBlocked: true, triggerForEveryCreature: true));
+            p.Trigger(new WhenThisBecomesBlocked(triggerForEveryBlocker: true));            
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(2, 2) { UntilEot = true });
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }

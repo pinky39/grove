@@ -21,7 +21,10 @@
           {
             p.Text =
               "Whenever Goblin Cadets blocks or becomes blocked, target opponent gains control of it. (This removes Goblin Cadets from combat.)";
-            p.Trigger(new OnBlock(becomesBlocked: true, blocks: true));
+            
+            p.Trigger(new WhenThisBecomesBlocked(triggerForEveryBlocker: false));
+            p.Trigger(new WhenThisBlocks());
+            
             p.Effect = () => new SwitchController();
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

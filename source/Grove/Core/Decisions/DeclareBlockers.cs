@@ -31,7 +31,7 @@
       {
         foreach (var pair in Result)
         {
-          Combat.DeclareBlocker(pair.Blocker, pair.Attacker);
+          Combat.AddBlocker(pair.Blocker, pair.Attacker);
         }
       }
 

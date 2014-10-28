@@ -2,13 +2,11 @@
 {
   public class AttackerJoinedCombatEvent
   {
-    public AttackerJoinedCombatEvent(Attacker attacker, bool wasDeclared)
+    public readonly Attacker Attacker;
+
+    public AttackerJoinedCombatEvent(Attacker attacker)
     {
       Attacker = attacker;
-      WasDeclared = wasDeclared;
     }
-
-    public readonly Attacker Attacker;
-    public readonly bool WasDeclared;
   }
 }

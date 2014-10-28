@@ -23,7 +23,9 @@
           {
             p.Text =
               "Whenever Treefolk Mystic blocks or becomes blocked by a creature, destroy all Auras attached to that creature.";
-            p.Trigger(new OnBlock(becomesBlocked: true, blocks: true, triggerForEveryCreature: true));
+            
+            p.Trigger(new WhenThisBlocks());
+            p.Trigger(new WhenThisBecomesBlocked(triggerForEveryBlocker: true));            
             
             p.Effect = () => new DestroyAttachedAuras(P((e =>
               {

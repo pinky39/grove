@@ -83,7 +83,7 @@
       DefendingPlayer.DealAssignedDamage();
     }
 
-    public void JoinAttack(Card card, bool wasDeclared = false)
+    public void AddAttacker(Card card)
     {
       var attacker = CreateAttacker(card);
       _attackers.Add(attacker);
@@ -91,18 +91,10 @@
       if (!card.Has().Vigilance)
         card.Tap();
 
-      Publish(new AttackerJoinedCombatEvent(attacker, wasDeclared));
+      Publish(new AttackerJoinedCombatEvent(attacker));
     }
 
-    public void DeclareAttacker(Card card)
-    {
-      if (!card.CanAttack)
-        return;
-
-      JoinAttack(card, wasDeclared: true);
-    }
-
-    public void DeclareBlocker(Card cardBlocker, Card cardAttacker)
+    public void AddBlocker(Card cardBlocker, Card cardAttacker)
     {
       var attacker = FindAttacker(cardAttacker);
       var blocker = CreateBlocker(cardBlocker, attacker);
