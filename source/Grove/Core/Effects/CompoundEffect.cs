@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Events;
 
   public class CompoundEffect : Effect
   {
@@ -53,6 +54,18 @@
       {
         childEffect.SetTriggeredAbilityTargets(targets);
       }
+    }
+
+    public override void FinishResolve()
+    {      
+      // calls after resolve hooks of child
+      // effects.
+      foreach (var effect in _childEffects)
+      {
+        effect.AfterResolve(effect);
+      }
+      
+      base.FinishResolve();                  
     }
 
     protected override void ResolveEffect()

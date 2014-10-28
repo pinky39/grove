@@ -91,7 +91,7 @@ o Encrust
 o Nightfire Giant
 o Hoarding Dragon
 o Stab Wound
-Wall of Frost
+o Wall of Frost
 Phytotitan
 Satyr Wayfinder
 Aeronaut Tinkerer

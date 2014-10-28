@@ -17,7 +17,7 @@
     // Holds a list of effect parameters which must be evaluated either 
     // when effect is created, put on stack or resolved.
     private readonly List<IDynamicParameter> _dynamicParameters = new List<IDynamicParameter>();
-    
+
     // A list of tags to help AI determine what kind of effect is this
     // and what to do in response.
     private readonly List<EffectTag> _tags = new List<EffectTag>();
@@ -34,11 +34,11 @@
     protected bool AllTargetsMustBeValidForEffectToResolve = false;
 
     public bool CanBeCountered = true;
-        
+
     // Allow custom checks if effect should resolve.
     // Runs right before the Effect would resolve.
     public Func<Effect, bool> ShouldResolve = delegate { return true; };
-    
+
     // If multiple effect would be put on stack AI uses this to sort them.
     public int TriggerOrderRule = TriggerOrder.Normal;
 
@@ -63,7 +63,7 @@
     // Effect source can be Activated Ability, Triggered Ability or
     // Casting Rule.
     public IEffectSource Source { get; private set; }
-    
+
     // If a spell has X, this is the chosen X value.
     public int? X { get; private set; }
 
@@ -72,7 +72,7 @@
       get { return _wasResolved.Value; }
       set { _wasResolved.Value = value; }
     }
-    
+
     public Targets Targets { get; private set; }
 
     public bool IsOnStack
@@ -170,7 +170,7 @@
     }
 
     protected virtual void Initialize() {}
-    
+
     // If a Triggered ability has created this effect
     // this holds the trigger context.
     public T TriggerMessage<T>()
@@ -224,12 +224,12 @@
 
     // After all decisions created by this effect are run
     // this is called to finish resolving the effect.
-    public void FinishResolve()
+    public virtual void FinishResolve()
     {
       if (WasResolved)
       {
         AfterResolve(this);
-        Source.EffectResolved();        
+        Source.EffectResolved();
         Publish(new EffectResolvedEvent(this));
         return;
       }
@@ -260,7 +260,7 @@
 
     // This is called when the effect is removed from stack
     // and starts resolving.
-    public void BeginResolve()
+    public virtual void BeginResolve()
     {
       BeforeResolve(this);
 
@@ -271,7 +271,7 @@
           parameter.EvaluateOnResolve(this, Game);
         }
 
-        ResolveEffect();        
+        ResolveEffect();
       }
 
       WasResolved = true;
