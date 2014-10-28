@@ -537,6 +537,8 @@
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\Effects\SacrificeCreatureOrPayLifeOrOpponentDrawsCard.cs" />
     <Compile Include="Core\Effects\YourLifeBecomesEqual.cs" />
+    <Compile Include="Core\Events\AttackersDeclaredEvent.cs" />
+    <Compile Include="Core\Events\BlockersDeclaredEvent.cs" />
     <Compile Include="Core\Events\CounterAddedEvent.cs" />
     <Compile Include="Core\Events\CounterRemovedEvent.cs" />
     <Compile Include="Core\Events\PlayerDiscardsCardEvent.cs" />
@@ -1224,10 +1226,12 @@
     <Compile Include="Core\SaveLoad\SaveGameIndex.cs" />
     <Compile Include="Core\PlayModes\PregeneratedDecks.cs" />
     <Compile Include="Core\PlayModes\SealedDeckIndex.cs" />
+    <Compile Include="Core\Triggers\AfterAttackersAreDeclared.cs" />
     <Compile Include="Core\Triggers\OnLifeChanged.cs" />
     <Compile Include="Core\Triggers\OnPlayerDiscardsCard.cs" />
     <Compile Include="Core\Triggers\OnPlayerDrawsCard.cs" />
     <Compile Include="Core\Triggers\OnPlayerSearchesLibrary.cs" />
+    <Compile Include="Core\Triggers\WhenThisAttacks.cs" />
     <Compile Include="Core\Triggers\WhenThisBlocks.cs" />
     <Compile Include="Infrastructure\ColorUtils.cs" />
     <Compile Include="Infrastructure\DictionaryEx.cs" />
@@ -1763,7 +1767,7 @@
     <Compile Include="Core\Card\ContinuousEffect.cs" />
     <Compile Include="Core\Modifier.cs" />
     <Compile Include="Core\Modifiers\AddDamagePrevention.cs" />
-    <Compile Include="Core\Triggers\OnAttack.cs" />
+    <Compile Include="Core\Triggers\WhenACreatureAttacks.cs" />
     <Compile Include="Core\Events\AttachmentAttachedEvent.cs" />
     <Compile Include="Core\Events\AttachmentDetachedEvent.cs" />
     <Compile Include="Core\Card\CardTemplateSource.cs" />

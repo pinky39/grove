@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using Events;
   using Grove.AI;
   using Grove.UserInterface;
   using Grove.UserInterface.Messages;
@@ -30,7 +31,7 @@
       public override void ProcessResults()
       {
         AddCreaturesThatMustAttack();
-
+                
         foreach (var attacker in Result)
         {
           if (attacker.CanAttack)
@@ -38,6 +39,8 @@
             Combat.AddAttacker(attacker);
           }
         }
+
+        Publish(new AttackersDeclaredEvent(Combat.Attackers));
       }
 
       protected override void SetResultNoQuery()

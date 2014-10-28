@@ -18,18 +18,14 @@
         .FlavorText("To know the battlefield is to anticipate the enemy. To know the enemy is to anticipate victory.")
         .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
-        {
-          p.Text = "Whenever you attack with two or more creatures, draw a card.";
-
-          p.Trigger(new OnAttack(triggerForCreature: (c, t) => true)
           {
-            Condition = (trigger, game) => trigger.Controller.IsActive && trigger.Controller.Battlefield.Attackers.Count() == 2
+            p.Text = "Whenever you attack with two or more creatures, draw a card.";
+
+            p.Trigger(new AfterAttackersAreDeclared(t => t.Yours && t.Attackers.Count() > 2));
+            p.Effect = () => new DrawCards(1);
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
-
-          p.Effect = () => new DrawCards(1);
-
-          p.TriggerOnlyIfOwningCardIsInPlay = true;
-        });
     }
   }
 }

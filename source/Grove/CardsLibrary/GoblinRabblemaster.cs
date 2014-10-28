@@ -39,7 +39,7 @@
           .TriggeredAbility(p =>
           {
             p.Text = "Whenever Goblin Rabblemaster attacks, it gets +1/+0 until end of turn for each other attacking Goblin.";
-            p.Trigger(new OnAttack());
+            p.Trigger(new WhenThisAttacks());
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ModifyPowerToughnessForEachPermanent(
               power: 1,

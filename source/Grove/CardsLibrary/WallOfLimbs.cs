@@ -41,7 +41,8 @@
               new Sacrifice());
 
             p.Effect = () => new ChangeLife(
-              P(e => -e.Source.OwningCard.Power.GetValueOrDefault()));
+              P(e => -e.Source.OwningCard.Power.GetValueOrDefault()), 
+              targetPlayers: true);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
 

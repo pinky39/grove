@@ -20,7 +20,7 @@
         {
           p.Text = "Whenever Preeminent Captain attacks, you may put a Soldier creature card from your hand onto the battlefield tapped and attacking.";
 
-          p.Trigger(new OnAttack());
+          p.Trigger(new WhenThisAttacks());
 
           p.Effect = () => new PutSelectedCardsToBattlefield(
               "Select a Soldier creature card in your hand.",

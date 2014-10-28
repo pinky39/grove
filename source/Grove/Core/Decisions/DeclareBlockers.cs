@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using AI;
-  using Infrastructure;
+  using Events;
   using UserInterface;
   using UserInterface.Messages;
   using UserInterface.SelectTarget;
@@ -33,6 +33,8 @@
         {
           Combat.AddBlocker(pair.Blocker, pair.Attacker);
         }
+
+        Publish(new BlockersDeclaredEvent(Combat.Blockers));
       }
 
       protected override void SetResultNoQuery()
@@ -52,35 +54,20 @@
         _executor = new MachinePlanExecutor(this);
       }
 
-      public override bool HasCompleted
-      {
-        get { return _executor.HasCompleted; }
-      }
+      public override bool HasCompleted { get { return _executor.HasCompleted; } }
 
-      bool IMachineExecutionPlan.ShouldExecuteQuery
-      {
-        get { return ShouldExecuteQuery; }
-      }
+      bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 
       void IMachineExecutionPlan.ExecuteQuery()
       {
         ExecuteQuery();
       }
 
-      Game ISearchNode.Game
-      {
-        get { return Game; }
-      }
+      Game ISearchNode.Game { get { return Game; } }
 
-      public Player Controller
-      {
-        get { return D.Controller; }
-      }
+      public Player Controller { get { return D.Controller; } }
 
-      public int ResultCount
-      {
-        get { return _declarations.Count; }
-      }
+      public int ResultCount { get { return _declarations.Count; } }
 
       public void SetResult(int index)
       {
@@ -90,6 +77,11 @@
       public void GenerateChoices()
       {
         _declarations = GetBlockersDeclarations();
+      }
+
+      public override void Execute()
+      {
+        _executor.Execute();
       }
 
       protected override void Initialize()
@@ -169,19 +161,11 @@
       {
         Ai.SetBestResult(this);
       }
-
-      public override void Execute()
-      {
-        _executor.Execute();
-      }
     }
 
     private class PlaybackHandler : Handler
     {
-      protected override bool ShouldExecuteQuery
-      {
-        get { return true; }
-      }
+      protected override bool ShouldExecuteQuery { get { return true; } }
 
       public override void SaveDecisionResults() {}
 
@@ -193,10 +177,7 @@
 
     private class ScenarioHandler : Handler
     {
-      protected override bool ShouldExecuteQuery
-      {
-        get { return true; }
-      }
+      protected override bool ShouldExecuteQuery { get { return true; } }
 
       protected override void ExecuteQuery()
       {
@@ -211,14 +192,13 @@
       {
         if (lureAttackers.Count == 0)
           return true;
-        
+
         return D.Controller.Battlefield.Creatures.All(creature =>
           {
-            
             if (lureAttackers.Any(attacker => attacker.CanBeBlockedBy(creature)))
             {
               return chosen.Any(
-                x => x.Blocker == creature && 
+                x => x.Blocker == creature &&
                   lureAttackers.Any(y => y == x.Attacker));
             }
 
@@ -250,7 +230,7 @@
       protected override void ExecuteQuery()
       {
         var result = new ChosenBlockers();
-        
+
         var lureAttackers = Combat.Attackers
           .Select(x => x.Card)
           .Where(x => x.Has().Lure)

@@ -44,7 +44,7 @@
                       Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), 1))
                     };
 
-                  tp.Trigger(new OnAttack());
+                  tp.Trigger(new WhenThisAttacks());
                   return new AddTriggeredAbility(new TriggeredAbility(tp)) {UntilEot = true};
                 });
 

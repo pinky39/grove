@@ -1,7 +1,6 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using System.Linq;
   using Effects;
   using Infrastructure;
   using Triggers;
@@ -32,7 +31,7 @@
             p.Text =
               "Whenever Siege Dragon attacks, if defending player controls no Walls, it deals 2 damage to each creature without flying that player controls.";
 
-            p.Trigger(new OnAttack
+            p.Trigger(new WhenThisAttacks
               {
                 Condition = (t, g) => g.Players.Passive.Battlefield.Creatures.None(c => c.Is("wall"))
               });

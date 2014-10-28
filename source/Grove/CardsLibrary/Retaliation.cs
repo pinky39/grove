@@ -29,8 +29,7 @@
                     Effect = () => new ApplyModifiersToSelf(
                       () => new AddPowerAndToughness(1, 1) {UntilEot = true}),                    
                   };
-
-                tp.Trigger(new WhenThisBlocks());
+                
                 tp.Trigger(new WhenThisBecomesBlocked(triggerForEveryBlocker: true));                
 
                 return new AddTriggeredAbility(new TriggeredAbility(tp));

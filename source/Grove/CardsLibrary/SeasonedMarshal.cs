@@ -20,7 +20,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Seasoned Marshal attacks, you may tap target creature.";
-            p.Trigger(new OnAttack());
+            p.Trigger(new WhenThisAttacks());
             p.Effect = () => new TapTargets();
 
             p.TargetSelector.AddEffect(trg =>

@@ -14,9 +14,11 @@
     private readonly TrackableList<Blocker> _blockers = new TrackableList<Blocker>();
 
     public IEnumerable<Attacker> Attackers { get { return _attackers; } }
+    public IEnumerable<Blocker> Blockers { get { return _blockers; } }
     public int AttackerCount { get { return _attackers.Count; } }
-    private Player DefendingPlayer { get { return Players.Defending; } }
     public int BlockersCount { get { return _blockers.Count; } }
+
+    private Player DefendingPlayer { get { return Players.Defending; } }
 
     public int CalculateHash(HashCalculator calc)
     {

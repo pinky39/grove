@@ -10,17 +10,20 @@
     private readonly Func<Parameters, bool> _predicate;
     private readonly bool _triggerForEveryBlocker;
 
+    private WhenThisBecomesBlocked()
+    {      
+    }
+    
     public WhenThisBecomesBlocked(bool triggerForEveryBlocker, Func<Parameters, bool> predicate = null)
     {
       _triggerForEveryBlocker = triggerForEveryBlocker;
-      _predicate = predicate;
+      _predicate = predicate ?? delegate { return true; };
     }
 
     public void Receive(BlockerJoinedCombatEvent message)
     {
-      if (message.Attacker.Card != Ability.OwningCard)
+      if (message.Attacker.Card != Ability.OwningCard || !_predicate(new Parameters()))
         return;
-
 
       _count.Value += 1;
 

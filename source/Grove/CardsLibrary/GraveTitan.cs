@@ -23,7 +23,7 @@
             p.Text =
               "Whenever Grave Titan enters the battlefield or attacks, put two 2/2 black Zombie creature tokens onto the battlefield.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Trigger(new OnAttack());
+            p.Trigger(new WhenThisAttacks());
 
             p.Effect = () => new CreateTokens(
               count: 2,

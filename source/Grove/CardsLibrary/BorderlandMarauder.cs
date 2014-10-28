@@ -22,7 +22,7 @@
           {
             p.Text = "Whenever Borderland Marauder attacks, it gets +2/+0 until end of turn.";
 
-            p.Trigger(new OnAttack());
+            p.Trigger(new WhenThisAttacks());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(2, 0) { UntilEot = true }).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);

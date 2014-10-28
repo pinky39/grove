@@ -20,9 +20,7 @@
         {
           p.Text = "Whenever a Sliver you control attacks, defending player loses 1 life.";
 
-          p.Trigger(new OnAttack(triggerForCreature: (c, t) => c.Is("Sliver") && c.Controller == t.Controller));
-
-          p.UsesStack = false;
+          p.Trigger(new WhenACreatureAttacks(t => t.Opponent && t.AttackerHas(c => c.Is("sliver"))));                    
           p.TriggerOnlyIfOwningCardIsInPlay = true;
           p.Effect = () => new ChangeLife(amount: -1, opponents: true);
         });

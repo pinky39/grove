@@ -20,7 +20,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.";
-            p.Trigger(new OnAttack());
+            p.Trigger(new WhenThisAttacks());
             p.Effect = () => new ApplyModifiersToPermanents(
               selector: (effect, card) => effect.Source.OwningCard != card && card.IsAttacker,
               modifiers: () => new AddPowerAndToughness(1, 0) {UntilEot = true});
@@ -30,7 +30,7 @@
             p.Text =
               "Whenever Hero of Bladehold attacks, put two 1/1 white Soldier creature tokens onto the battlefield tapped and attacking.";
 
-            p.Trigger(new OnAttack());
+            p.Trigger(new WhenThisAttacks());
             p.Effect = () => new CreateTokens(
               count: 2,
               token: Card

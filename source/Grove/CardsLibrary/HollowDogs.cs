@@ -21,7 +21,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever Hollow Dogs attacks, it gets +2/+0 until end of turn.";
-            p.Trigger(new OnAttack());
+            p.Trigger(new WhenThisAttacks());
             p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(2, 0) {UntilEot = true});
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
