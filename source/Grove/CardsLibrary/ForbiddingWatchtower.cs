@@ -15,7 +15,7 @@
         .Type("Land")
         .Text(
           "Forbidding Watchtower enters the battlefield tapped.{EOL}{T}: Add {W} to your mana pool.{EOL}{1}{W}: Forbidding Watchtower becomes a 1/5 white Soldier creature until end of turn. It's still a land.")
-        .Cast(p => p.Effect = () => new PutIntoPlay(tap: true))
+        .Cast(p => p.Effect = () => new CastPermanent(tap: true))
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {W} to your mana pool.";

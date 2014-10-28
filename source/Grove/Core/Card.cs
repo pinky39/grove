@@ -1128,12 +1128,13 @@
       Owner.ShuffleIntoLibrary(this);
     }
 
-    public void PutToBattlefieldFrom(Zone from)
+    public bool PutToBattlefieldFrom(Zone from)
     {
       if (Zone != from)
-        return;
+        return false;
 
       PutToBattlefield();
+      return true;
     }
 
     public void PutToBattlefield()

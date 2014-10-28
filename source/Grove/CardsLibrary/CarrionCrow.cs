@@ -17,7 +17,7 @@
         .Power(2)
         .Toughness(2)
         .SimpleAbilities(Static.Flying)
-        .Cast(p => { p.Effect = () => new PutIntoPlay(tap: true); });
+        .Cast(p => { p.Effect = () => new CastPermanent(tap: true); });
     }
   }
 }

@@ -13,7 +13,7 @@
         .Type("Land")
         .Text(
           "Rootbound Crag enters the battlefield tapped unless you control a Mountain or a Forest.{EOL}{T}: Add {R} or {G} to your mana pool.")
-        .Cast(p => p.Effect = () => new PutIntoPlay(
+        .Cast(p => p.Effect = () => new CastPermanent(
           tap: P(e => e.Controller.Battlefield.None(card => card.Is("forest") || card.Is("mountain")))))
         .ManaAbility(p =>
           {

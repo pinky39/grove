@@ -15,7 +15,7 @@
         .Type("Land")
         .Text(
           "Faerie Conclave enters the battlefield tapped.{EOL}{T}: Add {U} to your mana pool.{EOL}{1}{U}: Faerie Conclave becomes a 2/1 blue Faerie creature with flying until end of turn. It's still a land.")
-        .Cast(p => p.Effect = () => new PutIntoPlay(tap: true))
+        .Cast(p => p.Effect = () => new CastPermanent(tap: true))
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {U} to your mana pool.";

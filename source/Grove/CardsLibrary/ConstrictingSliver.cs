@@ -57,7 +57,7 @@
                   from: Zone.Battlefield,
                   filter: (c, a, g) => a.OwningCard == c && a.OwningCard.AttachedTo != null));
 
-                tp.Effect = () => new PutIntoPlay(P(e => e.Source.OwningCard.AttachedTo));
+                tp.Effect = () => new PutCardToBattlefield(P(e => e.Source.OwningCard.AttachedTo), Zone.Exile);
 
                 return new AddTriggeredAbility(new TriggeredAbility(tp));
               };

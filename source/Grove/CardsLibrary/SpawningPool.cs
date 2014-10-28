@@ -15,7 +15,7 @@
         .Type("Land")
         .Text(
           "Spawning Pool enters the battlefield tapped.{EOL}{T}: Add {B} to your mana pool.{EOL}{1}{B}: Spawning Pool becomes a 1/1 black Skeleton creature with '{B}': Regenerate this creature' until end of turn. It's still a land.")
-        .Cast(p => p.Effect = () => new PutIntoPlay(tap: true))
+        .Cast(p => p.Effect = () => new CastPermanent(tap: true))
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {B} to your mana pool.";

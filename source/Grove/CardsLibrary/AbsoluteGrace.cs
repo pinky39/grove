@@ -20,7 +20,7 @@
         .Cast(p =>
           {
             p.TimingRule(new OnFirstMain());
-            p.Effect = () => new PutIntoPlay().SetTags(EffectTag.Protection);
+            p.Effect = () => new CastPermanent().SetTags(EffectTag.Protection);
           })
         .ContinuousEffect(p =>
           {

@@ -18,7 +18,7 @@
         .SimpleAbilities(Static.Trample)
         .Cast(p =>
         {
-          p.Effect = () => new PutIntoPlay(){CanBeCountered = false};
+          p.Effect = () => new CastPermanent(){CanBeCountered = false};
         });
     }
   }

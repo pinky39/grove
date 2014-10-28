@@ -47,7 +47,7 @@
         {
           Cost = new PayMana(cp.ManaCost ?? Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
           Text = string.Format("Cast {0}.", cp.Name),
-          Effect = () => new PutIntoPlay(),
+          Effect = () => new CastPermanent(),
         };
     }
 

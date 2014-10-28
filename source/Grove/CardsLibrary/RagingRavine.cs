@@ -16,7 +16,7 @@
         .Type("Land")
         .Text(
           "Raging Ravine enters the battlefield tapped.{EOL}{T}: Add {R} or {G} to your mana pool.{EOL}{2}{R}{G}: Until end of turn, Raging Ravine becomes a 3/3 red and green Elemental creature with Whenever this creature attacks, put a +1/+1 counter on it. It's still a land.")
-        .Cast(p => p.Effect = () => new PutIntoPlay(tap: true))
+        .Cast(p => p.Effect = () => new CastPermanent(tap: true))
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {R} or {G} to your mana pool.";

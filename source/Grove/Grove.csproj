@@ -513,6 +513,7 @@
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
+    <Compile Include="Core\Effects\ApplyModifiersToCard.cs" />
     <Compile Include="Core\Effects\BooleanEffectChoice.cs" />
     <Compile Include="Core\Effects\ChangeLife.cs" />
     <Compile Include="Core\Effects\ChangeLifeOfEnchantedPermanentsController.cs" />
@@ -532,6 +533,8 @@
     <Compile Include="Core\Effects\PayManaApplyToCard.cs" />
     <Compile Include="Core\Effects\PayManaCreateTokens.cs" />
     <Compile Include="Core\Effects\PreventAllDamagesToTargetsFromChosenColor.cs" />
+    <Compile Include="Core\Effects\PutCardToBattlefield.cs" />
+    <Compile Include="Core\Effects\PutOwnerToBattlefield.cs" />
     <Compile Include="Core\Effects\PutSelectedCardIntoPlayIfOpponentGuessedWrong.cs" />
     <Compile Include="Core\Effects\PutSelectedAttackersOnTopRestOnBottom.cs" />
     <Compile Include="Core\Effects\RevealTopCardsPutLandInHandOthersOnGraveyard.cs" />
@@ -1774,7 +1777,7 @@
     <Compile Include="Core\Events\AttachmentAttachedEvent.cs" />
     <Compile Include="Core\Events\AttachmentDetachedEvent.cs" />
     <Compile Include="Core\Card\CardTemplateSource.cs" />
-    <Compile Include="Core\Effects\PutIntoPlay.cs" />
+    <Compile Include="Core\Effects\CastPermanent.cs" />
     <Compile Include="Core\Card\ActivatedAbility.cs" />
     <Compile Include="Core\Card.cs" />
     <Compile Include="Core\Card\CardText.cs" />

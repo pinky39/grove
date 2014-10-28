@@ -14,7 +14,7 @@
         .Text(
           "Drowned Catacomb enters the battlefield tapped unless you control an Island or a Swamp.{EOL}{T}: Add {U} or {B} to your mana pool.")
         .Cast(
-          p => p.Effect = () => new PutIntoPlay(
+          p => p.Effect = () => new CastPermanent(
             tap: P(e => e.Controller.Battlefield.None(card => card.Is("island") || card.Is("swamp")))))
         .ManaAbility(p =>
           {

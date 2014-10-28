@@ -1,27 +1,27 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class Phytotitan
+  public class Phytotitan
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void DestroyPhytotitan()
-            {
-                P1.Life = 7;
-                Battlefield(P1, "Grizzly Bears", "Mountain", "Mountain", "Mountain", "Mountain");
+      [Fact]
+      public void PhythotianComesBack()
+      {
+        var phytotitan = C("Phytotitan");
+        
+        Battlefield(P1, "Thran War Machine", "Mountain", "Mountain", "Mountain", "Mountain");                        
+        Battlefield(P2, phytotitan);        
 
-                P2.Life = 2;
-                Battlefield(P2, "Phytotitan");
-
-                RunGame(2);
-
-                Equal(0, P2.Graveyard.Count);
-                Equal(1, P2.Battlefield.Count);
-                Equal(7, P1.Life);
-            }
-        }
+        RunGame(2);
+        
+        Equal(Zone.Battlefield, C(phytotitan).Zone);
+        True(C(phytotitan).IsTapped);
+        Equal(20, P1.Life);
+        Equal(20, P2.Life);    
+      }
     }
+  }
 }

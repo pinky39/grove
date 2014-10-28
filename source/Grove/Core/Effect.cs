@@ -239,7 +239,7 @@
 
     // Before effect is resolved a last check is made if
     // it can be resolved.
-    public bool CanBeResolved()
+    public virtual bool CanBeResolved()
     {
       if (Targets.Effect.Count == 0)
         return true;

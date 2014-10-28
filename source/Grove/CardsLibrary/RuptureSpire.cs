@@ -18,7 +18,7 @@
           {
             p.TimingRule(new DefaultLandsTimingRule());
             p.TimingRule(new WhenYouHaveMana(1));
-            p.Effect = () => new PutIntoPlay(tap: true);
+            p.Effect = () => new CastPermanent(tap: true);
           })
         .ManaAbility(p =>
           {

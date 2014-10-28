@@ -16,7 +16,7 @@
         .FlavorText("His crime was silence, and now he suffers it eternally.")
         .Power(4)
         .Toughness(4)
-        .Cast(p => p.Effect = () => new PutIntoPlay {CanBeCountered = false})
+        .Cast(p => p.Effect = () => new CastPermanent {CanBeCountered = false})
         .SimpleAbilities(Static.Hexproof)
         .Regenerate(cost: "{1}{G}".Parse(), text: "{1}{G}: Regenerate Thrun.");
     }

@@ -15,7 +15,7 @@
         .Type("Land")
         .Text(
           "Ghitu Encampment enters the battlefield tapped.{EOL}{T}: Add {R} to your mana pool.{EOL}{1}{R}: Ghitu Encampment becomes a 2/1 red Warrior creature with first strike until end of turn. It's still a land.")
-        .Cast(p => p.Effect = () => new PutIntoPlay(tap: true))
+        .Cast(p => p.Effect = () => new CastPermanent(tap: true))
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {R} to your mana pool.";

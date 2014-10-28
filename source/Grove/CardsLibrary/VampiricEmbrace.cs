@@ -1,12 +1,12 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class VampiricEmbrace : CardTemplateSource
   {
@@ -23,10 +23,12 @@
             p.Text =
               "Whenever a creature dealt damage by enchanted creature this turn dies, put a +1/+1 counter on that creature.";
 
-            p.Trigger(new OnZoneChanged(@from: Zone.Battlefield, to: Zone.Graveyard,
+            p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard,
               filter: (c, a, g) => g.Turn.Events.HasBeenDamagedBy(c, a.OwningCard.AttachedTo)));
 
-            p.Effect = () => new ApplyModifiersToSelf(modifiers: () => new AddCounters(() => new PowerToughness(1, 1), 1), toAttachedTo: true);
+            p.Effect =
+              () => new ApplyModifiersToCard(P(e => e.Source.OwningCard.AttachedTo),
+                () => new AddCounters(() => new PowerToughness(1, 1), 1));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           })

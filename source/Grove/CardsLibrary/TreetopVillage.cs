@@ -15,7 +15,7 @@
         .Type("Land")
         .Text(
           "Treetop Village enters the battlefield tapped.{EOL}{T}: Add {G} to your mana pool.{EOL}{1}{G}: Treetop Village becomes a 3/3 green Ape creature with trample until end of turn. It's still a land.")
-        .Cast(p => p.Effect = () => new PutIntoPlay(tap: true))
+        .Cast(p => p.Effect = () => new CastPermanent(tap: true))
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {G} to your mana pool.";

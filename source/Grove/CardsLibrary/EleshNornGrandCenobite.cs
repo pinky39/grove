@@ -20,7 +20,7 @@
         .Toughness(7)
         .Cast(p =>
           {
-            p.Effect = () => new PutIntoPlay
+            p.Effect = () => new CastPermanent
               {
                 ToughnessReduction = 2,
               }.SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);

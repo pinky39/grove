@@ -13,7 +13,7 @@
         .Type("Land")
         .Text(
           "Sunpetal Grove enters the battlefield tapped unless you control a Forest or a Plains.{EOL}{T}: Add {G} or {W} to your mana pool.")
-        .Cast(p => p.Effect = () => new PutIntoPlay(
+        .Cast(p => p.Effect = () => new CastPermanent(
           tap: P(e => e.Controller.Battlefield.None(card => card.Is("forest") || card.Is("plains")))))
         .ManaAbility(p =>
           {
