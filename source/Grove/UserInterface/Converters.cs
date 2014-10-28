@@ -63,8 +63,8 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var type = (string)value;
-        return type.Contains("Creature") ? Visibility.Visible : Visibility.Collapsed;
+        var type = value as CardType;
+        return type != null && type.Is("Creature") ? Visibility.Visible : Visibility.Collapsed;
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -138,15 +138,12 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var type = value as string;
+        var type = value as CardType;
 
         if (type == null)
           return null;
 
-        if (type.Contains("Basic") && type.Contains("Land"))
-          return Visibility.Collapsed;
-
-        return Visibility.Visible;
+        return type.BasicLand ? Visibility.Collapsed : Visibility.Visible;
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -166,12 +163,12 @@
 
       public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
       {
-        var type = values[0] as string;
+        var type = values[0] as CardType;
 
         if (type == null)
           return null;
 
-        if (type.Contains("Land"))
+        if (type.Is("Land"))
         {
           return MediaLibrary.GetImage(
               GetTemplateName(type) + ".png");
@@ -180,17 +177,17 @@
         return CardColorToCardTemplate.Convert(values[1], targetType, parameter, culture);
       }
 
-      private string GetTemplateName(string type)
+      private string GetTemplateName(CardType type)
       {
-        if (type.Contains("Forest"))
+        if (type.Is("Forest"))
           return Forest;
-        if (type.Contains("Island"))
+        if (type.Is("Island"))
           return Island;
-        if (type.Contains("Mountain"))
+        if (type.Is("Mountain"))
           return Mountain;
-        if (type.Contains("Plains"))
+        if (type.Is("Plains"))
           return Plains;
-        if (type.Contains("Swamp"))
+        if (type.Is("Swamp"))
           return Swamp;
 
         return Land;

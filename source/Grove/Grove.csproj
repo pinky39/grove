@@ -182,6 +182,7 @@
     <Compile Include="CardsLibrary\DevouringLight.cs" />
     <Compile Include="CardsLibrary\DiffusionSliver.cs" />
     <Compile Include="CardsLibrary\Disappear.cs" />
+    <Compile Include="CardsLibrary\DisownedAncestor.cs" />
     <Compile Include="CardsLibrary\Dissipate.cs" />
     <Compile Include="CardsLibrary\DivineFavor.cs" />
     <Compile Include="CardsLibrary\DivineVerdict.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="CardsLibrary\KalonianTwingrove.cs" />
     <Compile Include="CardsLibrary\KapshoKitefins.cs" />
     <Compile Include="CardsLibrary\KeldonVandals.cs" />
+    <Compile Include="CardsLibrary\KillShot.cs" />
     <Compile Include="CardsLibrary\KinsbaileSkirmisher.cs" />
     <Compile Include="CardsLibrary\KiorasFollower.cs" />
     <Compile Include="CardsLibrary\KirdChieftain.cs" />
@@ -353,6 +355,7 @@
     <Compile Include="CardsLibrary\RummagingGoblin.cs" />
     <Compile Include="CardsLibrary\RuneclawBear.cs" />
     <Compile Include="CardsLibrary\SacredArmory.cs" />
+    <Compile Include="CardsLibrary\SaltRoadPatrol.cs" />
     <Compile Include="CardsLibrary\SanctifiedCharge.cs" />
     <Compile Include="CardsLibrary\Sanctimony.cs" />
     <Compile Include="CardsLibrary\SatyrWayfinder.cs" />
