@@ -301,6 +301,6 @@
           })
         .OrderByDescending(x => x.Score)
         .Select(x => x.Card);
-    }
+    }    
   }
 }

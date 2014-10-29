@@ -488,6 +488,7 @@
     <Compile Include="Core\AI\TargetingRules\EffectAttackerWithEvasion.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectBounceOwnAndOpponents.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectCannotBlockAttack.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectDealDifferentDamage.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectDestroyMostCommon.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectFlicker.cs" />
@@ -527,7 +528,7 @@
     <Compile Include="Core\Effects\CreateCopyOfTargetCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
-    <Compile Include="Core\Effects\DealIncrementalDamagesToTargets.cs" />
+    <Compile Include="Core\Effects\DealDifferentDamageToTargets.cs" />
     <Compile Include="Core\Effects\DiscardCardOrSacrificeOwner.cs" />
     <Compile Include="Core\Effects\DrawCardsCreateTokens.cs" />
     <Compile Include="Core\Effects\ExileAllCards.cs" />
