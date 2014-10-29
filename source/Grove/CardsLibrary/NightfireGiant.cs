@@ -22,8 +22,11 @@
         .FlavorText("Nightfire turns the greatest weakness of the undead into formidable strength.")
         .Power(4)
         .Toughness(3)
-        .StaticAbility(p => 
-          p.Modifier(() => new AddPowerToughnessAsLongAsYouControlPermanent(1, 1, c => c.Is("mountain"))))
+        .StaticAbility(p =>
+          {
+            p.Modifier(() => new AddPowerAndToughness(1, 1));
+            p.Condition = cond => cond.OwnerControlsPermanent(c => c.Is("mountain"));
+          })
         .ActivatedAbility(p =>
           {
             p.Text = "{4}{R}: Nightfire Giant deals 2 damage to target creature or player.";

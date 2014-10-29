@@ -268,11 +268,11 @@
       return ManaSourcePriorities.Land;
     }
 
-    public CardTemplate StaticAbility(Action<StaticAbilityParamaters> set)
+    public CardTemplate StaticAbility(Action<StaticAbilityParameters> set)
     {
       _init.Add(cp =>
         {
-          var p = new StaticAbilityParamaters();
+          var p = new StaticAbilityParameters();
           set(p);
           cp.StaticAbilities.Add(new StaticAbility(p));
         });

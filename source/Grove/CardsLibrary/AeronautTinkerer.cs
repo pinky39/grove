@@ -16,8 +16,11 @@
         .FlavorText("\"All tinkerers have their heads in the clouds. I don't intend to stop there.\"")
         .Power(2)
         .Toughness(3)
-        .StaticAbility(p => 
-          p.Modifier(() => new AddStaticAbilityAsLongAsYouControlPermanent(Static.Flying, c => c.Is().Artifact)));
+        .StaticAbility(p =>
+          {
+            p.Modifier(() => new AddStaticAbility(Static.Flying));
+            p.Condition = cond => cond.OwnerControlsPermanent(c => c.Is().Artifact);
+          });
     }
   }
 }

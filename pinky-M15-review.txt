@@ -96,7 +96,7 @@ o Phytotitan
 o Satyr Wayfinder
 o Aeronaut Tinkerer
 o Scrapyard Mongrel
-Cone of Flame (has bug: three target selectors are not supported)
+o Cone of Flame
 Glacial Crasher
 Mercurial Pretender
 Indulgent Tormentor

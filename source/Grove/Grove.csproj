@@ -558,9 +558,7 @@
     <Compile Include="Core\Events\PlayerSearchesLibrary.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
-    <Compile Include="Core\Modifiers\AddStaticAbilityAsLongAsYouControlPermanent.cs" />
     <Compile Include="Core\Modifiers\IncreaseMinBlockerCount.cs" />
-    <Compile Include="Core\Modifiers\AddPowerToughnessAsLongAsYouControlPermanent.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\Modifiers\OwnerControlsPermamentsLifetime.cs" />
     <Compile Include="Core\Modifiers\OwnerHasCardsInExile.cs" />
@@ -1348,7 +1346,7 @@
     <Compile Include="Core\AI\TimingRules\TimingRuleParameters.cs" />
     <Compile Include="Core\Card\StaticAbilities.cs" />
     <Compile Include="Core\Card\StaticAbility.cs" />
-    <Compile Include="Core\Card\StaticAbilityParamaters.cs" />
+    <Compile Include="Core\Card\StaticAbilityParameters.cs" />
     <Compile Include="Core\Damage\DamageFromSource.cs" />
     <Compile Include="Core\Card\CardInfo.cs" />
     <Compile Include="Core\Card\CardsSearch.cs" />
