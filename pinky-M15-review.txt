@@ -95,7 +95,7 @@ o Wall of Frost
 o Phytotitan
 o Satyr Wayfinder
 o Aeronaut Tinkerer
-Scrapyard Mongrel
+o Scrapyard Mongrel
 Cone of Flame (has bug: three target selectors are not supported)
 Glacial Crasher
 Mercurial Pretender
