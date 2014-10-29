@@ -261,6 +261,7 @@
     <Compile Include="CardsLibrary\JasmineSeer.cs" />
     <Compile Include="CardsLibrary\JorubaiMurkLurker.cs" />
     <Compile Include="CardsLibrary\Juggernaut.cs" />
+    <Compile Include="CardsLibrary\JungleHollow.cs" />
     <Compile Include="CardsLibrary\JunkDiver.cs" />
     <Compile Include="CardsLibrary\KalonianTwingrove.cs" />
     <Compile Include="CardsLibrary\KapshoKitefins.cs" />
@@ -360,12 +361,14 @@
     <Compile Include="CardsLibrary\SaltRoadPatrol.cs" />
     <Compile Include="CardsLibrary\SanctifiedCharge.cs" />
     <Compile Include="CardsLibrary\Sanctimony.cs" />
+    <Compile Include="CardsLibrary\SandsteppeCitadel.cs" />
     <Compile Include="CardsLibrary\SatyrWayfinder.cs" />
     <Compile Include="CardsLibrary\ScentOfBrine.cs" />
     <Compile Include="CardsLibrary\ScentOfCinder.cs" />
     <Compile Include="CardsLibrary\ScentOfIvy.cs" />
     <Compile Include="CardsLibrary\ScentOfJasmine.cs" />
     <Compile Include="CardsLibrary\Scour.cs" />
+    <Compile Include="CardsLibrary\ScouredBarrens.cs" />
     <Compile Include="CardsLibrary\ScrapyardMongrel.cs" />
     <Compile Include="CardsLibrary\ScuttlingDoomEngine.cs" />
     <Compile Include="CardsLibrary\SeismicStrike.cs" />
