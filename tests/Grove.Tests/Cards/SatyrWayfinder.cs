@@ -1,23 +1,25 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using System.Linq;
+  using Infrastructure;
+  using Xunit;
 
-    public class SatyrWayfinder
+  public class SatyrWayfinder
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void GetLand()
-            {
-                Library(P1, "Forest", "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
-                Hand(P1, "Satyr Wayfinder");
-                Battlefield(P1, "Forest", "Forest");
+      [Fact]
+      public void GetAndPlayALand()
+      {
+        Library(P1, "Forest", "Grizzly Bears", "Grizzly Bears", "Grizzly Bears");
+        Hand(P1, "Satyr Wayfinder");
+        Battlefield(P1, "Forest", "Forest");
 
-                RunGame(1);
+        RunGame(1);
 
-                Equal(3, P1.Graveyard.Count);
-            }
-        }
+        Equal(3, P1.Graveyard.Count);
+        Equal(3, P1.Battlefield.Lands.Count());
+      }
     }
+  }
 }

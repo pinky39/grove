@@ -21,7 +21,7 @@
           {
             p.Text = "Whenever you attack with two or more creatures, draw a card.";
 
-            p.Trigger(new AfterAttackersAreDeclared(t => t.Yours && t.Attackers.Count() > 2));
+            p.Trigger(new AfterAttackersAreDeclared(t => t.Yours && t.Attackers.Count() >= 2));
             p.Effect = () => new DrawCards(1);
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

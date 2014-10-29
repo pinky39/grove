@@ -92,7 +92,7 @@ o Nightfire Giant
 o Hoarding Dragon
 o Stab Wound
 o Wall of Frost
-Phytotitan
+o Phytotitan
 Satyr Wayfinder
 Aeronaut Tinkerer
 Scrapyard Mongrel

@@ -523,6 +523,8 @@
       {
         card.Peek();
       }
+
+      Publish(new PlayerSearchesLibrary(this));
     }
 
     public void ReorderTopCardsOfLibrary(int[] permutation)

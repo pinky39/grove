@@ -542,7 +542,7 @@
     <Compile Include="Core\Effects\PutOwnerToBattlefield.cs" />
     <Compile Include="Core\Effects\PutSelectedCardIntoPlayIfOpponentGuessedWrong.cs" />
     <Compile Include="Core\Effects\PutSelectedAttackersOnTopRestOnBottom.cs" />
-    <Compile Include="Core\Effects\RevealTopCardsPutLandInHandOthersOnGraveyard.cs" />
+    <Compile Include="Core\Effects\RevealTopCardsPutOneInHandOthersIntoGraveyard.cs" />
     <Compile Include="Core\Effects\OpponentRevealsHand.cs" />
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />

@@ -4,7 +4,7 @@
   {
     public override bool? ShouldPlay1(TimingRuleParameters p)
     {
-      return Turn.Step == Step.FirstMain;
+      return true;
     }
   }
 }
