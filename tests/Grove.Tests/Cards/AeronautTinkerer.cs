@@ -1,49 +1,34 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class AeronautTinkerer
+  public class AeronautTinkerer
+  {
+    public class Ai : AiScenario
     {
-        public class Predefined : PredefinedScenario
-        {
-            [Fact]
-            public void CastAeronautTinkerer()
-            {
-                var fiend = C("Torch Fiend");
-                var tinker = C("Aeronaut Tinkerer");
-                var artifact = C("Profane Memento");
+      [Fact]
+      public void GetsFlying()
+      {
+        var tinker = C("Aeronaut Tinkerer");
+        Hand(P1, "Profane Memento");
+        Battlefield(P1, tinker,"Forest");
 
-                Hand(P1, tinker);
-                Battlefield(P1, artifact, fiend);
+        RunGame(1);
 
-                Exec(
-                  At(Step.FirstMain)
-                    .Cast(tinker)
-                    .Verify(() => { True(C(tinker).Has().Flying); })
-                    .Activate(fiend, target: artifact)
-                    .Verify(() => { False(C(tinker).Has().Flying); })
-                  );
-            }
+        True(C(tinker).Has().Flying);
+      }
 
-            [Fact]
-            public void CastArtifact()
-            {
-                var fiend = C("Torch Fiend");
-                var tinker = C("Aeronaut Tinkerer");
-                var artifact = C("Profane Memento");
+      [Fact]
+      public void HasNotFlying()
+      {
+        var tinker = C("Aeronaut Tinkerer");
+        Battlefield(P1, tinker);
 
-                Hand(P1, artifact);
-                Battlefield(P1, fiend, tinker);
+        RunGame(1);
 
-                Exec(
-                  At(Step.FirstMain)
-                    .Cast(artifact)
-                    .Verify(() => { True(C(tinker).Has().Flying); })
-                    .Activate(fiend, target: artifact)
-                    .Verify(() => { False(C(tinker).Has().Flying); })
-                  );
-            }
-        }
+        False(C(tinker).Has().Flying);
+      }
     }
+  }
 }

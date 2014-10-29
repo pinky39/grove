@@ -50,7 +50,10 @@
 
     public bool CheckCondition()
     {
-      return OwningCard.Controller.Battlefield.Any(_selector);
+      var permanenents = Players.Permanents()
+        .Where(c => c.Controller == OwningCard.Controller);
+
+      return permanenents.Any(_selector);
     }
 
     protected override void Initialize()

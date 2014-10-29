@@ -557,6 +557,7 @@
     <Compile Include="Core\Events\PlayerSearchesLibrary.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
+    <Compile Include="Core\Modifiers\AddStaticAbilityAsLongAsYouControlPermanent.cs" />
     <Compile Include="Core\Modifiers\IncreaseMinBlockerCount.cs" />
     <Compile Include="Core\Modifiers\AddPowerToughnessAsLongAsYouControlPermanent.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />

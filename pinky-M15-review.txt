@@ -93,8 +93,8 @@ o Hoarding Dragon
 o Stab Wound
 o Wall of Frost
 o Phytotitan
-Satyr Wayfinder
-Aeronaut Tinkerer
+o Satyr Wayfinder
+o Aeronaut Tinkerer
 Scrapyard Mongrel
 Cone of Flame (has bug: three target selectors are not supported)
 Glacial Crasher

@@ -1,10 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using System.Linq;
-  using Effects;
   using Modifiers;
-  using Triggers;
 
   public class AeronautTinkerer : CardTemplateSource
   {
@@ -19,32 +16,8 @@
         .FlavorText("\"All tinkerers have their heads in the clouds. I don't intend to stop there.\"")
         .Power(2)
         .Toughness(3)
-        .TriggeredAbility(p =>
-        {
-          p.Trigger(new OnZoneChanged(
-            to: Zone.Battlefield,
-            filter: (card, ability, _) =>
-            {
-              var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is().Artifact);
-
-              // Aeronaut Tinkerer comes into battlefield
-              if (ability.OwningCard == card && count > 0)
-                return true;
-
-              return ability.OwningCard.Zone == Zone.Battlefield &&
-                     ability.OwningCard.Controller == card.Controller && card.Is().Artifact && count == 1;
-            }));
-
-          p.UsesStack = false;
-
-          p.Effect = () => new ApplyModifiersToSelf(
-            () =>
-            {
-              var modifier = new AddStaticAbility(Static.Flying);
-              modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is().Artifact));
-              return modifier;
-            });
-        });
+        .StaticAbility(p => 
+          p.Modifier(() => new AddStaticAbilityAsLongAsYouControlPermanent(Static.Flying, c => c.Is().Artifact)));
     }
   }
 }
