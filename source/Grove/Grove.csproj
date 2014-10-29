@@ -187,6 +187,7 @@
     <Compile Include="CardsLibrary\DivineFavor.cs" />
     <Compile Include="CardsLibrary\DivineVerdict.cs" />
     <Compile Include="CardsLibrary\Donate.cs" />
+    <Compile Include="CardsLibrary\DragonscaleBoon.cs" />
     <Compile Include="CardsLibrary\ElvishLookout.cs" />
     <Compile Include="CardsLibrary\ElvishMystic.cs" />
     <Compile Include="CardsLibrary\ElvishPiper.cs" />
