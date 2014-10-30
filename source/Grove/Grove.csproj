@@ -238,6 +238,7 @@
     <Compile Include="CardsLibrary\Hammerhand.cs" />
     <Compile Include="CardsLibrary\HauntedPlateMail.cs" />
     <Compile Include="CardsLibrary\HeliodsPilgrim.cs" />
+    <Compile Include="CardsLibrary\HighSentinelsOfArashin.cs" />
     <Compile Include="CardsLibrary\HoardingDragon.cs" />
     <Compile Include="CardsLibrary\HorizonChimera.cs" />
     <Compile Include="CardsLibrary\HornetNest.cs" />
