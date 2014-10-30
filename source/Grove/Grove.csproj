@@ -293,6 +293,7 @@
     <Compile Include="CardsLibrary\MeditationPuzzle.cs" />
     <Compile Include="CardsLibrary\MentalDiscipline.cs" />
     <Compile Include="CardsLibrary\MercurialPretender.cs" />
+    <Compile Include="CardsLibrary\MerEkNightblade.cs" />
     <Compile Include="CardsLibrary\Metalworker.cs" />
     <Compile Include="CardsLibrary\MetathranSoldier.cs" />
     <Compile Include="CardsLibrary\Meteorite.cs" />
