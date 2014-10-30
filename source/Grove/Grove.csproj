@@ -123,6 +123,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CardsLibrary\AbzanBanner.cs" />
+    <Compile Include="CardsLibrary\AbzanBattlePriest.cs" />
     <Compile Include="CardsLibrary\AbzanFalconer.cs" />
     <Compile Include="CardsLibrary\AccursedSpirit.cs" />
     <Compile Include="CardsLibrary\AegisAngel.cs" />
