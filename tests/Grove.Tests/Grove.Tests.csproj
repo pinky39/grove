@@ -298,6 +298,7 @@
     <Compile Include="Cards\Invisibility.cs" />
     <Compile Include="Cards\IridescentDrake.cs" />
     <Compile Include="Cards\IronMaiden.cs" />
+    <Compile Include="Cards\IvorytuskFortress.cs" />
     <Compile Include="Cards\IvySeer.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />
     <Compile Include="Cards\JaliraMasterPolymorphist.cs" />

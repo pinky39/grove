@@ -260,6 +260,7 @@
     <Compile Include="CardsLibrary\InvasiveSpecies.cs" />
     <Compile Include="CardsLibrary\Invisibility.cs" />
     <Compile Include="CardsLibrary\IridescentDrake.cs" />
+    <Compile Include="CardsLibrary\IvorytuskFortress.cs" />
     <Compile Include="CardsLibrary\IvySeer.cs" />
     <Compile Include="CardsLibrary\JacesIngenuity.cs" />
     <Compile Include="CardsLibrary\JaliraMasterPolymorphist.cs" />
@@ -556,6 +557,7 @@
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\Effects\SacrificeCreatureOrPayLifeOrOpponentDrawsCard.cs" />
+    <Compile Include="Core\Effects\UntapEachPermanent.cs" />
     <Compile Include="Core\Effects\YourLifeBecomesEqual.cs" />
     <Compile Include="Core\Events\AttackersDeclaredEvent.cs" />
     <Compile Include="Core\Events\BlockersDeclaredEvent.cs" />
