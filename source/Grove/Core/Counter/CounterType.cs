@@ -6,7 +6,7 @@
     Charge,
     Page,
     Fungus,   
-    PowerToughnes,
+    PowerToughness,
     Verse,
     Petal,
     Soot,

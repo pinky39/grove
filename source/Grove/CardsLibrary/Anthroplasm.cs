@@ -36,7 +36,7 @@
               new Tap());
 
             p.Effect = () => new CompoundEffect(
-              new RemoveAllCountersFromOwner(CounterType.PowerToughnes),
+              new RemoveAllCountersFromOwner(CounterType.PowerToughness),
               new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), Value.PlusX)));
 
             p.CostRule(new XIsAvailableMana());

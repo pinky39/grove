@@ -38,15 +38,15 @@
 
             p.Cost = new AggregateCost(
               new Tap(),
-              new RemoveCounters(CounterType.PowerToughnes));
+              new RemoveCounters(CounterType.PowerToughness));
 
             p.Effect =
-              () => new DealDamageToTargets(P(e => e.Source.OwningCard.CountersCount(CounterType.PowerToughnes)));
+              () => new DealDamageToTargets(P(e => e.Source.OwningCard.CountersCount(CounterType.PowerToughness)));
             
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             
-            p.TimingRule(new WhenCardHas(c => c.CountersCount(CounterType.PowerToughnes) > 0));
-            p.TargetingRule(new EffectDealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughnes)));            
+            p.TimingRule(new WhenCardHas(c => c.CountersCount(CounterType.PowerToughness) > 0));
+            p.TargetingRule(new EffectDealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughness)));            
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });
 

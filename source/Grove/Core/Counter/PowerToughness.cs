@@ -18,7 +18,7 @@
       _toughness = toughness;
     }
 
-    public override CounterType Type { get { return CounterType.PowerToughnes; } }
+    public override CounterType Type { get { return CounterType.PowerToughness; } }
 
     public override void ModifyStrenght(Strenght strenght)
     {

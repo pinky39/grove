@@ -41,13 +41,13 @@
             p.Cost = new AggregateCost(
               new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
               new Tap(),
-              new RemoveCounters(CounterType.PowerToughnes));
+              new RemoveCounters(CounterType.PowerToughness));
 
-            p.Effect = () => new DealDamageToTargets(P(e => e.Source.OwningCard.CountersCount(CounterType.PowerToughnes)));
+            p.Effect = () => new DealDamageToTargets(P(e => e.Source.OwningCard.CountersCount(CounterType.PowerToughness)));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TargetingRule(new EffectDealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughnes)));
+            p.TargetingRule(new EffectDealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughness)));
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });
     }
