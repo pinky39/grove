@@ -427,6 +427,7 @@
     <Compile Include="CardsLibrary\Treachery.cs" />
     <Compile Include="CardsLibrary\TriplicateSpirits.cs" />
     <Compile Include="CardsLibrary\TurnToFrog.cs" />
+    <Compile Include="CardsLibrary\TuskguardCaptain.cs" />
     <Compile Include="CardsLibrary\TyphoidRats.cs" />
     <Compile Include="CardsLibrary\TyrantsMachine.cs" />
     <Compile Include="CardsLibrary\Ulcerate.cs" />
