@@ -23,6 +23,7 @@
           p.Effect = () => new UntapEachPermanent(
             filter: c => c.Is().Creature && c.CountersCount(CounterType.PowerToughness) > 0,
             controlledBy: ControlledBy.SpellOwner);
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
     }
   }
