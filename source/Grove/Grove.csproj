@@ -248,6 +248,7 @@
     <Compile Include="CardsLibrary\HotSoup.cs" />
     <Compile Include="CardsLibrary\HulkingOgre.cs" />
     <Compile Include="CardsLibrary\HuntersAmbush.cs" />
+    <Compile Include="CardsLibrary\HuntTheWeak.cs" />
     <Compile Include="CardsLibrary\HushwingGryff.cs" />
     <Compile Include="CardsLibrary\Hydrosurge.cs" />
     <Compile Include="CardsLibrary\IlluminatedWings.cs" />
@@ -552,6 +553,7 @@
     <Compile Include="Core\Effects\PayManaCreateTokens.cs" />
     <Compile Include="Core\Effects\PreventAllDamagesToTargetsFromChosenColor.cs" />
     <Compile Include="Core\Effects\PutCardToBattlefield.cs" />
+    <Compile Include="Core\Effects\PutCounterOnTargetAndFightWithCreature.cs" />
     <Compile Include="Core\Effects\PutOwnerToBattlefield.cs" />
     <Compile Include="Core\Effects\PutSelectedCardIntoPlayIfOpponentGuessedWrong.cs" />
     <Compile Include="Core\Effects\PutSelectedAttackersOnTopRestOnBottom.cs" />

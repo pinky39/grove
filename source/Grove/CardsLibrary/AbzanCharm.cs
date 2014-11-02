@@ -13,7 +13,7 @@
     {
       yield return Card
         .Named("Abzan Charm")
-        .ManaCost("{W}")
+        .ManaCost("{W}{B}{G}")
         .Type("Instant")
         .Text("Choose one —{EOL}• Exile target creature with power 3 or greater.{EOL}• You draw two cards and you lose 2 life.{EOL}• Distribute two +1/+1 counters among one or two target creatures.")
         .Cast(p =>
