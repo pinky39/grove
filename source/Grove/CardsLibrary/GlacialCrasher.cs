@@ -15,6 +15,7 @@
           "{Trample}{I}(If this creature would assign enough damage to its blockers to destroy them, you may have it assign the rest of its damage to defending player or planeswalker.){/I}{EOL}Glacial Crasher can't attack unless there is a Mountain on the battlefield.")
         .Power(5)
         .Toughness(5)
+        .SimpleAbilities(Static.Trample)
         .StaticAbility(p =>
           {
             p.Modifier(() => new AddStaticAbility(Static.CannotAttack));
