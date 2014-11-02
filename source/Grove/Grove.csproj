@@ -134,6 +134,7 @@
     <Compile Include="CardsLibrary\AjanisPridemate.cs" />
     <Compile Include="CardsLibrary\AltacBloodseeker.cs" />
     <Compile Include="CardsLibrary\AmphinPathmage.cs" />
+    <Compile Include="CardsLibrary\ArmamentCorps.cs" />
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
     <Compile Include="CardsLibrary\AvariceAmulet.cs" />
     <Compile Include="CardsLibrary\BackToNature.cs" />
@@ -539,6 +540,7 @@
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealDifferentDamageToTargets.cs" />
     <Compile Include="Core\Effects\DiscardCardOrSacrificeOwner.cs" />
+    <Compile Include="Core\Effects\DistributeCountersAmongTargets.cs" />
     <Compile Include="Core\Effects\DrawCardsCreateTokens.cs" />
     <Compile Include="Core\Effects\ExileAllCards.cs" />
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
