@@ -421,6 +421,7 @@
     <Compile Include="CardsLibrary\StormtideLeviathan.cs" />
     <Compile Include="CardsLibrary\SunbladeElf.cs" />
     <Compile Include="CardsLibrary\SungracePegasus.cs" />
+    <Compile Include="CardsLibrary\SuspensionField.cs" />
     <Compile Include="CardsLibrary\TauntingElf.cs" />
     <Compile Include="CardsLibrary\TelepathicSpies.cs" />
     <Compile Include="CardsLibrary\TemporalAdept.cs" />

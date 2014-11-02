@@ -37,7 +37,7 @@
                   new Attach());
 
                 tp.TargetSelector.AddEffect(
-                  trg => trg.Is.Card(c => c.Is().Creature, controlledBy: ControlledBy.Any).On.Battlefield());
+                  trg => trg.Is.Card(c => c.Is().Creature, controlledBy: ControlledBy.Opponent).On.Battlefield());
 
                 return new AddTriggeredAbility(new TriggeredAbility(tp));
               };
