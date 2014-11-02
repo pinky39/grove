@@ -255,6 +255,7 @@
     <Compile Include="CardsLibrary\IllusoryAngel.cs" />
     <Compile Include="CardsLibrary\Impatience.cs" />
     <Compile Include="CardsLibrary\Incendiary.cs" />
+    <Compile Include="CardsLibrary\IncrementalGrowth.cs" />
     <Compile Include="CardsLibrary\IndulgentTormentor.cs" />
     <Compile Include="CardsLibrary\InfernoFist.cs" />
     <Compile Include="CardsLibrary\InGarruksWake.cs" />
@@ -554,6 +555,7 @@
     <Compile Include="Core\Effects\PreventAllDamagesToTargetsFromChosenColor.cs" />
     <Compile Include="Core\Effects\PutCardToBattlefield.cs" />
     <Compile Include="Core\Effects\PutCounterOnTargetAndFightWithCreature.cs" />
+    <Compile Include="Core\Effects\PutIncrementalCountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutOwnerToBattlefield.cs" />
     <Compile Include="Core\Effects\PutSelectedCardIntoPlayIfOpponentGuessedWrong.cs" />
     <Compile Include="Core\Effects\PutSelectedAttackersOnTopRestOnBottom.cs" />
