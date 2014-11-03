@@ -481,6 +481,7 @@
     <Compile Include="CardsLibrary\WhirlwindAdept.cs" />
     <Compile Include="CardsLibrary\WillForgedGolem.cs" />
     <Compile Include="CardsLibrary\WindScarredCrag.cs" />
+    <Compile Include="CardsLibrary\Winterflame.cs" />
     <Compile Include="CardsLibrary\WitchsFamiliar.cs" />
     <Compile Include="CardsLibrary\XathridSlyblade.cs" />
     <Compile Include="CardsLibrary\YavimayaCoast.cs" />
@@ -560,6 +561,7 @@
     <Compile Include="Core\Effects\ChangeZoneForSelectedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CreateCopyOfTargetCreature.cs" />
+    <Compile Include="Core\Effects\DealDamageToAndTapTargets.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealDifferentDamageToTargets.cs" />

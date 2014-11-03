@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Effects;
   using Modifiers;
 
@@ -38,6 +39,7 @@
           });
 
           p.TargetingRule(new EffectGiveDoesNotUntap());
+          p.TimingRule(new OnStep(Step.BeginningOfCombat));
         });
     }
   }
