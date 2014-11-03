@@ -17,6 +17,7 @@
         .FlavorText("\"No one petal claims beauty for the lotus.\"")
         .Power(3)
         .Toughness(4)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
         {
           p.Text = "Whenever you cast a noncreature spell, creatures you control gain lifelink until end of turn.";
