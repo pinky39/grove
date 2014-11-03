@@ -221,6 +221,7 @@
     <Compile Include="CardsLibrary\FlameJet.cs" />
     <Compile Include="CardsLibrary\FleshToDust.cs" />
     <Compile Include="CardsLibrary\Flicker.cs" />
+    <Compile Include="CardsLibrary\FlyingCraneTechnique.cs" />
     <Compile Include="CardsLibrary\FodderCannon.cs" />
     <Compile Include="CardsLibrary\ForgeDevil.cs" />
     <Compile Include="CardsLibrary\FoundryStreetDenizen.cs" />
