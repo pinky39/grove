@@ -321,6 +321,7 @@
     <Compile Include="CardsLibrary\Momentum.cs" />
     <Compile Include="CardsLibrary\MonasterySwiftspear.cs" />
     <Compile Include="CardsLibrary\MultanisDecree.cs" />
+    <Compile Include="CardsLibrary\MysticMonastery.cs" />
     <Compile Include="CardsLibrary\Naturalize.cs" />
     <Compile Include="CardsLibrary\Necrobite.cs" />
     <Compile Include="CardsLibrary\NecrogenScudder.cs" />

@@ -11,6 +11,7 @@
         .Named("Sandsteppe Citadel")
         .Type("Land")
         .Text("Sandsteppe Citadel enters the battlefield tapped.{EOL}{T}: Add {W}, {B} or {G} to your mana pool.")
+        .FlavorText("That which endures, survives.")
         .Cast(p => p.Effect = () => new CastPermanent(tap: true))
         .ManaAbility(p =>
         {
