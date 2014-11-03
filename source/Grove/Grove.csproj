@@ -414,6 +414,7 @@
     <Compile Include="CardsLibrary\SiegeWurm.cs" />
     <Compile Include="CardsLibrary\SkitteringHorror.cs" />
     <Compile Include="CardsLibrary\SliverHivelord.cs" />
+    <Compile Include="CardsLibrary\SmiteTheMonstrous.cs" />
     <Compile Include="CardsLibrary\SolemnOffering.cs" />
     <Compile Include="CardsLibrary\Solidarity.cs" />
     <Compile Include="CardsLibrary\Soulmender.cs" />
