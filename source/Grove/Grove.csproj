@@ -470,6 +470,7 @@
     <Compile Include="CardsLibrary\WardenOfTheBeyond.cs" />
     <Compile Include="CardsLibrary\WasteNot.cs" />
     <Compile Include="CardsLibrary\WelkinTern.cs" />
+    <Compile Include="CardsLibrary\WhirlwindAdept.cs" />
     <Compile Include="CardsLibrary\WillForgedGolem.cs" />
     <Compile Include="CardsLibrary\WitchsFamiliar.cs" />
     <Compile Include="CardsLibrary\XathridSlyblade.cs" />
