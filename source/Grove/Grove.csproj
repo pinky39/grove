@@ -133,6 +133,7 @@
     <Compile Include="CardsLibrary\AggressiveMining.cs" />
     <Compile Include="CardsLibrary\AinokBondKin.cs" />
     <Compile Include="CardsLibrary\AjanisPridemate.cs" />
+    <Compile Include="CardsLibrary\AlabasterKirin.cs" />
     <Compile Include="CardsLibrary\AltacBloodseeker.cs" />
     <Compile Include="CardsLibrary\AmphinPathmage.cs" />
     <Compile Include="CardsLibrary\ArmamentCorps.cs" />
