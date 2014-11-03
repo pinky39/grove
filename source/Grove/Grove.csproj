@@ -310,6 +310,7 @@
     <Compile Include="CardsLibrary\MindSculpt.cs" />
     <Compile Include="CardsLibrary\MinersBane.cs" />
     <Compile Include="CardsLibrary\Momentum.cs" />
+    <Compile Include="CardsLibrary\MonasterySwiftspear.cs" />
     <Compile Include="CardsLibrary\MultanisDecree.cs" />
     <Compile Include="CardsLibrary\Naturalize.cs" />
     <Compile Include="CardsLibrary\Necrobite.cs" />

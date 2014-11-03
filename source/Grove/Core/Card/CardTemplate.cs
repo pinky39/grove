@@ -378,6 +378,23 @@
       return this;
     }
 
+    public CardTemplate Prowess()
+    {
+      TriggeredAbility(p =>
+      {
+        p.Text = "Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.";
+        p.Trigger(new OnCastedSpell((a, c) =>
+          c.Controller == a.OwningCard.Controller && !c.Is().Creature));
+
+        p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1){ UntilEot = true })
+          .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+
+        p.TriggerOnlyIfOwningCardIsInPlay = true;
+      });
+
+      return this;
+    }
+
     public CardTemplate Power(int power)
     {
       _init.Add(p => { p.Power = power; });
