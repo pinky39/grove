@@ -13,6 +13,7 @@
         .ManaCost("{3}")
         .Type("Artifact")
         .Text("{T}: Add {W}, {B}, or {G} to your mana pool.{EOL}{W}{B}{G}, {T}, Sacrifice Abzan Banner: Draw a card.")
+        .FlavorText("Stone to endure, roots to remember.")
         .ManaAbility(p =>
         {
           p.Text = "{T}: Add {W}, {B} or {G} to your mana pool.";
@@ -23,7 +24,8 @@
           p.Text = "{W}{B}{G}, {T}, Sacrifice Abzan Banner: Draw a card.";
           p.Cost = new AggregateCost(
             new PayMana("{W}{B}{G}".Parse(), ManaUsage.Abilities),
-            new Tap());
+            new Tap(),
+            new Sacrifice());
           p.Effect = () => new DrawCards(1);
         });
     }
