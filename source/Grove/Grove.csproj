@@ -270,6 +270,7 @@
     <Compile Include="CardsLibrary\JaliraMasterPolymorphist.cs" />
     <Compile Include="CardsLibrary\JasmineSeer.cs" />
     <Compile Include="CardsLibrary\JeskaiElder.cs" />
+    <Compile Include="CardsLibrary\JeskaiStudent.cs" />
     <Compile Include="CardsLibrary\JorubaiMurkLurker.cs" />
     <Compile Include="CardsLibrary\Juggernaut.cs" />
     <Compile Include="CardsLibrary\JungleHollow.cs" />
