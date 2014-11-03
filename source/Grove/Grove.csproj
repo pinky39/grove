@@ -387,6 +387,7 @@
     <Compile Include="CardsLibrary\ScouredBarrens.cs" />
     <Compile Include="CardsLibrary\ScrapyardMongrel.cs" />
     <Compile Include="CardsLibrary\ScuttlingDoomEngine.cs" />
+    <Compile Include="CardsLibrary\SeekerOfTheWay.cs" />
     <Compile Include="CardsLibrary\SeismicStrike.cs" />
     <Compile Include="CardsLibrary\SelflessCathar.cs" />
     <Compile Include="CardsLibrary\SengirVampire.cs" />
