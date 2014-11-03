@@ -371,6 +371,7 @@
     <Compile Include="CardsLibrary\ResoluteArchangel.cs" />
     <Compile Include="CardsLibrary\Restock.cs" />
     <Compile Include="CardsLibrary\ReturnToTheRanks.cs" />
+    <Compile Include="CardsLibrary\RiverwheelAerialists.cs" />
     <Compile Include="CardsLibrary\RoaringPrimadox.cs" />
     <Compile Include="CardsLibrary\RofellosLlanowarEmissary.cs" />
     <Compile Include="CardsLibrary\RofellossGift.cs" />
