@@ -53,7 +53,7 @@
     public override void Usage()
     {
       Console.WriteLine(
-        "usage: ugrove images set=M15\n\nDownloads missing images given set from mtgimage.com and writes them to 'cards' directory.\n\nSupported sets: USG, ULG, UDS, M15");
+        "usage: ugrove images set=M15\n\nDownloads missing images given set from mtgimage.com and writes them to 'cards' directory.\n\nSupported sets: USG, ULG, UDS, M15, KTK");
     }
   }
 }

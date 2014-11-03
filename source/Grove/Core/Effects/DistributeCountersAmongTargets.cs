@@ -25,7 +25,7 @@
         X = X
       };
 
-      if (_counterAmount < ValidEffectTargets.Count())
+      if (_counterAmount <= ValidEffectTargets.Count())
       {
         // Apply counter to each target
         foreach (var target in ValidEffectTargets)
