@@ -395,23 +395,6 @@
       return this;
     }
 
-    public CardTemplate Raid()
-    {
-      TriggeredAbility(p =>
-      {
-        p.Text = Name + " enters the battlefield with a +1/+1 counter on it if you attacked with a creature this turn.";
-        p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
-        {
-          Condition = (t, g) => g.Turn.Events.HasActivePlayerAttackedThisTurn,
-        });
-
-        p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1))
-          .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
-      });
-
-      return this;
-    }
-
     public CardTemplate Power(int power)
     {
       _init.Add(p => { p.Power = power; });
