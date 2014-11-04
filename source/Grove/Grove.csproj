@@ -147,6 +147,7 @@
     <Compile Include="CardsLibrary\BelligerentSliver.cs" />
     <Compile Include="CardsLibrary\BlackCat.cs" />
     <Compile Include="CardsLibrary\BlastfireBolt.cs" />
+    <Compile Include="CardsLibrary\BloodfellCaves.cs" />
     <Compile Include="CardsLibrary\BloodfireExpert.cs" />
     <Compile Include="CardsLibrary\BloodfireMentor.cs" />
     <Compile Include="CardsLibrary\BloodHost.cs" />
@@ -347,6 +348,7 @@
     <Compile Include="CardsLibrary\Nightmare.cs" />
     <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
     <Compile Include="CardsLibrary\NissasExpedition.cs" />
+    <Compile Include="CardsLibrary\NomadOutpost.cs" />
     <Compile Include="CardsLibrary\ObeliskOfUrd.cs" />
     <Compile Include="CardsLibrary\ObNixilisUnshackled.cs" />
     <Compile Include="CardsLibrary\Opalescence.cs" />
