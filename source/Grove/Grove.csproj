@@ -310,6 +310,7 @@
     <Compile Include="CardsLibrary\Magnify.cs" />
     <Compile Include="CardsLibrary\MahamotiDjinn.cs" />
     <Compile Include="CardsLibrary\MarduBanner.cs" />
+    <Compile Include="CardsLibrary\MarduCharm.cs" />
     <Compile Include="CardsLibrary\MarduHateblade.cs" />
     <Compile Include="CardsLibrary\MarduHordechief.cs" />
     <Compile Include="CardsLibrary\MarduRoughrider.cs" />
