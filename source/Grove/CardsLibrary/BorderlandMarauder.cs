@@ -25,7 +25,7 @@
             p.Trigger(new WhenThisAttacks());
 
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new AddPowerAndToughness(2, 0) { UntilEot = true }).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+              () => new AddPowerAndToughness(2, 0) { UntilEot = true }).SetTags(EffectTag.IncreasePower);
           });
     }
   }
