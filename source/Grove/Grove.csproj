@@ -479,6 +479,7 @@
     <Compile Include="CardsLibrary\WallOfMulch.cs" />
     <Compile Include="CardsLibrary\WardenOfTheBeyond.cs" />
     <Compile Include="CardsLibrary\WardenOfTheEye.cs" />
+    <Compile Include="CardsLibrary\WarNameAspirant.cs" />
     <Compile Include="CardsLibrary\WasteNot.cs" />
     <Compile Include="CardsLibrary\WeaveFate.cs" />
     <Compile Include="CardsLibrary\WelkinTern.cs" />

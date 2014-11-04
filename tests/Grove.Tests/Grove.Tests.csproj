@@ -578,6 +578,7 @@
     <Compile Include="Cards\WallOfReverence.cs" />
     <Compile Include="Cards\WarDance.cs" />
     <Compile Include="Cards\WardenOfTheBeyond.cs" />
+    <Compile Include="Cards\WarNameAspirant.cs" />
     <Compile Include="Cards\WasteNot.cs" />
     <Compile Include="Cards\WayLay.cs" />
     <Compile Include="Cards\WeatherseedElf.cs" />

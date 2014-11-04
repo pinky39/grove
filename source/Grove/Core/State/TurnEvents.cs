@@ -17,6 +17,7 @@
     private readonly Trackable<bool> _hasActivePlayerPlayedAnySpell = new Trackable<bool>();
     private readonly Trackable<bool> _hasAnythingBeenPlayedOrActivatedDuringThisStep = new Trackable<bool>();
     private readonly TrackableList<LifeChangedEvent> _lifeChanged = new TrackableList<LifeChangedEvent>();
+    private readonly Trackable<bool> _hasActivePlayerAttackedThisTurn = new Trackable<bool>();
 
     public bool HasAnythingBeenPlayedOrActivatedDuringThisStep
     {
@@ -28,9 +29,19 @@
       get { return _hasActivePlayerPlayedAnySpell.Value; }
     }
 
+    public bool HasActivePlayerAttackedThisTurn
+    {
+      get { return _hasActivePlayerAttackedThisTurn.Value; }
+    }
+
     public void Receive(AttackerJoinedCombatEvent message)
     {
       _attackers.Add(message.Attacker.Card);
+
+      if (message.Attacker.Controller.IsActive)
+      {
+        _hasActivePlayerAttackedThisTurn.Value = true;
+      }
     }
 
     public void Receive(BlockerJoinedCombatEvent message)
@@ -84,6 +95,7 @@
 
       _hasAnythingBeenPlayedOrActivatedDuringThisStep.Initialize(ChangeTracker);
       _hasActivePlayerPlayedAnySpell.Initialize(ChangeTracker);
+      _hasActivePlayerAttackedThisTurn.Initialize(ChangeTracker);
     }
 
     public bool HasAttacked(Card card)
