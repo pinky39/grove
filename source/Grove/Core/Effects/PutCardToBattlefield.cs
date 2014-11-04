@@ -10,7 +10,9 @@
     public PutCardToBattlefield(DynParam<Card> card, Zone from)
     {
       _card = card;
-      _from = @from;
+      _from = from;
+
+      RegisterDynamicParameters(card);
     }
 
     public override bool CanBeResolved()
