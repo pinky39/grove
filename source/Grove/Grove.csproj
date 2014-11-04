@@ -251,6 +251,7 @@
     <Compile Include="CardsLibrary\HighSentinelsOfArashin.cs" />
     <Compile Include="CardsLibrary\HighspireMantis.cs" />
     <Compile Include="CardsLibrary\HoardingDragon.cs" />
+    <Compile Include="CardsLibrary\HordelingOutburst.cs" />
     <Compile Include="CardsLibrary\HorizonChimera.cs" />
     <Compile Include="CardsLibrary\HornetNest.cs" />
     <Compile Include="CardsLibrary\HornetQueen.cs" />
