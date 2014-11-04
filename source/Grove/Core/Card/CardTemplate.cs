@@ -386,7 +386,7 @@
         p.Trigger(new OnCastedSpell((a, c) =>
           c.Controller == a.OwningCard.Controller && !c.Is().Creature));
 
-        p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1){ UntilEot = true })
+        p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 1) { UntilEot = true })
           .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
         p.TriggerOnlyIfOwningCardIsInPlay = true;
