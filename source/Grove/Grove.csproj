@@ -217,6 +217,7 @@
     <Compile Include="CardsLibrary\FeralIncarnation.cs" />
     <Compile Include="CardsLibrary\Festergloom.cs" />
     <Compile Include="CardsLibrary\FieldSurgeon.cs" />
+    <Compile Include="CardsLibrary\FirehoofCavalry.cs" />
     <Compile Include="CardsLibrary\FirstResponse.cs" />
     <Compile Include="CardsLibrary\FlameJet.cs" />
     <Compile Include="CardsLibrary\FleshToDust.cs" />
