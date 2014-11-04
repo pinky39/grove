@@ -306,6 +306,7 @@
     <Compile Include="CardsLibrary\Magnify.cs" />
     <Compile Include="CardsLibrary\MahamotiDjinn.cs" />
     <Compile Include="CardsLibrary\MarduHateblade.cs" />
+    <Compile Include="CardsLibrary\MarduHordechief.cs" />
     <Compile Include="CardsLibrary\MarduSkullhunter.cs" />
     <Compile Include="CardsLibrary\MarkedByHonor.cs" />
     <Compile Include="CardsLibrary\MassCalcify.cs" />
