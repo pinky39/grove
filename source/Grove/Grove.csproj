@@ -156,6 +156,7 @@
     <Compile Include="CardsLibrary\BorderlandMarauder.cs" />
     <Compile Include="CardsLibrary\BrawlersPlate.cs" />
     <Compile Include="CardsLibrary\BrineSeer.cs" />
+    <Compile Include="CardsLibrary\BringLow.cs" />
     <Compile Include="CardsLibrary\BronzeSable.cs" />
     <Compile Include="CardsLibrary\BroodKeeper.cs" />
     <Compile Include="CardsLibrary\BubblingBeebles.cs" />
