@@ -78,6 +78,11 @@
     public bool IsMax { get; set; }
     public ILibraryQuery Library { get { return _library; } }
 
+    public bool HasAttackedThisTurn
+    {
+      get { return IsActive && Game.Turn.Events.HasActivePlayerAttackedThisTurn; }
+    }
+
     public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
 
     public int Score
@@ -107,6 +112,7 @@
           Source = damage.Source,
           Target = this,
           IsCombat = damage.IsCombat,
+          CanBePrevented = damage.CanBePrevented,
           QueryOnly = false
         };
 

@@ -8,10 +8,11 @@
     private readonly Trackable<int> _amount;
     private readonly TrackableList<DamageRedirection> _redirections = new TrackableList<DamageRedirection>();
 
-    public Damage(int amount, bool isCombat, Card source)
+    public Damage(int amount, bool isCombat, bool canBePrevented, Card source)
     {
       _amount = new Trackable<int>(amount);
       IsCombat = isCombat;
+      CanBePrevented = canBePrevented;
       Source = source;
     }
 
@@ -19,6 +20,7 @@
 
     public int Amount { get { return _amount.Value; } set { _amount.Value = value; } }
     public bool IsCombat { get; private set; }
+    public bool CanBePrevented { get; private set; }
     public Card Source { get; private set; }
 
     public bool IsLeathal { get { return Source.Has().Deathtouch; } }

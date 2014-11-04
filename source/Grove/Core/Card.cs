@@ -397,6 +397,7 @@
           Source = damage.Source,
           Target = this,
           IsCombat = damage.IsCombat,
+          CanBePrevented = damage.CanBePrevented,
           QueryOnly = false
         });
 
@@ -543,7 +544,7 @@
       return _combatRules.GetAbilities();
     }
 
-    public void DealDamageTo(int amount, IDamageable damageable, bool isCombat)
+    public void DealDamageTo(int amount, IDamageable damageable, bool isCombat, bool canBePrevented = true)
     {
       if (amount <= 0)
         return;
@@ -551,7 +552,8 @@
       var damage = new Damage(
         amount: amount,
         source: this,
-        isCombat: isCombat);
+        isCombat: isCombat,
+        canBePrevented: canBePrevented);
 
       damage.Initialize(ChangeTracker);
       damageable.ReceiveDamage(damage);

@@ -7,17 +7,19 @@
   {
     private readonly DynParam<int> _amount;
     private readonly bool _gainLife;
+    private readonly DynParam<bool> _canBePrevented;
 
     private DealDamageToTargets()
     {
     }
 
-    public DealDamageToTargets(DynParam<int> amount, bool gainLife = false)
+    public DealDamageToTargets(DynParam<int> amount, bool gainLife = false, DynParam<bool> canBePrevented = null)
     {
       _amount = amount;
       _gainLife = gainLife;
+      _canBePrevented = canBePrevented;
 
-      RegisterDynamicParameters(amount);
+      RegisterDynamicParameters(amount, canBePrevented);
       SetTags(EffectTag.DealDamage);
     }
 
@@ -38,7 +40,8 @@
         Source.OwningCard.DealDamageTo(
           _amount.Value,
           (IDamageable) target,
-          isCombat: false);
+          isCombat: false,
+          canBePrevented: _canBePrevented.Value);
 
 
         if (_gainLife)

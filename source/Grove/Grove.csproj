@@ -138,6 +138,7 @@
     <Compile Include="CardsLibrary\AmphinPathmage.cs" />
     <Compile Include="CardsLibrary\AnkleShanker.cs" />
     <Compile Include="CardsLibrary\ArmamentCorps.cs" />
+    <Compile Include="CardsLibrary\ArrowStorm.cs" />
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
     <Compile Include="CardsLibrary\AvariceAmulet.cs" />
     <Compile Include="CardsLibrary\BackToNature.cs" />

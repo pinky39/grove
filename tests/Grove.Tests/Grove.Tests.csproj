@@ -108,6 +108,7 @@
     <Compile Include="Cards\ArgothianElder.cs" />
     <Compile Include="Cards\ArgothianEnchantress.cs" />
     <Compile Include="Cards\ArgothianWurm.cs" />
+    <Compile Include="Cards\ArrowStorm.cs" />
     <Compile Include="Cards\Attrition.cs" />
     <Compile Include="Cards\AuraFlux.cs" />
     <Compile Include="Cards\AuraThief.cs" />

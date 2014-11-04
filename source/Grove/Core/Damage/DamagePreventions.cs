@@ -32,7 +32,10 @@
 
     public int PreventDamage(PreventDamageParameters preventDamageParameters)
     {
-      return Prevent(preventDamageParameters.Amount, (prevention) => prevention.PreventDamage(preventDamageParameters));
+      var amount = preventDamageParameters.CanBePrevented
+        ? preventDamageParameters.Amount
+        : 0; // Nothing to prevent
+      return Prevent(amount, (prevention) => prevention.PreventDamage(preventDamageParameters));
     }
 
     public int PreventLifeloss(int amount, Player player, bool queryOnly = true)
