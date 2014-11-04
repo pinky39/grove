@@ -455,6 +455,7 @@
     <Compile Include="CardsLibrary\ThornElemental.cs" />
     <Compile Include="CardsLibrary\ThranDynamo.cs" />
     <Compile Include="CardsLibrary\ThranFoundry.cs" />
+    <Compile Include="CardsLibrary\TimelyHordemate.cs" />
     <Compile Include="CardsLibrary\TirelessMissionaries.cs" />
     <Compile Include="CardsLibrary\TitanicGrowth.cs" />
     <Compile Include="CardsLibrary\TorchFiend.cs" />
