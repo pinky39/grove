@@ -601,7 +601,7 @@
     <Compile Include="Core\Effects\PreventAllDamagesToTargetsFromChosenColor.cs" />
     <Compile Include="Core\Effects\PutCardToBattlefield.cs" />
     <Compile Include="Core\Effects\PutCounterOnTargetAndFightWithCreature.cs" />
-    <Compile Include="Core\Effects\PutIncrementalCountersOnTargets.cs" />
+    <Compile Include="Core\Effects\PutDifferentAmountOfCountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutOwnerToBattlefield.cs" />
     <Compile Include="Core\Effects\PutSelectedCardIntoPlayIfOpponentGuessedWrong.cs" />
     <Compile Include="Core\Effects\PutSelectedAttackersOnTopRestOnBottom.cs" />
