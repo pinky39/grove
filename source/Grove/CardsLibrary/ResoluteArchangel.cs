@@ -25,7 +25,7 @@
 
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              filter: (c, a, g) => c.Controller.Life < 20));
+              filter: (c, a, g) => c == a.OwningCard && c.Controller.Life < 20));
 
             p.Effect = () => new YourLifeBecomesEqual(20);
           });
