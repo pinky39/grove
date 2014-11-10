@@ -26,6 +26,15 @@
         return characteristic.Value < 0 ? 0 : characteristic.Value;
       }
     }
+
+    public int? BasePower
+    {
+      get
+      {
+        var characteristic = _switchPowerAndToughness ? _toughness : _power;
+        return characteristic.BaseValue < 0 ? 0 : characteristic.BaseValue;
+      }
+    }
     
     public int? Toughness
     {
@@ -33,6 +42,15 @@
       {
         var characteristic = _switchPowerAndToughness ? _power : _toughness;                
         return characteristic.Value < 0 ? 0 : characteristic.Value;
+      }
+    }
+
+    public int? BaseToughness
+    {
+      get
+      {
+        var characteristic = _switchPowerAndToughness ? _power : _toughness;
+        return characteristic.BaseValue < 0 ? 0 : characteristic.BaseValue;
       }
     }
 

@@ -106,6 +106,34 @@
       get { return Has().Convoke; }
     }
 
+    public CharacteristicStatus PowerStatus
+    {
+      get
+      {
+        if(_strenght.BasePower > _strenght.Power)
+          return CharacteristicStatus.Decreased;
+
+        if (_strenght.BasePower < _strenght.Power)
+          return CharacteristicStatus.Increased;
+
+        return CharacteristicStatus.Normal;
+      }
+    }
+
+    public CharacteristicStatus ToughnessStatus
+    {
+      get
+      {
+        if (_strenght.BaseToughness > _strenght.Toughness)
+          return CharacteristicStatus.Decreased;
+
+        if (_strenght.BaseToughness < _strenght.Toughness)
+          return CharacteristicStatus.Increased;
+
+        return CharacteristicStatus.Normal;
+      }
+    }
+
     public Rarity? Rarity { get; set; }
     public List<int> ProducableManaColors { get; private set; }
     public string Set { get; set; }

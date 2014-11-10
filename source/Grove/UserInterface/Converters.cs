@@ -25,7 +25,7 @@
     public static CardTypeToVisibilityConverter CardTypeToVisibility = new CardTypeToVisibilityConverter();
     public static CardColorAndTypeToCardFrameConverter CardTypeAndColorToCardFrame = new CardColorAndTypeToCardFrameConverter();
     public static CardTypeToCardTextVisibilityConverter CardTypeToCardTextVisibility = new CardTypeToCardTextVisibilityConverter();
-
+    public static StrengthStatusToColorConverter StrengthStatusToColor = new StrengthStatusToColorConverter();
 
     public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages =
       new ManaCostToManaSymbolImagesConverter();
@@ -65,6 +65,26 @@
       {
         var type = value as CardType;
         return type != null && type.Is("Creature") ? Visibility.Visible : Visibility.Collapsed;
+      }
+
+      public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        throw new NotImplementedException();
+      }
+    }
+
+    public class StrengthStatusToColorConverter : IValueConverter
+    {
+      public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+      {
+        var status = (CharacteristicStatus)value;
+
+        if (status == CharacteristicStatus.Increased)
+          return Colors.Green.ToString();
+        if (status == CharacteristicStatus.Decreased)
+          return Colors.Purple.ToString();
+
+        return Colors.Black.ToString();
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

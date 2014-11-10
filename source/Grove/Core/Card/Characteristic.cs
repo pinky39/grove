@@ -5,6 +5,13 @@
   using Grove.Infrastructure;
   using Modifiers;
 
+  public enum CharacteristicStatus
+  {
+    Normal,
+    Increased,
+    Decreased,
+  }
+
   public class Characteristic<T> : GameObject, ICopyContributor
   {
     private readonly T _baseValue;
@@ -20,6 +27,7 @@
     }
 
     public virtual T Value { get { return _currentValue.Value; } private set { _currentValue.Value = value; } }
+    public T BaseValue { get { return _baseValue; }}
 
     public void AfterMemberCopy(object original)
     {

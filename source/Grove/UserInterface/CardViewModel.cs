@@ -13,6 +13,9 @@
       Card = card;
       Colors = new CardColor[] {};
 
+      PowerStatus = CharacteristicStatus.Normal;
+      ToughnessStatus = CharacteristicStatus.Normal;
+
       Update();
 
       _timer = new Timer(delegate { Update(); }, null,
@@ -31,6 +34,8 @@
     public int CharacterCount { get { return Card.CharacterCount; } }
     public virtual int? Power { get; protected set; }
     public virtual int? Toughness { get; protected set; }
+    public virtual CharacteristicStatus PowerStatus { get; protected set; }
+    public virtual CharacteristicStatus ToughnessStatus { get; protected set; }
     public virtual bool IsVisibleInUi { get; protected set; }
     public virtual CardColor[] Colors { get; protected set; }
     public virtual int Counters { get; protected set; }
@@ -51,6 +56,8 @@
     {
       Update(() => Power != Card.Power, () => Power = Card.Power);
       Update(() => Toughness != Card.Toughness, () => Toughness = Card.Toughness);
+      Update(() => PowerStatus != Card.PowerStatus, () => PowerStatus = Card.PowerStatus);
+      Update(() => ToughnessStatus != Card.ToughnessStatus, () => ToughnessStatus = Card.ToughnessStatus);
       Update(() => IsVisibleInUi != Card.IsVisibleInUi, () => IsVisibleInUi = Card.IsVisibleInUi);
       Update(() => !Colors.SequenceEqual(Card.Colors), () => Colors = Card.Colors);
       Update(() => Counters != Card.Counters, () => Counters = Card.Counters);
