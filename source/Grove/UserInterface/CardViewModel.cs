@@ -12,7 +12,7 @@
     {
       Card = card;
       Colors = new CardColor[] {};
-
+      
       Update();
 
       _timer = new Timer(delegate { Update(); }, null,
@@ -31,6 +31,8 @@
     public int CharacterCount { get { return Card.CharacterCount; } }
     public virtual int? Power { get; protected set; }
     public virtual int? Toughness { get; protected set; }
+    public virtual int? PowerChange { get; protected set; }
+    public virtual int? ToughnessChange { get; protected set; }
     public virtual bool IsVisibleInUi { get; protected set; }
     public virtual CardColor[] Colors { get; protected set; }
     public virtual int Counters { get; protected set; }
@@ -49,8 +51,18 @@
 
     private void Update()
     {
-      Update(() => Power != Card.Power, () => Power = Card.Power);
-      Update(() => Toughness != Card.Toughness, () => Toughness = Card.Toughness);
+      Update(() => Power != Card.Power, () =>
+        {
+          Power = Card.Power;
+          PowerChange = Card.Power - Card.BasePower;
+        });
+      
+      Update(() => Toughness != Card.Toughness, () =>
+        {
+          Toughness = Card.Toughness;
+          ToughnessChange = Card.Toughness - Card.BaseToughness;
+        });      
+
       Update(() => IsVisibleInUi != Card.IsVisibleInUi, () => IsVisibleInUi = Card.IsVisibleInUi);
       Update(() => !Colors.SequenceEqual(Card.Colors), () => Colors = Card.Colors);
       Update(() => Counters != Card.Counters, () => Counters = Card.Counters);

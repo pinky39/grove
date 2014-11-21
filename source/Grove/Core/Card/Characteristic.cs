@@ -4,6 +4,7 @@
   using Infrastructure;
   using Modifiers;
 
+
   public class CharacteristicChangedParams<TV>
   {
     public readonly TV NewValue;
@@ -32,6 +33,7 @@
     }
 
     public virtual T Value { get { return _currentValue.Value; } private set { _currentValue.Value = value; } }
+    public T BaseValue { get { return _baseValue; }}
 
     void ICopyContributor.AfterMemberCopy(object original)
     {

@@ -375,8 +375,8 @@
               <Image Grid.Column="2" Source="{Binding Path=Colors, Converter={x:Static UserInterface:Converters.CardColorToCardPtBoxImage}}" Margin="0,-18,-2,0"
                                  Visibility="{Binding Path=Type, Converter={x:Static UserInterface:Converters.CardTypeToVisibility}}"/>
               <StackPanel Grid.Column="2" Style="{StaticResource PowerThougness}" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-9,22,0">
-                <TextBlock Foreground="Black" FontSize="20" FontFamily="Beleren" Text="{Binding Path=Power}" />
-                <TextBlock Foreground="Black" FontSize="20" FontFamily="Beleren" Text="{Binding Path=Toughness, StringFormat=/{0}}" />
+              <TextBlock Foreground="{Binding Path=PowerChange, Converter={x:Static UserInterface:Converters.StrenghtChangeToColor}}" FontSize="20" FontFamily="Beleren" Text="{Binding Path=Power}" />
+              <TextBlock Foreground="{Binding Path=ToughnessChanged, Converter={x:Static UserInterface:Converters.StrenghtChangeToColor}}" FontSize="20" FontFamily="Beleren" Text="{Binding Path=Toughness, StringFormat=/{0}}" />
               </StackPanel>
             </Grid>
 

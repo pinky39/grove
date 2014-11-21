@@ -41,7 +41,7 @@
           _amount.Value,
           (IDamageable) target,
           isCombat: false,
-          canBePrevented: _canBePrevented.Value);
+          canBePrevented: _canBePrevented == null || _canBePrevented.Value);
 
 
         if (_gainLife)

@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using AI;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Effects;
 
   public class IncrementalGrowth : CardTemplateSource
@@ -17,18 +17,17 @@
         .FlavorText("The bonds of family cross the boundaries of race.")
         .Cast(p =>
         {
-          p.Effect = () => new PutIncrementalCountersOnTargets(1, 1)
-            .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+          var amounts = new[] { 1, 2, 3 };
+          p.Effect = () => new PutDifferentAmountOfCountersOnTargets(1, 1, amounts);
 
           p.TargetSelector.AddEffect(trg =>
           {
             trg.MinCount = 3;
             trg.MaxCount = 3;
             trg.Is.Creature().On.Battlefield();
-            trg.Message = "Select target creatures.";
           });
 
-          p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
+          p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
         });
     }
   }

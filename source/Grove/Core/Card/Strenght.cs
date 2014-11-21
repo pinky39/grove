@@ -1,6 +1,5 @@
 ﻿namespace Grove
 {
-  using System;
   using Infrastructure;
   using Modifiers;
 
@@ -16,7 +15,7 @@
 
     public Strenght(CardBase cardBase)
     {
-      _cardBase = cardBase;      
+      _cardBase = cardBase;
 
       _power = new Characteristic<int?>(cardBase.Value.Power);
       _toughness = new Characteristic<int?>(cardBase.Value.Toughness);
@@ -38,6 +37,16 @@
         var characteristic = _switchPowerAndToughness ? _power : _toughness;
         return characteristic.Value < 0 ? 0 : characteristic.Value;
       }
+    }
+
+    public int? BaseToughness
+    {
+      get { return _toughness.BaseValue; }
+    }
+
+    public int? BasePower
+    {
+      get { return _power.BaseValue; }
     }
 
     public void Accept(ICardModifier modifier)
@@ -93,7 +102,7 @@
     public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
-        _power.Value.GetHashCode(), 
+        _power.Value.GetHashCode(),
         _toughness.Value.GetHashCode());
     }
   }

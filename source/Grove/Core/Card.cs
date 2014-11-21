@@ -181,6 +181,8 @@
 
     public string Name { get { return _base.Value.Name; } }
 
+    public int? BasePower { get { return _strenght.BasePower; } }
+    
     public int? Power { get { return _strenght.Power; } }
 
     public int Score
@@ -226,6 +228,7 @@
     public CardText Text { get { return _base.Value.Text; } }
 
     public int? Toughness { get { return _strenght.Toughness; } }
+    public int? BaseToughness { get { return _strenght.BaseToughness; } }
 
     public CardType Type { get { return _type.Value; } }
 
