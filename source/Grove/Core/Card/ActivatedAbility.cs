@@ -7,7 +7,7 @@
   using Events;
   using Infrastructure;
 
-  public class ActivatedAbility : Ability
+  public class ActivatedAbility : Ability, IHashable
   {
     private readonly Trackable<int> _lastActivation = new Trackable<int>();
     private readonly ActivatedAbilityParameters _p;
@@ -25,6 +25,10 @@
       get { return _p.IsEquip; }
     }
 
+    public virtual void OnEnable() {}
+
+    public virtual void OnDisable() {}
+
     public void Activate(ActivationParameters p)
     {
       _lastActivation.Value = Turn.TurnCount;
@@ -39,13 +43,13 @@
         var effect = CreateEffect();
 
         var effectParameters = new EffectParameters
-        {
-          Source = this,
-          Targets = p.Targets,
-          X = p.X
-        };
+          {
+            Source = this,
+            Targets = p.Targets,
+            X = p.X
+          };
 
-        effect.Initialize(effectParameters, Game);                
+        effect.Initialize(effectParameters, Game);
         effects.Add(effect);
       }
 
@@ -60,24 +64,20 @@
         }
 
         Publish(new AbilityActivatedEvent(this, p.Targets));
-        
+
         Resolve(effect, false);
         Publish(new ActivatedAbilityPutOnStackEvent(this, p.Targets));
       }
-    }
-
-    public virtual void OnAbilityRemoved() {}
-    public virtual void OnAbilityAdded() {}
+    }    
 
     public IManaAmount GetManaCost()
     {
       return _p.Cost.GetManaCost();
     }
 
-    public override int CalculateHash(HashCalculator calc)
+    public int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
-        base.CalculateHash(calc),
         _p.ActivateAsSorcery.GetHashCode(),
         calc.Calculate(_p.Cost));
     }
@@ -86,7 +86,7 @@
     {
       activationPrerequisites = null;
 
-      if (IsEnabled && CanBeActivatedAtThisTime())
+      if (CanBeActivatedAtThisTime())
       {
         var result = CanPay();
 
@@ -116,7 +116,7 @@
 
     protected virtual Effect CreateEffect()
     {
-      return _p.Effect();            
+      return _p.Effect();
     }
 
     protected void Pay(ActivationParameters p = null)

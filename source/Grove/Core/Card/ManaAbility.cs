@@ -9,6 +9,7 @@
   {
     private readonly ManaAbilityParameters _p;
     private readonly TrackableList<ManaUnit> _units = new TrackableList<ManaUnit>();
+    private readonly Trackable<bool> _isEnabled = new Trackable<bool>();
     private ManaCache _manaCache;
 
     private ManaAbility() {}
@@ -25,7 +26,7 @@
 
     bool IManaSource.CanActivate()
     {
-      return IsEnabled && CanPay().CanPay().Value;
+      return _isEnabled && CanPay().CanPay().Value;
     }
 
     void IManaSource.PayActivationCost()
@@ -38,22 +39,25 @@
       return _units;
     }
 
-    public override void OnAbilityRemoved()
+    public override void OnDisable()
     {
       DeactivateSource();
+      base.OnDisable();
     }
+
 
     protected override Effect CreateEffect()
     {
       return new AddManaToPool(_p.ManaOutput.GetAmount(), _p.UsageRestriction);
     }
 
-    public override void OnAbilityAdded()
+    public override void OnEnable()
     {
       if (OwningCard != null && OwningCard.Zone == Zone.Battlefield)
       {
         ActivateSource();
       }
+      base.OnEnable();
     }
 
     public override void Initialize(Card owningCard, Game game)
@@ -63,6 +67,7 @@
       _p.ManaOutput.Initialize(this, game);
       _units.Initialize(ChangeTracker);
       _manaCache = owningCard.Controller.ManaCache;
+      _isEnabled.Initialize(ChangeTracker);
 
       SubscribeToEvents();
     }
@@ -85,8 +90,8 @@
       _p.ManaOutput.Increased = OnOutputIncreased;
       _p.ManaOutput.Decreased = OnOutputDecreased;
 
-      OwningCard.JoinedBattlefield += delegate { ActivateSource(); };
-      OwningCard.LeftBattlefield += delegate { DeactivateSource(); };
+      OwningCard.JoinedBattlefield += ActivateSource;
+      OwningCard.LeftBattlefield += DeactivateSource;
     }
 
     private void OnOutputIncreased(IManaAmount amount)
@@ -105,6 +110,7 @@
       AddUnits(amount);
 
       Subscribe(_p.ManaOutput);
+      _isEnabled.Value = true;
     }
 
     private void DeactivateSource()
@@ -116,6 +122,7 @@
 
       _units.Clear();
       Unsubscribe(_p.ManaOutput);
+      _isEnabled.Value = false;
     }
 
     private void AddUnits(IManaAmount amount)

@@ -19,7 +19,7 @@
         .FlavorText("The Great Furnace's blessing is a spectacular sight, but the best view comes at a high cost.")
         .Cast(p =>
           {
-            p.PutToZoneAfterResolve = c => c.ShuffleIntoLibrary();
+            p.AfterResolve = c => c.ShuffleIntoLibrary();
             p.Effect = () => new DealDamageToTargets(5);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 

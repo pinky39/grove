@@ -24,11 +24,11 @@
 
       if (!_card.IsAttached)
       {
-        Value.PutCardToBattlefield(_card);
+        newValue.PutCardToBattlefield(_card);
 
         foreach (var attachment in _card.Attachments.Where(x => x.IsPermanent && (x.Is().Aura || x.Is().Equipment)))
         {
-          Value.PutCardToBattlefield(attachment);
+          newValue.PutCardToBattlefield(attachment);
         }        
       }
 

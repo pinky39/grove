@@ -4,6 +4,7 @@
   {
     private readonly Static _staticAbility;
     private SimpleAbilities _abilities;
+    private AddToList<Static> _modifier;
 
     private AddStaticAbility() {}
 
@@ -14,13 +15,15 @@
 
     public override void Apply(SimpleAbilities abilities)
     {
+      _modifier = new AddToList<Static>(_staticAbility);
+      _modifier.Initialize(ChangeTracker);
       _abilities = abilities;
-      _abilities.Add(_staticAbility);
+      _abilities.AddModifier(_modifier);
     }
 
     protected override void Unapply()
     {
-      _abilities.Remove(_staticAbility);
+      _abilities.RemoveModifier(_modifier);
     }
   }
 }

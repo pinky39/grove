@@ -23,9 +23,10 @@
             p.Text =
               "When Resolute Archangel enters the battlefield, if your life total is less than your starting life total, it becomes equal to your starting life total.";
 
-            p.Trigger(new OnZoneChanged(
-              to: Zone.Battlefield,
-              filter: (c, a, g) => c.Controller.Life < 20));
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
+              {
+                Condition = (t, g) => t.Controller.Life < 20
+              });
 
             p.Effect = () => new YourLifeBecomesEqual(20);
           });

@@ -3,7 +3,8 @@
   public class AddTriggeredAbility : Modifier, ICardModifier
   {
     private readonly TriggeredAbility _triggeredAbility;
-    private TriggeredAbilities _abilties;
+    private TriggeredAbilities _abilities;
+    private AddToList<TriggeredAbility> _modifier;
 
     private AddTriggeredAbility() {}
 
@@ -11,17 +12,20 @@
     {
       _triggeredAbility = triggeredAbility;
     }
-
+    
     public override void Apply(TriggeredAbilities abilities)
     {
-      _abilties = abilities;
-      _triggeredAbility.Initialize(OwningCard, Game);
-      _abilties.Add(_triggeredAbility);
+      _abilities = abilities;
+      _modifier = new AddToList<TriggeredAbility>(_triggeredAbility);
+      _modifier.Initialize(ChangeTracker);
+      _triggeredAbility.Initialize(OwningCard, Game);      
+
+      _abilities.AddModifier(_modifier);
     }
 
     protected override void Unapply()
     {
-      _abilties.Remove(_triggeredAbility);
+      _abilities.RemoveModifier(_modifier);      
     }
   }
 }

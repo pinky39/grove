@@ -40,7 +40,10 @@
           At(Step.DeclareAttackers)
             .Cast(shock, target: hierophants),
           At(Step.SecondMain)
-            .Verify(() => { False(P2.HasMana(2)); })
+            .Verify(() =>
+              {
+                False(P2.HasMana(2));
+              })
           );
       }
     }

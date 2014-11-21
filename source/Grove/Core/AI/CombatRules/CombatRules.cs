@@ -1,25 +1,32 @@
 ﻿namespace Grove.AI.CombatRules
 {
+  using System;
   using System.Collections.Generic;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
-  [Copyable]
-  public class CombatRules
+  public class CombatRules : GameObject, ICopyContributor
   {
-    private readonly TrackableList<CombatRule> _combatRules;
+    private readonly CardBase _cardBase;
+    private readonly Characteristic<List<CombatRule>> _rules;
 
     private CombatRules() {}
 
-    public CombatRules(IEnumerable<CombatRule> combatRules)
+    public CombatRules(CardBase cardBase)
     {
-      _combatRules = new TrackableList<CombatRule>(combatRules);
+      _cardBase = cardBase;      
+      _rules = new Characteristic<List<CombatRule>>(_cardBase.Value.CombatRules);
+    }
+
+    public void AfterMemberCopy(object original)
+    {
+      _cardBase.Changed += OnCardBaseChanged;
     }
 
     public CombatAbilities GetAbilities()
     {
       var abilities = new CombatAbilities();
 
-      foreach (var combatRule in _combatRules)
+      foreach (var combatRule in _rules.Value)
       {
         combatRule.Apply(abilities);
       }
@@ -27,19 +34,17 @@
       return abilities;
     }
 
-    public void Add(CombatRule rule)
+    public void Initialize(Card card, Game game)
     {
-      _combatRules.Add(rule);
+      Game = game;
+
+      _rules.Initialize(game, card);            
+      _cardBase.Changed += OnCardBaseChanged;
     }
 
-    public void Initialize(Card owningCard, Game game)
+    private void OnCardBaseChanged()
     {
-      _combatRules.Initialize(game.ChangeTracker);
-
-      foreach (var combatRule in _combatRules)
-      {
-        combatRule.Initialize(owningCard, game);
-      }
+      _rules.ChangeBaseValue(_cardBase.Value.CombatRules);
     }
   }
 }

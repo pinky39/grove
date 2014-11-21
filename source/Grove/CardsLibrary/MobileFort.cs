@@ -27,7 +27,7 @@
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(3, -1) {UntilEot = true},
-              () => new DisableAbility(Static.Defender) {UntilEot = true});
+              () => new RemoveAbility(Static.Defender) {UntilEot = true});
 
             p.ActivateOnlyOnceEachTurn = true;
 

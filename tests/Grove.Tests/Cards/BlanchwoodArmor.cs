@@ -39,8 +39,8 @@
        var rangers = C("Treetop Rangers");
        
        Hand(P1, "Blanchwood armor");       
-       Battlefield(P1, C("Bog Raiders").IsEnchantedWith("Gaea's Embrace"),  rangers, "Forest", "Forest", "Forest", "Swamp", "Swamp"); 
-       Battlefield(P2, "Disciple of Grace", "Elvish Lyrist", "Forest", "Forest", "Plains", "Plains");
+       Battlefield(P1, "Bog Raiders",  rangers, "Forest", "Forest", "Forest", "Swamp", "Swamp"); 
+       Battlefield(P2, "Disciple of Grace", "Forest", "Forest", "Plains", "Plains");
 
        RunGame(1);
 

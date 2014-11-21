@@ -1,6 +1,6 @@
 ﻿namespace Grove.Modifiers
 {
-  public class AddContiniousEffect : Modifier, ICardModifier, IPlayerModifier
+  public class AddContiniousEffect : Modifier, IPlayerModifier
   {
     private readonly ContinuousEffect _continiousEffect;
     private ContiniousEffects _continiousEffects;

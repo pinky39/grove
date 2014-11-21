@@ -6,19 +6,35 @@
 
   public class CardTypeCharacteristic : Characteristic<CardType>, IAcceptsCardModifier
   {
+    private readonly CardBase _cardBase;
     private Card _card;
     private CardTypeCharacteristic() {}
-    public CardTypeCharacteristic(CardType value) : base(value) {}
+
+    public CardTypeCharacteristic(CardBase cardBase) : base(cardBase.Value.Type)
+    {
+      _cardBase = cardBase;      
+    }
 
     public void Accept(ICardModifier modifier)
     {
       modifier.Apply(this);
     }
 
+    protected override void AfterMemberCopy()
+    {
+      _cardBase.Changed += OnCardBaseChanged;
+    }
+
     public override void Initialize(Game game, IHashDependancy hashDependancy)
     {
       base.Initialize(game, hashDependancy);
       _card = (Card) hashDependancy;
+      _cardBase.Changed += OnCardBaseChanged;
+    }
+
+    private void OnCardBaseChanged()
+    {
+      ChangeBaseValue(_cardBase.Value.Type);
     }
 
     protected override void OnCharacteristicChanged(CardType oldValue, CardType newValue)

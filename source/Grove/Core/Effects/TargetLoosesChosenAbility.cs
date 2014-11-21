@@ -38,7 +38,7 @@
         typeof (Static),
         (string) results.Options[0]);
 
-      var modifier = new DisableAbility(ability) {UntilEot = true};
+      var modifier = new RemoveAbility(ability) {UntilEot = true};
 
       var mp = new ModifierParameters
         {

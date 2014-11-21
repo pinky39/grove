@@ -20,7 +20,7 @@
         .OverrideScore(p => p.Battlefield = 250)
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new ChangeBasicLand("island"));
+            p.Effect = () => new Attach(() => new ChangeBasicLandSubtype("island", replace: true));
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
             p.TargetingRule(new EffectLandEnchantment(ControlledBy.Opponent));
             p.TimingRule(new OnFirstMain());

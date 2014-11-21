@@ -1,9 +1,8 @@
 ﻿namespace Grove.Effects
 {
   using System.Collections.Generic;
-  using Grove.Infrastructure;
 
-  public interface IEffectSource : IHashable
+  public interface IEffectSource
   {
     Card OwningCard { get; }
     Card SourceCard { get; }

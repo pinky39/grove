@@ -23,7 +23,7 @@
           })
         .ContinuousEffect(p =>
           {
-            p.Modifier = () => new ChangeBasicLand("Island", replace: false);
+            p.Modifier = () => new ChangeBasicLandSubtype("Island", replace: false);
             p.CardFilter = (card, effect) => card.Is().Land;
           });
     }

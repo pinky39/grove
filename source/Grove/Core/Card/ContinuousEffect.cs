@@ -11,7 +11,7 @@
 
   [Copyable]
   public class ContinuousEffect : GameObject, IReceive<ZoneChangedEvent>, IReceive<PermanentModifiedEvent>,
-    IReceive<ControllerChangedEvent>, ICopyContributor
+     ICopyContributor
   {
     private readonly ShouldApplyToCard _cardFilter;
     private readonly Trackable<IModifier> _doNotUpdate = new Trackable<IModifier>();
@@ -37,14 +37,14 @@
       SubscribeToEvents();
     }
 
-    public void Receive(ControllerChangedEvent message)
-    {
-      if (message.Card == Source && message.Card.IsPermanent)
-      {
-        Deactivate();
-        Activate();
-      }
-    }
+    //public void Receive(ControllerChangedEvent message)
+    //{
+    //  if (message.Card == Source && message.Card.IsPermanent)
+    //  {
+    //    Deactivate();
+    //    Activate();
+    //  }
+    //}
 
     public void Receive(PermanentModifiedEvent message)
     {

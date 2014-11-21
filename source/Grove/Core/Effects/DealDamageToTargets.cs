@@ -17,7 +17,7 @@
     {
       _amount = amount;
       _gainLife = gainLife;
-      _canBePrevented = canBePrevented;
+      _canBePrevented = canBePrevented ?? true;
 
       RegisterDynamicParameters(amount, canBePrevented);
       SetTags(EffectTag.DealDamage);

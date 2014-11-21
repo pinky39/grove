@@ -13,7 +13,10 @@
       _colors = colors;
     }
 
-    public override int Priority { get { return 1; } }
+    public override int Priority
+    {
+      get { return 1; }
+    }
 
     public override List<CardColor> Apply(List<CardColor> before)
     {

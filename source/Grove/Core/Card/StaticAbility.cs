@@ -13,7 +13,7 @@
   {
     private readonly bool _enabledInAllZones;
     private readonly Trackable<bool> _isEnabled = new Trackable<bool>();
-    private readonly Trackable<bool> _isActivated = new Trackable<bool>();
+    private readonly Trackable<bool> _isActivated = new Trackable<bool>();    
     private readonly TrackableList<ManualLifetime> _lifetimes = new TrackableList<ManualLifetime>();
     private readonly Func<StaticAbilityParameters.ConditionParameters, bool> _condition;
 
@@ -120,9 +120,13 @@
 
     private void Deactivate()
     {
+      // disable handlers, which will be triggered when
+      // ending modifiers lifetimes
+      Unsubscribe(this);
+      
       // should be set at start or there will be an
       // infinite loop
-      _isActivated.Value = false;
+      _isActivated.Value = false;            
 
       // create a copy of lifetime to despose
       // since when endlife is called the original
@@ -134,9 +138,12 @@
       {
         lifetime.EndLife();
       }
+
+      // enable handlers back
+      Subscribe(this);
     }
 
-    private void OnOwningCardJoinedBattlefield(object sender, EventArgs eventArgs)
+    private void OnOwningCardJoinedBattlefield()
     {
       if (!_enabledInAllZones)
       {
@@ -144,7 +151,7 @@
       }
     }
 
-    private void OnOwningCardLeftBattlefield(object sender, EventArgs eventArgs)
+    private void OnOwningCardLeftBattlefield()
     {
       if (!_enabledInAllZones)
       {
@@ -190,8 +197,8 @@
         {
           // some modifiers needs to be recreated
           // when controler changes
-          Deactivate();
-          Activate();
+          Disable();
+          Enable();
         }
       }
     }

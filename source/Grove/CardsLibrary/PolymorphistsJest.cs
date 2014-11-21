@@ -27,7 +27,7 @@
                     toughness: m => 1,
                     colors: L(CardColor.Blue),
                     type: m => m.OwningCard.Type.Change(subTypes: "frog")) {UntilEot = true},
-                  () => new DisableAbilities(activated: true, simple: true, triggered: true) {UntilEot = true}
+                  () => new DisableAllAbilities(activated: true, simple: true, triggered: true) {UntilEot = true}
                 });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());

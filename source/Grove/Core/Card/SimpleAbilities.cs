@@ -6,22 +6,24 @@
   using Infrastructure;
   using Modifiers;
 
-  public class SimpleAbilities : GameObject, IStaticAbilities, IAcceptsCardModifier, IHashable
+  public class SimpleAbilities : GameObject, ISimpleAbilities, IAcceptsCardModifier, IHashable, ICopyContributor
   {
-    private readonly TrackableSet<Static> _active;
-    private readonly TrackableList<SimpleAbility> _all;
+    private readonly CardBase _cardBase;    
+    private readonly Characteristic<List<Static>> _abilities;
 
-    public SimpleAbilities(IEnumerable<Static> simpleAbilities)
+    public SimpleAbilities(CardBase cardBase)
     {
-      _all = new TrackableList<SimpleAbility>(
-        simpleAbilities.Select(x => new SimpleAbility(x)));
+      _cardBase = cardBase;      
 
-      _active = new TrackableSet<Static>(simpleAbilities);
+      _abilities = new Characteristic<List<Static>>(cardBase.Value.SimpleAbilities);      
+    }
+
+    private void OnCardBaseChanged()
+    {
+      _abilities.ChangeBaseValue(_cardBase.Value.SimpleAbilities);
     }
 
     private SimpleAbilities() {}
-
-
 
     public void Accept(ICardModifier modifier)
     {
@@ -30,7 +32,9 @@
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Calculate(_all);
+      return calc.Calculate(
+        _abilities.Value, 
+        orderImpactsHashcode: false);
     }
 
     public bool Convoke
@@ -224,106 +228,30 @@
 
     public bool Has(Static ability)
     {
-      return _active.Contains(ability);
+      return _abilities.Value.Any(x => x == ability);
     }
 
     public void Initialize(IHashDependancy hashDependancy, Game game)
     {
       Game = game;
 
-      _all.Initialize(ChangeTracker, hashDependancy);
-
-      foreach (var staticAbility in _all)
-      {
-        staticAbility.Initialize(ChangeTracker);
-      }
-
-      _active.Initialize(ChangeTracker);
+      _abilities.Initialize(game, hashDependancy);
+      _cardBase.Changed += OnCardBaseChanged;
     }
 
-    public void Add(Static ability)
+    public void AddModifier(PropertyModifier<List<Static>> modifier)
     {
-      var simpleAbility = new SimpleAbility(ability);
-      simpleAbility.Initialize(ChangeTracker);
-      _all.Add(simpleAbility);
-
-      if (!_active.Contains(ability))
-        _active.Add(ability);
+      _abilities.AddModifier(modifier);
     }
 
-    public bool Remove(Static ability)
+    public void RemoveModifier(PropertyModifier<List<Static>> modifier)
     {
-      var matches = _all
-        .Where(x => x.Value == ability)
-        .OrderBy(x => x.IsEnabled ? 0 : 1)
-        .ToList();
-
-      if (matches.Count == 0)
-      {
-        return false;
-      }
-
-      _all.Remove(matches.First());
-
-      if (matches.Count(x => x.IsEnabled) == 1)
-      {
-        _active.Remove(ability);
-      }
-      return true;
+      _abilities.RemoveModifier(modifier);
     }
 
-    public IEnumerable<Static> GetFiltered(Func<Static, bool> filter)
+    public void AfterMemberCopy(object original)
     {
-      return _active.Where(filter);
-    }
-
-    public void DisableAll()
-    {
-      foreach (var staticAbility in _all)
-      {
-        staticAbility.Disable();
-      }
-
-      _active.Clear();
-    }
-
-    public void Disable(Static ability)
-    {
-      var abilities = _all.Where(x => x.Value == ability);
-
-      foreach (var simpleAbility in abilities)
-      {
-        simpleAbility.Disable();
-      }
-
-      _active.Remove(ability);
-    }
-
-    public void Enable(Static ability)
-    {
-      var abilities = _all.Where(x => x.Value == ability && !x.IsEnabled)
-        .ToList();
-
-      foreach (var simpleAbility in abilities)
-      {
-        simpleAbility.Enable();
-      }
-
-      if (abilities.Count > 0 && !_active.Contains(ability))
-      {
-        _active.Add(ability);
-      }
-    }
-
-    public void Enable()
-    {
-      foreach (var staticAbility in _all)
-      {
-        staticAbility.Enable();
-
-        if (!_active.Contains(staticAbility.Value))
-          _active.Add(staticAbility.Value);
-      }
+      _cardBase.Changed += OnCardBaseChanged;
     }
   }
 }

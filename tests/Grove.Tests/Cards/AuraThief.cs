@@ -20,8 +20,8 @@
 
         RunGame(1);
 
-        Equal(5, C(anaconda).Power);
         Equal(1, C(wall).Power);        
+        Equal(5, C(anaconda).Power);        
       }
     }
   }

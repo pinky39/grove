@@ -2,12 +2,12 @@
 {
   using System;
   using System.Collections.Generic;
+  using AI;
+  using AI.CombatRules;
+  using AI.RepetitionRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
-  using Grove.AI;
-  using Grove.AI.CombatRules;
-  using Grove.AI.RepetitionRules;
-  using Grove.AI.TimingRules;
   using Modifiers;
   using Triggers;
 
@@ -17,7 +17,7 @@
 
     public string Name { get; private set; }
 
-    public Card CreateCard()
+    public CardParameters CreateCardParameters()
     {
       var p = new CardParameters();
 
@@ -38,17 +38,12 @@
         p.CastInstructions.Add(new CastRule(castParams));
       }
 
-      return new Card(p);
+      return p;
     }
 
-    private CastRule.Parameters GetDefaultCastInstructionParameters(CardParameters cp)
+    public Card CreateCard()
     {
-      return new CastRule.Parameters
-        {
-          Cost = new PayMana(cp.ManaCost ?? Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
-          Text = string.Format("Cast {0}.", cp.Name),
-          Effect = () => new CastPermanent(),
-        };
+      return new Card(this);
     }
 
     public CardTemplate HasXInCost()
@@ -96,75 +91,6 @@
       _init.Add(cp => cp.CombatRules.Add(combatRule()));
 
       return this;
-    }
-
-    private static IEnumerable<CardColor> GetCardColorsFromManaCost(IManaAmount manaCost)
-    {
-      if (manaCost == null)
-      {
-        yield return CardColor.None;
-        yield break;
-      }
-
-      if (manaCost.Converted == 0)
-      {
-        yield return CardColor.Colorless;
-        yield break;
-      }
-
-      var existing = new HashSet<CardColor>();
-
-      foreach (var mana in manaCost)
-      {
-        if (mana.Color.IsWhite && !existing.Contains(CardColor.White))
-        {
-          existing.Add(CardColor.White);
-          yield return CardColor.White;
-        }
-
-        if (mana.Color.IsBlue && !existing.Contains(CardColor.Blue))
-        {
-          existing.Add(CardColor.Blue);
-          yield return CardColor.Blue;
-        }
-
-        if (mana.Color.IsBlack && !existing.Contains(CardColor.Black))
-        {
-          existing.Add(CardColor.Black);
-          yield return CardColor.Black;
-        }
-
-        if (mana.Color.IsRed && !existing.Contains(CardColor.Red))
-        {
-          existing.Add(CardColor.Red);
-          yield return CardColor.Red;
-        }
-
-        if (mana.Color.IsGreen && !existing.Contains(CardColor.Green))
-        {
-          existing.Add(CardColor.Green);
-          yield return CardColor.Green;
-        }
-      }
-
-      if (existing.Count == 0)
-        yield return CardColor.Colorless;
-    }
-
-    private static void SetDefaultTimingRules(CardParameters cp, CastRule.Parameters p)
-    {
-      if (cp.Type.Creature)
-      {
-        p.TimingRule(new DefaultCreaturesTimingRule());
-      }
-      else if (cp.Type.Land)
-      {
-        p.TimingRule(new DefaultLandsTimingRule());
-      }
-      else if (cp.Type.Artifact)
-      {
-        p.TimingRule(new OnFirstMain());
-      }
     }
 
     public CardTemplate Protections(string cardType)
@@ -246,8 +172,8 @@
       _init.Add(cp =>
         {
           var p = new ManaAbilityParameters
-            {              
-              Priority = GetDefaultManaSourcePriority(cp),              
+            {
+              Priority = GetDefaultManaSourcePriority(cp),
             };
 
           set(p);
@@ -256,16 +182,6 @@
           cp.ManaColorsThisCardCanProduce.AddRange(p.Colors);
         });
       return this;
-    }
-
-    private int GetDefaultManaSourcePriority(CardParameters cp)
-    {
-      if (cp.Type.Creature)
-        return ManaSourcePriorities.Creature;
-      if (cp.Type.Land)
-        return ManaSourcePriorities.Land;
-
-      return ManaSourcePriorities.Land;
     }
 
     public CardTemplate StaticAbility(Action<StaticAbilityParameters> set)
@@ -292,13 +208,7 @@
 
     public CardTemplate SimpleAbilities(params Static[] abilities)
     {
-      _init.Add(cp =>
-        {
-          foreach (var ability in abilities)
-          {
-            cp.SimpleAbilities.Add(ability);
-          }
-        });
+      _init.Add(cp => cp.SimpleAbilities.AddRange(abilities));
       return this;
     }
 
@@ -306,9 +216,17 @@
     {
       _init.Add(cp =>
         {
-          var p = new ContinuousEffectParameters();
-          set(p);
-          cp.ContinuousEffects.Add(new ContinuousEffect(p));
+          var p = new StaticAbilityParameters {EnabledInAllZones = false};
+          p.Modifier(() =>
+            {
+              var cep = new ContinuousEffectParameters();
+              set(cep);
+
+              var effect = new ContinuousEffect(cep);
+
+              return new AddContiniousEffect(effect);
+            });
+          cp.StaticAbilities.Add(new StaticAbility(p));
         });
       return this;
     }
@@ -328,7 +246,7 @@
     public CardTemplate Convoke()
     {
       SimpleAbilities(Static.Convoke);
-        return this;
+      return this;
     }
 
     public CardTemplate FlavorText(string flavorText)
@@ -367,13 +285,18 @@
     public CardTemplate Outlast(string cost)
     {
       ActivatedAbility(p =>
-      {
-        p.Text = string.Format("Outlast {0}({0}, {{T}}: Put a +1/+1 counter on this creature. Outlast only as a sorcery.)", cost);
-        p.Cost = new AggregateCost(new PayMana(cost.Parse(), ManaUsage.Abilities), new Tap());
-        p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
-        p.ActivateAsSorcery = true;
-        p.TimingRule(new PumpOwningCardTimingRule(1, 1));
-      });
+        {
+          p.Text =
+            string.Format("Outlast {0}({0}, {{T}}: Put a +1/+1 counter on this creature. Outlast only as a sorcery.)",
+              cost);
+          p.Cost = new AggregateCost(new PayMana(cost.Parse(), ManaUsage.Abilities), new Tap());
+          p.Effect =
+            () =>
+              new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1)).SetTags(
+                EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+          p.ActivateAsSorcery = true;
+          p.TimingRule(new PumpOwningCardTimingRule(1, 1));
+        });
 
       return this;
     }
@@ -381,16 +304,16 @@
     public CardTemplate Prowess()
     {
       TriggeredAbility(p =>
-      {
-        p.Text = "Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.";
-        p.Trigger(new OnCastedSpell((a, c) =>
-          c.Controller == a.OwningCard.Controller && !c.Is().Creature));
+        {
+          p.Text = "Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.";
+          p.Trigger(new OnCastedSpell((a, c) =>
+            c.Controller == a.OwningCard.Controller && !c.Is().Creature));
 
-        p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 1) { UntilEot = true })
-          .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+          p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 1) {UntilEot = true})
+            .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
-        p.TriggerOnlyIfOwningCardIsInPlay = true;
-      });
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
+        });
 
       return this;
     }
@@ -468,13 +391,102 @@
       _init.Add(p => p.MayChooseToUntap = true);
       return this;
     }
-            
+
     public CardTemplate OverrideScore(Action<ScoreOverride> setOverride)
     {
       var scoreOverride = new ScoreOverride();
       setOverride(scoreOverride);
       _init.Add(p => p.OverrideScore = scoreOverride);
       return this;
+    }
+
+    private CastRule.Parameters GetDefaultCastInstructionParameters(CardParameters cp)
+    {
+      return new CastRule.Parameters
+        {
+          Cost = new PayMana(cp.ManaCost ?? Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
+          Text = string.Format("Cast {0}.", cp.Name),
+          Effect = () => new CastPermanent(),
+        };
+    }
+
+    private static IEnumerable<CardColor> GetCardColorsFromManaCost(IManaAmount manaCost)
+    {
+      if (manaCost == null)
+      {
+        yield return CardColor.None;
+        yield break;
+      }
+
+      if (manaCost.Converted == 0)
+      {
+        yield return CardColor.Colorless;
+        yield break;
+      }
+
+      var existing = new HashSet<CardColor>();
+
+      foreach (var mana in manaCost)
+      {
+        if (mana.Color.IsWhite && !existing.Contains(CardColor.White))
+        {
+          existing.Add(CardColor.White);
+          yield return CardColor.White;
+        }
+
+        if (mana.Color.IsBlue && !existing.Contains(CardColor.Blue))
+        {
+          existing.Add(CardColor.Blue);
+          yield return CardColor.Blue;
+        }
+
+        if (mana.Color.IsBlack && !existing.Contains(CardColor.Black))
+        {
+          existing.Add(CardColor.Black);
+          yield return CardColor.Black;
+        }
+
+        if (mana.Color.IsRed && !existing.Contains(CardColor.Red))
+        {
+          existing.Add(CardColor.Red);
+          yield return CardColor.Red;
+        }
+
+        if (mana.Color.IsGreen && !existing.Contains(CardColor.Green))
+        {
+          existing.Add(CardColor.Green);
+          yield return CardColor.Green;
+        }
+      }
+
+      if (existing.Count == 0)
+        yield return CardColor.Colorless;
+    }
+
+    private static void SetDefaultTimingRules(CardParameters cp, CastRule.Parameters p)
+    {
+      if (cp.Type.Creature)
+      {
+        p.TimingRule(new DefaultCreaturesTimingRule());
+      }
+      else if (cp.Type.Land)
+      {
+        p.TimingRule(new DefaultLandsTimingRule());
+      }
+      else if (cp.Type.Artifact)
+      {
+        p.TimingRule(new OnFirstMain());
+      }
+    }
+
+    private int GetDefaultManaSourcePriority(CardParameters cp)
+    {
+      if (cp.Type.Creature)
+        return ManaSourcePriorities.Creature;
+      if (cp.Type.Land)
+        return ManaSourcePriorities.Land;
+
+      return ManaSourcePriorities.Land;
     }
   }
 }

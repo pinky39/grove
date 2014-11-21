@@ -28,7 +28,7 @@
             p.Cost = new PayMana(3.Colorless(), ManaUsage.Abilities);
 
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new DisableAbility(Static.Defender) {UntilEot = true},
+              () => new RemoveAbility(Static.Defender) {UntilEot = true},
               () => new AddStaticAbility(Static.Flying) {UntilEot = true});
 
             p.TimingRule(new BeforeYouDeclareAttackers());

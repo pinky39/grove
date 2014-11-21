@@ -43,7 +43,7 @@
     }
 
     protected override void Initialize()
-    {
+    {      
       _strenghtModifier.Initialize(ChangeTracker);
       _strenghtModifier.Value = OwningCard.CountersCount(_counterType);
     }

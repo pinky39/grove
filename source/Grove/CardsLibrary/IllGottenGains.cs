@@ -26,7 +26,7 @@
                 aiOrdersByDescendingScore: false,
                 text: "Select cards in your graveyard to return to hand."));
 
-            p.PutToZoneAfterResolve = c => c.Exile();
+            p.AfterResolve = c => c.Exile();
             p.TimingRule(new OnSecondMain());
             p.TimingRule(new WhenYourHandCountIs(minCount: 0, maxCount: 2));
           });

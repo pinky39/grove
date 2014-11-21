@@ -1,17 +1,16 @@
 ﻿namespace Grove.Modifiers
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public abstract class Lifetime : GameObject
   {
-    protected Lifetime()
-    {
-      Ended = new TrackableEvent(this);
-    }
-
-    public TrackableEvent Ended { get; set; }
+    public TrackableEvent Ended = new TrackableEvent();
     public Modifier Modifier { get; private set; }
-    protected Card OwningCard { get { return Modifier.OwningCard; } }
+
+    protected Card OwningCard
+    {
+      get { return Modifier.OwningCard; }
+    }
 
     protected void End()
     {

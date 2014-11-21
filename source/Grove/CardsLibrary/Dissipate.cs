@@ -26,7 +26,7 @@
           p.TargetingRule(new EffectCounterspell());
           p.TimingRule(new WhenTopSpellIsCounterable());
 
-          p.PutToZoneAfterResolve = card => card.Exile();          
+          p.AfterResolve = card => card.Exile();          
         });
     }
   }

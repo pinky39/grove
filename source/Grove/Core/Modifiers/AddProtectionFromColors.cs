@@ -2,11 +2,13 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
 
   public class AddProtectionFromColors : Modifier, ICardModifier
   {
     private readonly Func<Modifier, IEnumerable<CardColor>> _colors;
     private Protections _protections;
+    private AddToList<CardColor> _modifier;
 
     private AddProtectionFromColors() {}
 
@@ -24,18 +26,16 @@
     {
       _protections = protections;
 
-      foreach (var cardColor in _colors(this))
-      {
-        _protections.AddProtectionFromColor(cardColor);
-      }
+      var colors = _colors(this).ToList();
+
+      _modifier = new AddToList<CardColor>(colors);
+      _modifier.Initialize(ChangeTracker);
+      protections.AddModifier(_modifier);
     }
 
     protected override void Unapply()
     {
-      foreach (var cardColor in _colors(this))
-      {
-        _protections.RemoveProtectionFromColor(cardColor);
-      }
+      _protections.RemoveModfier(_modifier);
     }
   }
 }

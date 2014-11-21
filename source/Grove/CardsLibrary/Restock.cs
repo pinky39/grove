@@ -26,7 +26,7 @@
               });
 
             p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
-            p.PutToZoneAfterResolve = card => card.Exile();
+            p.AfterResolve = card => card.Exile();
           });
     }
   }

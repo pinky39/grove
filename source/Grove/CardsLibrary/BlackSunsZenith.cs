@@ -18,7 +18,7 @@
         .FlavorText("Under the suns, Mirrodin kneels and begs us for perfection.")
         .Cast(p =>
           {
-            p.PutToZoneAfterResolve = c => c.ShuffleIntoLibrary();
+            p.AfterResolve = c => c.ShuffleIntoLibrary();
             p.Effect = () => new ApplyModifiersToPermanents(
               selector: (effect, card) => card.Is().Creature,
               modifiers: () => new AddCounters(() => new PowerToughness(-1, -1), Value.PlusX))

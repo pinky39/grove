@@ -1,61 +1,61 @@
 ﻿namespace Grove
 {
+  using System;
   using System.Collections.Generic;
-  using Grove.Infrastructure;
+  using Infrastructure;
+  using Modifiers;
 
-  public class StaticAbilities : GameObject, IHashable
+  public class StaticAbilities : GameObject, IHashable, ICopyContributor, IAcceptsCardModifier
   {
-    private readonly TrackableList<StaticAbility> _abilities;
+    private readonly Characteristic<List<StaticAbility>> _abilities;
+    private readonly CardBase _cardBase;
 
     private StaticAbilities() {}
 
-    public StaticAbilities(IEnumerable<StaticAbility> abilities)
+    public StaticAbilities(CardBase cardBase)
     {
-      _abilities = new TrackableList<StaticAbility>(abilities);
+      _cardBase = cardBase;      
+
+      _abilities = new Characteristic<List<StaticAbility>>(cardBase.Value.StaticAbilities);
+    }
+
+    public void Accept(ICardModifier modifier)
+    {
+      modifier.Apply(this);
+    }
+
+    public void AfterMemberCopy(object original)
+    {
+      _cardBase.Changed += OnCardBaseChanged;
     }
 
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Calculate(_abilities);
-    }
-
-    public void Add(StaticAbility ability)
-    {
-      _abilities.Add(ability);
-    }
-
-    public void Remove(StaticAbility ability)
-    {
-      _abilities.Remove(ability);
-      ability.Dispose();
+      return calc.Calculate(_abilities.Value,
+        orderImpactsHashcode: false);
     }
 
     public void Initialize(Card card, Game game)
     {
       Game = game;
 
-      _abilities.Initialize(game.ChangeTracker, card);
-
-      foreach (var ability in _abilities)
-      {
-        ability.Initialize(card, game);
-      }
+      _abilities.Initialize(game, card);      
+      _cardBase.Changed += OnCardBaseChanged;
     }
 
-    public void DisableAll()
+    public void AddModifier(PropertyModifier<List<StaticAbility>> modifier)
     {
-      foreach (var ability in _abilities)
-      {
-        ability.Disable();
-      }
+      _abilities.AddModifier(modifier);
     }
 
-    public void EnableAll()
+    public void RemoveModifier(PropertyModifier<List<StaticAbility>> modifier)
     {
-      foreach (var ability in _abilities)
-      {
-        ability.Enable();
-      }
+      _abilities.RemoveModifier(modifier);
+    }
+
+    private void OnCardBaseChanged()
+    {
+      _abilities.ChangeBaseValue(_cardBase.Value.StaticAbilities);
     }
   }
 }

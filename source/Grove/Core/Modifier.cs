@@ -1,14 +1,16 @@
 ﻿namespace Grove
 {
-  using System;
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Modifiers;
-  using Grove.Infrastructure;
+  using Costs;
+  using Infrastructure;
+  using Modifiers;
 
   public delegate IModifier ModifierFactory();
+
   public delegate ICardModifier CardModifierFactory();
+
   public delegate IGameModifier GameModifierFactory();
+
   public delegate IPlayerModifier PlayerModifierFactory();
 
   [Copyable]
@@ -18,7 +20,7 @@
     public bool UntilEot;
     public Card SourceCard { get; private set; }
     public Effect SourceEffect { get; private set; }
-    public Card OwningCard { get { return  (Card)Owner; } }
+    public Card OwningCard { get { return (Card) Owner; } }
     public int? X { get; private set; }
 
     void ICopyContributor.AfterMemberCopy(object original)
@@ -62,11 +64,16 @@
       Initialize();
     }
 
+    public void AddLifetime(Lifetime lifetime)
+    {
+      _lifetimes.Add(lifetime);
+    }
+
     public virtual void Apply(CardController controller) {}
     public virtual void Apply(TriggeredAbilities abilities) {}
     public virtual void Apply(SimpleAbilities abilities) {}
     public virtual void Apply(ActivatedAbilities abilities) {}
-    public virtual void Apply(CardColors colors) {}    
+    public virtual void Apply(CardColors colors) {}
     public virtual void Apply(DamagePreventions damagePreventions) {}
     public virtual void Apply(Protections protections) {}
     public virtual void Apply(CardTypeCharacteristic cardType) {}
@@ -78,12 +85,10 @@
     public virtual void Apply(Strenght strenght) {}
     public virtual void Apply(SkipSteps skipSteps) {}
     public virtual void Apply(CostModifiers costModifiers) {}
-    public virtual void Apply(MinBlockerCount count) { }
+    public virtual void Apply(MinBlockerCount count) {}
+    public virtual void Apply(CardBase cardBase) {}
+    public virtual void Apply(StaticAbilities abilities) {}
 
-    public void AddLifetime(Lifetime lifetime)
-    {
-      _lifetimes.Add(lifetime);
-    }
 
     protected abstract void Unapply();
 
@@ -92,11 +97,11 @@
       foreach (var lifetime in _lifetimes)
       {
         Unsubscribe(lifetime);
-        lifetime.Ended -= RemoveModifier;        
-      }      
+        lifetime.Ended -= RemoveModifier;
+      }
     }
 
-    private void RemoveModifier(object sender, EventArgs e)
+    private void RemoveModifier()
     {
       Remove();
     }
@@ -109,7 +114,7 @@
     protected virtual void Initialize() {}
 
     private void InitializeLifetimes(bool isStatic)
-    {      
+    {
       if (isStatic == false)
       {
         if (Owner is Card)

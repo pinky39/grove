@@ -38,7 +38,7 @@
 
     public void EffectResolved()
     {
-      var putToZone = _p.PutToZoneAfterResolve ?? PutToZoneAfterResolve;
+      var putToZone = _p.AfterResolve ?? PutToZoneAfterResolve;
       putToZone(_card);
     }
 
@@ -51,9 +51,7 @@
         Cost = costTargets,
         Effect = effectTargets
       });
-    }
-
-    public int CalculateHash(HashCalculator calc) { return 0; }
+    }    
 
     private void PutToZoneAfterResolve(Card card)
     {
@@ -282,7 +280,7 @@
     {
       public Cost Cost;
       public string KickerDescription = "Cast {0} with kicker.";
-      public Action<Card> PutToZoneAfterResolve;
+      public Action<Card> AfterResolve;
       public Func<Card, Game, bool> Condition = delegate { return true; };
     }
   }

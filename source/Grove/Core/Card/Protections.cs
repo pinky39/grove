@@ -1,21 +1,25 @@
 ﻿namespace Grove
 {
+  using System;
   using System.Collections.Generic;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
-  [Copyable]
-  public class Protections : IAcceptsCardModifier, IHashable
+  public class Protections : GameObject, IAcceptsCardModifier, IHashable, ICopyContributor
   {
-    private readonly TrackableList<string> _cardTypes = new TrackableList<string>();
-    private readonly TrackableList<CardColor> _colors = new TrackableList<CardColor>();
+    private readonly CardBase _cardBase;
+
+    private readonly Characteristic<List<string>> _cardTypes;
+    private readonly Characteristic<List<CardColor>> _colors;
 
     private Protections() {}
 
-    public Protections(IEnumerable<CardColor> colors, IEnumerable<string> cardTypes)
+    public Protections(CardBase cardBase)
     {
-      _colors = new TrackableList<CardColor>(colors);
-      _cardTypes = new TrackableList<string>(cardTypes);
+      _cardBase = cardBase;      
+
+      _colors = new Characteristic<List<CardColor>>(cardBase.Value.ProtectionsFromColors);
+      _cardTypes = new Characteristic<List<string>>(cardBase.Value.ProtectionsFromTypes);
     }
 
     public void Accept(ICardModifier modifier)
@@ -23,50 +27,71 @@
       modifier.Apply(this);
     }
 
-    public int CalculateHash(HashCalculator calc)
+    public void AfterMemberCopy(object original)
     {
-      return HashCalculator.Combine(calc.Calculate(_colors), calc.Calculate(_cardTypes));
+      _cardBase.Changed += OnCardBaseChanged;
     }
 
-    public void Initialize(ChangeTracker changeTracker, IHashDependancy hashDependancy)
+    public int CalculateHash(HashCalculator calc)
     {
-      _cardTypes.Initialize(changeTracker, hashDependancy);
-      _colors.Initialize(changeTracker, hashDependancy);
+      return HashCalculator.Combine(
+        calc.Calculate(_colors.Value, orderImpactsHashcode: false),
+        calc.Calculate(_cardTypes.Value, orderImpactsHashcode: false));
+    }
+
+    public void Initialize(Game game, IHashDependancy hashDependancy)
+    {
+      Game = game;
+
+      _cardTypes.Initialize(game, hashDependancy);
+      _colors.Initialize(game, hashDependancy);
+      _cardBase.Changed += OnCardBaseChanged;
+    }
+
+    public void AddModifier(PropertyModifier<List<CardColor>> propertyModifier)
+    {
+      _colors.AddModifier(propertyModifier);
+    }
+
+    public void RemoveModfier(PropertyModifier<List<CardColor>> propertyModifier)
+    {
+      _colors.RemoveModifier(propertyModifier);
+    }
+
+    public void AddModifier(PropertyModifier<List<string>> propertyModifier)
+    {
+      _cardTypes.AddModifier(propertyModifier);
+    }
+
+    public void RemoveModfier(PropertyModifier<List<string>> propertyModifier)
+    {
+      _cardTypes.RemoveModifier(propertyModifier);
     }
 
     public bool HasProtectionFromAnyColor()
     {
-      return _colors.Count > 0;
+      return _colors.Value.Count > 0;
     }
 
     public bool HasProtectionFromAnyTypes()
     {
-      return _cardTypes.Count > 0;
-    }
-
-    public void AddProtectionFromColor(CardColor color)
-    {
-      _colors.Add(color);
-    }
-
-    public void AddProtectionFromCards(params string[] cardTypes)
-    {
-      _cardTypes.AddRange(cardTypes);
+      return _cardTypes.Value.Count > 0;
     }
 
     public bool HasProtectionFrom(string type)
     {
-      return _cardTypes.Contains(type.ToLowerInvariant());
+      return _cardTypes.Value.Contains(type.ToLowerInvariant());
     }
 
     public bool HasProtectionFrom(CardColor color)
     {
-      return _colors.Contains(color);
+      return _colors.Value.Contains(color);
     }
 
-    public void RemoveProtectionFromColor(CardColor color)
+    private void OnCardBaseChanged()
     {
-      _colors.Remove(color);
+      _colors.ChangeBaseValue(_cardBase.Value.ProtectionsFromColors);
+      _cardTypes.ChangeBaseValue(_cardBase.Value.ProtectionsFromTypes);
     }
   }
 }

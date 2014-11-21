@@ -35,7 +35,17 @@
         }
 
         effect.SetTriggeredAbilityTargets(Result.Targets);
-        Stack.QueueTriggered(effect);
+
+        if (D._p.UsesStack)
+        {
+          Stack.QueueTriggered(effect);
+        }
+        else
+        {
+          effect.BeginResolve();
+          effect.FinishResolve();
+        }
+        
       }
     }
 
@@ -116,6 +126,7 @@
       public Effect Effect;      
       public List<MachinePlayRule> MachineRules;
       public TargetSelector TargetSelector;
+      public bool UsesStack;
     }
 
     private class PlaybackHandler : Handler

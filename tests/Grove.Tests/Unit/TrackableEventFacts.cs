@@ -28,7 +28,7 @@
     {
       var tevent = CreateEvent();
       var count = 0;
-      EventHandler handler = delegate { count++; };
+      Action handler = () => { count++; };
       tevent += handler;
 
       var snapshot = _changeTracker.CreateSnapshot();
@@ -50,7 +50,9 @@
 
     private TrackableEvent CreateEvent()
     {
-      return new TrackableEvent(this).Initialize(_changeTracker);
+      var e = new TrackableEvent();
+      e.Initialize(_changeTracker);
+      return e;
     }
   }
 }

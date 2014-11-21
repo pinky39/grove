@@ -571,6 +571,7 @@
     <Compile Include="Core\CardParameters.cs" />
     <Compile Include="Core\Card\AbilityParameters.cs" />
     <Compile Include="Core\Card\ActivatedAbilityParameters.cs" />
+    <Compile Include="Core\Card\CardBase.cs" />
     <Compile Include="Core\Card\ManaAbilityParameters.cs" />
     <Compile Include="Core\Card\MinBlockerCount.cs" />
     <Compile Include="Core\Costs\AbilityCostModifier.cs" />
@@ -578,12 +579,12 @@
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToCard.cs" />
+    <Compile Include="Core\Effects\BecomeCopyOfTargetCard.cs" />
     <Compile Include="Core\Effects\BooleanEffectChoice.cs" />
     <Compile Include="Core\Effects\ChangeLife.cs" />
     <Compile Include="Core\Effects\ChangeLifeOfEnchantedPermanentsController.cs" />
     <Compile Include="Core\Effects\ChangeZoneForSelectedCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
-    <Compile Include="Core\Effects\CreateCopyOfTargetCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToAndTapTargets.cs" />
     <Compile Include="Core\Effects\DealDamageToCreature.cs" />
     <Compile Include="Core\Effects\DealDamageToTargetForEachRevealedCard.cs" />
@@ -621,10 +622,15 @@
     <Compile Include="Core\Events\PlayerSearchesLibrary.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
+    <Compile Include="Core\Modifiers\AddToList.cs" />
+    <Compile Include="Core\Modifiers\ChangeCardTemplate.cs" />
+    <Compile Include="Core\Modifiers\CardParametersSetter.cs" />
     <Compile Include="Core\Modifiers\IncreaseMinBlockerCount.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\Modifiers\OwnerControlsPermamentsLifetime.cs" />
     <Compile Include="Core\Modifiers\OwnerHasCardsInExile.cs" />
+    <Compile Include="Core\Modifiers\RemoveFromList.cs" />
+    <Compile Include="Core\Modifiers\SetList.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />
     <Compile Include="CardsLibrary\AboutFace.cs" />
     <Compile Include="CardsLibrary\AcademyRector.cs" />
@@ -820,7 +826,7 @@
     <Compile Include="Core\Events\SpellCounteredEvent.cs" />
     <Compile Include="Core\Events\TypeChangedEvent.cs" />
     <Compile Include="Core\Modifiers\AddCostModifier.cs" />
-    <Compile Include="Core\Modifiers\DisableAbility.cs" />
+    <Compile Include="Core\Modifiers\RemoveAbility.cs" />
     <Compile Include="Core\Modifiers\ModifyPowerToughnessEqualToTotalHandsCount.cs" />
     <Compile Include="Core\Player\SkipStep.cs" />
     <Compile Include="Core\Modifiers\SwitchPowerAndToughness.cs" />
@@ -1309,7 +1315,14 @@
     <Compile Include="Core\Triggers\WhenThisBlocks.cs" />
     <Compile Include="Infrastructure\ColorUtils.cs" />
     <Compile Include="Infrastructure\DictionaryEx.cs" />
+    <Compile Include="Infrastructure\INotifyChangeTracker.cs" />
     <Compile Include="Infrastructure\IReceive.cs" />
+    <Compile Include="Infrastructure\ITrackableCollection.cs" />
+    <Compile Include="Infrastructure\ITrackableValue.cs" />
+    <Compile Include="Infrastructure\Trackable.cs" />
+    <Compile Include="Infrastructure\TrackableEvent.cs" />
+    <Compile Include="Infrastructure\TrackableList.cs" />
+    <Compile Include="Infrastructure\TrackableSet.cs" />
     <Compile Include="UserInterface\CardActivation\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -1556,7 +1569,7 @@
     <Compile Include="Core\Mana\ZeroManaAmount.cs" />
     <Compile Include="Core\Events\PermanentTappedEvent.cs" />
     <Compile Include="Core\Events\PlayerFlippedCoinEvent.cs" />
-    <Compile Include="Core\Modifiers\ChangeBasicLand.cs" />
+    <Compile Include="Core\Modifiers\ChangeBasicLandSubtype.cs" />
     <Compile Include="Core\Modifiers\ModifierParameters.cs" />
     <Compile Include="Core\Sets\Rarity.cs" />
     <Compile Include="Core\Card\ScoreOverride.cs" />
@@ -1646,18 +1659,17 @@
     <Compile Include="Core\Effects\PreventDamageFromSourceToTarget.cs" />
     <Compile Include="Core\Effects\RemoveModifier.cs" />
     <Compile Include="Core\Effects\SacrificeOwner.cs" />
-    <Compile Include="Core\Card\IStaticAbilities.cs" />
+    <Compile Include="Core\Card\ISimpleAbilities.cs" />
     <Compile Include="Core\Mana\ManaSourcePriorities.cs" />
     <Compile Include="Core\Events\AssignedDamageDealtEvent.cs" />
     <Compile Include="Core\Events\PermanentUntappedEvent.cs" />
     <Compile Include="Core\Player\PlayerType.cs" />
     <Compile Include="Core\Modifiers\AddDamageRedirection.cs" />
-    <Compile Include="Core\Modifiers\DisableAbilities.cs" />
+    <Compile Include="Core\Modifiers\DisableAllAbilities.cs" />
     <Compile Include="Core\Damage\PreventAllDamageFromSourceToTarget.cs" />
     <Compile Include="Core\Damage\DamageRedirection.cs" />
     <Compile Include="Core\Damage\DamageRedirections.cs" />
     <Compile Include="Core\Damage\RedirectDamageFromTargetToTarget.cs" />
-    <Compile Include="Core\Card\SimpleAbility.cs" />
     <Compile Include="Core\Targeting\TargetCandidates.cs" />
     <Compile Include="Core\Targeting\Targets.cs" />
     <Compile Include="Core\AI\InnerResult.cs" />

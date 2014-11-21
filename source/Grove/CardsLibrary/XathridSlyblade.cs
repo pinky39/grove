@@ -24,7 +24,7 @@
           p.Cost = new PayMana("{3}{B}".Parse(), ManaUsage.Abilities);
 
           p.Effect = () => new ApplyModifiersToSelf(
-            () => new DisableAbility(Static.Hexproof) {UntilEot = true},
+            () => new RemoveAbility(Static.Hexproof) {UntilEot = true},
             () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true},
             () => new AddStaticAbility(Static.Deathtouch) { UntilEot = true });
         });

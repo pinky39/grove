@@ -1,15 +1,15 @@
 ﻿namespace Grove.Modifiers
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   [Copyable]
   public abstract class PropertyModifier<TValue>
   {
-    public TrackableEvent Changed;
+    public TrackableEvent Changed;    
 
     protected PropertyModifier()
     {
-      Changed = new TrackableEvent(this);
+      Changed = new TrackableEvent();
     }
 
     public abstract int Priority { get; }
@@ -21,7 +21,7 @@
     }
 
     protected void NotifyModifierHasChanged()
-    {
+    {      
       Changed.Raise();
     }
   }

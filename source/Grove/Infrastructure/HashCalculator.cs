@@ -1,6 +1,7 @@
 ﻿namespace Grove.Infrastructure
 {
   using System.Collections.Generic;
+  using System.Linq;
 
   public interface IHashable
   {
@@ -14,29 +15,49 @@
 
   public class NoHashDependency : IHashDependancy
   {
-    public void InvalidateHash() { }
+    public void InvalidateHash() {}
   }
 
   public class HashCalculator
   {
     private readonly Dictionary<object, int> _hashCache = new Dictionary<object, int>();
 
-    public int Calculate(IHashable hashable)
+    public int Calculate<T>(List<T> items, bool orderImpactsHashcode)
+    {
+      if (items.Count == 0)
+        return 0;
+
+      var isHashable = items[0] is IHashable;
+
+      var hashcodes = isHashable
+        ? items.Select(x => Calculate((IHashable) x))
+        : items.Select(x => x.GetHashCode());
+
+      return orderImpactsHashcode
+        ? Combine(hashcodes)
+        : CombineCommutative(hashcodes.ToArray());
+    }
+
+    public int Calculate(object obj)
     {
       var hash = 0;
 
-      if (hashable == null)
+      if (obj == null)
         return hash;
 
-      if (_hashCache.TryGetValue(hashable, out hash) == false)
+      if (_hashCache.TryGetValue(obj, out hash) == false)
       {
-        hash = hashable.CalculateHash(this);
-        _hashCache.Add(hashable, hash);
+        var hashable = obj as IHashable;
+
+        hash = hashable == null
+          ? obj.GetHashCode()
+          : hashable.CalculateHash(this);
+
+        _hashCache.Add(obj, hash);
       }
 
       return hash;
     }
-
 
     public static int Combine(IEnumerable<int> values)
     {
@@ -70,7 +91,7 @@
         h = h + value;
       }
 
-      return Avalanche((uint)h);
+      return Avalanche((uint) h);
     }
 
     private static unsafe int Avalanche(uint h)

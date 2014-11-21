@@ -22,7 +22,7 @@
             p.Effect = () => new Attach(new ModifierFactory[]
               {
                 () => new AddStaticAbility(Static.DoesNotUntap),
-                () => new DisableAbilities(activated: true),
+                () => new DisableAllAbilities(activated: true),
               });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Creature || c.Is().Artifact).On.Battlefield());

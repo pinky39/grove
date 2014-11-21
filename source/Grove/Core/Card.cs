@@ -11,14 +11,14 @@
 
   public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife, IModifiable
   {
+    public readonly CardTemplate Template;
     private readonly ActivatedAbilities _activatedAbilities;
     private readonly Trackable<Card> _attachedTo = new Trackable<Card>();
     private readonly TrackableList<Card> _attachments = new TrackableList<Card>();
-    private readonly CardParameters _cardParameters;
+    private readonly CardBase _base;
     private readonly CastRules _castRules;
     private readonly CardColors _colors;
     private readonly CombatRules _combatRules;
-    private readonly ContiniousEffects _continuousEffects;
     private readonly Counters _counters;
     private readonly Trackable<int> _damage = new Trackable<int>();
     private readonly Trackable<bool> _hasLeathalDamage = new Trackable<bool>();
@@ -31,7 +31,6 @@
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
     private readonly MinBlockerCount _minBlockerCount = new MinBlockerCount(1);
-    private readonly int? _minBlockerPower;
     private readonly TrackableList<ICardModifier> _modifiers = new TrackableList<ICardModifier>();
     private readonly Protections _protections;
     private readonly SimpleAbilities _simpleAbilities;
@@ -48,66 +47,42 @@
 
     protected Card() {}
 
-    public Card(CardParameters p)
+    public Card(CardTemplate template)
     {
-      _cardParameters = p;
+      Template = template;
+      _base = new CardBase(template.CreateCardParameters());
 
-      Name = p.Name;
-      ManaCost = p.ManaCost;
-      OverrideScore = p.OverrideScore;
-      Text = p.Text;
-      FlavorText = p.FlavorText;
-      Illustration = p.Illustration;
-      MayChooseNotToUntap = p.MayChooseToUntap;
-      ProducableManaColors = p.ManaColorsThisCardCanProduce;
-
-      _strenght = new Strenght(p.Power, p.Toughness);
-      _level = new Level(p.IsLeveler ? 0 : (int?) null);
+      _strenght = new Strenght(_base);
+      _level = new Level(_base);
       _counters = new Counters(_strenght);
-      _type = new CardTypeCharacteristic(p.Type);
-      _colors = new CardColors(p.Colors);
+      _type = new CardTypeCharacteristic(_base);
+      _colors = new CardColors(_base);
 
-      _protections = new Protections(p.ProtectionsFromColors, p.ProtectionsFromTypes);
+      _protections = new Protections(_base);
 
-      _simpleAbilities = new SimpleAbilities(p.SimpleAbilities);
-      _triggeredAbilities = new TriggeredAbilities(p.TriggeredAbilities);
-      _activatedAbilities = new ActivatedAbilities(p.ActivatedAbilities);
-      _staticAbilities = new StaticAbilities(p.StaticAbilities);
-      _castRules = new CastRules(p.CastInstructions);
-      _combatRules = new CombatRules(p.CombatRules);
-      _continuousEffects = new ContiniousEffects(p.ContinuousEffects);
+      _simpleAbilities = new SimpleAbilities(_base);
+      _triggeredAbilities = new TriggeredAbilities(_base);
+      _activatedAbilities = new ActivatedAbilities(_base);
+      _staticAbilities = new StaticAbilities(_base);
+      _castRules = new CastRules(_base);
+      _combatRules = new CombatRules(_base);
 
-      _minBlockerPower = p.MinBlockerPower;
-
-      JoinedBattlefield = new TrackableEvent(this);
-      LeftBattlefield = new TrackableEvent(this);
+      JoinedBattlefield = new TrackableEvent();
+      LeftBattlefield = new TrackableEvent();
     }
 
-    public bool MayChooseNotToUntap { get; private set; }
+    public bool MayChooseNotToUntap { get { return _base.Value.MayChooseToUntap; } }
 
-    public int MinimalBlockerCount
-    {
-      get { return _minBlockerCount.Value.GetValueOrDefault(); }
-    }
+    public int MinimalBlockerCount { get { return _minBlockerCount.Value.GetValueOrDefault(); } }
 
-    public Card AttachedTo
-    {
-      get { return _attachedTo.Value; }
-      private set { _attachedTo.Value = value; }
-    }
+    public Card AttachedTo { get { return _attachedTo.Value; } private set { _attachedTo.Value = value; } }
 
-    public IEnumerable<Card> Attachments
-    {
-      get { return _attachments; }
-    }
+    public IEnumerable<Card> Attachments { get { return _attachments; } }
 
-    public bool HasConvoke
-    {
-      get { return Has().Convoke; }
-    }
+    public bool HasConvoke { get { return Has().Convoke; } }
 
     public Rarity? Rarity { get; set; }
-    public List<int> ProducableManaColors { get; private set; }
+    public List<int> ProducableManaColors { get { return _base.Value.ManaColorsThisCardCanProduce; } }
     public string Set { get; set; }
 
     public bool CanAttack
@@ -133,128 +108,57 @@
       }
     }
 
-    private int UsageScore
-    {
-      get { return _usageScore.Value; }
-      set { _usageScore.Value = value; }
-    }
+    private int UsageScore { get { return _usageScore.Value; } set { _usageScore.Value = value; } }
 
-    public bool HasFirstStrike
-    {
-      get { return Has().FirstStrike || Has().DoubleStrike; }
-    }
+    public bool HasFirstStrike { get { return Has().FirstStrike || Has().DoubleStrike; } }
 
-    public bool HasNormalStrike
-    {
-      get { return !Has().FirstStrike || Has().DoubleStrike; }
-    }
+    public bool HasNormalStrike { get { return !Has().FirstStrike || Has().DoubleStrike; } }
 
-    public bool CanBeTapped
-    {
-      get { return IsPermanent && !IsTapped; }
-    }
+    public bool CanBeTapped { get { return IsPermanent && !IsTapped; } }
 
-    public bool HasRegenerationShield
-    {
-      get { return _hasRegenerationShield.Value; }
-      set { _hasRegenerationShield.Value = value; }
-    }
+    public bool HasRegenerationShield { get { return _hasRegenerationShield.Value; } set { _hasRegenerationShield.Value = value; } }
 
-    public bool CanTap
-    {
-      get { return !IsTapped && (!HasSummoningSickness || !Is().Creature || Has().Haste); }
-    }
+    public bool CanTap { get { return !IsTapped && (!HasSummoningSickness || !Is().Creature || Has().Haste); } }
 
-    public bool IsPermanent
-    {
-      get { return Zone == Zone.Battlefield; }
-    }
+    public bool IsPermanent { get { return Zone == Zone.Battlefield; } }
 
-    public int CharacterCount
-    {
-      get { return FlavorText.CharacterCount + Text.CharacterCount; }
-    }
+    public int CharacterCount { get { return FlavorText.CharacterCount + Text.CharacterCount; } }
 
-    public CardColor[] Colors
-    {
-      get { return _colors.ToArray(); }
-    }
+    public CardColor[] Colors { get { return _colors.ToArray(); } }
 
-    public Player Controller
-    {
-      get { return _controller.Value; }
-    }
+    public Player Controller { get { return _controller.Value; } }
 
     public Player Owner { get; private set; }
 
-    public int Counters
-    {
-      get { return _counters.Count; }
-    }
+    public int Counters { get { return _counters.Count; } }
 
-    public int Damage
-    {
-      get { return _damage.Value; }
-      protected set { _damage.Value = value; }
-    }
+    public int Damage { get { return _damage.Value; } protected set { _damage.Value = value; } }
 
-    public CardText FlavorText { get; private set; }
+    public CardText FlavorText { get { return _base.Value.FlavorText; } }
 
-    public bool HasAttachments
-    {
-      get { return _attachments.Count > 0; }
-    }
+    public bool HasAttachments { get { return _attachments.Count > 0; } }
 
-    public bool HasLeathalDamage
-    {
-      get { return _hasLeathalDamage.Value; }
-    }
+    public bool HasLeathalDamage { get { return _hasLeathalDamage.Value; } }
 
-    public bool HasSummoningSickness
-    {
-      get { return _hasSummoningSickness.Value; }
-      set { _hasSummoningSickness.Value = value; }
-    }
+    public bool HasSummoningSickness { get { return _hasSummoningSickness.Value; } set { _hasSummoningSickness.Value = value; } }
 
-    public bool HasXInCost
-    {
-      get { return _castRules.HasXInCost; }
-    }
+    public bool HasXInCost { get { return _castRules.HasXInCost; } }
 
-    public string Illustration { get; private set; }
+    public string Illustration { get { return _base.Value.Illustration; } }
 
-    public bool IsAttached
-    {
-      get { return AttachedTo != null; }
-    }
+    public bool IsAttached { get { return AttachedTo != null; } }
 
-    public bool IsAttacker
-    {
-      get { return Combat.IsAttacker(this); }
-    }
+    public bool IsAttacker { get { return Combat.IsAttacker(this); } }
 
-    public bool HasBlockers
-    {
-      get { return Combat.HasBlockers(this); }
-    }
+    public bool HasBlockers { get { return Combat.HasBlockers(this); } }
 
-    public bool IsBlocker
-    {
-      get { return Combat.IsBlocker(this); }
-    }
+    public bool IsBlocker { get { return Combat.IsBlocker(this); } }
 
-    public bool IsTapped
-    {
-      get { return _isTapped.Value; }
-      protected set { _isTapped.Value = value; }
-    }
+    public bool IsTapped { get { return _isTapped.Value; } protected set { _isTapped.Value = value; } }
 
-    public IManaAmount ManaCost { get; private set; }
+    public IManaAmount ManaCost { get { return _base.Value.ManaCost; } }
 
-    public int ConvertedCost
-    {
-      get { return ManaCost == null ? 0 : ManaCost.Converted; }
-    }
+    public int ConvertedCost { get { return ManaCost == null ? 0 : ManaCost.Converted; } }
 
     private IEnumerable<IAcceptsCardModifier> ModifiableProperties
     {
@@ -271,16 +175,13 @@
         yield return _activatedAbilities;
         yield return _simpleAbilities;
         yield return _controller;
-        yield return _continuousEffects;
+        yield return _base;
       }
     }
 
-    public string Name { get; private set; }
+    public string Name { get { return _base.Value.Name; } }
 
-    public int? Power
-    {
-      get { return _strenght.Power; }
-    }
+    public int? Power { get { return _strenght.Power; } }
 
     public int Score
     {
@@ -322,64 +223,31 @@
       }
     }
 
-    public CardText Text { get; private set; }
+    public CardText Text { get { return _base.Value.Text; } }
 
-    public int? Toughness
-    {
-      get { return _strenght.Toughness; }
-    }
+    public int? Toughness { get { return _strenght.Toughness; } }
 
-    public CardType Type
-    {
-      get { return _type.Value; }
-    }
+    public CardType Type { get { return _type.Value; } }
 
-    public Zone Zone
-    {
-      get { return _zone.Value.Name; }
-    }
+    public Zone Zone { get { return _zone.Value.Name; } }
 
-    public int? Level
-    {
-      get { return _level.Value; }
-    }
+    public int? Level { get { return _level.Value; } }
 
-    public bool CanBeDestroyed
-    {
-      get { return !HasRegenerationShield && !Has().Indestructible; }
-    }
+    public bool CanBeDestroyed { get { return !HasRegenerationShield && !Has().Indestructible; } }
 
-    public ScoreOverride OverrideScore { get; private set; }
+    public ScoreOverride OverrideScore { get { return _base.Value.OverrideScore; } }
 
-    public bool IsVisibleInUi
-    {
-      get { return _isPreview || IsVisibleToPlayer(Players.Human); }
-    }
+    public bool IsVisibleInUi { get { return _isPreview || IsVisibleToPlayer(Players.Human); } }
 
-    public bool IsVisibleToSearchingPlayer
-    {
-      get { return IsVisibleToPlayer(Players.Searching); }
-    }
+    public bool IsVisibleToSearchingPlayer { get { return IsVisibleToPlayer(Players.Searching); } }
 
-    public bool IsMultiColored
-    {
-      get { return _colors.Count > 1; }
-    }
+    public bool IsMultiColored { get { return _colors.Count > 1; } }
 
-    public IEnumerable<string> Subtypes
-    {
-      get { return _type.Value.SubTypes; }
-    }
+    public IEnumerable<string> Subtypes { get { return _type.Value.SubTypes; } }
 
-    public bool IsEnchanted
-    {
-      get { return _attachments.Any(x => x.Is().Aura); }
-    }
+    public bool IsEnchanted { get { return _attachments.Any(x => x.Is().Aura); } }
 
-    public bool HasManaAbilities
-    {
-      get { return _activatedAbilities.GetManaAbilities().Any(); }
-    }
+    public bool HasManaAbilities { get { return _activatedAbilities.GetManaAbilities().Any(); } }
 
     public void ReceiveDamage(Damage damage)
     {
@@ -477,8 +345,7 @@
           Damage,
           HasRegenerationShield.GetHashCode(),
           HasLeathalDamage.GetHashCode(),
-          Power.GetHashCode(),
-          Toughness.GetHashCode(),
+          calc.Calculate(_strenght),
           Level.GetHashCode(),
           Counters.GetHashCode(),
           calc.Calculate(_type.Value),
@@ -515,9 +382,9 @@
       add(this);
 
       if (destination.Name != source.Name)
-      {
+      {                
         Publish(new ZoneChangedEvent(this, source.Name, destination.Name));
-
+      
         // triggered abilities which trigger when permanent is in play only 
         // are removed when AfterRemove is called so
         // we publish event first and then do the cleanup
@@ -570,19 +437,6 @@
       }
     }
 
-    private void ActivateModifier(ICardModifier modifier, ModifierParameters p)
-    {
-      p.Owner = this;
-      modifier.Initialize(p, Game);
-
-      foreach (var modifiable in ModifiableProperties)
-      {
-        modifiable.Accept(modifier);
-      }
-
-      modifier.Activate();
-    }
-
     public void RemoveModifier(ICardModifier modifier)
     {
       _modifiers.Remove(modifier);
@@ -603,14 +457,16 @@
       JoinedBattlefield.Initialize(ChangeTracker);
       LeftBattlefield.Initialize(ChangeTracker);
 
+      _base.Initialize(game, this);
       _controller = new CardController(owner);
       _controller.Initialize(game, this);
+
       _strenght.Initialize(game, this);
       _level.Initialize(game, this);
       _counters.Initialize(this, game);
       _type.Initialize(game, this);
       _colors.Initialize(game, this);
-      _protections.Initialize(ChangeTracker, this);
+      _protections.Initialize(game, this);
       _zone.Initialize(ChangeTracker, this);
       _modifiers.Initialize(ChangeTracker);
 
@@ -626,17 +482,20 @@
       _isRevealed.Initialize(ChangeTracker, this);
       _isPeeked.Initialize(ChangeTracker, this);
       _usageScore.Initialize(ChangeTracker, this);
+
+      _base.Value.Initialize(this, Game);
+      
       _castRules.Initialize(this, game);
       _simpleAbilities.Initialize(this, game);
       _triggeredAbilities.Initialize(this, game);
       _activatedAbilities.Initialize(this, game);
       _staticAbilities.Initialize(this, game);
       _combatRules.Initialize(this, game);
-      _continuousEffects.Initialize(this, game);
+
 
       _minBlockerCount.Initialize(Game, null);
-
       _isPreview = false;
+
       return this;
     }
 
@@ -770,9 +629,9 @@
         return false;
       }
 
-      if (_minBlockerPower.HasValue)
+      if (_base.Value.MinBlockerPower.HasValue)
       {
-        return card.Power.GetValueOrDefault(0) >= _minBlockerPower;
+        return card.Power.GetValueOrDefault(0) >= _base.Value.MinBlockerPower;
       }
 
       return true;
@@ -864,7 +723,7 @@
       return _activatedAbilities.GetManaCost();
     }
 
-    public IStaticAbilities Has()
+    public ISimpleAbilities Has()
     {
       return _simpleAbilities;
     }
@@ -912,14 +771,6 @@
     public bool Is(string type)
     {
       return _type.Value.Is(type);
-    }
-
-    private void Regenerate()
-    {
-      Tap();
-      ClearDamage();
-      HasRegenerationShield = false;
-      Combat.Remove(this);
     }
 
     public void RemoveCounters(CounterType counterType, int? count = null)
@@ -1178,9 +1029,25 @@
       PutOnTopOfLibrary();
     }
 
-    public Card Clone()
+    private void ActivateModifier(ICardModifier modifier, ModifierParameters p)
     {
-      return new Card(_cardParameters);
+      p.Owner = this;
+      modifier.Initialize(p, Game);
+
+      foreach (var modifiable in ModifiableProperties)
+      {
+        modifiable.Accept(modifier);
+      }
+
+      modifier.Activate();
+    }
+
+    private void Regenerate()
+    {
+      Tap();
+      ClearDamage();
+      HasRegenerationShield = false;
+      Combat.Remove(this);
     }
   }
 }

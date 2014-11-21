@@ -39,7 +39,7 @@
                 },
               () =>
                 {
-                  var modifier = new DisableAbilities(activated: true, simple: true, triggered: true);
+                  var modifier = new DisableAllAbilities(activated: true, simple: true, triggered: true);
                   modifier.AddLifetime(new PlayerCastsCreatureLifetime());
                   return modifier;
                 });

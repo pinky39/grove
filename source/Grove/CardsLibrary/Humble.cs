@@ -20,7 +20,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new DisableAbilities(activated: true, simple: true, triggered: true) {UntilEot = true},
+              () => new DisableAllAbilities(activated: true, simple: true, triggered: true) {UntilEot = true},
               () => new SetPowerAndToughness(0, 1) {UntilEot = true});
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

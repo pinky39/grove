@@ -31,7 +31,7 @@
               {
                 Text = "Enchanted creature can't attack unless its controller pays {3}.",
                 Effect = () => new PayManaApplyToCard(3.Colorless(),
-                  modifier: () => new DisableAbility(Static.CannotAttack) {UntilEot = true},
+                  modifier: () => new RemoveAbility(Static.CannotAttack) {UntilEot = true},
                   message: "Pay mana to attack?")
               };
 
@@ -46,7 +46,7 @@
               {
                 Text = "Enchanted creature can't block unless its controller pays {3}.",
                 Effect = () => new PayManaApplyToCard(3.Colorless(),
-                  modifier: () => new DisableAbility(Static.CannotBlock) {UntilEot = true},
+                  modifier: () => new RemoveAbility(Static.CannotBlock) {UntilEot = true},
                   message: "Pay mana to block?")
               };
 

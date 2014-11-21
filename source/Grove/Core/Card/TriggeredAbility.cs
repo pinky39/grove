@@ -8,9 +8,9 @@
   using Infrastructure;
   using Triggers;
 
-  public class TriggeredAbility : Ability, IDisposable, ICopyContributor
+  public class TriggeredAbility : Ability, ICopyContributor, IHashable
   {
-    private readonly Parameters _p;
+    private readonly Parameters _p;    
     private TriggeredAbility() {}
 
     public TriggeredAbility(Parameters p) : base(p)
@@ -33,22 +33,36 @@
       SubscribeToEvents();
     }
 
-    public void Dispose()
+    public void OnEnable()
     {
-      DeactivateTriggers();
-      UnsubscribeFromEvents();
-    }
-
-    private void OnOwningCardJoinedBattlefield(object sender, EventArgs eventArgs)
-    {
-      if (_p.TriggerOnlyIfOwningCardIsInPlay)
+      if (!_p.TriggerOnlyIfOwningCardIsInPlay || OwningCard.Zone == Zone.Battlefield)
+      {
         ActivateTriggers();
+      }
+
+      SubscribeToEvents();
+    }
+        
+    public void OnDisable()
+    {
+      UnsubscribeFromEvents();
+      DeactivateTriggers();      
     }
 
-    private void OnOwningCardLeftBattlefield(object sender, EventArgs eventArgs)
+    private void OnOwningCardJoinedBattlefield()
     {
       if (_p.TriggerOnlyIfOwningCardIsInPlay)
+      {
+        ActivateTriggers();
+      }
+    }
+
+    private void OnOwningCardLeftBattlefield()
+    {
+      if (_p.TriggerOnlyIfOwningCardIsInPlay)
+      {
         DeactivateTriggers();
+      }
     }
 
     private void SubscribeToEvents()
@@ -63,13 +77,10 @@
       OwningCard.LeftBattlefield -= OnOwningCardLeftBattlefield;
     }
 
-    public override int CalculateHash(HashCalculator calc)
-    {
-      var hashcodes = _p.Triggers.Select(calc.Calculate).ToList();
-
-      return HashCalculator.Combine(
-        base.CalculateHash(calc),
-        HashCalculator.Combine(hashcodes));
+    public int CalculateHash(HashCalculator calc)
+    {      
+      return calc.Calculate(_p.Triggers, 
+        orderImpactsHashcode: false);      
     }
 
     public override void Initialize(Card owningCard, Game game)
@@ -80,12 +91,7 @@
       {
         trigger.Initialize(this, Game);
         RegisterTriggerListener(trigger);
-      }
-
-      if (!_p.TriggerOnlyIfOwningCardIsInPlay || owningCard.Zone == Zone.Battlefield)
-        ActivateTriggers();
-
-      SubscribeToEvents();
+      }     
     }
 
     private void ActivateTriggers()
@@ -105,10 +111,7 @@
     }
 
     protected virtual void Execute(object triggerMessage)
-    {
-      if (!IsEnabled)
-        return;
-
+    {      
       var effectParameters = new EffectParameters
       {
         Source = this,
@@ -126,6 +129,7 @@
               p.Effect = effect;              
               p.TargetSelector = _p.TargetSelector;
               p.MachineRules = _p.Rules;
+              p.UsesStack = _p.UsesStack;
             }));
 
         return;

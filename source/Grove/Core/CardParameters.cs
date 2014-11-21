@@ -5,16 +5,17 @@
   using AI.CombatRules;
   using Infrastructure;
 
+  [Copyable]
   public class CardParameters
   {
     public readonly List<ActivatedAbility> ActivatedAbilities = new List<ActivatedAbility>();
     public readonly List<CastRule> CastInstructions = new List<CastRule>();
     public readonly List<CombatRule> CombatRules = new List<CombatRule>();
-    public readonly List<ContinuousEffect> ContinuousEffects = new List<ContinuousEffect>();
     public readonly List<CardColor> ProtectionsFromColors = new List<CardColor>();
     public readonly List<string> ProtectionsFromTypes = new List<string>();
     public readonly List<Static> SimpleAbilities = new List<Static>();
     public readonly List<TriggeredAbility> TriggeredAbilities = new List<TriggeredAbility>();
+
     public List<CardColor> Colors = new List<CardColor>();
     public CardText FlavorText = String.Empty;
     public bool HasXInCost;
@@ -30,6 +31,17 @@
     public int? Toughness;
     public CardType Type;
 
+    public int? Level
+    {
+      get
+      {
+        if (IsLeveler)
+          return 0;
+
+        return null;
+      }
+    }
+
     public int? MinBlockerPower = null;
 
     public string Illustration
@@ -44,6 +56,34 @@
         }
 
         return Name;
+      }
+    }
+
+    public void Initialize(Card owningCard, Game game)
+    {
+      foreach (var ability in ActivatedAbilities)
+      {
+        ability.Initialize(owningCard, game);
+      }
+
+      foreach (var ci in CastInstructions)
+      {
+        ci.Initialize(owningCard, game);
+      }
+
+      foreach (var cr in CombatRules)
+      {
+        cr.Initialize(owningCard, game);
+      }
+
+      foreach (var ability in TriggeredAbilities)
+      {
+        ability.Initialize(owningCard, game);
+      }
+
+      foreach (var ability in StaticAbilities)
+      {
+        ability.Initialize(owningCard, game);
       }
     }
   }

@@ -1,21 +1,38 @@
 ﻿namespace Grove
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
   using Modifiers;
 
-  [Copyable]
-  public class ActivatedAbilities : IAcceptsCardModifier, IHashable
+  public class ActivatedAbilities : GameObject, IAcceptsCardModifier, IHashable, ICopyContributor
   {
-    private readonly TrackableList<ActivatedAbility> _abilities;
+    private readonly Characteristic<List<ActivatedAbility>> _abilities;
+    private readonly CardBase _cardBase;
 
     private ActivatedAbilities() {}
 
-    public ActivatedAbilities(IEnumerable<ActivatedAbility> activatedAbilities)
+    public ActivatedAbilities(CardBase cardBase)
     {
-      _abilities = new TrackableList<ActivatedAbility>(activatedAbilities);
+      _cardBase = cardBase;      
+
+      _abilities = new Characteristic<List<ActivatedAbility>>(cardBase.Value.ActivatedAbilities);      
+    }
+
+    private void OnAbilitiesChanged(CharacteristicChangedParams<List<ActivatedAbility>> p)
+    {
+      var abilitiesToDeactivate = p.OldValue.Where(x => !p.NewValue.Contains(x)).ToList();
+      var abilitiesToActivate = p.NewValue.Where(x => !p.OldValue.Contains(x)).ToList();
+
+      foreach (var ability in abilitiesToDeactivate)
+      {
+        ability.OnDisable();
+      }
+
+      foreach (var ability in abilitiesToActivate)
+      {
+        ability.OnEnable();
+      }
     }
 
     public void Accept(ICardModifier modifier)
@@ -23,43 +40,48 @@
       modifier.Apply(this);
     }
 
+    public void AfterMemberCopy(object original)
+    {
+      _cardBase.Changed += OnCardBaseChanged;
+      _abilities.Changed += OnAbilitiesChanged;
+    }
+
     public int CalculateHash(HashCalculator calc)
     {
-      return calc.Calculate(_abilities);
+      return calc.Calculate(_abilities.Value, orderImpactsHashcode: false);
     }
 
     public void Initialize(Card card, Game game)
     {
-      _abilities.Initialize(game.ChangeTracker, card);
+      Game = game;
 
-      foreach (var activatedAbility in _abilities)
-      {
-        activatedAbility.Initialize(card, game);
+      _abilities.Initialize(Game, card);
+      _abilities.Changed += OnAbilitiesChanged;
+      _cardBase.Changed += OnCardBaseChanged;
+
+      foreach (var ability in _abilities.Value)
+      {        
+        ability.OnEnable();        
       }
     }
 
     public IEnumerable<ManaAbility> GetManaAbilities()
     {
-      return _abilities.OfType<ManaAbility>();
-    }
-
-    public IEnumerable<ActivatedAbility> GetFiltered(Func<ActivatedAbility, bool> filter)
-    {
-      return _abilities.Where(filter);
+      return _abilities.Value.OfType<ManaAbility>();
     }
 
     public void Activate(int abilityIndex, ActivationParameters activationParameters)
     {
-      _abilities[abilityIndex].Activate(activationParameters);
+      _abilities.Value[abilityIndex].Activate(activationParameters);
     }
 
     public List<ActivationPrerequisites> CanActivate(bool ignoreManaAbilities)
     {
       var result = new List<ActivationPrerequisites>();
 
-      for (var index = 0; index < _abilities.Count; index++)
+      for (var index = 0; index < _abilities.Value.Count; index++)
       {
-        var ability = _abilities[index];
+        var ability = _abilities.Value[index];
 
         if (ignoreManaAbilities && ability is ManaAbility)
         {
@@ -79,47 +101,27 @@
 
     public IManaAmount GetManaCost(int index)
     {
-      return _abilities[index].GetManaCost();
+      return _abilities.Value[index].GetManaCost();
     }
 
     public IEnumerable<IManaAmount> GetManaCost()
     {
-      return _abilities.Select(x => x.GetManaCost());
+      return _abilities.Value.Select(x => x.GetManaCost());
     }
 
-    public void EnableAll()
+    public void AddModifier(PropertyModifier<List<ActivatedAbility>> modifier)
     {
-      foreach (var activatedAbility in _abilities)
-      {
-        activatedAbility.IsEnabled = true;
-      }
+      _abilities.AddModifier(modifier);
     }
 
-    public void DisableAll()
+    public void RemoveModifier(PropertyModifier<List<ActivatedAbility>> modifier)
     {
-      foreach (var activatedAbility in _abilities)
-      {
-        activatedAbility.IsEnabled = false;
-      }
+      _abilities.RemoveModifier(modifier);
     }
 
-    public void Add(ActivatedAbility ability)
+    private void OnCardBaseChanged()
     {
-      _abilities.Add(ability);
-      ability.OnAbilityAdded();
-    }
-
-    public void Remove(ActivatedAbility ability)
-    {
-      _abilities.Remove(ability);
-      ability.OnAbilityRemoved();
-    }
-
-    public ActivatedAbility RemoveFirst()
-    {
-      var ability = _abilities.First();
-      Remove(ability);
-      return ability;
+      _abilities.ChangeBaseValue(_cardBase.Value.ActivatedAbilities);
     }
   }
 }

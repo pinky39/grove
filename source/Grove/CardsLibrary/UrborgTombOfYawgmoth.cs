@@ -14,7 +14,7 @@
         .FlavorText("\"Yawgmoth's corpse is a wound in the universe. His foul blood seeps out, infecting the land with his final curse.\"{EOL}—Lord Windgrace")
         .ContinuousEffect(p =>
         {
-          p.Modifier = () => new ChangeBasicLand("Swamp", replace: false);
+          p.Modifier = () => new ChangeBasicLandSubtype("Swamp", replace: false);
           p.CardFilter = (card, effect) => card.Is().Land;
         });
     }

@@ -10,7 +10,7 @@
     public override void Apply(CardTypeCharacteristic cardType)
     {
       _cardType = cardType;
-      _typeSetter = new CardTypeSetter("enchantment");
+      _typeSetter = new CardTypeSetter("enchantment");      
       _typeSetter.Initialize(ChangeTracker);
       _cardType.AddModifier(_typeSetter);
     }

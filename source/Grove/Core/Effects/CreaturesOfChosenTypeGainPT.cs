@@ -53,7 +53,7 @@
           SourceEffect = this
         };
 
-      Source.OwningCard.AddModifier(modifier, mp);
+      Source.OwningCard.Controller.AddModifier(modifier, mp);
     }
 
     public override string GetText()
