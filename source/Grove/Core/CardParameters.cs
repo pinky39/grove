@@ -14,6 +14,7 @@
     public readonly List<CardColor> ProtectionsFromColors = new List<CardColor>();
     public readonly List<string> ProtectionsFromTypes = new List<string>();
     public readonly List<Static> SimpleAbilities = new List<Static>();
+    public readonly CardTemplate Template;
     public readonly List<TriggeredAbility> TriggeredAbilities = new List<TriggeredAbility>();
 
     public List<CardColor> Colors = new List<CardColor>();
@@ -23,6 +24,7 @@
     public List<int> ManaColorsThisCardCanProduce = new List<int>();
     public IManaAmount ManaCost;
     public bool MayChooseToUntap;
+    public int? MinBlockerPower = null;
     public string Name;
     public ScoreOverride OverrideScore = new ScoreOverride();
     public int? Power;
@@ -30,6 +32,12 @@
     public CardText Text = String.Empty;
     public int? Toughness;
     public CardType Type;
+    private CardParameters() { }
+
+    public CardParameters(CardTemplate template)
+    {
+      Template = template;
+    }
 
     public int? Level
     {
@@ -41,8 +49,6 @@
         return null;
       }
     }
-
-    public int? MinBlockerPower = null;
 
     public string Illustration
     {
