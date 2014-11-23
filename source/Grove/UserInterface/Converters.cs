@@ -79,8 +79,10 @@
       {
         var change = (int?)value;
 
+        var defaultColor = parameter as Color? ?? Colors.White;
+
         if (change == null || change == 0)
-          return Colors.White.ToString();
+          return defaultColor.ToString();
         
         return change > 0 
           ? Colors.Green.ToString() 
