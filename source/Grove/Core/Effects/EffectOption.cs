@@ -15,5 +15,8 @@
     Library,
     Graveyard,
     Hand,
+    SacrificeACreature,
+    PayLife,
+    OpponentDrawsACard
   }
 }

@@ -97,8 +97,8 @@ o Satyr Wayfinder
 o Aeronaut Tinkerer
 o Scrapyard Mongrel
 o Cone of Flame
-Glacial Crasher
-Mercurial Pretender
+o Glacial Crasher
+o Mercurial Pretender
 Indulgent Tormentor
 Siege Wurm
 Living Totem

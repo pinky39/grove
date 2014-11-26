@@ -5,6 +5,8 @@
 
   public static class ScoreCalculator
   {
+    public static readonly int HiddenCardInHandScore = 220;
+
     public static int CalculateTapPenalty(Card card, TurnInfo turnInfo)
     {
       if (card.Is().Land)
@@ -25,7 +27,7 @@
     {
       if (isSearchInProgress && card.IsVisibleToSearchingPlayer == false)
       {
-        return 220;
+        return HiddenCardInHandScore;
       }
 
       // the lower the score, the more likely card will be discarded                                    
@@ -143,7 +145,7 @@
     {
       if (isSearchInProgress && card.IsVisibleToSearchingPlayer == false)
       {
-        return 220;
+        return HiddenCardInHandScore;
       }
 
       if (card.OverrideScore.Hand.HasValue)

@@ -2,11 +2,11 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Decisions;
+  using Decisions;
 
   public abstract class CustomizableEffect : Effect, IProcessDecisionResults<ChosenOptions>,
     IChooseDecisionResults<List<IEffectChoice>, ChosenOptions>
-  {
+  {        
     protected static readonly List<ChoiceToColor> ChoiceToColorMap = new List<ChoiceToColor>
       {
         new ChoiceToColor {Color = CardColor.White, Choice = EffectOption.White},
@@ -18,25 +18,29 @@
 
     protected static readonly List<ChoiceToZone> ChoiceToZoneMap = new List<ChoiceToZone>
       {
-          new ChoiceToZone(){Zone = Zone.Library, Choice = EffectOption.Library},
-          new ChoiceToZone(){Zone = Zone.Graveyard, Choice = EffectOption.Graveyard},
-          new ChoiceToZone(){Zone = Zone.Hand, Choice = EffectOption.Hand},
+        new ChoiceToZone() {Zone = Zone.Library, Choice = EffectOption.Library},
+        new ChoiceToZone() {Zone = Zone.Graveyard, Choice = EffectOption.Graveyard},
+        new ChoiceToZone() {Zone = Zone.Hand, Choice = EffectOption.Hand},
       };
 
     public abstract ChosenOptions ChooseResult(List<IEffectChoice> candidates);
     public abstract void ProcessResults(ChosenOptions results);
     public abstract string GetText();
     public abstract IEnumerable<IEffectChoice> GetChoices();
+    protected virtual Player SelectChoosingPlayer()
+    {
+      return Controller;
+    }
 
     protected override void ResolveEffect()
     {
-      Enqueue(new ChooseEffectOptions(Controller, p =>
+      Enqueue(new ChooseEffectOptions(SelectChoosingPlayer(), p =>
         {
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;
           p.Text = GetText();
           p.Choices = GetChoices().ToList();
-        }));            
+        }));
     }
 
     protected class ChoiceToColor
