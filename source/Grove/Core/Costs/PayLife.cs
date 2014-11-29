@@ -27,9 +27,9 @@
       }
     }
 
-    protected override void PayCost(Targets targets, int? x, int repeat)
+    public override void Pay(PayCostParameters p)
     {      
-      Card.Controller.Life -= _getAmount(Card) * repeat;
+      Card.Controller.Life -= _getAmount(Card) * p.Repeat;
     }
   }
 }

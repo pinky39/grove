@@ -85,11 +85,11 @@
         });
     }
 
-    public override void Pay(Targets targets, int? x, int repeat = 1)
+    public override void Pay(PayCostParameters p)
     {
       foreach (var cost in _costs)
       {
-        cost.Pay(targets, x, repeat);
+        cost.Pay(p);
       }
     }
   }

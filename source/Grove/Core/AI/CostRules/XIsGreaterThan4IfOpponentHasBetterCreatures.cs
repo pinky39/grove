@@ -15,7 +15,8 @@
 
     public override int CalculateX(CostRuleParameters p)
     {
-      var maxX = p.Controller.GetAvailableConvertedMana(ManaUsage.Spells) - p.OwningCard.ManaCost.Converted;
+      var maxX = p.Controller.GetAvailableConvertedMana(ManaUsage.Spells, p.OwningCard.Has().Convoke) 
+        - p.OwningCard.ManaCost.Converted;
 
       if (maxX >= _x)
       {

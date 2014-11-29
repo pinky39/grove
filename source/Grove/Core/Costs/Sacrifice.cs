@@ -17,9 +17,9 @@
       result.CanPay(() => Card.IsPermanent);
     }
 
-    protected override void PayCost(Targets targets, int? x, int repeat)
+    public override void Pay(PayCostParameters p)
     {
-      var target = targets.Cost.FirstOrDefault();
+      var target = p.Targets.Cost.FirstOrDefault();
 
       if (target != null)
       {

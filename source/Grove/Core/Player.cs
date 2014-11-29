@@ -47,8 +47,17 @@
     private Player() {}
     public PlayerType Type { get; private set; }
     public string Name { get; private set; }
-    public Player Opponent { get { return Players.GetOpponent(this); } }
-    public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
+
+    public Player Opponent
+    {
+      get { return Players.GetOpponent(this); }
+    }
+
+    public int LandsPlayedCount
+    {
+      get { return _landsPlayedCount.Value; }
+      set { _landsPlayedCount.Value = value; }
+    }
 
     private IEnumerable<IAcceptsPlayerModifier> ModifiableProperties
     {
@@ -61,29 +70,97 @@
     }
 
     public int AvatarId { get; private set; }
-    public Deck Deck { get { return _deck; } }
-    public IBattlefieldQuery Battlefield { get { return _battlefield; } }
-    public IEnumerable<Card> Exile { get { return _exile; } }
-    public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }
-    public bool CanPlayLands { get { return LandsPlayedCount < _landLimit.Value; } }
-    public IGraveyardQuery Graveyard { get { return _graveyard; } }
-    public IHandQuery Hand { get { return _hand; } }
-    public bool HasLost { get { return _hasLost.Value; } set { _hasLost.Value = value; } }
-    public bool HasMulligan { get { return _hasMulligan.Value; } set { _hasMulligan.Value = value; } }
-    public bool HasPriority { get { return _hasPriority.Value; } set { _hasPriority.Value = value; } }
-    public virtual bool IsActive { get { return _isActive.Value; } set { _isActive.Value = value; } }
-    public bool IsHuman { get { return Type == PlayerType.Human; } }
-    public bool IsMachine { get { return Type == PlayerType.Machine; } }
-    public bool IsScenario { get { return Type == PlayerType.Scenario; } }
+
+    public Deck Deck
+    {
+      get { return _deck; }
+    }
+
+    public IBattlefieldQuery Battlefield
+    {
+      get { return _battlefield; }
+    }
+
+    public IEnumerable<Card> Exile
+    {
+      get { return _exile; }
+    }
+
+    public bool CanMulligan
+    {
+      get { return _hand.CanMulligan && HasMulligan; }
+    }
+
+    public bool CanPlayLands
+    {
+      get { return LandsPlayedCount < _landLimit.Value; }
+    }
+
+    public IGraveyardQuery Graveyard
+    {
+      get { return _graveyard; }
+    }
+
+    public IHandQuery Hand
+    {
+      get { return _hand; }
+    }
+
+    public bool HasLost
+    {
+      get { return _hasLost.Value; }
+      set { _hasLost.Value = value; }
+    }
+
+    public bool HasMulligan
+    {
+      get { return _hasMulligan.Value; }
+      set { _hasMulligan.Value = value; }
+    }
+
+    public bool HasPriority
+    {
+      get { return _hasPriority.Value; }
+      set { _hasPriority.Value = value; }
+    }
+
+    public virtual bool IsActive
+    {
+      get { return _isActive.Value; }
+      set { _isActive.Value = value; }
+    }
+
+    public bool IsHuman
+    {
+      get { return Type == PlayerType.Human; }
+    }
+
+    public bool IsMachine
+    {
+      get { return Type == PlayerType.Machine; }
+    }
+
+    public bool IsScenario
+    {
+      get { return Type == PlayerType.Scenario; }
+    }
+
     public bool IsMax { get; set; }
-    public ILibraryQuery Library { get { return _library; } }
+
+    public ILibraryQuery Library
+    {
+      get { return _library; }
+    }
 
     public bool HasAttackedThisTurn
     {
       get { return IsActive && Game.Turn.Events.HasActivePlayerAttackedThisTurn; }
     }
 
-    public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
+    public int NumberOfCardsAboveMaximumHandSize
+    {
+      get { return Math.Max(0, _hand.Count - 7); }
+    }
 
     public int Score
     {
@@ -142,18 +219,18 @@
 
     public int Life
     {
-        get { return _life.Value; }
-        set
-        {
-            int oldValue = _life.Value;
+      get { return _life.Value; }
+      set
+      {
+        var oldValue = _life.Value;
 
-            _life.Value = value;
+        _life.Value = value;
 
-            if (Life <= 0)
-                HasLost = true;
+        if (Life <= 0)
+          HasLost = true;
 
-            Publish(new LifeChangedEvent(this, value, oldValue));
-        }
+        Publish(new LifeChangedEvent(this, value, oldValue));
+      }
     }
 
     void IModifiable.RemoveModifier(IModifier modifier)
@@ -244,10 +321,14 @@
       _battlefield.Add(card);
     }
 
-    public int GetAvailableConvertedMana(ManaUsage usage = ManaUsage.Any)
+    public int GetAvailableConvertedMana(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false)
     {
-      return ManaCache.GetAvailableConvertedMana(usage);
-    }    
+      var additionalUnits = canUseConvoke
+       ? GetConvokeSources()
+       : null;
+
+      return ManaCache.GetAvailableConvertedMana(usage, additionalUnits);
+    }
 
     public void AddManaToManaPool(IManaAmount manaAmount, ManaUsage usageRestriction = ManaUsage.Any)
     {
@@ -259,9 +340,13 @@
       _assignedDamage.Assign(damage);
     }
 
-    public void Consume(IManaAmount amount, ManaUsage usage)
+    public void Consume(IManaAmount amount, ManaUsage usage, bool canUseConvoke = false)
     {
-      ManaCache.Consume(amount, usage);
+      var additionalUnits = canUseConvoke
+        ? GetConvokeSources()
+        : null;
+
+      ManaCache.Consume(amount, usage, additionalUnits);
     }
 
     public void DealAssignedDamage()
@@ -342,14 +427,26 @@
       _library.GenerateZoneTargets(zoneFilter, targets);
     }
 
-    public bool HasMana(int amount, ManaUsage usage = ManaUsage.Any)
+    public bool HasMana(int amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false)
     {
-      return ManaCache.Has(amount.Colorless(), usage);
+      return HasMana(amount.Colorless(), usage, canUseConvoke);
     }
 
-    public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any)
+    public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false)
     {
-      return ManaCache.Has(amount, usage);
+      var additionalUnits = canUseConvoke
+        ? GetConvokeSources()
+        : null;
+
+      return ManaCache.Has(amount, usage, additionalUnits);
+    }
+
+    private List<ManaUnit> GetConvokeSources()
+    {
+      return Battlefield.Creatures
+        .OrderBy(x => x.Power)
+        .SelectMany(x => new ConvokeManaSource(x).GetUnits())        
+        .ToList();
     }
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()

@@ -7,10 +7,10 @@
       result.CanPay(() => Card.Controller.Hand.Count > 0);
     }
 
-    protected override void PayCost(Targets targets, int? x, int repeat)
+    public override void Pay(PayCostParameters p)
     {
       var card = Card.Controller.DiscardRandomCard();
-      targets.AddCost(card);
+      p.Targets.AddCost(card);
     }
   }
 }

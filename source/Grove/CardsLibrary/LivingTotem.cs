@@ -17,7 +17,7 @@
           .Text("{Convoke}{I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}When Living Totem enters the battlefield, you may put a +1/+1 counter on another target creature.")
           .Power(2)
           .Toughness(3)
-          .Convoke()
+          .SimpleAbilities(Static.Convoke)
           .TriggeredAbility(p =>
           {
             p.Text = "When Living Totem enters the battlefield, you may put a +1/+1 counter on another target creature.";
@@ -34,9 +34,7 @@
               trg.Is.Creature(canTargetSelf: false).On.Battlefield();
             });
 
-            p.TargetingRule(new EffectCombatEnchantment());
-
-            p.UsesStack = false;
+            p.TargetingRule(new EffectCombatEnchantment());            
           });
     }
   }

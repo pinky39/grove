@@ -7,7 +7,7 @@
       result.CanPay(() => Card.CanTap);
     }
 
-    protected override void PayCost(Targets targets, int? x, int repeat)
+    public override void Pay(PayCostParameters p)
     {
       Card.Tap();
     }

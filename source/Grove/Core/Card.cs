@@ -95,11 +95,6 @@
       get { return _attachments; }
     }
 
-    public bool HasConvoke
-    {
-      get { return Has().Convoke; }
-    }
-
     public Rarity? Rarity { get; set; }
 
     public List<int> ProducableManaColors
@@ -401,12 +396,7 @@
     public bool IsEnchanted
     {
       get { return _attachments.Any(x => x.Is().Aura); }
-    }
-
-    public bool HasManaAbilities
-    {
-      get { return _activatedAbilities.GetManaAbilities().Any(); }
-    }
+    }    
 
     public void ReceiveDamage(Damage damage)
     {

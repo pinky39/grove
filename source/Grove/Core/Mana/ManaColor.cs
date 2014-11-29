@@ -81,5 +81,16 @@
     {
       return !Equals(left, right);
     }
+
+    public static ManaColor FromCardColors(CardColor[] colors)
+    {
+      return new ManaColor(
+        colors.Contains(CardColor.White),
+        colors.Contains(CardColor.Blue),
+        colors.Contains(CardColor.Black),
+        colors.Contains(CardColor.Red),
+        colors.Contains(CardColor.Green),
+        true);
+    }
   }
 }

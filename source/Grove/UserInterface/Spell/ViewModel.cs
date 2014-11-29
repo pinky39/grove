@@ -47,7 +47,8 @@
             return;
           }
 
-          IsPlayable = Card.CanCast().Count(x => x.CanPay.Value) > 0 || Card.CanActivateAbilities().Count(x => x.CanPay.Value) > 0;
+          IsPlayable = Card.CanCast().Count(x => x.CanPay.Value) > 0 ||
+            Card.CanActivateAbilities().Count(x => x.CanPay.Value) > 0;
           break;
 
         case (InteractionState.SelectTarget):
@@ -132,52 +133,44 @@
       if (!proceed)
         return;
 
-        if (Card.HasConvoke && !SelectCreaturesToTapForConvoke())
-        {
-            return;
-        }
+      if (Card.Has().Convoke)
+      {
+        ManuallySelectRequiredConvokeTargets();
+      }
 
-        var playable = activation.GetPlayable(activationParameters);
+      var playable = activation.GetPlayable(activationParameters);
 
       Publisher.Publish(new PlayableSelected {Playable = playable});
     }
 
-      private bool SelectCreaturesToTapForConvoke()
-      {
-          var tp = new TargetValidatorParameters { MinCount = 0, MaxCount = null, Message = "Select creatures to tap for the convoke cost." }
+    private void ManuallySelectRequiredConvokeTargets()
+    {
+      var tp =
+        new TargetValidatorParameters
+          {
+            MinCount = 0,
+            MaxCount = null,
+            Message = "Select creatures to tap for convoke.",
+            MustBeTargetable = false
+          }
           .Is.Card(c => c.CanBeTapped && c.Is().Creature && c.Controller == Card.Controller)
           .On.Battlefield();
 
-          tp.MustBeTargetable = false;
+      var validator = new TargetValidator(tp);
+      validator.Initialize(Game, Card.Controller);
 
-          var validator = new TargetValidator(tp);
-          validator.Initialize(Game, Card.Controller);
+      var dialog = ShowSelectorDialog(validator, null);
 
-          var dialog = ShowSelectorDialog(validator, null);
+      foreach (var target in dialog.Selection)
+      {
+        target.Card().Tap();
+        var manaColor = ManaColor.FromCardColors(target.Card().Colors);
 
-          if (dialog.WasCanceled)
-              return false;
-
-          foreach (var target in dialog.Selection)
-          {
-              var manaAmount = Mana.ParseCardColors(target.Card().Colors);
-
-              target.Card().Tap();
-
-              Card.Controller.AddManaToManaPool(manaAmount, ManaUsage.Spells);
-          }
-
-          // If user selects creatures not enough
-          if (!Card.Controller.HasMana(Card.ManaCost, ManaUsage.Spells))
-          {
-              dialog.Selection.ToList().ForEach(target => target.Card().Untap());
-              return false;
-          }
-
-          return true;
+        Card.Controller.AddManaToManaPool(new SingleColorManaAmount(manaColor, 1));
       }
+    }
 
-      private bool SelectTargets(ActivationPrerequisites prerequisites, ActivationParameters parameters)
+    private bool SelectTargets(ActivationPrerequisites prerequisites, ActivationParameters parameters)
     {
       if (prerequisites.Selector.RequiresCostTargets)
       {
@@ -246,7 +239,7 @@
       var selectTargetParameters = new SelectTargetParameters
         {
           Validator = validator,
-          CanCancel = true,          
+          CanCancel = true,
           X = x
         };
 

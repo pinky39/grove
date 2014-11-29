@@ -7,7 +7,7 @@
       result.CanPay(true);      
     }
 
-    protected override void PayCost(Targets targets, int? x, int repeat)
+    public override void Pay(PayCostParameters p)
     {
       Card.PutToHand();
     }

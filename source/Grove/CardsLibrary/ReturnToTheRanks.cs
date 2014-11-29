@@ -15,7 +15,7 @@
         .ManaCost("{W}{W}").HasXInCost()
         .Type("Sorcery")
         .Text("{Convoke} {I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for or one mana of that creature's color.){/I}{EOL}Return X target creature cards with converted mana cost 2 or less from your graveyard to the battlefield. ")
-        .Convoke()
+        .SimpleAbilities(Static.Convoke)
         .Cast(p =>
         {
           p.Effect = () => new PutSelectedCardsToBattlefield(

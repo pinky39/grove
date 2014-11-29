@@ -7,7 +7,8 @@
       if (Stack.IsEmpty || Stack.TopSpellOwner == p.Controller)
         return int.MaxValue;
 
-      return p.Controller.Opponent.GetAvailableConvertedMana() + 1;
+      return p.Controller.Opponent.GetAvailableConvertedMana(
+        canUseConvoke: p.OwningCard.Has().Convoke) + 1;
     }
   }
 }

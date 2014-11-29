@@ -17,7 +17,7 @@
 
         RunGame(1);
 
-        Equal(2, P1.Battlefield.Creatures.Count());
+        Equal(3, P1.Battlefield.Creatures.Count());
       }
     }
   }

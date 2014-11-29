@@ -486,6 +486,7 @@
     <Compile Include="Cards\SickAndTired.cs" />
     <Compile Include="Cards\Sicken.cs" />
     <Compile Include="Cards\SiegeDragon.cs" />
+    <Compile Include="Cards\SiegeWurm.cs" />
     <Compile Include="Cards\SigilOfSleep.cs" />
     <Compile Include="Cards\SilentAttendant.cs" />
     <Compile Include="Cards\SilkNet.cs" />

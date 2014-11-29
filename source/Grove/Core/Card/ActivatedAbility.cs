@@ -125,7 +125,7 @@
 
       if (p.PayCost)
       {
-        _p.Cost.Pay(p.Targets, p.X, p.Repeat);
+        _p.Cost.Pay(new PayCostParameters{Targets =  p.Targets, X = p.X, Repeat = p.Repeat});
       }
     }
 

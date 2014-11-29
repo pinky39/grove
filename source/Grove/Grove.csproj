@@ -577,6 +577,7 @@
     <Compile Include="Core\Card\MinBlockerCount.cs" />
     <Compile Include="Core\Costs\AbilityCostModifier.cs" />
     <Compile Include="Core\Costs\Exile.cs" />
+    <Compile Include="Core\Costs\PayCostParameters.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToCard.cs" />
@@ -623,6 +624,7 @@
     <Compile Include="Core\Events\PlayerSearchesLibrary.cs" />
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
+    <Compile Include="Core\Mana\ConvokeManaSource.cs" />
     <Compile Include="Core\Modifiers\AddToList.cs" />
     <Compile Include="Core\Modifiers\ChangeCardTemplate.cs" />
     <Compile Include="Core\Modifiers\CardParametersSetter.cs" />

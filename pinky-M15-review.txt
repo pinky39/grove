@@ -99,8 +99,8 @@ o Scrapyard Mongrel
 o Cone of Flame
 o Glacial Crasher
 o Mercurial Pretender
-Indulgent Tormentor
-Siege Wurm
+o Indulgent Tormentor
+o Siege Wurm
 Living Totem
 Seraph of the Masses
 Sunblade Elf

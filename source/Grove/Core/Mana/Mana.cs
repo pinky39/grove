@@ -1,10 +1,7 @@
 ﻿namespace Grove
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    public static class Mana
-  {
+  public static class Mana
+  {    
     public static readonly IManaAmount Zero = new ZeroManaAmount();
     public static readonly IManaAmount Any = new SingleColorManaAmount(ManaColor.Any, 1);
     public static readonly IManaAmount White = new SingleColorManaAmount(ManaColor.White, 1);
@@ -66,44 +63,6 @@
       }
 
       return Colorless(1);
-    }
-
-    public static IManaAmount ParseCardColors(IEnumerable<CardColor> colors)
-    {
-        var manaColors = new Dictionary<ManaColor, int>();
-
-        foreach (var cardColor in colors)
-        {
-            switch (cardColor)
-            {
-                case CardColor.Black:
-                    manaColors.Add(ManaColor.Black, 1);
-                    break;
-                case CardColor.Blue:
-                    manaColors.Add(ManaColor.Blue, 1);
-                    break;
-                case CardColor.Green:
-                    manaColors.Add(ManaColor.Green, 1);
-                    break;
-                case CardColor.Red:
-                    manaColors.Add(ManaColor.Red, 1);
-                    break;
-                case CardColor.White:
-                    manaColors.Add(ManaColor.White, 1);
-                    break;
-                case CardColor.Colorless:
-                    manaColors.Add(ManaColor.Colorless, 1);
-                    break;
-            }
-        }
-
-        if (manaColors.Count == 0)
-            return Zero;
-
-        if (manaColors.Count > 1)
-            return new MultiColorManaAmount(manaColors);
-
-        return new SingleColorManaAmount(manaColors.Keys.SingleOrDefault(), 1);
     }
   }
 }

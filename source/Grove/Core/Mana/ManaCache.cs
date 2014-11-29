@@ -77,33 +77,37 @@
       }
     }
 
-    public int GetAvailableConvertedMana(ManaUsage usage)
+    public int GetAvailableConvertedMana(ManaUsage usage, IEnumerable<ManaUnit> additional = null)
     {
       var restricted = new HashSet<ManaUnit>();
       var allocated = new List<ManaUnit>();
 
-      foreach (var manaUnit in _units)
+      additional = additional ?? Enumerable.Empty<ManaUnit>();
+
+      var all = _units.Concat(additional).ToList();
+      
+      foreach (var manaUnit in all)
       {
         if (IsAvailable(manaUnit, restricted, usage))
         {
           restricted.Add(manaUnit);
           allocated.Add(manaUnit);
 
-          RestrictUsingDifferentSourcesFromSameCard(manaUnit, restricted);
+          RestrictUsingDifferentSourcesFromSameCard(manaUnit, restricted, all);
         }
       }
 
       return allocated.Count;
     }
 
-    private void RestrictUsingDifferentSourcesFromSameCard(ManaUnit allocated, HashSet<ManaUnit> restricted)
+    private void RestrictUsingDifferentSourcesFromSameCard(ManaUnit allocated, HashSet<ManaUnit> restricted, IEnumerable<ManaUnit> units)
     {
       // Same card cannot be tapped twice, therefore multiple sources 
       // from same card cannot be used simultaniously.
 
       // Add to restricted all units produced by another source
       // of the same card.
-      var unitsProducedByAnotherSourceOnSameCard = _units.Where(
+      var unitsProducedByAnotherSourceOnSameCard = units.Where(
         unit => unit.HasSource && allocated.HasSource &&
           unit.Source.OwningCard == allocated.Source.OwningCard
           && unit.Source != allocated.Source);
@@ -111,17 +115,6 @@
       foreach (var unit in unitsProducedByAnotherSourceOnSameCard)
       {
         restricted.Add(unit);
-      }
-    }
-
-    public void AddManaToPool(IEnumerable<ManaUnit> units)
-    {
-      lock (_manaPoolCountLock)
-      {
-        foreach (var unit in units)
-        {
-          _manaPool.Add(unit);
-        }
       }
     }
 
@@ -150,7 +143,9 @@
       // Every mana can be used as colorless.
       // True colorless mana was already added, so we don't add it again.
       if (unit.Color.IsColorless == false)
+      {
         _units.Add(unit);
+      }
     }
 
     public void Remove(ManaUnit unit)
@@ -164,14 +159,14 @@
       RemovePermanently(unit);
     }
 
-    public bool Has(IManaAmount amount, ManaUsage usage)
+    public bool Has(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
     {
-      return TryToAllocateAmount(amount, usage) != null;
+      return TryToAllocateAmount(amount, usage, additional) != null;
     }
 
-    public void Consume(IManaAmount amount, ManaUsage usage)
+    public void Consume(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
     {
-      var allocated = TryToAllocateAmount(amount, usage);
+      var allocated = TryToAllocateAmount(amount, usage, additional);
       Asrt.True(allocated != null, "Not enough mana available.");
 
       var sources = GetSourcesToActivate(allocated);
@@ -236,25 +231,57 @@
       return true;
     }
 
-    private HashSet<ManaUnit> TryToAllocateAmount(IManaAmount amount, ManaUsage usage)
+    private HashSet<ManaUnit> TryToAllocateAmount(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional)
     {
       var restricted = new HashSet<ManaUnit>();
       var allocated = new HashSet<ManaUnit>();
+
+      var additionalGrouped = new[]
+        {
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+        };
+
+      IEnumerable<ManaUnit> allUnits = _units;
+      
+      if (additional != null)
+      {
+        foreach (var unit in additional)
+        {
+          foreach (var color in unit.Color.Indices)
+          {
+            additionalGrouped[color].Add(unit);
+          }
+
+          // Every mana can be used as colorless.
+          // True colorless mana was already added, so we don't add it again.
+          if (!unit.Color.IsColorless)
+          {
+            additionalGrouped[5].Add(unit);
+          }
+        }
+        allUnits = _units.Concat(additional).ToList();
+      }      
 
       foreach (var manaOfSingleColor in amount)
       {
         var color = manaOfSingleColor.Color.IsColorless
           ? 5
+          // amount never contains mana whish is multiple colors at the same time
           : manaOfSingleColor.Color.Indices[0];
 
         var ordered = _groups[color]
+          .Concat(additionalGrouped[color])
           .OrderBy(GetManaUnitAllocationOrder)
           .ToList();
 
         for (var i = 0; i < manaOfSingleColor.Count; i++)
         {
-          var allocatedUnit = ordered
-            .FirstOrDefault(unit => IsAvailable(unit, restricted, usage));
+          var allocatedUnit = ordered.FirstOrDefault(unit => IsAvailable(unit, restricted, usage));
 
           if (allocatedUnit == null)
             return null;
@@ -262,7 +289,7 @@
           restricted.Add(allocatedUnit);
           allocated.Add(allocatedUnit);
 
-          RestrictUsingDifferentSourcesFromSameCard(allocatedUnit, restricted);          
+          RestrictUsingDifferentSourcesFromSameCard(allocatedUnit, restricted, allUnits);
         }
       }
 

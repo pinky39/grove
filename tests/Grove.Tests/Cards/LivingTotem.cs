@@ -10,15 +10,18 @@
       [Fact]
       public void CastLivingTotemWithCounter()
       {
-        Hand(P1, "Living Totem");
-        Battlefield(P1, "Forest", "Forest", "Forest", "Wall of Frost", "Grizzly Bears");
+        var totem = C("Living Totem");
+        var wall = C("Wall of Frost");
+        
+        Hand(P1, totem);        
+        Battlefield(P1, "Forest", "Forest", "Forest", wall, "Grizzly Bears");
 
-        P2.Life = 4;
+        P2.Life = 3;
 
         RunGame(1);
 
-        Equal(0, P1.Hand.Count);
-        Equal(1, P2.Life);
+        Equal(Zone.Battlefield, C(totem).Zone);          
+        Equal(0, P2.Life);
       }
 
       [Fact]

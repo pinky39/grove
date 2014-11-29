@@ -23,7 +23,10 @@
       _supportsRepetitions = supportsRepetitions;
     }
 
-    public override bool HasX { get { return _hasX; } }
+    public override bool HasX
+    {
+      get { return _hasX; }
+    }
 
     public override IManaAmount GetManaCost()
     {
@@ -37,7 +40,7 @@
       // the following lazy evaluation allows ai
       // to only check mana costs when all the cheaper
       // timing tests are successful
-      
+
       var evaluator = new PayManaEvaluator(this);
 
       result.CanPay(evaluator.CanPay);
@@ -45,22 +48,24 @@
       result.MaxRepetitions(evaluator.MaxRepetitions);
     }
 
-    protected override void PayCost(Targets targets, int? x, int repeat)
-    {      
+    public override void Pay(PayCostParameters p)
+    {
       var amount = Game.GetActualCost(_amount, _manaUsage, Card);
 
-      if (x.HasValue)
-        amount = amount.Add(x.Value.Colorless());
+      if (p.X.HasValue)
+      {
+        amount = amount.Add(p.X.Value.Colorless());
+      }
 
       if (_supportsRepetitions)
       {
-        for (var i = 1; i < repeat; i++)
+        for (var i = 1; i < p.Repeat; i++)
         {
           amount = amount.Add(_amount);
         }
       }
 
-      Card.Controller.Consume(amount, _manaUsage);
+      Card.Controller.Consume(amount, _manaUsage, Card.Has().Convoke);
     }
 
     private class PayManaEvaluator
@@ -96,7 +101,7 @@
             {
               if (!_payMana._hasX)
                 return null;
-              
+
               Evaluate();
               return _maxX;
             };
@@ -111,7 +116,7 @@
             {
               if (!_payMana._supportsRepetitions)
                 return 1;
-              
+
               Evaluate();
               return _maxRepetitions;
             };
@@ -122,18 +127,18 @@
       {
         if (_isEvaluated)
           return;
-        
+
         var manaUsage = _payMana._manaUsage;
         var controller = _payMana.Card.Controller;
 
-        var actualCost = _payMana.Game.GetActualCost(_payMana._amount, manaUsage, _payMana.Card);        
-        _canPay = controller.HasMana(actualCost, manaUsage);
+        var actualCost = _payMana.Game.GetActualCost(_payMana._amount, manaUsage, _payMana.Card);
+        _canPay = controller.HasMana(actualCost, manaUsage, _payMana.Card.Has().Convoke);
 
         if (_canPay)
         {
           if (_payMana._hasX)
           {
-            _maxX = controller.GetAvailableConvertedMana(manaUsage) - actualCost.Converted;
+            _maxX = controller.GetAvailableConvertedMana(manaUsage, _payMana.Card.Has().Convoke) - actualCost.Converted;
           }
 
           if (_payMana._supportsRepetitions)

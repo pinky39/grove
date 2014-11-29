@@ -9,9 +9,9 @@
       result.CanPay(() => Card.Controller.Hand.Count > 0);
     }
 
-    protected override void PayCost(Targets targets, int? x, int repeat)
+    public override void Pay(PayCostParameters p)
     {
-      var card = targets.Cost.FirstOrDefault().Card();
+      var card = p.Targets.Cost.FirstOrDefault().Card();
       card.Discard();
     }
   }

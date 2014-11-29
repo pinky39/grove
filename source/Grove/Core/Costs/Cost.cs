@@ -1,13 +1,16 @@
 ﻿namespace Grove.Costs
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public abstract class Cost : GameObject, IHashable
   {
     protected Card Card { get; private set; }
     protected TargetValidator Validator { get; set; }
 
-    public virtual bool HasX { get { return false; } }
+    public virtual bool HasX
+    {
+      get { return false; }
+    }
 
     public virtual int CalculateHash(HashCalculator calc)
     {
@@ -24,15 +27,7 @@
       return result;
     }
 
-    public virtual void Pay(Targets targets, int? x, int repeat = 1)
-    {
-      // only one cost target is currently 
-      // supported, changes this to support
-      // more
-      PayCost(targets, x, repeat);
-    }
-
-    protected virtual void PayCost(Targets targets, int? x, int repeat) {}
+    public abstract void Pay(PayCostParameters p);    
 
     public virtual IManaAmount GetManaCost()
     {
