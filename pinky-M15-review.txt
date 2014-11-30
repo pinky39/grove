@@ -106,9 +106,9 @@ o Seraph of the Masses
 o Sunblade Elf
 o Will-Forged Golem
 o Devouring Light
-Feral Incarnation
-Gather Courage
-Meditation Puzzle
+o Feral Incarnation
+o Gather Courage
+o Meditation Puzzle
 Nissa's Expedition
 Overwhelm
 Triplicate Spirits
