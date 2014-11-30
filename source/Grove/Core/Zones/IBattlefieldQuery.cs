@@ -11,7 +11,6 @@
     IEnumerable<Card> CreaturesThatCanBlock { get; }
     bool HasCreaturesThatCanAttack { get; }
     IEnumerable<Card> Lands { get; }
-    IEnumerable<Card> Legends { get; }
-    CardColor GetMostCommonColor();
+    IEnumerable<Card> Legends { get; }    
   }
 }

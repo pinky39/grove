@@ -2,22 +2,51 @@
 {
   using System;
   using System.Collections.Generic;
-  using Grove.AI;
-  using Grove.Decisions;
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using System.Linq;
+  using AI;
+  using Decisions;
+  using Events;
+  using Infrastructure;
 
   [Copyable]
   public abstract class GameObject
   {
-    public bool IsInitialized { get { return Game != null; } }
+    public bool IsInitialized
+    {
+      get { return Game != null; }
+    }
+
     protected Game Game { get; set; }
-    protected Players Players { get { return Game.Players; } }
-    protected Stack Stack { get { return Game.Stack; } }
-    protected Combat Combat { get { return Game.Combat; } }
-    protected TurnInfo Turn { get { return Game.Turn; } }
-    protected SearchRunner Ai { get { return Game.Ai; } }            
-    protected ChangeTracker ChangeTracker { get { return Game.ChangeTracker; } }
+
+    protected Players Players
+    {
+      get { return Game.Players; }
+    }
+
+    protected Stack Stack
+    {
+      get { return Game.Stack; }
+    }
+
+    protected Combat Combat
+    {
+      get { return Game.Combat; }
+    }
+
+    protected TurnInfo Turn
+    {
+      get { return Game.Turn; }
+    }
+
+    protected SearchRunner Ai
+    {
+      get { return Game.Ai; }
+    }
+
+    protected ChangeTracker ChangeTracker
+    {
+      get { return Game.ChangeTracker; }
+    }
 
     public void SaveDecisionResult(object result)
     {
@@ -33,6 +62,27 @@
       Stack.GenerateTargets(zoneFilter, targets);
 
       return targets;
+    }
+
+    protected CardColor GetMostCommonColor(IEnumerable<Card> cards)
+    {
+      var counts = new Dictionary<CardColor, int>
+        {
+          {CardColor.White, 0},
+          {CardColor.Blue, 0},
+          {CardColor.Black, 0},
+          {CardColor.Red, 0},
+          {CardColor.Green, 0},
+          {CardColor.Colorless, -100},
+          {CardColor.None, -100},
+        };
+
+      foreach (var color in cards.SelectMany(card => card.Colors))
+      {
+        counts[color]++;
+      }
+
+      return counts.MaxElement(x => x.Value).Key;
     }
 
     protected int GenerateRandomNumber(int minValue, int maxValue)

@@ -17,7 +17,7 @@
         color = Stack.TopSpell.Colors[0];
       }
 
-      color = color ?? Controller.Opponent.Battlefield.GetMostCommonColor();
+      color = color ?? GetMostCommonColor(Controller.Opponent.Battlefield);
 
       return new ChosenOptions(ChoiceToColorMap.Single(x => x.Color == color).Choice);
     }

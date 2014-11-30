@@ -8,7 +8,7 @@
   {
     public override ChosenOptions ChooseResult(List<IEffectChoice> operations)
     {
-      var color = Target.Player().Battlefield.GetMostCommonColor();
+      var color = GetMostCommonColor(Target.Player().Battlefield);
       return new ChosenOptions(ChoiceToColorMap.Single(x => x.Color == color).Choice);
     }
 

@@ -5,16 +5,16 @@
 
   public class PreventDamageToTarget : DamagePrevention
   {
-    private readonly object _creatureOrPlayer;
+    private readonly object _target;
     private readonly int _maxAmount;
 
     private readonly Func<Card, bool> _sourceFilter;
 
     private PreventDamageToTarget() {}
 
-    public PreventDamageToTarget(object creatureOrPlayer, Func<Card, bool> sourceFilter = null, int maxAmount = int.MaxValue)
+    public PreventDamageToTarget(object target, Func<Card, bool> sourceFilter = null, int maxAmount = int.MaxValue)
     {
-      _creatureOrPlayer = creatureOrPlayer;
+      _target = target;
       _maxAmount = maxAmount;
 
       _sourceFilter = sourceFilter ?? delegate { return true; };
@@ -25,12 +25,12 @@
       return HashCalculator.Combine(
        GetType().GetHashCode(),
        _maxAmount,
-       calc.Calculate((IHashable)_creatureOrPlayer));
+       calc.Calculate((IHashable)_target));
     }
 
     public override int PreventDamage(PreventDamageParameters p)
     {
-      if (p.Target != _creatureOrPlayer)
+      if (p.Target != _target)
         return 0;
 
       if (!_sourceFilter(p.Source))

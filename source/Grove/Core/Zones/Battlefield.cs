@@ -3,7 +3,7 @@
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
-
+    
   public class Battlefield : UnorderedZone, IBattlefieldQuery
   {
     public Battlefield(Player owner) : base(owner) {}
@@ -22,28 +22,7 @@
     public IEnumerable<Card> CreaturesThatCanAttack { get { return Creatures.Where(x => x.CanAttack); } }
     public IEnumerable<Card> CreaturesThatCanBlock { get { return Creatures.Where(x => x.CanBlock()); } }
     public bool HasCreaturesThatCanAttack { get { return Creatures.Any(card => card.CanAttack); } }
-    public IEnumerable<Card> Legends { get { return this.Where(x => x.Is().Legendary); } }
-
-    public CardColor GetMostCommonColor()
-    {
-      var counts = new Dictionary<CardColor, int>
-        {
-          {CardColor.White, 0},
-          {CardColor.Blue, 0},
-          {CardColor.Black, 0},
-          {CardColor.Red, 0},
-          {CardColor.Green, 0},
-          {CardColor.Colorless, -100},
-          {CardColor.None, -100},
-        };
-
-      foreach (var color in this.SelectMany(card => card.Colors))
-      {
-        counts[color]++;
-      }
-
-      return counts.MaxElement(x => x.Value).Key;
-    }
+    public IEnumerable<Card> Legends { get { return this.Where(x => x.Is().Legendary); } }       
 
     public override void AfterAdd(Card card)
     {

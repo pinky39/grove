@@ -112,6 +112,7 @@
     <Compile Include="Cards\Attrition.cs" />
     <Compile Include="Cards\AuraFlux.cs" />
     <Compile Include="Cards\AuraThief.cs" />
+    <Compile Include="Cards\AvacynGuardianAngel.cs" />
     <Compile Include="Cards\AvalancheRiders.cs" />
     <Compile Include="Cards\AvariceAmulet.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />

@@ -16,7 +16,7 @@
         .Text(
           "Prevent all damage that would be dealt to you by sources you don't control.{EOL}When a card is put into your graveyard from anywhere, sacrifice Energy Field.")
         .StaticAbility(p => p.Modifier(() => new AddDamagePrevention(modifier => new PreventDamageToTarget(
-          creatureOrPlayer: modifier.SourceCard.Controller,
+          target: modifier.SourceCard.Controller,
           sourceFilter: card => card.Controller != modifier.SourceCard.Controller)))
          )                  
         .TriggeredAbility(p =>
