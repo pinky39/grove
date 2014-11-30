@@ -426,6 +426,7 @@
     <Compile Include="CardsLibrary\SerraAngel.cs" />
     <Compile Include="CardsLibrary\ShadowcloakVampire.cs" />
     <Compile Include="CardsLibrary\ShamanOfSpring.cs" />
+    <Compile Include="CardsLibrary\ShamblingAttendants.cs" />
     <Compile Include="CardsLibrary\ShieldOfTheAvatar.cs" />
     <Compile Include="CardsLibrary\ShivanReef.cs" />
     <Compile Include="CardsLibrary\ShrapnelBlast.cs" />
