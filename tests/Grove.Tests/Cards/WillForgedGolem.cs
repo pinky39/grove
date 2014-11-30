@@ -8,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void CannotCastWillForgedGolem()
+      public void BirdsCannotBeTappedForConvokeAndMana()
       {
         Hand(P1, "Will-Forged Golem");
         Battlefield(P1, "Forest", "Forest", "Forest", "Forest", "Birds of Paradise");
