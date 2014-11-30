@@ -16,9 +16,7 @@
         .FlavorText("Nature is itself wild—in all its forms.")
         .SimpleAbilities(Static.Convoke)
         .Cast(p =>
-          {
-            p.Text = "Put three 3/3 green Beast creature tokens onto the battlefield.";
-
+          {            
             p.Effect = () => new CreateTokens(
               count: 3,
               token: Card

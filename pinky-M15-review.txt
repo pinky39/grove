@@ -109,6 +109,33 @@ o Devouring Light
 o Feral Incarnation
 o Gather Courage
 o Meditation Puzzle
-Nissa's Expedition
-Overwhelm
-Triplicate Spirits
+o Nissa's Expedition
+o Overwhelm
+o Triplicate Spirits
+
+
+Avacyn, Guardian Angel
+Battle Mastery
+Boonweaver Giant
+Constricting Sliver
+Dauntless River Marshal
+Ephemeral Shields
+Heliod's Pilgrim
+Hushwing Gryff
+Marked  By  Honor
+Oppressive Rays
+Paragon of New Dawns
+Preeminent Captain
+Razorfoot Griffin
+Return to the Ranks
+Soul of Theros
+Spectra Ward
+Spirit Bonds
+Warden of the Beyond
+
+
+// Not M15
+
+Vaporkin
+Kiora's Follower
+Horizon Chimera

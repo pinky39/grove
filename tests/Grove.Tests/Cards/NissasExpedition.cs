@@ -1,26 +1,24 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using System.Linq;
+  using Infrastructure;
+  using Xunit;
 
-    public class NissasExpedition
+  public class NissasExpedition
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void CastNissasExpedition()
-            {
-                Library(P1, "Island", "Mountain", "Island");
-                Battlefield(P1, "Grizzly Bears", "Plains", "Plains", "Plains", "Plains");
-                Hand(P1, "Nissa's Expedition", "Lava Axe");
+      [Fact]
+      public void Put2LandsInPlay()
+      {
+        Library(P1, "Grizzly Bears", "Island", "Mountain", "Island");
+        Battlefield(P1, "Grizzly Bears", "Plains", "Plains", "Plains", "Plains");
+        Hand(P1, "Nissa's Expedition");
+        
+        RunGame(1);
 
-                P2.Life = 5;
-                Battlefield(P2, "Grizzly Bears");                
-
-                RunGame(1);
-
-                Equal(7, P1.Battlefield.Count);
-            }
-        }
+        Equal(6, P1.Battlefield.Lands.Count());
+      }
     }
+  }
 }
