@@ -1,25 +1,26 @@
-﻿
-namespace Grove.Tests.Cards
+﻿namespace Grove.Tests.Cards
 {
-    using Infrastructure;
-    using Xunit;
+  using Infrastructure;
+  using Xunit;
 
-    public class SeraphOfTheMasses
+  public class SeraphOfTheMasses
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void CastSeraphOfTheMasses()
-            {
-                Hand(P1, "Seraph of the Masses");
-                Battlefield(P1, "Plains", "Plains", "Mountain", "Mountain", "Mountain", "Mountain", "Grizzly Bears");
-                
-                Battlefield(P2, "Coral Barrier");
+      [Fact]
+      public void Is22()
+      {
+        var seraph = C("Seraph of the Masses");
+        Hand(P1, seraph);
+        Battlefield(P1, "Plains", "Plains", "Mountain", "Mountain", "Mountain", "Mountain", "Grizzly Bears");
+        Battlefield(P2, "Coral Barrier");
 
-                RunGame(1);
+        RunGame(1);
 
-                Equal(8, P1.Battlefield.Count);
-            }
-        }
+        Equal(2, C(seraph).Power);
+        Equal(2, C(seraph).Toughness);
+        Equal(Zone.Battlefield, C(seraph).Zone);
+      }
     }
+  }
 }

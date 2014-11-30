@@ -521,6 +521,7 @@
     <Compile Include="Cards\Subversion.cs" />
     <Compile Include="Cards\SultaiScavenger.cs" />
     <Compile Include="Cards\SultaiSoothsayer.cs" />
+    <Compile Include="Cards\SunbladeElf.cs" />
     <Compile Include="Cards\Sunder.cs" />
     <Compile Include="Cards\SungracePegasus.cs" />
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />
