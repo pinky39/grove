@@ -380,6 +380,7 @@
     <Compile Include="CardsLibrary\Quickling.cs" />
     <Compile Include="CardsLibrary\RadiantFountain.cs" />
     <Compile Include="CardsLibrary\RaiseTheAlarm.cs" />
+    <Compile Include="CardsLibrary\RakshasasSecret.cs" />
     <Compile Include="CardsLibrary\RakshasaVizier.cs" />
     <Compile Include="CardsLibrary\RangersGuile.cs" />
     <Compile Include="CardsLibrary\RapidDecay.cs" />
