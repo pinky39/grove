@@ -14,7 +14,7 @@
                 .Type("Instant")
                 .Text("{Convoke}{I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}You gain 8 life.")
                 .FlavorText("Find your center, and you will find your way.")
-                .Convoke()
+                .SimpleAbilities(Static.Convoke)
                 .Cast(p =>
                 {
                     p.Text = "You gain 8 life.";

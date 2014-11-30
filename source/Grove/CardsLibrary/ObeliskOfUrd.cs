@@ -14,7 +14,7 @@
         .ManaCost("{6}")
         .Type("Artifact")
         .Text("{Convoke} (Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){EOL}As Obelisk of Urd enters the battlefield, choose a creature type.{EOL}Creatures you control of the chosen type get +2/+2.")
-        .Convoke()
+        .SimpleAbilities(Static.Convoke)
         .Cast(p => p.TimingRule(new OnFirstMain()))
         .TriggeredAbility(p =>
         {

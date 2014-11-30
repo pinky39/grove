@@ -243,12 +243,6 @@
       return this;
     }
 
-    public CardTemplate Convoke()
-    {
-      SimpleAbilities(Static.Convoke);
-      return this;
-    }
-
     public CardTemplate FlavorText(string flavorText)
     {
       _init.Add(p => { p.FlavorText = flavorText; });

@@ -14,7 +14,7 @@
         .ManaCost("{G}{G}{G}").HasXInCost()
         .Type("Instant")
         .Text("{Convoke} {I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}Search your library for a creature card with converted mana cost X or less and put it onto the battlefield. Then shuffle your library.")
-        .Convoke()
+        .SimpleAbilities(Static.Convoke)
         .Cast(p =>
         {
           p.Effect = () => new SearchLibraryPutToZone(

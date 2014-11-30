@@ -14,8 +14,7 @@
                 .Text("{Convoke}{I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}{Flying}{EOL}Seraph of the Masses's power and toughness are each equal to the number of creatures you control.")
                 .Power(0)
                 .Toughness(0)
-                .Convoke()
-                .SimpleAbilities(Static.Flying)
+                .SimpleAbilities(Static.Flying, Static.Convoke)
                 .StaticAbility(p =>
                 {
                     p.Modifier(() => new ModifyPowerToughnessForEachPermanent(

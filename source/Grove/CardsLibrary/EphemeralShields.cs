@@ -16,7 +16,7 @@
         .Type("Instant")
         .Text("{Convoke} {I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}Target creature gains indestructible until end of turn.{I}(Damage and effects that say \"destroy\" don't destroy it.){/I}")
         .FlavorText("\"Even your shadow is too foul to tolerate.\"")
-        .Convoke()
+        .SimpleAbilities(Static.Convoke)
         .Cast(p =>
         {
           p.Text = "Target creature gains indestructible until end of turn.";

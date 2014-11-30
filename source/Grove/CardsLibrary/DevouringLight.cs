@@ -15,7 +15,7 @@
                 .Type("Instant")
                 .Text("{Convoke}{I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}Exile target attacking or blocking creature.")
                 .FlavorText("\"Even your shadow is too foul to tolerate.\"")
-                .Convoke()
+                .SimpleAbilities(Static.Convoke)
                 .Cast(p =>
                 {
                     p.Text = "Exile target attacking or blocking creature.";

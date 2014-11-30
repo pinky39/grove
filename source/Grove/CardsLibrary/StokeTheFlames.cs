@@ -15,7 +15,7 @@
         .ManaCost("{2}{R}{R}")
         .Type("Instant")
         .Text("{Convoke} {I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}Stoke the Flames deals 4 damage to target creature or player.")
-        .Convoke()
+        .SimpleAbilities(Static.Convoke)
         .Cast(p =>
         {
           p.Effect = () => new DealDamageToTargets(4);

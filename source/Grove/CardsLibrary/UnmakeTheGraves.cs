@@ -15,7 +15,7 @@
         .Type("Instant")
         .Text("{Convoke} {I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}Return up to two target creature cards from your graveyard to your hand.")
         .FlavorText("\"I'm raising an army. Any volunteers?\"")
-        .Convoke()
+        .SimpleAbilities(Static.Convoke)
         .Cast(p =>
         {
           p.Text = "Return up to two target creature cards from your graveyard to your hand.";

@@ -13,7 +13,7 @@
                 .Type("Sorcery")
                 .Text("{Convoke}{I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}Put three 1/1 white Spirit creature tokens with flying onto the battlefield.{I}(They can't be blocked except by creatures with flying or reach.){/I}")
                 .FlavorText("Nature is itself wild—in all its forms.")
-                .Convoke()
+                .SimpleAbilities(Static.Convoke)
                 .Cast(p =>
                 {
                     p.Text = "Put three 1/1 white Spirit creature tokens with flying onto the battlefield. (They can't be blocked except by creatures with flying or reach.)";

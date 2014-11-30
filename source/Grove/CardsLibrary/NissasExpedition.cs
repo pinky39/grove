@@ -12,7 +12,7 @@
                 .ManaCost("{4}{G}")
                 .Type("Sorcery")
                 .Text("{Convoke}{I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle your library.")
-                .Convoke()
+                .SimpleAbilities(Static.Convoke)
                 .Cast(p =>
                 {
                     p.Text = "Search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle your library.";

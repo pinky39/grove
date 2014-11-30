@@ -16,7 +16,7 @@
                 .Type("Sorcery")
                 .Text("{Convoke}{I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}Creatures you control get +3/+3 until end of turn.")
                 .FlavorText("The Conclave acts with a single will, expressed by countless warriors.")
-                .Convoke()
+                .SimpleAbilities(Static.Convoke)
                 .Cast(p =>
                 {
                     p.Text = "Creatures you control get +3/+3 until end of turn.";

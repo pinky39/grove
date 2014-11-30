@@ -16,7 +16,7 @@
         .ManaCost("{R}")
         .Type("Instant")
         .Text("{Convoke} {I}(Your creatures can help cast this spell. Each creature you tap while casting this spell pays for {1} or one mana of that creature's color.){/I}{EOL}Target creature gets +1/+0 and gains first strike until end of turn. {I}(It deals combat damage before creatures without first strike.){/I}")
-        .Convoke()
+        .SimpleAbilities(Static.Convoke)
         .Cast(p =>
         {
           p.Text = "Target creature gets +1/+0 and gains first strike until end of turn.";
