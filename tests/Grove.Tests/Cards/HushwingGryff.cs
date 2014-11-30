@@ -9,7 +9,7 @@
     // TODO: HushingGryff ability needs to be implemented
     public class Ai : AiScenario
     {
-      [Fact]
+      [Fact(Skip = "To be implemented")]
       public void DoesNotActivateTrigger()
       {
         Hand(P1, "Coral Barrier");

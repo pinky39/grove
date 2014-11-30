@@ -24,7 +24,9 @@
       if (Turn.Step != Step.SecondMain)
         return false;
 
-      var availableMana = p.Controller.GetAvailableConvertedMana(canUseConvoke: p.Card.Has().Convoke);
+      var availableMana = p.Controller.GetAvailableConvertedMana(
+        canUseConvoke: p.Card.Has().Convoke, 
+        canUseDelve: p.Card.Has().Delve);
 
       return SpellsNeedMana(p, availableMana) || AbilitiesNeedMana(p, availableMana);
     }

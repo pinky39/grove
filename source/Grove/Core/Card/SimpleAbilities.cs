@@ -52,6 +52,11 @@
       get { return Has(Static.Defender); }
     }
 
+    public bool Delve
+    {
+      get { return Has(Static.Delve); }
+    }
+
     public bool Fear
     {
       get { return Has(Static.Fear); }

@@ -454,6 +454,7 @@
     <Compile Include="CardsLibrary\StatuteOfDenial.cs" />
     <Compile Include="CardsLibrary\StokeTheFlames.cs" />
     <Compile Include="CardsLibrary\StormtideLeviathan.cs" />
+    <Compile Include="CardsLibrary\SultaiScavenger.cs" />
     <Compile Include="CardsLibrary\SunbladeElf.cs" />
     <Compile Include="CardsLibrary\SungracePegasus.cs" />
     <Compile Include="CardsLibrary\SuspensionField.cs" />
@@ -625,6 +626,7 @@
     <Compile Include="Core\Events\SpellPutOnStackEvent.cs" />
     <Compile Include="Core\GameParameters.cs" />
     <Compile Include="Core\Mana\ConvokeManaSource.cs" />
+    <Compile Include="Core\Mana\DelveManaSource.cs" />
     <Compile Include="Core\Modifiers\AddToList.cs" />
     <Compile Include="Core\Modifiers\ChangeCardTemplate.cs" />
     <Compile Include="Core\Modifiers\CardParametersSetter.cs" />

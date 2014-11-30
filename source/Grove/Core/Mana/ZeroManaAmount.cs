@@ -16,6 +16,7 @@
     }
 
     public int Converted { get { return 0; } }
+    public int Generic { get { return 0; } }
     public HashSet<int> Colors { get { return new HashSet<int>();} }
 
     public IManaAmount Add(IManaAmount amount)

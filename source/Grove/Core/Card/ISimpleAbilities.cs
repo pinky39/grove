@@ -5,6 +5,7 @@
     bool Convoke { get; }
     bool Deathtouch { get; }
     bool Defender { get; }
+    bool Delve { get; }
     bool Fear { get; }
     bool Flying { get; }
     bool Haste { get; }

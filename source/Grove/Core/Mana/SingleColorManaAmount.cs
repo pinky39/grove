@@ -24,7 +24,22 @@
       return GetEnumerator();
     }
 
-    public int Converted { get { return Count; } }
+    public int Converted
+    {
+      get
+      {
+        return Count;
+      }
+    }
+
+    public int Generic 
+    {
+      get
+      {
+        return Color.IsColorless ? Count : 0;
+      }
+    }
+
     public HashSet<int> Colors { get { return new HashSet<int>(Color.Indices); } }
 
     public IManaAmount Add(IManaAmount amount)

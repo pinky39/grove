@@ -138,6 +138,11 @@
         ManuallySelectRequiredConvokeTargets();
       }
 
+      if (Card.Has().Delve)
+      {
+        ManuallySelectRequiredDelveTargets();
+      }
+
       var playable = activation.GetPlayable(activationParameters);
 
       Publisher.Publish(new PlayableSelected {Playable = playable});
@@ -167,6 +172,31 @@
         var manaColor = ManaColor.FromCardColors(target.Card().Colors);
 
         Card.Controller.AddManaToManaPool(new SingleColorManaAmount(manaColor, 1));
+      }
+    }
+
+    private void ManuallySelectRequiredDelveTargets()
+    {
+      var tp =
+        new TargetValidatorParameters
+        {
+          MinCount = 0,
+          MaxCount = Card.HasXInCost ? int.MaxValue : Card.GenericCost,
+          Message = "Select cards to exile for delve.",
+          MustBeTargetable = false
+        }
+        .On.YourGraveyard();
+
+      var validator = new TargetValidator(tp);
+      validator.Initialize(Game, Card.Controller);
+
+      var dialog = ShowSelectorDialog(validator, null);
+
+      foreach (var target in dialog.Selection)
+      {
+        target.Card().Exile();
+
+        Card.Controller.AddManaToManaPool(new SingleColorManaAmount(ManaColor.Colorless, 1));
       }
     }
 

@@ -8,7 +8,8 @@
         return int.MaxValue;
 
       return p.Controller.Opponent.GetAvailableConvertedMana(
-        canUseConvoke: p.OwningCard.Has().Convoke) + 1;
+        canUseConvoke: p.OwningCard.Has().Convoke,
+        canUseDelve: p.OwningCard.Has().Delve) + 1;
     }
   }
 }

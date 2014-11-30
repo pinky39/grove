@@ -5,6 +5,7 @@
   public interface IManaAmount : IEnumerable<SingleColorManaAmount>
   {
     int Converted { get; }
+    int Generic { get; }
 
     HashSet<int> Colors { get; }
     IManaAmount Add(IManaAmount amount);

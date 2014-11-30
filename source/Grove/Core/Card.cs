@@ -259,6 +259,11 @@
       get { return ManaCost == null ? 0 : ManaCost.Converted; }
     }
 
+    public int GenericCost
+    {
+      get { return ManaCost == null ? 0 : ManaCost.Generic; }
+    }
+
     private IEnumerable<IAcceptsCardModifier> ModifiableProperties
     {
       get

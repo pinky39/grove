@@ -321,11 +321,17 @@
       _battlefield.Add(card);
     }
 
-    public int GetAvailableConvertedMana(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false)
+    public int GetAvailableConvertedMana(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false, bool canUseDelve = false)
     {
       var additionalUnits = canUseConvoke
        ? GetConvokeSources()
-       : null;
+       : Enumerable.Empty<ManaUnit>();
+
+      var fromDelveUnits = canUseDelve
+        ? GetDelveSources()
+        : Enumerable.Empty<ManaUnit>();
+
+      additionalUnits = additionalUnits.Concat(fromDelveUnits);
 
       return ManaCache.GetAvailableConvertedMana(usage, additionalUnits);
     }
@@ -340,11 +346,17 @@
       _assignedDamage.Assign(damage);
     }
 
-    public void Consume(IManaAmount amount, ManaUsage usage, bool canUseConvoke = false)
+    public void Consume(IManaAmount amount, ManaUsage usage, bool canUseConvoke = false, bool canUseDelve = false)
     {
       var additionalUnits = canUseConvoke
         ? GetConvokeSources()
-        : null;
+        : Enumerable.Empty<ManaUnit>();
+
+      var fromDelveUnits = canUseDelve
+        ? GetDelveSources()
+        : Enumerable.Empty<ManaUnit>();
+
+      additionalUnits = additionalUnits.Concat(fromDelveUnits);
 
       ManaCache.Consume(amount, usage, additionalUnits);
     }
@@ -432,20 +444,34 @@
       return HasMana(amount.Colorless(), usage, canUseConvoke);
     }
 
-    public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false)
+    public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false, bool canUseDelve = false)
     {
       var additionalUnits = canUseConvoke
         ? GetConvokeSources()
-        : null;
+        : Enumerable.Empty<ManaUnit>();
+
+      var fromDelveUnits = canUseDelve
+        ? GetDelveSources()
+        : Enumerable.Empty<ManaUnit>();
+
+      additionalUnits = additionalUnits.Concat(fromDelveUnits);
 
       return ManaCache.Has(amount, usage, additionalUnits);
     }
 
-    private List<ManaUnit> GetConvokeSources()
+    private IEnumerable<ManaUnit> GetConvokeSources()
     {
       return Battlefield.Creatures
         .OrderBy(x => x.Power)
         .SelectMany(x => new ConvokeManaSource(x).GetUnits())        
+        .ToList();
+    }
+
+    private IEnumerable<ManaUnit> GetDelveSources()
+    {
+      return Graveyard
+        .OrderBy(x => x.Score)
+        .SelectMany(x => new DelveManaSource(x).GetUnits())
         .ToList();
     }
 

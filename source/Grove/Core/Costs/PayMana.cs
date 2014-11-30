@@ -65,7 +65,7 @@
         }
       }
 
-      Card.Controller.Consume(amount, _manaUsage, Card.Has().Convoke);
+      Card.Controller.Consume(amount, _manaUsage, canUseConvoke: Card.Has().Convoke, canUseDelve: Card.Has().Delve);
     }
 
     private class PayManaEvaluator
@@ -132,13 +132,13 @@
         var controller = _payMana.Card.Controller;
 
         var actualCost = _payMana.Game.GetActualCost(_payMana._amount, manaUsage, _payMana.Card);
-        _canPay = controller.HasMana(actualCost, manaUsage, _payMana.Card.Has().Convoke);
+        _canPay = controller.HasMana(actualCost, manaUsage, canUseConvoke: _payMana.Card.Has().Convoke, canUseDelve: _payMana.Card.Has().Delve);
 
         if (_canPay)
         {
           if (_payMana._hasX)
           {
-            _maxX = controller.GetAvailableConvertedMana(manaUsage, _payMana.Card.Has().Convoke) - actualCost.Converted;
+            _maxX = controller.GetAvailableConvertedMana(manaUsage, canUseConvoke: _payMana.Card.Has().Convoke, canUseDelve: _payMana.Card.Has().Delve) - actualCost.Converted;
           }
 
           if (_payMana._supportsRepetitions)

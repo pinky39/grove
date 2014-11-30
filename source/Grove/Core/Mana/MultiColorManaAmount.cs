@@ -12,6 +12,8 @@
     {
       SingleColorManaAmount colorless = null;
 
+      Generic = 0;
+
       foreach (var colorCount in colorCounts)
       {
         var singleColor = new SingleColorManaAmount(colorCount.Key, colorCount.Value);
@@ -20,6 +22,9 @@
         if (singleColor.Color.IsColorless)
         {
           colorless = singleColor;
+
+          Generic += colorless.Count;
+
           continue;
         }
 
@@ -33,6 +38,7 @@
     }
 
     public int Converted { get; private set; }
+    public int Generic { get; private set; }
 
     public HashSet<int> Colors
     {

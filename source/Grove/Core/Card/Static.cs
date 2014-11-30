@@ -3,6 +3,7 @@
   public enum Static
   {
     Convoke,
+    Delve,
     Flying,
     Hexproof,
     Lifelink,
