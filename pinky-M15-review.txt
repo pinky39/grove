@@ -133,9 +133,221 @@ Spectra Ward
 Spirit Bonds
 Warden of the Beyond
 
+Aetherspouts
+Amphin Pathmage
+Chasm Skulker
+Chief Engineer
+Chronostutter
+Diffusion Sliver
+Dissipate
+Hydrosurge
+Invisibility
+Jace's Ingenuity
+Jalira, Master Polymorphist
+Jorubai Murk Lurker
+Master of Predicaments
+Military Intelligence
+Mind Sculpt
+Nimbus of the Isles
+Paragon of Gathering Mists
+Polymorphist's Jest
+Quickling
+Soul of Ravnica
+Statute of Denial
+Void Snare
+Black Cat
+Covenant of Blood
+Cruel Sadist
+Endless Obedience
+Eternal Thirst
+Feast on the Fallen
+In Garruk's Wake
+Leeching Sliver
+Mind Rot
+Necrobite
+Necrogen Scudder
+Necromancer's Assistant
+Necromancer's Stockpile
+Ob Nixilis, Unshackled
+Paragon of Open Graves
+Rotfeaster Maggot
+Soul of Innistrad
+Unmake the Graves
+Waste Not
+Xathrid Slyblade
+Aggressive Mining
+Altac Bloodseeker
+Belligerent Sliver
+Borderland Marauder
+Brood Keeper
+Circle of Flame
+Crowd's Favor
+Crucible of Fire
+Forge Devil
+Foundry Street Denizen
+Frenzied Goblin
+Goblin Kaboomist
+Goblin Rabblemaster
+Hammerhand
+Inferno Fist
+Kird Chieftain
+Might Makes Right
+Miner's Bane
+Paragon of Fierce Defiance
+Soul of Shandalar
+Stoke the Flames
+Back to Nature
+Chord of Calling
+Elvish Mystic
+Hornet Nest
+Hunter's Ambush
+Kalonian Twingrove
+Life's Legacy
+Netcaster Spider
+Paragon of Eternal Wilds
+Ranger's Guile
+Soul of Zendikar
+Venom Sliver
+Verdant Haven
+Vineweft
+Yisan, the Wanderer Bard
+Sliver Hivelord
+Avarice Amulet
+Grindclock
+Haunted Plate Mail
+Hot Soup
+Obelisk of Urd
+Perilous Vault
+Scuttling Doom Engine
+Shield of the Avatar
+Soul of New Phyrexia
+Staff of the Wild Magus
+Tormod's Crypt
+Battlefield Forge
+Yavimaya Coast
+Shivan Reef
+Llanowar Wastes
+Caves of Koilos
+Evolving Wilds
+Radiant Fountain
+Urborg, Tomb of Yawgmoth
+Aegis Angel
+Divine Verdict
+Inspired Charge
+Serra Angel
+Cancel
+Mahamoti Djinn
+Nightmare
+Sengir Vampire
+Walking Corpse
+Furnace Whelp
+Seismic Strike
+Centaur Courser
+Garruk's Packleader
+Terra Stomper
+Hunt the Weak
 
-// Not M15
+// M15 not implemented
+
+Master of Predicaments
+Stain the Mind
+Act on Impulse
+Generator Servant
+Kurkesh, Onakke Ancient
+Charging Rhino 		// add maxCount to DeclareBlockers and BlockStrategy
+Genesis Hydra 		// modify SelectCards? take x cards, then pick x targets, then rest put to zone
+Undergrowth Scavenger	// allow to play 0/0 creatures or new effect ModifyCounterCount?
+The Chain Veil		// support planeswalkers
+Phyrexian Revoker	// new effect as ChooseType of creature?
+Sliver Hive
+
+Ajani Steadfast
+Chandra, Pyromaster
+Garruk, Apex Predator
+Jace, the Living Guildpact
+Liliana Vess
+Nissa, Worldwaker
+
+
+// Theros block
 
 Vaporkin
 Kiora's Follower
 Horizon Chimera
+
+// Khans of Tarkir block
+
+Disowned Ancestor
+Salt Road Patrol
+Kill Shot
+Dragonscale Boon
+Blossoming Sands
+Jungle Hollow
+Sandsteppe Citadel
+Scoured Barrens
+Abzan Banner
+Ainok Bond-Kin
+Abzan Falconer
+Tuskguard Captain
+Abzan Battle Priest
+High Sentinels of Arashin
+Mer-Ek Nightblade
+Longshot Squad
+Ivorytusk Fortress
+Armament Corps
+Abzan Charm
+Incremental Growth
+Suspension Field
+Monastery Swiftspear
+Jeskai Elder
+Leaping Master
+Jeskai Student
+Seeker of the Way
+Jeskai Windscout
+Bloodfire Expert
+Bloodfire Mentor
+Alabaster Kirin
+Highspire Mantis
+Whirlwind Adept
+Sage of the Inward Eye
+Warden of the Eye
+Riverwheel Aerialists
+Jeskai Banner
+Mystic Monastery
+Swiftwater Cliffs
+Tranquil Cove
+Wind-Scarred Crag
+Crippling Chill
+Winterflame
+Jeskai Charm
+Weave Fate
+Smite the Monstrous
+Flying Crane Technique
+
+War-Name Aspirant
+Firehoof Cavalry
+Mardu Hateblade
+Valley Dasher
+Gurmag Swiftwing
+Mardu Skullhunter
+Mardu Hordechief
+Mardu Warshrieker
+Timely Hordemate
+Ankle Shanker
+
+Mardu Roughrider
+Hordeling Outburst
+Arrow Storm
+Mardu Banner
+Nomad Outpost
+Bloodfell Caves
+Mardu Charm
+Bring Low
+Crackling Doom
+Rakshasa Vizier
+Sultai Scavenger
+Sultai Soothsayer
+Hooting Mandrills
+Shambling Attendants
+Rakshasa's Secret
+Set Adrift
