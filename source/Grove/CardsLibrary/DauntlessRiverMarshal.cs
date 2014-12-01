@@ -1,13 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using System.Linq;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Costs;
   using Effects;
   using Modifiers;
-  using Triggers;
 
   public class DauntlessRiverMarshal : CardTemplateSource
   {
@@ -21,31 +19,10 @@
           .FlavorText("\"Thieves and squid squirm the same way when you capture them.\"")
           .Power(2)
           .Toughness(1)
-          .TriggeredAbility(p =>
+          .StaticAbility(p =>
           {
-            p.Trigger(new OnZoneChanged(
-              to: Zone.Battlefield,
-              filter: (card, ability, _) =>
-              {
-                var count = ability.OwningCard.Controller.Battlefield.Count(c => c.Is("Island"));
-
-                // Dauntless River Marshal comes into battlefield
-                if (ability.OwningCard == card && count > 0)
-                  return true;
-
-                return ability.OwningCard.Zone == Zone.Battlefield &&
-                  ability.OwningCard.Controller == card.Controller && card.Is("Island") && count == 1;
-              }));
-
-            p.UsesStack = false;
-
-            p.Effect = () => new ApplyModifiersToSelf(
-              () =>
-              {
-                var modifier = new AddPowerAndToughness(1, 1);
-                modifier.AddLifetime(new OwnerControlsPermamentsLifetime(c => c.Is("Island")));
-                return modifier;
-              });
+            p.Modifier(() => new AddPowerAndToughness(1, 1));
+            p.Condition = cond => cond.OwnerControlsPermanent(c => c.Is("island"));
           })
           .ActivatedAbility(p =>
           {
