@@ -2,6 +2,7 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Configuration;
   using AI.CombatRules;
   using Infrastructure;
 
@@ -54,7 +55,12 @@
     {
       get
       {
-        const int basicLandVersions = 15;
+        int basicLandVersions;
+        var count = ConfigurationManager.AppSettings["BasicLandVersionCount"];
+        if (!int.TryParse(count, out basicLandVersions))
+        {
+          basicLandVersions = 15;
+        }
 
         if (Type.BasicLand)
         {
