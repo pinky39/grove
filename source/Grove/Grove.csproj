@@ -196,6 +196,7 @@
     <Compile Include="CardsLibrary\DarksteelCitadel.cs" />
     <Compile Include="CardsLibrary\DauntlessRiverMarshal.cs" />
     <Compile Include="CardsLibrary\DeadDrop.cs" />
+    <Compile Include="CardsLibrary\DebilitatingInjury.cs" />
     <Compile Include="CardsLibrary\DevouringLight.cs" />
     <Compile Include="CardsLibrary\DiffusionSliver.cs" />
     <Compile Include="CardsLibrary\Disappear.cs" />
