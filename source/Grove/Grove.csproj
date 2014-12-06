@@ -479,6 +479,7 @@
     <Compile Include="CardsLibrary\TormodsCrypt.cs" />
     <Compile Include="CardsLibrary\TranquilCove.cs" />
     <Compile Include="CardsLibrary\Treachery.cs" />
+    <Compile Include="CardsLibrary\TreasureCruise.cs" />
     <Compile Include="CardsLibrary\TriplicateSpirits.cs" />
     <Compile Include="CardsLibrary\TurnToFrog.cs" />
     <Compile Include="CardsLibrary\TuskguardCaptain.cs" />
