@@ -195,6 +195,7 @@
     <Compile Include="CardsLibrary\CruelSadist.cs" />
     <Compile Include="CardsLibrary\DarksteelCitadel.cs" />
     <Compile Include="CardsLibrary\DauntlessRiverMarshal.cs" />
+    <Compile Include="CardsLibrary\DeadDrop.cs" />
     <Compile Include="CardsLibrary\DevouringLight.cs" />
     <Compile Include="CardsLibrary\DiffusionSliver.cs" />
     <Compile Include="CardsLibrary\Disappear.cs" />
@@ -622,6 +623,7 @@
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\Effects\SacrificeCreatureOrPayLifeOrOpponentDrawsCard.cs" />
+    <Compile Include="Core\Effects\TargetPlayerSacrificesPermanents.cs" />
     <Compile Include="Core\Effects\UntapEachPermanent.cs" />
     <Compile Include="Core\Effects\YourLifeBecomesEqual.cs" />
     <Compile Include="Core\Events\AttackersDeclaredEvent.cs" />

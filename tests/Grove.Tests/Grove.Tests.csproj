@@ -182,6 +182,7 @@
     <Compile Include="Cards\DarkRitual.cs" />
     <Compile Include="Cards\DarkstyleGargoyle.cs" />
     <Compile Include="Cards\DayOfJudgment.cs" />
+    <Compile Include="Cards\DeadDrop.cs" />
     <Compile Include="Cards\DeathlessAngel.cs" />
     <Compile Include="Cards\DefenseOfTheHeart.cs" />
     <Compile Include="Cards\DelusionsOfMediocrity.cs" />
