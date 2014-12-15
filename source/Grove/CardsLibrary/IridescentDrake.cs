@@ -25,7 +25,7 @@
             p.Text =
               "When Iridescent Drake enters the battlefield, put target Aura card from a graveyard onto the battlefield under your control attached to Iridescent Drake.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new EnchantOwnerWithTarget();
+            p.Effect = () => new AttachTargetToOwningCard();
             
             p.TargetSelector.AddEffect(trg => trg.Is.Card(p1 => p1.Target.Card().Is().Aura &&
               p1.Target.Card().CanTarget(p1.OwningCard)).In.Graveyard());

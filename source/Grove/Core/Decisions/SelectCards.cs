@@ -36,7 +36,7 @@
                   if (D._p.CanSelectOnlyCardsControlledByDecisionController && owner != D.Controller)
                     return false;
 
-                  return zone == D._p.Zone;
+                  return D._p.Zone == null || zone == D._p.Zone;
                 })
                 .Where(x => x.IsCard())
                 .Select(x => x.Card())
@@ -98,7 +98,7 @@
       public IProcessDecisionResults<ChosenCards> ProcessDecisionResults;
       public string Text;
       public ICardValidator Validator;
-      public Zone Zone;
+      public Zone? Zone;
 
       public void SetValidator(Func<Card, bool> validator)
       {

@@ -22,7 +22,7 @@
             p.Text =
               "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new EnchantOwnerWithTarget();
+            p.Effect = () => new AttachTargetToOwningCard();
             p.TargetSelector.AddEffect(trg =>
               {
                 trg.Is.Card(p1 => p1.Target.Card().Is().Aura &&
