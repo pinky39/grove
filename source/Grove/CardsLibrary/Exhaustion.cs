@@ -22,13 +22,11 @@
               selector: e => e.Controller.Opponent,
               modifiers: () =>
                 {
-                  var cp = new ContinuousEffectParameters
-                    {
-                      Modifier = () => new AddStaticAbility(Static.DoesNotUntap),
-                      CardFilter = (card, effect) =>
-                        card.Controller == effect.SourceEffect.Controller.Opponent &&
-                          (card.Is().Creature || card.Is().Land)
-                    };
+                  var cp = new ContinuousEffectParameters{
+                    CardFilter = (card, effect) =>
+                      card.Controller == effect.SourceEffect.Controller.Opponent &&
+                        (card.Is().Creature || card.Is().Land),
+                    Modifier = () => new AddStaticAbility(Static.DoesNotUntap)};                    
 
                   var modifier = new AddContiniousEffect(new ContinuousEffect(cp));
 

@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TargetingRules;
   using Effects;
   using Modifiers;
   using Triggers;
@@ -21,46 +22,29 @@
         .Toughness(3)
         .ContinuousEffect(p =>
           {
-            p.CardFilter =
-              (card, effect) =>
-                card.Controller == effect.Source.Controller && card.Is().Creature &&
-                  card.Is("sliver");
-            p.Modifier = () =>
-              {
-                var tp = new TriggeredAbility.Parameters();
+            p.CardFilter = (c, e) => c.Controller == e.Source.Controller && c.Is("sliver");
 
-                tp.Text =
-                  "When this creature enters the battlefield, you may exile target creature an opponent controls until this creature leaves the battlefield.";
+            p.Modifiers.Add(() =>
+              {
+                var tp = new TriggeredAbility.Parameters
+                  {
+                    Text =
+                      "When this creature enters the battlefield, you may exile target creature an opponent controls until this creature leaves the battlefield.",
+                    Effect = () => new ExileTargetsUntilOwnerLeavesBattlefield()
+                  };
+
                 tp.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-                tp.Effect = () => new CompoundEffect(
-                  new ExileTargets(),
-                  new Attach());
 
-                tp.TargetSelector.AddEffect(
-                  trg => trg.Is.Card(c => c.Is().Creature, controlledBy: ControlledBy.Opponent).On.Battlefield());
+                tp.TargetSelector.AddEffect(trg => trg
+                  .Is.Card(c => c.Is().Creature, ControlledBy.Opponent)
+                  .On.Battlefield());
 
-                return new AddTriggeredAbility(new TriggeredAbility(tp));
-              };
-            p.ApplyOnlyToPermaments = false;
-          })
-        .ContinuousEffect(p =>
-          {
-            p.CardFilter =
-              (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature && card.Is("sliver");
-            p.Modifier = () =>
-              {
-                var tp = new TriggeredAbility.Parameters();
 
-                tp.Text =
-                  "When this creature enters the battlefield, you may exile target creature an opponent controls until this creature leaves the battlefield.";
-                tp.Trigger(new OnZoneChanged(
-                  from: Zone.Battlefield,
-                  filter: (c, a, g) => a.OwningCard == c && a.OwningCard.AttachedTo != null));
-
-                tp.Effect = () => new PutCardToBattlefield(P(e => e.Source.OwningCard.AttachedTo), Zone.Exile);
+                tp.TargetingRule(new EffectExileBattlefield());
 
                 return new AddTriggeredAbility(new TriggeredAbility(tp));
-              };
+              });
+
             p.ApplyOnlyToPermaments = false;
           });
     }

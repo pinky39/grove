@@ -10,14 +10,9 @@
     private readonly Zone _from;
     private readonly Zone _to;
 
-    private OnZoneChanged()
-    {
-    }
+    private OnZoneChanged() {}
 
-    public Zone To
-    {
-      get { return _to; }
-    }
+    public Zone To { get { return _to; } }
 
     public OnZoneChanged(Zone @from = Zone.None, Zone to = Zone.None,
       Func<Card, TriggeredAbility, Game, bool> filter = null)

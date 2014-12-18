@@ -12,7 +12,7 @@
   public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife, IModifiable
   {
     private readonly ActivatedAbilities _activatedAbilities;
-    private readonly Trackable<Card> _attachedTo = new Trackable<Card>();
+    private readonly Trackable<Card> _attachedTo = new Trackable<Card>();    
     private readonly TrackableList<Card> _attachments = new TrackableList<Card>();
     private readonly CardBase _base;
     private readonly CastRules _castRules;
@@ -88,7 +88,7 @@
     {
       get { return _attachedTo.Value; }
       private set { _attachedTo.Value = value; }
-    }
+    }    
 
     public IEnumerable<Card> Attachments
     {
@@ -625,7 +625,7 @@
       _modifiers.Initialize(ChangeTracker);
 
       _isTapped.Initialize(ChangeTracker, this);
-      _attachedTo.Initialize(ChangeTracker, this);
+      _attachedTo.Initialize(ChangeTracker, this);      
       _attachments.Initialize(ChangeTracker, this);
       _hasRegenerationShield.Initialize(ChangeTracker, this);
       _damage.Initialize(ChangeTracker, this);

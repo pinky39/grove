@@ -1,10 +1,9 @@
 ﻿namespace Grove
 {
-  using System;
   using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public class Players : GameObject, IEnumerable<Player>, IHashable
   {
@@ -80,8 +79,8 @@
     {
       return HashCalculator.Combine(
         calc.Calculate(Player1),
-        calc.Calculate(Player2),     
-        calc.Calculate(Searching),   
+        calc.Calculate(Player2),
+        calc.Calculate(Searching),
         calc.Calculate(_extraTurns));
     }
 
@@ -140,10 +139,15 @@
       return this.SelectMany(x => x.Battlefield);
     }
 
+    public IEnumerable<Card> AllCards()
+    {
+      return this.SelectMany(x => x.Library.Concat(x.Hand).Concat(x.Battlefield).Concat(x.Graveyard).Concat(x.Exile));
+    }
+
     public void MoveDeadCreaturesToGraveyard()
     {
       Active.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
-      Passive.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();                  
+      Passive.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
       RespectLegendaryRule();
     }
 
@@ -173,6 +177,6 @@
       {
         legend.Sacrifice();
       }
-    }    
+    }
   }
 }

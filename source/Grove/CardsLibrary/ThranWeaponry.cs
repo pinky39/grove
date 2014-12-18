@@ -30,10 +30,10 @@
               modifiers: () =>
                 {
                   var cp = new ContinuousEffectParameters
-                    {
-                      Modifier = () => new AddPowerAndToughness(2, 2),
-                      CardFilter = (card, _) => card.Is().Creature
-                    };
+                  {
+                    Modifier = () => new AddPowerAndToughness(2, 2),
+                    CardFilter = (card, _) => card.Is().Creature
+                  };
                   
                   var effect = new ContinuousEffect(cp);
 

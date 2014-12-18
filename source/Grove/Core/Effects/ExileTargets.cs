@@ -1,6 +1,6 @@
 ﻿namespace Grove.Effects
 {
-  using Grove.AI;
+  using AI;
 
   public class ExileTargets : Effect
   {
@@ -9,7 +9,8 @@
 
     private ExileTargets() {}
 
-    public ExileTargets(bool targetControllerGainsLifeEqualToToughness = false, bool effectControllerGainsLifeEqualToToughness = false)
+    public ExileTargets(bool targetControllerGainsLifeEqualToToughness = false,
+      bool effectControllerGainsLifeEqualToToughness = false)
     {
       _targetControllerGainsLifeEqualToToughness = targetControllerGainsLifeEqualToToughness;
       _effectControllerGainsLifeEqualToToughness = effectControllerGainsLifeEqualToToughness;

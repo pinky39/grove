@@ -168,6 +168,7 @@
     <Compile Include="Cards\Compost.cs" />
     <Compile Include="Cards\ConeOfFlame.cs" />
     <Compile Include="Cards\Confiscate.cs" />
+    <Compile Include="Cards\ConstrictingSliver.cs" />
     <Compile Include="Cards\CopperGnomes.cs" />
     <Compile Include="Cards\CoralBarrier.cs" />
     <Compile Include="Cards\CovetousDragon.cs" />

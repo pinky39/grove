@@ -116,7 +116,7 @@ o Triplicate Spirits
 
 o Avacyn, Guardian Angel
 o Battle Mastery
-Boonweaver Giant
+o Boonweaver Giant
 Constricting Sliver
 Dauntless River Marshal
 Ephemeral Shields

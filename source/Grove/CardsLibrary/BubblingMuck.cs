@@ -21,12 +21,10 @@
               e => e.Controller,
               () =>
                 {
-                  var cp = new ContinuousEffectParameters
-                    {
-                      Modifier = () => new IncreaseManaOutput(Mana.Black),
-                      CardFilter = (card, _) => card.Is("swamp")
-                    };
-
+                  var cp = new ContinuousEffectParameters{
+                    CardFilter = (c, e) => c.Is("swamp"),
+                    Modifier = () => new IncreaseManaOutput(Mana.Black)};
+                    
                   return new AddContiniousEffect(new ContinuousEffect(cp)) {UntilEot = true};
                 });
           });

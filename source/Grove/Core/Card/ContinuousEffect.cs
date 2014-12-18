@@ -1,8 +1,9 @@
 ﻿namespace Grove
 {
+  using System.Collections.Generic;
   using System.Linq;
   using Events;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   public delegate bool ShouldApplyToCard(Card card, ContinuousEffect effect);
@@ -11,12 +12,12 @@
 
   [Copyable]
   public class ContinuousEffect : GameObject, IReceive<ZoneChangedEvent>, IReceive<PermanentModifiedEvent>,
-     ICopyContributor
+    ICopyContributor
   {
     private readonly ShouldApplyToCard _cardFilter;
-    private readonly Trackable<IModifier> _doNotUpdate = new Trackable<IModifier>();
+    private readonly Trackable<IModifier> _doNotUpdate = new Trackable<IModifier>(); // prevent update cycles
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
-    private readonly CardModifierFactory _modifierFactory;
+    private readonly List<CardModifierFactory> _modifierFactories;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
     private readonly bool _applyOnlyToPermaments;
 
@@ -24,7 +25,7 @@
 
     public ContinuousEffect(ContinuousEffectParameters p)
     {
-      _modifierFactory = p.Modifier;
+      _modifierFactories = p.Modifiers;
       _cardFilter = p.CardFilter;
       _applyOnlyToPermaments = p.ApplyOnlyToPermaments;
     }
@@ -37,15 +38,6 @@
       SubscribeToEvents();
     }
 
-    //public void Receive(ControllerChangedEvent message)
-    //{
-    //  if (message.Card == Source && message.Card.IsPermanent)
-    //  {
-    //    Deactivate();
-    //    Activate();
-    //  }
-    //}
-
     public void Receive(PermanentModifiedEvent message)
     {
       if (ShouldPermanentBeUpdated(message.Card, message.Modifier))
@@ -57,6 +49,7 @@
     public void Receive(ZoneChangedEvent message)
     {
       if (_isActive == false) return;
+      if (_applyOnlyToPermaments == false) return;
 
       if (message.ToBattlefield && _cardFilter(message.Card, this))
       {
@@ -77,7 +70,6 @@
         {
           RemoveModifier(modifier);
         }
-        return;
       }
     }
 
@@ -98,8 +90,8 @@
 
     private void SubscribeToEvents()
     {
-      Source.JoinedBattlefield += delegate { Activate(); };
-      Source.LeftBattlefield += delegate { Deactivate(); };
+      Source.JoinedBattlefield += Activate;
+      Source.LeftBattlefield += Deactivate;
     }
 
     private bool ShouldPermanentBeUpdated(Card permanent, IModifier modifier)
@@ -140,24 +132,13 @@
 
     public void Activate()
     {
-      ApplyModifierToPermanents();
+      var cards = _applyOnlyToPermaments
+        ? Players.Permanents()
+        : Players.AllCards();
 
-      if (!_applyOnlyToPermaments)
+      foreach (var card in cards.Where(x => _cardFilter(x, this)))
       {
-        var cards = Players.Player1.Library.Where(card => _cardFilter(card, this))
-            .Union(Players.Player1.Hand.Where(card => _cardFilter(card, this)))
-            .Union(Players.Player1.Graveyard.Where(card => _cardFilter(card, this)))
-
-            .Union(Players.Player2.Library.Where(card => _cardFilter(card, this)))
-            .Union(Players.Player2.Hand.Where(card => _cardFilter(card, this)))
-            .Union(Players.Player2.Graveyard.Where(card => _cardFilter(card, this)))
-
-            .ToList();
-
-        foreach (var card in cards)
-        {
-          AddModifier(card);
-        }
+        AddModifier(card);
       }
 
       _isActive.Value = true;
@@ -166,27 +147,19 @@
 
     private void AddModifier(Card card)
     {
-      var modifier = _modifierFactory();
-
-      _modifiers.Add(modifier);
-      _doNotUpdate.Value = modifier;
-
-      var p = new ModifierParameters
-        {
-          SourceCard = Source,
-        };
-
-      card.AddModifier(modifier, p);
-    }
-
-    private void ApplyModifierToPermanents()
-    {
-      var permanents = Players.Permanents()
-        .Where(permanent => _cardFilter(permanent, this)).ToList();
-
-      foreach (var permanent in permanents)
+      foreach (var factory in _modifierFactories)
       {
-        AddModifier(permanent);
+        var modifier = factory();
+
+        _modifiers.Add(modifier);
+        _doNotUpdate.Value = modifier;
+
+        var p = new ModifierParameters
+          {
+            SourceCard = Source,
+          };
+
+        card.AddModifier(modifier, p);
       }
     }
 
