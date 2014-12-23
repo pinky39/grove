@@ -579,12 +579,14 @@
     <Compile Include="Core\AI\TimingRules\RegenerateTargetTimingRule.cs" />
     <Compile Include="Core\AI\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Core\AI\TimingRules\WhenStackIsNotEmpty.cs" />
+    <Compile Include="Core\AI\TimingRules\WhenTopSpellIs.cs" />
     <Compile Include="Core\CardParameters.cs" />
     <Compile Include="Core\Card\AbilityParameters.cs" />
     <Compile Include="Core\Card\ActivatedAbilityParameters.cs" />
     <Compile Include="Core\Card\CardBase.cs" />
     <Compile Include="Core\Card\ManaAbilityParameters.cs" />
     <Compile Include="Core\Card\MinBlockerCount.cs" />
+    <Compile Include="Core\Card\NamedGameModifiers.cs" />
     <Compile Include="Core\Costs\AbilityCostModifier.cs" />
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Costs\PayCostParameters.cs" />
@@ -640,6 +642,7 @@
     <Compile Include="Core\GameParameters.cs" />
     <Compile Include="Core\Mana\ConvokeManaSource.cs" />
     <Compile Include="Core\Mana\DelveManaSource.cs" />
+    <Compile Include="Core\Modifiers\AddNamedGameModifier.cs" />
     <Compile Include="Core\Modifiers\AddToList.cs" />
     <Compile Include="Core\Modifiers\ChangeCardTemplate.cs" />
     <Compile Include="Core\Modifiers\CardParametersSetter.cs" />

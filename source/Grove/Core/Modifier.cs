@@ -88,7 +88,7 @@
     public virtual void Apply(MinBlockerCount count) {}
     public virtual void Apply(CardBase cardBase) {}
     public virtual void Apply(StaticAbilities abilities) {}
-
+    public virtual void Apply(NamedGameModifiers namedGameModifiers) {}
 
     protected abstract void Unapply();
 

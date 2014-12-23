@@ -6,6 +6,7 @@
   using Infrastructure;
   using Modifiers;
 
+
   public class SimpleAbilities : GameObject, ISimpleAbilities, IAcceptsCardModifier, IHashable, ICopyContributor
   {
     private readonly CardBase _cardBase;    

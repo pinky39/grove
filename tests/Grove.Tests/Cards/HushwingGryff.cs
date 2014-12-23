@@ -6,20 +6,25 @@
 
   public class HushwingGryff
   {
-    // TODO: HushingGryff ability needs to be implemented
     public class Ai : AiScenario
     {
-      [Fact(Skip = "To be implemented")]
-      public void DoesNotActivateTrigger()
+      [Fact]
+      public void CastGryffSoOpponentDoesNotGetSquid()
       {
-        Hand(P1, "Coral Barrier");
+        var barrier = C("Coral Barrier");
+        var gryff = C("Hushwing Gryff");
+        
+        Hand(P1, barrier);
         Battlefield(P1, "Island", "Island", "Island");
-
-        Battlefield(P2, "Hushwing Gryff", "Island");
+        
+        Hand(P2, gryff);
+        Battlefield(P2, "Island", "Island", "Plains");
 
         RunGame(1);
 
-        Equal(0, P1.Battlefield.Count(c => c.Is("Squid")));
+        Equal(Zone.Battlefield, C(barrier).Zone);
+        Equal(Zone.Battlefield, C(gryff).Zone);
+        Equal(1, P1.Battlefield.Creatures.Count());
       }
     }
   }

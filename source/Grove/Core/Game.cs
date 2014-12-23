@@ -15,6 +15,7 @@
     private readonly CostModifiers _costModifiers;
     private readonly DamagePreventions _damagePreventions;
     private readonly DamageRedirections _damageRedirections;
+    private readonly NamedGameModifiers _namedGameModifiers;
     private readonly DecisionQueue _decisionQueue;
     private readonly TrackableList<IGameModifier> _modifiers = new TrackableList<IGameModifier>();
     private readonly Publisher _publisher;
@@ -45,6 +46,7 @@
 
       _damagePreventions = new DamagePreventions();
       _damageRedirections = new DamageRedirections();
+      _namedGameModifiers = new NamedGameModifiers();
       _costModifiers = new CostModifiers();
       _scenario = new Scenario(this);
 
@@ -71,9 +73,9 @@
         {
           looser = p.Looser == 0 ? player1 : player2;
         }
-        
+
         _stateMachine.Start(() =>
-          {                                    
+          {
             if (p.RollBack > 0)
             {
               return (Turn.StateCount < p.SavedGame.StateCount - p.RollBack) || (_stateMachine.HasPendingDecisions);
@@ -94,6 +96,7 @@
         yield return _damagePreventions;
         yield return _damageRedirections;
         yield return _costModifiers;
+        yield return _namedGameModifiers;
       }
     }
 
@@ -148,6 +151,11 @@
     public bool RedirectDamage(Damage damage, ITarget target)
     {
       return _damageRedirections.RedirectDamage(damage, target);
+    }
+
+    public INamedGameModifiers Has()
+    {
+      return _namedGameModifiers;
     }
 
     public void Enqueue(Decision decision)
@@ -271,6 +279,7 @@
       _damageRedirections.Initialize(ChangeTracker);
       _damagePreventions.Initialize(ChangeTracker);
       _costModifiers.Initialize(ChangeTracker);
+      _namedGameModifiers.Initialize(this);
       _modifiers.Initialize(ChangeTracker);
     }
 

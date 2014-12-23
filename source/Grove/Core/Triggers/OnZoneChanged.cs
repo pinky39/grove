@@ -27,8 +27,18 @@
       if (!_filter(message.Card, Ability, Game))
         return;
 
+      // all scenario cards have zone set to None
+      // to avoid triggering abiltiies when 
+      // scenario is initialized
       if (message.From == Zone.None)
         return;
+
+      if (message.ToBattlefield &&
+        message.Card.Is().Creature &&
+        Game.Has().CreaturesEnteringBattlefieldDontTriggerAbilities)
+      {
+        return;
+      }
 
       if (_from == Zone.None && _to == message.To)
         Set(message);
