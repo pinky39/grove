@@ -8,9 +8,10 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void IndestructibleShield()
+      public void ShieldTheBear()
       {
-        Battlefield(P1, "Grizzly Bears", "Wall of Frost", "Plains");
+        var bear = C("Grizzly Bears");
+        Battlefield(P1, bear, "Wall of Frost", "Plains");
         Hand(P1, "Ephemeral Shields");
 
         P2.Life = 2;
@@ -21,7 +22,7 @@
 
         Equal(0, P2.Hand.Count);
         Equal(0, P2.Life);
-        Equal(3, P1.Battlefield.Count);
+        Equal(Zone.Battlefield, C(bear).Zone);
       }
     }
   }

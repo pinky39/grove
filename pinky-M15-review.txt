@@ -117,10 +117,10 @@ o Triplicate Spirits
 o Avacyn, Guardian Angel
 o Battle Mastery
 o Boonweaver Giant
-Constricting Sliver
-Dauntless River Marshal
-Ephemeral Shields
-Heliod's Pilgrim
+o Constricting Sliver
+o Dauntless River Marshal
+o Ephemeral Shields
+o Heliod's Pilgrim
 Hushwing Gryff
 Marked  By  Honor
 Oppressive Rays

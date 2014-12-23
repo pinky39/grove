@@ -1,24 +1,25 @@
 ﻿namespace Grove.Tests.Cards
 {
-    using System.Linq;
-    using Infrastructure;
-    using Xunit;
+  using System.Linq;
+  using Infrastructure;
+  using Xunit;
 
-    public class HeliodsPilgrim
+  public class HeliodsPilgrim
+  {
+    public class Ai : AiScenario
     {
-        public class Ai : AiScenario
-        {
-            [Fact]
-            public void CastHeliodsPilgrimSearchAura()
-            {
-                Library(P1, "Plains","Divine Favor", "Plains");
-                Battlefield(P1, "Plains", "Plains", "Forest");
-                Hand(P1, "Heliod's Pilgrim");
+      [Fact]
+      public void PutFavorIntoHand()
+      {
+        var favor = C("Divine Favor");
+        Library(P1, "Plains", favor, "Plains");
+        Battlefield(P1, "Plains", "Plains", "Forest");
+        Hand(P1, "Heliod's Pilgrim");
 
-                RunGame(1);
+        RunGame(1);
 
-                True(P1.Hand.Any(c => c.Is().Aura));
-            }
-        }
+        Equal(Zone.Hand, C(favor).Zone);
+      }
     }
+  }
 }
