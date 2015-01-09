@@ -461,6 +461,7 @@
     <Compile Include="CardsLibrary\StatuteOfDenial.cs" />
     <Compile Include="CardsLibrary\StokeTheFlames.cs" />
     <Compile Include="CardsLibrary\StormtideLeviathan.cs" />
+    <Compile Include="CardsLibrary\SultaiCharm.cs" />
     <Compile Include="CardsLibrary\SultaiScavenger.cs" />
     <Compile Include="CardsLibrary\SultaiSoothsayer.cs" />
     <Compile Include="CardsLibrary\SunbladeElf.cs" />
