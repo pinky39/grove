@@ -202,6 +202,7 @@
     <Compile Include="CardsLibrary\DevouringLight.cs" />
     <Compile Include="CardsLibrary\DiffusionSliver.cs" />
     <Compile Include="CardsLibrary\Disappear.cs" />
+    <Compile Include="CardsLibrary\DismalBackwater.cs" />
     <Compile Include="CardsLibrary\DisownedAncestor.cs" />
     <Compile Include="CardsLibrary\Dissipate.cs" />
     <Compile Include="CardsLibrary\DivineFavor.cs" />
@@ -363,6 +364,7 @@
     <Compile Include="CardsLibrary\Opalescence.cs" />
     <Compile Include="CardsLibrary\Opposition.cs" />
     <Compile Include="CardsLibrary\OppressiveRays.cs" />
+    <Compile Include="CardsLibrary\OpulentPalace.cs" />
     <Compile Include="CardsLibrary\OreskosSwiftclaw.cs" />
     <Compile Include="CardsLibrary\Ornithopter.cs" />
     <Compile Include="CardsLibrary\Overwhelm.cs" />
@@ -463,6 +465,7 @@
     <Compile Include="CardsLibrary\StatuteOfDenial.cs" />
     <Compile Include="CardsLibrary\StokeTheFlames.cs" />
     <Compile Include="CardsLibrary\StormtideLeviathan.cs" />
+    <Compile Include="CardsLibrary\SultaiBanner.cs" />
     <Compile Include="CardsLibrary\SultaiCharm.cs" />
     <Compile Include="CardsLibrary\SultaiScavenger.cs" />
     <Compile Include="CardsLibrary\SultaiSoothsayer.cs" />
@@ -476,6 +479,7 @@
     <Compile Include="CardsLibrary\TerraStomper.cs" />
     <Compile Include="CardsLibrary\TetheredGriffin.cs" />
     <Compile Include="CardsLibrary\ThornElemental.cs" />
+    <Compile Include="CardsLibrary\ThornwoodFalls.cs" />
     <Compile Include="CardsLibrary\ThranDynamo.cs" />
     <Compile Include="CardsLibrary\ThranFoundry.cs" />
     <Compile Include="CardsLibrary\Throttle.cs" />
