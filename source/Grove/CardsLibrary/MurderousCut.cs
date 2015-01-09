@@ -15,7 +15,7 @@
         .ManaCost("{4}{B}")
         .Type("Instant")
         .Text("{Delve}{I}(Each card you exile from your graveyard while casting this spell pays for {1}.){/I}{EOL}Destroy target creature.")
-        .FlavorText("Got a diving lesson{EOL}—Sultai expression meaning{EOL}\"was fed to the crocodiles\"")
+        .FlavorText("The blades of a Sultai assassin stab like the fangs of a dragon.")
         .SimpleAbilities(Static.Delve)
         .Cast(p =>
         {
