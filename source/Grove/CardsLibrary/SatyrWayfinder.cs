@@ -1,7 +1,6 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using AI.TimingRules;
   using Effects;
   using Triggers;
 

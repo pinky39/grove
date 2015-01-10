@@ -424,6 +424,7 @@
     <Compile Include="CardsLibrary\ScentOfJasmine.cs" />
     <Compile Include="CardsLibrary\Scour.cs" />
     <Compile Include="CardsLibrary\ScouredBarrens.cs" />
+    <Compile Include="CardsLibrary\ScoutTheBorders.cs" />
     <Compile Include="CardsLibrary\ScrapyardMongrel.cs" />
     <Compile Include="CardsLibrary\ScuttlingDoomEngine.cs" />
     <Compile Include="CardsLibrary\SeekerOfTheWay.cs" />
