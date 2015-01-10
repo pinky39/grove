@@ -21,9 +21,6 @@
     public PutSelectedCardsToBattlefield(string text, Func<Card, bool> validator, Zone zone,
       params CardModifierFactory[] modifiers) : this(text, validator, zone, null, 1, modifiers) {}
 
-//    public PutSelectedCardsToBattlefield(string text, Func<Card, bool> validator, Zone zone, Action<Card, Game> afterCardPutToBattlefield,
-//      params CardModifierFactory[] modifiers) : this(text, validator, zone, null, 1, modifiers) { }
-
     public PutSelectedCardsToBattlefield(string text, Func<Card, bool> validator, Zone zone, Action<Card, Game> afterCardPutToBattlefield, Value count,
       params CardModifierFactory[] modifiers)
     {
@@ -74,7 +71,7 @@
             p.SetValidator(_validator);
             p.Zone = _zone;
             p.MinCount = 0;
-            p.MaxCount = 1;
+            p.MaxCount = _count.GetValue(X);
             p.Text = _text;
             p.OwningCard = Source.OwningCard;
             p.ProcessDecisionResults = this;
