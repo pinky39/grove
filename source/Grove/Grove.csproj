@@ -147,6 +147,7 @@
     <Compile Include="CardsLibrary\BattleMastery.cs" />
     <Compile Include="CardsLibrary\BecomeImmense.cs" />
     <Compile Include="CardsLibrary\BelligerentSliver.cs" />
+    <Compile Include="CardsLibrary\BitterRevelation.cs" />
     <Compile Include="CardsLibrary\BlackCat.cs" />
     <Compile Include="CardsLibrary\BlastfireBolt.cs" />
     <Compile Include="CardsLibrary\BloodfellCaves.cs" />
@@ -624,8 +625,8 @@
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />
     <Compile Include="Core\Effects\FlipCoinDealDamageToItself.cs" />
     <Compile Include="Core\Effects\GainLifeForEachRevealedCard.cs" />
-    <Compile Include="Core\Effects\LookAtTopCardsPutOneInHandOthersIntoGraveyard.cs" />
-    <Compile Include="Core\Effects\LookAtTopCardsPutOneInHandOthersIntoZone.cs" />
+    <Compile Include="Core\Effects\LookAtTopCardsPutPartInHandRestIntoGraveyard.cs" />
+    <Compile Include="Core\Effects\LookAtTopCardsPutPartInHandRestIntoZone.cs" />
     <Compile Include="Core\Effects\PayManaApplyToCard.cs" />
     <Compile Include="Core\Effects\PayManaCreateTokens.cs" />
     <Compile Include="Core\Effects\PreventAllDamageToTargetsFromChosenColor.cs" />
@@ -840,7 +841,7 @@
     <Compile Include="Core\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
     <Compile Include="Core\Effects\ExileCardsWithSameNameAsTargetFromGHL.cs" />
     <Compile Include="Core\Effects\ExileOwnerUnlessYouDiscardCreatureCard.cs" />
-    <Compile Include="Core\Effects\LookAtTopCardsPutOneInHandOthersOnBottom.cs" />
+    <Compile Include="Core\Effects\LookAtTopCardsPutPartInHandRestOnBottom.cs" />
     <Compile Include="Core\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Core\Effects\PutAllPermanentsOnTopOfLibrary.cs" />
     <Compile Include="Core\Effects\PutFirstCardInPlayPutOtherCardsInZone.cs" />

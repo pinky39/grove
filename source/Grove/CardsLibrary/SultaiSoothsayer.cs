@@ -20,7 +20,7 @@
           {
             p.Text = "When Sultai Soothsayer enters the battlefield, look at the top four cards of your library. Put one of them into your hand and the rest into your graveyard.";
             p.Trigger(new OnZoneChanged(to:Zone.Battlefield));
-            p.Effect = () => new LookAtTopCardsPutOneInHandOthersIntoGraveyard(4);
+            p.Effect = () => new LookAtTopCardsPutPartInHandRestIntoGraveyard(4);
           });
     }
   }

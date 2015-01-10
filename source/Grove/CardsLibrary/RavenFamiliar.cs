@@ -23,7 +23,7 @@
             p.Text =
               "When Raven Familiar enters the battlefield, look at the top three cards of your library. Put one of them into your hand and the rest on the bottom of your library in any order.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new LookAtTopCardsPutOneInHandOthersOnBottom(3);
+            p.Effect = () => new LookAtTopCardsPutPartInHandRestOnBottom(3);
           });
     }
   }

@@ -6,16 +6,23 @@
   using Decisions;
   using Infrastructure;
 
-  public abstract class LookAtTopCardsPutOneInHandOthersIntoZone : Effect, IProcessDecisionResults<Ordering>,
+  public abstract class LookAtTopCardsPutPartInHandRestIntoZone : Effect, IProcessDecisionResults<Ordering>,
     IChooseDecisionResults<List<Card>, Ordering>
   {
     private readonly int _count;
+    private readonly int _toHandAmount;
+    private readonly string _title;
 
-    protected LookAtTopCardsPutOneInHandOthersIntoZone() {}
+    protected LookAtTopCardsPutPartInHandRestIntoZone() {}
 
-    protected LookAtTopCardsPutOneInHandOthersIntoZone(int count)
+    protected LookAtTopCardsPutPartInHandRestIntoZone(int count, int toHandAmount = 1)
     {
       _count = count;
+      _toHandAmount = toHandAmount;
+
+      _title = _toHandAmount > 1 
+        ? "Order cards (first " + _toHandAmount + " cards go to your hand)" 
+        : "Order cards (first card goes to your hand)";
     }
 
     public Ordering ChooseResult(List<Card> candidates)
@@ -29,15 +36,27 @@
         .Take(_count)
         .ToList().ShuffleInPlace(results.Indices);
 
-      if (cards.Count > 0)
+      for (int i = 0; i < cards.Count; i++)
       {
-        Controller.PutCardToHand(cards[0]);
-
-        foreach (var card in cards.Skip(1))
+        if (i < _toHandAmount)
         {
-          PutCardIntoZone(card);
+          Controller.PutCardToHand(cards[i]);
+        }
+        else
+        {
+          PutCardIntoZone(cards[i]);
         }
       }
+
+//      if (cards.Count > 0)
+//      {
+//        Controller.PutCardToHand(cards[0]);
+//
+//        foreach (var card in cards.Skip(1))
+//        {
+//          PutCardIntoZone(card);
+//        }
+//      }
     }
 
     protected abstract void PutCardIntoZone(Card card);
