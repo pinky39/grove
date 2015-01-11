@@ -15,7 +15,7 @@
         .ManaCost("{4}{W}")
         .Type("Instant")
         .Text(
-          "Creatures you control get +2/+1 until end of turn. White creatures you control also gain first strike until end of turn. (They deal combat damage before creatures without first strike.)")
+          "Creatures you control get +2/+1 until end of turn. White creatures you control also gain first strike until end of turn.{I}(They deal combat damage before creatures without first strike.){/I}")
         .FlavorText("You need only raise your spear to receive this blessing.")
         .Cast(p =>
           {
