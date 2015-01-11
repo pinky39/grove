@@ -47,16 +47,6 @@
           PutCardIntoZone(cards[i]);
         }
       }
-
-//      if (cards.Count > 0)
-//      {
-//        Controller.PutCardToHand(cards[0]);
-//
-//        foreach (var card in cards.Skip(1))
-//        {
-//          PutCardIntoZone(card);
-//        }
-//      }
     }
 
     protected abstract void PutCardIntoZone(Card card);

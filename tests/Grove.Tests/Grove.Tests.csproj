@@ -532,6 +532,7 @@
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\Symbiosis.cs" />
+    <Compile Include="Cards\TaigamsScheming.cs" />
     <Compile Include="Cards\TaintedAether.cs" />
     <Compile Include="Cards\TauntingElf.cs" />
     <Compile Include="Cards\TerraStomper.cs" />

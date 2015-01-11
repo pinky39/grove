@@ -476,6 +476,7 @@
     <Compile Include="CardsLibrary\SungracePegasus.cs" />
     <Compile Include="CardsLibrary\SuspensionField.cs" />
     <Compile Include="CardsLibrary\SwiftwaterCliffs.cs" />
+    <Compile Include="CardsLibrary\TaigamsScheming.cs" />
     <Compile Include="CardsLibrary\TauntingElf.cs" />
     <Compile Include="CardsLibrary\TelepathicSpies.cs" />
     <Compile Include="CardsLibrary\TemporalAdept.cs" />
@@ -611,6 +612,7 @@
     <Compile Include="Core\Effects\ChangeLifeOfEnchantedPermanentsController.cs" />
     <Compile Include="Core\Effects\ExileTargetsUntilOwnerLeavesBattlefield.cs" />
     <Compile Include="Core\Effects\ExileSelectedCards.cs" />
+    <Compile Include="Core\Effects\PutSelectedCardsIntoGraveyardOthersOnTop.cs" />
     <Compile Include="Core\Effects\SearchAuraAndAttachToOwningCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\DealDamageToAndTapTargets.cs" />
