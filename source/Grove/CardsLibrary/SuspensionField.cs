@@ -20,23 +20,12 @@
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
 
           p.Effect = () => new ExileTargetsUntilOwnerLeavesBattlefield();
-//          p.Effect = () => new CompoundEffect(
-//            new ExileTargets(),
-//            new Attach());
 
           p.TargetSelector.AddEffect(
             trg => trg.Is.Card(c => c.Is().Creature && c.Toughness >= 3).On.Battlefield());
 
           p.TargetingRule(new EffectExileBattlefield());
         });
-//        .TriggeredAbility(p =>
-//        {
-//          p.Trigger(new OnZoneChanged(
-//                  from: Zone.Battlefield,
-//                  filter: (c, a, g) => a.OwningCard == c && a.OwningCard.AttachedTo != null));
-//
-//          p.Effect = () => new PutCardToBattlefield(P(e => e.Source.OwningCard.AttachedTo), Zone.Exile);
-//        });
     }
   }
 }
