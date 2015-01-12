@@ -280,6 +280,7 @@
     <Compile Include="Cards\HauntedPlateMail.cs" />
     <Compile Include="Cards\HeadlongRush.cs" />
     <Compile Include="Cards\HealingSalve.cs" />
+    <Compile Include="Cards\HeirOfTheWilds.cs" />
     <Compile Include="Cards\HeliodsPilgrim.cs" />
     <Compile Include="Cards\HeroOfBladeHold.cs" />
     <Compile Include="Cards\HiddenHerd.cs" />

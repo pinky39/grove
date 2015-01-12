@@ -257,6 +257,7 @@
     <Compile Include="CardsLibrary\GurmagSwiftwing.cs" />
     <Compile Include="CardsLibrary\Hammerhand.cs" />
     <Compile Include="CardsLibrary\HauntedPlateMail.cs" />
+    <Compile Include="CardsLibrary\HeirOfTheWilds.cs" />
     <Compile Include="CardsLibrary\HeliodsPilgrim.cs" />
     <Compile Include="CardsLibrary\HighSentinelsOfArashin.cs" />
     <Compile Include="CardsLibrary\HighspireMantis.cs" />
