@@ -289,7 +289,7 @@
             new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1)).SetTags(
               EffectTag.IncreasePower, EffectTag.IncreaseToughness);
         p.ActivateAsSorcery = true;
-        p.TimingRule(new PumpOwningCardTimingRule(1, 1));
+        p.TimingRule(new Any(new PumpOwningCardTimingRule(1, 1), new OnEndOfOpponentsTurn()));
       });
 
       return this;
