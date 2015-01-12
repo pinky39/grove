@@ -530,6 +530,7 @@
     <Compile Include="Cards\SunbladeElf.cs" />
     <Compile Include="Cards\Sunder.cs" />
     <Compile Include="Cards\SungracePegasus.cs" />
+    <Compile Include="Cards\SuspensionField.cs" />
     <Compile Include="Cards\SwordOfBodyAndMind.cs" />
     <Compile Include="Cards\SwordsToPlowshares.cs" />
     <Compile Include="Cards\Symbiosis.cs" />
