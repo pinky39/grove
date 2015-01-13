@@ -534,6 +534,7 @@
     <Compile Include="CardsLibrary\WhirlwindAdept.cs" />
     <Compile Include="CardsLibrary\WillForgedGolem.cs" />
     <Compile Include="CardsLibrary\WindScarredCrag.cs" />
+    <Compile Include="CardsLibrary\Windstorm.cs" />
     <Compile Include="CardsLibrary\Winterflame.cs" />
     <Compile Include="CardsLibrary\WitchsFamiliar.cs" />
     <Compile Include="CardsLibrary\XathridSlyblade.cs" />
