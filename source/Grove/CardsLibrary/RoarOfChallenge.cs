@@ -6,9 +6,7 @@
   using AI.TargetingRules;
   using AI.TimingRules;
   using Effects;
-  using Events;
   using Modifiers;
-  using Triggers;
 
   public class RoarOfChallenge : CardTemplateSource
   {
