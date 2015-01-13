@@ -474,6 +474,7 @@
     <Compile Include="CardsLibrary\SultaiCharm.cs" />
     <Compile Include="CardsLibrary\SultaiScavenger.cs" />
     <Compile Include="CardsLibrary\SultaiSoothsayer.cs" />
+    <Compile Include="CardsLibrary\SummitProwler.cs" />
     <Compile Include="CardsLibrary\SunbladeElf.cs" />
     <Compile Include="CardsLibrary\SungracePegasus.cs" />
     <Compile Include="CardsLibrary\SuspensionField.cs" />
