@@ -459,6 +459,7 @@
     <Compile Include="Cards\ReturnToTheRanks.cs" />
     <Compile Include="Cards\Rewind.cs" />
     <Compile Include="Cards\RoaringPrimadox.cs" />
+    <Compile Include="Cards\RoarOfChallenge.cs" />
     <Compile Include="Cards\RofellossGift.cs" />
     <Compile Include="Cards\RoguesGloves.cs" />
     <Compile Include="Cards\RumblingCrescendo.cs" />
