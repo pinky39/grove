@@ -501,6 +501,7 @@
     <Compile Include="CardsLibrary\TreasureCruise.cs" />
     <Compile Include="CardsLibrary\TriplicateSpirits.cs" />
     <Compile Include="CardsLibrary\TurnToFrog.cs" />
+    <Compile Include="CardsLibrary\TuskedColossodon.cs" />
     <Compile Include="CardsLibrary\TuskguardCaptain.cs" />
     <Compile Include="CardsLibrary\TyphoidRats.cs" />
     <Compile Include="CardsLibrary\TyrantsMachine.cs" />
