@@ -484,6 +484,7 @@
     <Compile Include="CardsLibrary\TauntingElf.cs" />
     <Compile Include="CardsLibrary\TelepathicSpies.cs" />
     <Compile Include="CardsLibrary\TemporalAdept.cs" />
+    <Compile Include="CardsLibrary\TemurBanner.cs" />
     <Compile Include="CardsLibrary\TerraStomper.cs" />
     <Compile Include="CardsLibrary\TetheredGriffin.cs" />
     <Compile Include="CardsLibrary\ThornElemental.cs" />
