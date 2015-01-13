@@ -146,6 +146,7 @@
     <Compile Include="CardsLibrary\BackToNature.cs" />
     <Compile Include="CardsLibrary\BattlefieldForge.cs" />
     <Compile Include="CardsLibrary\BattleMastery.cs" />
+    <Compile Include="CardsLibrary\BearsCompanion.cs" />
     <Compile Include="CardsLibrary\BecomeImmense.cs" />
     <Compile Include="CardsLibrary\BelligerentSliver.cs" />
     <Compile Include="CardsLibrary\BitterRevelation.cs" />
