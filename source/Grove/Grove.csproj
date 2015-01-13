@@ -240,6 +240,7 @@
     <Compile Include="CardsLibrary\ForgeDevil.cs" />
     <Compile Include="CardsLibrary\FoundryStreetDenizen.cs" />
     <Compile Include="CardsLibrary\FrenziedGoblin.cs" />
+    <Compile Include="CardsLibrary\FrontierBivouac.cs" />
     <Compile Include="CardsLibrary\FrostLynx.cs" />
     <Compile Include="CardsLibrary\FugitiveWizard.cs" />
     <Compile Include="CardsLibrary\FurnaceWhelp.cs" />
@@ -414,6 +415,7 @@
     <Compile Include="CardsLibrary\RofellossGift.cs" />
     <Compile Include="CardsLibrary\RoguesGloves.cs" />
     <Compile Include="CardsLibrary\RotfeasterMaggot.cs" />
+    <Compile Include="CardsLibrary\RuggedHighlands.cs" />
     <Compile Include="CardsLibrary\RummagingGoblin.cs" />
     <Compile Include="CardsLibrary\RuneclawBear.cs" />
     <Compile Include="CardsLibrary\SacredArmory.cs" />
