@@ -22,6 +22,8 @@
           "All creatures able to block target creature this turn do so.{EOL}{I}Ferocious{/I} — That creature gains indestructible until end of turn if you control a creature with power 4 or greater.")
         .Cast(p =>
         {
+          p.Condition = (card, game) => card.Controller.Battlefield.Creatures.All(x => x.Power < 4);
+
           p.Effect = () => new ApplyModifiersToTargets(
             () => new AddStaticAbility(Static.Lure) {UntilEot = true});
 
@@ -30,15 +32,18 @@
           p.TargetingRule(new EffectBigWithoutEvasions());
           p.TimingRule(new OnFirstMain());
         })
-        .TriggeredAbility(p =>
+        .Cast(p =>
         {
-          p.Trigger(new OnCastedSpell((a, c) => a.OwningCard == c)
-          {
-            Condition = (t, g) => t.Controller.Battlefield.Creatures.Any(x => x.Power >= 4)
-          });
+          p.Condition = (card, game) => card.Controller.Battlefield.Creatures.Any(x => x.Power >= 4);
 
-          p.Effect = () => new ApplyModifiersToCard(P((e, t) => e.TriggerMessage<SpellPutOnStackEvent>().Targets.Effect.First().Card()),
+          p.Effect = () => new ApplyModifiersToTargets(
+            () => new AddStaticAbility(Static.Lure) {UntilEot = true},
             () => new AddStaticAbility(Static.Indestructible) { UntilEot = true }).SetTags(EffectTag.Indestructible);
+
+          p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+
+          p.TargetingRule(new EffectBigWithoutEvasions());
+          p.TimingRule(new OnFirstMain());
         });
     }
   }
