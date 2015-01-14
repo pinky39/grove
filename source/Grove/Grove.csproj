@@ -624,6 +624,7 @@
     <Compile Include="Core\Effects\ChangeLifeOfEnchantedPermanentsController.cs" />
     <Compile Include="Core\Effects\ExileTargetsUntilOwnerLeavesBattlefield.cs" />
     <Compile Include="Core\Effects\ExileSelectedCards.cs" />
+    <Compile Include="Core\Effects\FerociousEffect.cs" />
     <Compile Include="Core\Effects\PutSelectedCardsIntoGraveyardOthersOnTop.cs" />
     <Compile Include="Core\Effects\SearchAuraAndAttachToOwningCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />

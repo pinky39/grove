@@ -18,26 +18,22 @@
         .FlavorText("The Temur have no patience for subtlety.")
         .Cast(p =>
         {
-          p.Condition = (card, game) => card.Controller.Battlefield.Creatures.All(x => x.Power < 4);
+          p.Effect = () => new FerociousEffect(
+            normalEffects: new Effect[]
+            {
+              new CounterTargetSpell(doNotCounterCost: 1),
+            },
+            ferociousEffects: new Effect[]
+            {
+              new CounterTargetSpell(),
+            });
 
-          p.Effect = () => new CounterTargetSpell(doNotCounterCost: 1);
           p.TargetSelector.AddEffect(trg => trg
             .Is.CounterableSpell(e => !e.Source.OwningCard.Is().Creature)
             .On.Stack());
+
           p.TimingRule(new WhenTopSpellIsCounterable(1));
           p.TargetingRule(new EffectCounterspell());
-        })
-        .Cast(p =>
-        {
-          p.Condition = (card, game) => card.Controller.Battlefield.Creatures.Any(x => x.Power >= 4);
-
-          p.Effect = () => new CounterTargetSpell();
-          p.TargetSelector.AddEffect(t => t
-            .Is.CounterableSpell(e => !e.Source.OwningCard.Is().Creature)
-            .On.Stack());
-
-          p.TargetingRule(new EffectCounterspell());
-          p.TimingRule(new WhenTopSpellIsCounterable());
         });
     }
   }
