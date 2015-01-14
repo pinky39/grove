@@ -277,6 +277,7 @@
     <Compile Include="CardsLibrary\HuntTheWeak.cs" />
     <Compile Include="CardsLibrary\HushwingGryff.cs" />
     <Compile Include="CardsLibrary\Hydrosurge.cs" />
+    <Compile Include="CardsLibrary\IcyBlast.cs" />
     <Compile Include="CardsLibrary\IlluminatedWings.cs" />
     <Compile Include="CardsLibrary\IllusoryAngel.cs" />
     <Compile Include="CardsLibrary\Impatience.cs" />
@@ -556,6 +557,7 @@
     <Compile Include="Core\AI\CostRules\XIsGraveyardCardCount.cs" />
     <Compile Include="Core\AI\CostRules\XIsMaxCostInYourLibrary.cs" />
     <Compile Include="Core\AI\CostRules\XIsNumOfBlockedAttackers.cs" />
+    <Compile Include="Core\AI\CostRules\XIsOpponentsCreatureCount.cs" />
     <Compile Include="Core\AI\CostRules\XIsOpponentsLandCount.cs" />
     <Compile Include="Core\AI\DraftAlgorithms\ColorScore.cs" />
     <Compile Include="Core\AI\DraftAlgorithms\DraftingStrategy.cs" />
