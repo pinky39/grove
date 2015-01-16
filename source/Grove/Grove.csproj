@@ -129,6 +129,7 @@
     <Compile Include="CardsLibrary\AbzanCharm.cs" />
     <Compile Include="CardsLibrary\AbzanFalconer.cs" />
     <Compile Include="CardsLibrary\AccursedSpirit.cs" />
+    <Compile Include="CardsLibrary\ActOfTreason.cs" />
     <Compile Include="CardsLibrary\AegisAngel.cs" />
     <Compile Include="CardsLibrary\AeronautTinkerer.cs" />
     <Compile Include="CardsLibrary\Aetherspouts.cs" />
