@@ -503,6 +503,7 @@
     <Compile Include="CardsLibrary\TetheredGriffin.cs" />
     <Compile Include="CardsLibrary\ThornElemental.cs" />
     <Compile Include="CardsLibrary\ThornwoodFalls.cs" />
+    <Compile Include="CardsLibrary\Thoughtseize.cs" />
     <Compile Include="CardsLibrary\ThranDynamo.cs" />
     <Compile Include="CardsLibrary\ThranFoundry.cs" />
     <Compile Include="CardsLibrary\Throttle.cs" />
