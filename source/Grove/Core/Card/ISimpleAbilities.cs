@@ -13,6 +13,7 @@
     bool Indestructible { get; }
     bool Intimidate { get; }
     bool Lifelink { get; }
+    bool Monstrosity { get; }
     bool Shroud { get; }
     bool Trample { get; }
     bool Unblockable { get; }

@@ -7,6 +7,7 @@
     Flying,
     Hexproof,
     Lifelink,
+    Monstrosity,
     Deathtouch,
     Trample,
     Haste,

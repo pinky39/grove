@@ -38,6 +38,11 @@
         var permanenents = _game.Players.Permanents();
         return permanenents.Any(selector);
       }
+
+      public bool OwningCardHas(Static ability)
+      {
+        return _owningCard.Has().Has(ability);
+      }
     }
   }
 }

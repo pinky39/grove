@@ -238,6 +238,7 @@
     <Compile Include="CardsLibrary\FirehoofCavalry.cs" />
     <Compile Include="CardsLibrary\FirstResponse.cs" />
     <Compile Include="CardsLibrary\FlameJet.cs" />
+    <Compile Include="CardsLibrary\FleecemaneLion.cs" />
     <Compile Include="CardsLibrary\FleshToDust.cs" />
     <Compile Include="CardsLibrary\Flicker.cs" />
     <Compile Include="CardsLibrary\FlyingCraneTechnique.cs" />
@@ -631,6 +632,7 @@
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToCard.cs" />
     <Compile Include="Core\Effects\BecomeCopyOfTargetCard.cs" />
+    <Compile Include="Core\Effects\BecomeMonstrosity.cs" />
     <Compile Include="Core\Effects\BooleanEffectChoice.cs" />
     <Compile Include="Core\Effects\ChangeLife.cs" />
     <Compile Include="Core\Effects\ChangeLifeOfEnchantedPermanentsController.cs" />

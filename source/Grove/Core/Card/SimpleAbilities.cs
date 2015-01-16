@@ -232,6 +232,11 @@
         get { return Has(Static.Intimidate); }
     }
 
+    public bool Monstrosity
+    {
+      get { return Has(Static.Monstrosity); }
+    }
+
     public bool Has(Static ability)
     {
       return _abilities.Value.Any(x => x == ability);
