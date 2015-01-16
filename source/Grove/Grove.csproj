@@ -141,6 +141,7 @@
     <Compile Include="CardsLibrary\AltacBloodseeker.cs" />
     <Compile Include="CardsLibrary\AltarOfTheBrood.cs" />
     <Compile Include="CardsLibrary\AmphinPathmage.cs" />
+    <Compile Include="CardsLibrary\AnafenzaTheForemost.cs" />
     <Compile Include="CardsLibrary\AnkleShanker.cs" />
     <Compile Include="CardsLibrary\ArmamentCorps.cs" />
     <Compile Include="CardsLibrary\ArrowStorm.cs" />

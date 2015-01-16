@@ -97,6 +97,7 @@
     <Compile Include="Cards\AjanisPridemate.cs" />
     <Compile Include="Cards\AmphinPathmage.cs" />
     <Compile Include="Cards\Anaconda.cs" />
+    <Compile Include="Cards\AnafenzaTheForemost.cs" />
     <Compile Include="Cards\AngelicChorus.cs" />
     <Compile Include="Cards\AngelsTrumpet.cs" />
     <Compile Include="Cards\Antagonism.cs" />
