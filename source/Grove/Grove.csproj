@@ -123,6 +123,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CardsLibrary\AbzanAscendancy.cs" />
     <Compile Include="CardsLibrary\AbzanBanner.cs" />
     <Compile Include="CardsLibrary\AbzanBattlePriest.cs" />
     <Compile Include="CardsLibrary\AbzanCharm.cs" />

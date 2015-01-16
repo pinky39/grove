@@ -1,12 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using System.Linq;
   using AI;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Effects;
-  using Modifiers;
 
   public class ForceAway : CardTemplateSource
   {
