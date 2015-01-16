@@ -19,14 +19,12 @@
         {
           p.Text = "Counter target spell. If that spell is countered this way, exile it instead of putting it into its owner's graveyard.";
 
-          p.Effect = () => new CounterTargetSpell();
+          p.Effect = () => new CounterTargetSpell(exileTarget: true);            
 
           p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
           p.TargetingRule(new EffectCounterspell());
           p.TimingRule(new WhenTopSpellIsCounterable());
-
-          p.AfterResolve = card => card.Exile();          
         });
     }
   }

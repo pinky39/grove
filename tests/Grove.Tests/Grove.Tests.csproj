@@ -199,6 +199,7 @@
     <Compile Include="Cards\DiscordantDirge.cs" />
     <Compile Include="Cards\DiseaseCarriers.cs" />
     <Compile Include="Cards\Disorder.cs" />
+    <Compile Include="Cards\Dissipate.cs" />
     <Compile Include="Cards\DivineFavor.cs" />
     <Compile Include="Cards\Donate.cs" />
     <Compile Include="Cards\Douse.cs" />

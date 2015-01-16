@@ -7,15 +7,17 @@
     private readonly int? _controllerLifeloss;
     private readonly DynParam<int> _doNotCounterCost;
     private readonly bool _tapLandsAndEmptyManaPool;
+    private readonly bool _exileTarget;
 
     private CounterTargetSpell() {}
 
     public CounterTargetSpell(DynParam<int> doNotCounterCost = null, int? controllerLifeloss = null,
-      bool tapLandsAndEmptyManaPool = false)
+      bool tapLandsAndEmptyManaPool = false, bool exileTarget = false)
     {
       _controllerLifeloss = controllerLifeloss;
       _doNotCounterCost = doNotCounterCost;
       _tapLandsAndEmptyManaPool = tapLandsAndEmptyManaPool;
+      _exileTarget = exileTarget;
 
       RegisterDynamicParameters(doNotCounterCost);
     }
@@ -67,6 +69,11 @@
       }
 
       Stack.Counter(Target.Effect());
+
+      if (_exileTarget)
+      {
+        Target.Effect().Source.OwningCard.Exile();
+      }
     }
   }
 }
