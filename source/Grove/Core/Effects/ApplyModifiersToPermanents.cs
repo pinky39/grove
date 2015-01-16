@@ -35,7 +35,7 @@
 
     protected override void ResolveEffect()
     {
-      if (Target != null)
+      if (Target != null && Target.IsPlayer())
       {
         ApplyModifierToPlayersPermanents(Target.Player());
         return;

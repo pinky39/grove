@@ -122,6 +122,7 @@
     <Compile Include="Cards\BeastOfBurden.cs" />
     <Compile Include="Cards\Befoul.cs" />
     <Compile Include="Cards\BelligerentSliver.cs" />
+    <Compile Include="Cards\BileBlight.cs" />
     <Compile Include="Cards\BitterRevelation.cs" />
     <Compile Include="Cards\BlacksSunZenith.cs" />
     <Compile Include="Cards\BlastfireBolt.cs" />

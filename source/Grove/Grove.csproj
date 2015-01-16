@@ -153,6 +153,7 @@
     <Compile Include="CardsLibrary\BearsCompanion.cs" />
     <Compile Include="CardsLibrary\BecomeImmense.cs" />
     <Compile Include="CardsLibrary\BelligerentSliver.cs" />
+    <Compile Include="CardsLibrary\BileBlight.cs" />
     <Compile Include="CardsLibrary\BitterRevelation.cs" />
     <Compile Include="CardsLibrary\BlackCat.cs" />
     <Compile Include="CardsLibrary\BlastfireBolt.cs" />
