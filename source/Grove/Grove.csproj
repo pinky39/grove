@@ -456,6 +456,7 @@
     <Compile Include="CardsLibrary\ShivanReef.cs" />
     <Compile Include="CardsLibrary\ShrapnelBlast.cs" />
     <Compile Include="CardsLibrary\SiegeDragon.cs" />
+    <Compile Include="CardsLibrary\SiegeRhino.cs" />
     <Compile Include="CardsLibrary\SiegeWurm.cs" />
     <Compile Include="CardsLibrary\SkitteringHorror.cs" />
     <Compile Include="CardsLibrary\SliverHivelord.cs" />
