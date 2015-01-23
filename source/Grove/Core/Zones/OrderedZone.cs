@@ -132,6 +132,13 @@
       Shuffled(this, EventArgs.Empty);
     }
 
+    public virtual void ReorderFrontAndEnd(int[] permutation)
+    {
+      _cards.ReorderFrontAndEnd(permutation);
+
+      Shuffled(this, EventArgs.Empty);
+    }
+
     public override string ToString()
     {
       return string.Join(",", _cards.Select(
