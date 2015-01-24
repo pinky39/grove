@@ -531,6 +531,7 @@
     <Compile Include="CardsLibrary\TyrantsMachine.cs" />
     <Compile Include="CardsLibrary\Ulcerate.cs" />
     <Compile Include="CardsLibrary\UnmakeTheGraves.cs" />
+    <Compile Include="CardsLibrary\UnyieldingKrumar.cs" />
     <Compile Include="CardsLibrary\UrborgTombOfYawgmoth.cs" />
     <Compile Include="CardsLibrary\ValleyDasher.cs" />
     <Compile Include="CardsLibrary\Vaporkin.cs" />
