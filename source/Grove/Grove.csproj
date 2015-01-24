@@ -498,6 +498,7 @@
     <Compile Include="CardsLibrary\TaigamsScheming.cs" />
     <Compile Include="CardsLibrary\TauntingElf.cs" />
     <Compile Include="CardsLibrary\TelepathicSpies.cs" />
+    <Compile Include="CardsLibrary\TempleOfMalady.cs" />
     <Compile Include="CardsLibrary\TempleOfSilence.cs" />
     <Compile Include="CardsLibrary\TemporalAdept.cs" />
     <Compile Include="CardsLibrary\TemurBanner.cs" />
