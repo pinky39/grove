@@ -43,6 +43,7 @@
             to: Zone.Graveyard,
             filter: (card, ability, _) => ability.OwningCard.Controller != card.Controller));
           p.Effect = () => new ExileCard(P(e => e.TriggerMessage<ZoneChangedEvent>().Card), Zone.Graveyard);
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
     }
   }
