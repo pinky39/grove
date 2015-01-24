@@ -186,6 +186,7 @@
     <Compile Include="CardsLibrary\ChasmSkulker.cs" />
     <Compile Include="CardsLibrary\ChiefEngineer.cs" />
     <Compile Include="CardsLibrary\ChiefOfTheEdge.cs" />
+    <Compile Include="CardsLibrary\ChiefOfTheScale.cs" />
     <Compile Include="CardsLibrary\ChildOfNight.cs" />
     <Compile Include="CardsLibrary\ChordOfCalling.cs" />
     <Compile Include="CardsLibrary\Chronostutter.cs" />
