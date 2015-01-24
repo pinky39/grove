@@ -438,6 +438,7 @@
     <Compile Include="CardsLibrary\SaltRoadPatrol.cs" />
     <Compile Include="CardsLibrary\SanctifiedCharge.cs" />
     <Compile Include="CardsLibrary\Sanctimony.cs" />
+    <Compile Include="CardsLibrary\Sandblast.cs" />
     <Compile Include="CardsLibrary\SandsteppeCitadel.cs" />
     <Compile Include="CardsLibrary\SatyrWayfinder.cs" />
     <Compile Include="CardsLibrary\ScentOfBrine.cs" />

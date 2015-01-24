@@ -475,6 +475,7 @@
     <Compile Include="Cards\Sanctimony.cs" />
     <Compile Include="Cards\SanctumCustodian.cs" />
     <Compile Include="Cards\SanctumGuardian.cs" />
+    <Compile Include="Cards\Sandblast.cs" />
     <Compile Include="Cards\SatyrWayfinder.cs" />
     <Compile Include="Cards\Scald.cs" />
     <Compile Include="Cards\ScentOfNightshade.cs" />
