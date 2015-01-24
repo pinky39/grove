@@ -27,11 +27,10 @@
 
           p.TargetSelector.AddEffect(trg =>
           {
-            trg.MinCount = 1;
+            trg.MinCount = 0;
             trg.MaxCount = 1;
             trg.Message = "Select another target tapped creature you control";
-            trg.Is.Creature(controlledBy: ControlledBy.SpellOwner,
-              canTargetSelf: false).Is.Card(c => c.IsTapped).On.Battlefield();
+            trg.Is.Card(c => c.Is().Creature && c.IsTapped, controlledBy: ControlledBy.SpellOwner, canTargetSelf: false).On.Battlefield();
           });
 
           p.TargetingRule(new EffectCombatEnchantment());
