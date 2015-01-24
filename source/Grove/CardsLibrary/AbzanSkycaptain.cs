@@ -22,12 +22,6 @@
         .Power(2)
         .Toughness(2)
         .SimpleAbilities(Static.Flying)
-        .ContinuousEffect(p =>
-        {
-          p.Modifier = () => new AddPowerAndToughness(0, 1);
-          p.CardFilter =
-            (c, e) => c.Is("warrior") && c.Controller == e.Source.Controller && c.Is().Creature && c != e.Source;
-        })
         .TriggeredAbility(p =>
         {
           p.Text = "When Abzan Skycaptain dies, bolster 2.";

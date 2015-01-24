@@ -221,6 +221,7 @@
     <Compile Include="CardsLibrary\DivineVerdict.cs" />
     <Compile Include="CardsLibrary\Donate.cs" />
     <Compile Include="CardsLibrary\DragonscaleBoon.cs" />
+    <Compile Include="CardsLibrary\DragonscaleGeneral.cs" />
     <Compile Include="CardsLibrary\ElvishLookout.cs" />
     <Compile Include="CardsLibrary\ElvishMystic.cs" />
     <Compile Include="CardsLibrary\ElvishPiper.cs" />
@@ -646,6 +647,7 @@
     <Compile Include="Core\Effects\ExileTargetsUntilOwnerLeavesBattlefield.cs" />
     <Compile Include="Core\Effects\ExileSelectedCards.cs" />
     <Compile Include="Core\Effects\FerociousEffect.cs" />
+    <Compile Include="Core\Effects\Put11CountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutSelectedCardsIntoGraveyardOthersOnTop.cs" />
     <Compile Include="Core\Effects\Scry.cs" />
     <Compile Include="Core\Effects\SearchAuraAndAttachToOwningCard.cs" />
