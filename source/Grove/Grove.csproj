@@ -407,6 +407,7 @@
     <Compile Include="CardsLibrary\ProfaneMemento.cs" />
     <Compile Include="CardsLibrary\Quickling.cs" />
     <Compile Include="CardsLibrary\RadiantFountain.cs" />
+    <Compile Include="CardsLibrary\RaidersSpoils.cs" />
     <Compile Include="CardsLibrary\RaiseTheAlarm.cs" />
     <Compile Include="CardsLibrary\RakshasaDeathdealer.cs" />
     <Compile Include="CardsLibrary\RakshasasSecret.cs" />
@@ -652,6 +653,7 @@
     <Compile Include="Core\Effects\ExileTargetsUntilOwnerLeavesBattlefield.cs" />
     <Compile Include="Core\Effects\ExileSelectedCards.cs" />
     <Compile Include="Core\Effects\FerociousEffect.cs" />
+    <Compile Include="Core\Effects\PayLifeToDrawCard.cs" />
     <Compile Include="Core\Effects\Put11CountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutSelectedCardsIntoGraveyardOthersOnTop.cs" />
     <Compile Include="Core\Effects\Scry.cs" />

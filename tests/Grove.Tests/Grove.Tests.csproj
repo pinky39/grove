@@ -435,6 +435,7 @@
     <Compile Include="Cards\QuicksilverAmulet.cs" />
     <Compile Include="Cards\RadiantArchangel.cs" />
     <Compile Include="Cards\RadiantsJudgment.cs" />
+    <Compile Include="Cards\RaidersSpoils.cs" />
     <Compile Include="Cards\RainOfFilth.cs" />
     <Compile Include="Cards\RainOfSalt.cs" />
     <Compile Include="Cards\RaiseTheAlarm.cs" />
