@@ -224,6 +224,7 @@
     <Compile Include="CardsLibrary\Donate.cs" />
     <Compile Include="CardsLibrary\DragonscaleBoon.cs" />
     <Compile Include="CardsLibrary\DragonscaleGeneral.cs" />
+    <Compile Include="CardsLibrary\EliteScaleguard.cs" />
     <Compile Include="CardsLibrary\ElvishLookout.cs" />
     <Compile Include="CardsLibrary\ElvishMystic.cs" />
     <Compile Include="CardsLibrary\ElvishPiper.cs" />
