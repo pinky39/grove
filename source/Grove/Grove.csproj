@@ -502,6 +502,7 @@
     <Compile Include="CardsLibrary\SuspensionField.cs" />
     <Compile Include="CardsLibrary\SwiftwaterCliffs.cs" />
     <Compile Include="CardsLibrary\TaigamsScheming.cs" />
+    <Compile Include="CardsLibrary\TakeUpArms.cs" />
     <Compile Include="CardsLibrary\TauntingElf.cs" />
     <Compile Include="CardsLibrary\TelepathicSpies.cs" />
     <Compile Include="CardsLibrary\TempleOfMalady.cs" />
