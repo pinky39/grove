@@ -213,6 +213,7 @@
     <Compile Include="CardsLibrary\DebilitatingInjury.cs" />
     <Compile Include="CardsLibrary\DevouringLight.cs" />
     <Compile Include="CardsLibrary\DiffusionSliver.cs" />
+    <Compile Include="CardsLibrary\DiplomacyOfTheWastes.cs" />
     <Compile Include="CardsLibrary\Disappear.cs" />
     <Compile Include="CardsLibrary\DismalBackwater.cs" />
     <Compile Include="CardsLibrary\DisownedAncestor.cs" />
