@@ -274,6 +274,7 @@
     <Compile Include="CardsLibrary\Grindclock.cs" />
     <Compile Include="CardsLibrary\GurmagSwiftwing.cs" />
     <Compile Include="CardsLibrary\Hammerhand.cs" />
+    <Compile Include="CardsLibrary\HarshSustenance.cs" />
     <Compile Include="CardsLibrary\HauntedPlateMail.cs" />
     <Compile Include="CardsLibrary\HeirOfTheWilds.cs" />
     <Compile Include="CardsLibrary\HeliodsPilgrim.cs" />
