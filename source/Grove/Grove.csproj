@@ -352,6 +352,7 @@
     <Compile Include="CardsLibrary\Masticore.cs" />
     <Compile Include="CardsLibrary\MeditationPuzzle.cs" />
     <Compile Include="CardsLibrary\MentalDiscipline.cs" />
+    <Compile Include="CardsLibrary\MercilessExecutioner.cs" />
     <Compile Include="CardsLibrary\MercurialPretender.cs" />
     <Compile Include="CardsLibrary\MerEkNightblade.cs" />
     <Compile Include="CardsLibrary\Metalworker.cs" />
