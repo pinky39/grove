@@ -448,6 +448,7 @@
     <Compile Include="CardsLibrary\Sanctimony.cs" />
     <Compile Include="CardsLibrary\Sandblast.cs" />
     <Compile Include="CardsLibrary\SandsteppeCitadel.cs" />
+    <Compile Include="CardsLibrary\SandsteppeOutcast.cs" />
     <Compile Include="CardsLibrary\SatyrWayfinder.cs" />
     <Compile Include="CardsLibrary\ScentOfBrine.cs" />
     <Compile Include="CardsLibrary\ScentOfCinder.cs" />
@@ -655,6 +656,7 @@
     <Compile Include="Core\Effects\BooleanEffectChoice.cs" />
     <Compile Include="Core\Effects\ChangeLife.cs" />
     <Compile Include="Core\Effects\ChangeLifeOfEnchantedPermanentsController.cs" />
+    <Compile Include="Core\Effects\ChooseOneEffectFromGiven.cs" />
     <Compile Include="Core\Effects\ExileTargetsUntilOwnerLeavesBattlefield.cs" />
     <Compile Include="Core\Effects\ExileSelectedCards.cs" />
     <Compile Include="Core\Effects\FerociousEffect.cs" />
