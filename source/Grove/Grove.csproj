@@ -434,6 +434,7 @@
     <Compile Include="CardsLibrary\RuggedHighlands.cs" />
     <Compile Include="CardsLibrary\RummagingGoblin.cs" />
     <Compile Include="CardsLibrary\RuneclawBear.cs" />
+    <Compile Include="CardsLibrary\RushOfBattle.cs" />
     <Compile Include="CardsLibrary\SacredArmory.cs" />
     <Compile Include="CardsLibrary\SageOfTheInwardEye.cs" />
     <Compile Include="CardsLibrary\SaltRoadPatrol.cs" />
