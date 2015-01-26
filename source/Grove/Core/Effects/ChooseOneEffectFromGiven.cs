@@ -9,12 +9,12 @@
   {
     private readonly Effect _ifTrueEffect;
     private readonly Effect _ifFalseEffect;
-    private readonly Func<Effect, bool> _chooseAi;
+    private readonly Func<Effect, Game, bool> _chooseAi;
     private readonly string _message;
 
     private ChooseOneEffectFromGiven() { }
 
-    public ChooseOneEffectFromGiven(string message, Effect ifTrueEffect, Effect ifFalseEffect, Func<Effect, bool> chooseAi)
+    public ChooseOneEffectFromGiven(string message, Effect ifTrueEffect, Effect ifFalseEffect, Func<Effect, Game, bool> chooseAi)
     {
       _chooseAi = chooseAi;
       _ifTrueEffect = ifTrueEffect;
@@ -50,7 +50,7 @@
 
     public BooleanResult ChooseResult()
     {
-      return _chooseAi(this);
+      return _chooseAi(this, Game);
     }
 
     public void ProcessResults(BooleanResult results)

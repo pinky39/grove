@@ -33,7 +33,7 @@
                 .Text("{Flying}")
                 .Colors(CardColor.White)
                 .SimpleAbilities(Static.Flying)), 
-            chooseAi: e =>
+            chooseAi: (e, g) =>
             {
               // TODO: Add tweaks for choosing first effect
               return false; // AI prefers to put token instead adding a counter. Always.

@@ -283,6 +283,7 @@
     <Compile Include="CardsLibrary\HighspireMantis.cs" />
     <Compile Include="CardsLibrary\HoardingDragon.cs" />
     <Compile Include="CardsLibrary\HonorsReward.cs" />
+    <Compile Include="CardsLibrary\HoodedAssassin.cs" />
     <Compile Include="CardsLibrary\HootingMandrills.cs" />
     <Compile Include="CardsLibrary\HordelingOutburst.cs" />
     <Compile Include="CardsLibrary\HorizonChimera.cs" />
