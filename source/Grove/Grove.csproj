@@ -425,6 +425,7 @@
     <Compile Include="CardsLibrary\RazorfootGriffin.cs" />
     <Compile Include="CardsLibrary\RecklessAbandon.cs" />
     <Compile Include="CardsLibrary\ReclamationSage.cs" />
+    <Compile Include="CardsLibrary\Refocus.cs" />
     <Compile Include="CardsLibrary\ReliquaryMonk.cs" />
     <Compile Include="CardsLibrary\Repercussion.cs" />
     <Compile Include="CardsLibrary\Replenish.cs" />
