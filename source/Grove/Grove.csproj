@@ -150,6 +150,7 @@
     <Compile Include="CardsLibrary\AvariceAmulet.cs" />
     <Compile Include="CardsLibrary\AvenSkirmisher.cs" />
     <Compile Include="CardsLibrary\BackToNature.cs" />
+    <Compile Include="CardsLibrary\BatheInDragonfire.cs" />
     <Compile Include="CardsLibrary\BattleBrawler.cs" />
     <Compile Include="CardsLibrary\BattlefieldForge.cs" />
     <Compile Include="CardsLibrary\BattleMastery.cs" />
