@@ -343,6 +343,7 @@
     <Compile Include="CardsLibrary\LivingTotem.cs" />
     <Compile Include="CardsLibrary\LlanowarWastes.cs" />
     <Compile Include="CardsLibrary\LongshotSquad.cs" />
+    <Compile Include="CardsLibrary\LotusPathDjinn.cs" />
     <Compile Include="CardsLibrary\LurkingJackals.cs" />
     <Compile Include="CardsLibrary\Magnify.cs" />
     <Compile Include="CardsLibrary\MahamotiDjinn.cs" />
