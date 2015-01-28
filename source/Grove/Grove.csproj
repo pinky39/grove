@@ -372,6 +372,7 @@
     <Compile Include="CardsLibrary\MindRot.cs" />
     <Compile Include="CardsLibrary\MindSculpt.cs" />
     <Compile Include="CardsLibrary\MinersBane.cs" />
+    <Compile Include="CardsLibrary\MistfireAdept.cs" />
     <Compile Include="CardsLibrary\Momentum.cs" />
     <Compile Include="CardsLibrary\MonasterySwiftspear.cs" />
     <Compile Include="CardsLibrary\MultanisDecree.cs" />
