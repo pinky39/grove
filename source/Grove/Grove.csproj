@@ -224,6 +224,7 @@
     <Compile Include="CardsLibrary\Donate.cs" />
     <Compile Include="CardsLibrary\DragonscaleBoon.cs" />
     <Compile Include="CardsLibrary\DragonscaleGeneral.cs" />
+    <Compile Include="CardsLibrary\DragonStyleTwins.cs" />
     <Compile Include="CardsLibrary\EliteScaleguard.cs" />
     <Compile Include="CardsLibrary\ElvishLookout.cs" />
     <Compile Include="CardsLibrary\ElvishMystic.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="CardsLibrary\GoblinMasons.cs" />
     <Compile Include="CardsLibrary\GoblinRabblemaster.cs" />
     <Compile Include="CardsLibrary\GoblinRoughrider.cs" />
+    <Compile Include="CardsLibrary\Goblinslide.cs" />
     <Compile Include="CardsLibrary\Gravedigger.cs" />
     <Compile Include="CardsLibrary\Grindclock.cs" />
     <Compile Include="CardsLibrary\GurmagSwiftwing.cs" />
