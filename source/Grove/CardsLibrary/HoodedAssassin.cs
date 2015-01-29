@@ -32,7 +32,7 @@
             chooseAi: (e, g) =>
             {
               // TODO: Add tweaks for choosing first effect
-              return e.Controller.Opponent.Battlefield.Creatures.Any(c => g.Turn.Events.HasBeenDamaged(c));
+              return !e.Controller.Opponent.Battlefield.Creatures.Any(c => g.Turn.Events.HasBeenDamaged(c));
             });
           p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Game.Turn.Events.HasBeenDamaged(c)).On.Battlefield());
           p.TargetingRule(new EffectDestroy());

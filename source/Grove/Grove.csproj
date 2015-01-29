@@ -149,6 +149,7 @@
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
     <Compile Include="CardsLibrary\AvariceAmulet.cs" />
     <Compile Include="CardsLibrary\AvenSkirmisher.cs" />
+    <Compile Include="CardsLibrary\AvenSurveyor.cs" />
     <Compile Include="CardsLibrary\BackToNature.cs" />
     <Compile Include="CardsLibrary\BatheInDragonfire.cs" />
     <Compile Include="CardsLibrary\BattleBrawler.cs" />
