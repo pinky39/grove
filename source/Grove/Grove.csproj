@@ -285,6 +285,7 @@
     <Compile Include="CardsLibrary\HeirOfTheWilds.cs" />
     <Compile Include="CardsLibrary\HeliodsPilgrim.cs" />
     <Compile Include="CardsLibrary\HerosDownfall.cs" />
+    <Compile Include="CardsLibrary\HighlandGame.cs" />
     <Compile Include="CardsLibrary\HighSentinelsOfArashin.cs" />
     <Compile Include="CardsLibrary\HighspireMantis.cs" />
     <Compile Include="CardsLibrary\HoardingDragon.cs" />
