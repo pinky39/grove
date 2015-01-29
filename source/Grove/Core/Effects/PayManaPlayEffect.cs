@@ -2,18 +2,18 @@
 {
   using Decisions;
 
-  public class PayManaCreateTokens : Effect, IProcessDecisionResults<BooleanResult>
+  public class PayManaPlayEffect : Effect, IProcessDecisionResults<BooleanResult>
   {
     private readonly DynParam<IManaAmount> _amount;
-    private readonly CreateTokens _effect;    
+    private readonly Effect _effect;    
     private readonly string _message;
 
-    private PayManaCreateTokens() {}
+    private PayManaPlayEffect() {}
 
-    public PayManaCreateTokens(IManaAmount amount, CreateTokens effect, string message = null)
+    public PayManaPlayEffect(IManaAmount amount, Effect effect, string message = null)
       : this(new DynParam<IManaAmount>(amount), effect, message) { }
 
-    public PayManaCreateTokens(DynParam<IManaAmount> amount, CreateTokens effect, string message = null)
+    public PayManaPlayEffect(DynParam<IManaAmount> amount, Effect effect, string message = null)
     {
       _amount = amount;
       _effect = effect;

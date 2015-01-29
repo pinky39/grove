@@ -418,6 +418,7 @@
     <Compile Include="CardsLibrary\PreeminentCaptain.cs" />
     <Compile Include="CardsLibrary\ProfaneMemento.cs" />
     <Compile Include="CardsLibrary\Quickling.cs" />
+    <Compile Include="CardsLibrary\QuietContemplation.cs" />
     <Compile Include="CardsLibrary\RadiantFountain.cs" />
     <Compile Include="CardsLibrary\RaidersSpoils.cs" />
     <Compile Include="CardsLibrary\RaiseTheAlarm.cs" />
@@ -691,7 +692,7 @@
     <Compile Include="Core\Effects\LookAtTopCardsPutPartInHandRestIntoGraveyard.cs" />
     <Compile Include="Core\Effects\LookAtTopCardsPutPartInHandRestIntoZone.cs" />
     <Compile Include="Core\Effects\PayManaApplyToCard.cs" />
-    <Compile Include="Core\Effects\PayManaCreateTokens.cs" />
+    <Compile Include="Core\Effects\PayManaPlayEffect.cs" />
     <Compile Include="Core\Effects\PreventAllDamageToTargetsFromChosenColor.cs" />
     <Compile Include="Core\Effects\PutCardToBattlefield.cs" />
     <Compile Include="Core\Effects\PutCounterOnTargetAndFightWithCreature.cs" />

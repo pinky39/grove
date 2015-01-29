@@ -26,7 +26,7 @@
             to: Zone.Battlefield,
             filter: (c, a, g) => a.OwningCard.Controller == c.Controller && c.Is().Creature && !c.Is().Token));
 
-          p.Effect = () => new PayManaCreateTokens(Mana.White, new CreateTokens(
+          p.Effect = () => new PayManaPlayEffect(Mana.White, new CreateTokens(
             count: 1,
             token: Card
               .Named("Spirit")
