@@ -452,6 +452,7 @@
     <Compile Include="CardsLibrary\RofellossGift.cs" />
     <Compile Include="CardsLibrary\RoguesGloves.cs" />
     <Compile Include="CardsLibrary\RotfeasterMaggot.cs" />
+    <Compile Include="CardsLibrary\RottingMastodon.cs" />
     <Compile Include="CardsLibrary\RuggedHighlands.cs" />
     <Compile Include="CardsLibrary\RummagingGoblin.cs" />
     <Compile Include="CardsLibrary\RuneclawBear.cs" />
