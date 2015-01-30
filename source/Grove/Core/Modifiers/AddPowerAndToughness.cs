@@ -1,30 +1,37 @@
 ﻿namespace Grove.Modifiers
 {
+  using System;
+
   public class AddPowerAndToughness : Modifier, ICardModifier
   {
-    private readonly Value _power;
-    private readonly Value _toughness;
+    private readonly Func<Player, Value> _power;
+    private readonly Func<Player, Value> _toughness;
     private IntegerIncrement _powerIntegerIncrement;
     private Strenght _strenght;
     private IntegerIncrement _toughnessIntegerIncrement;
 
-    private AddPowerAndToughness() {}
+    private AddPowerAndToughness() { }
 
     public AddPowerAndToughness(Value power, Value toughness)
+      : this(getPower: (p) => power, getToughness: (p) => toughness)
     {
-      _power = power;
-      _toughness = toughness;
+    }
+
+    public AddPowerAndToughness(Func<Player, Value> getPower, Func<Player, Value> getToughness)
+    {
+      _power = getPower;
+      _toughness = getToughness;
     }
 
     public override void Apply(Strenght strenght)
     {
       _strenght = strenght;
 
-      _powerIntegerIncrement = new IntegerIncrement(_power.GetValue(X));
+      _powerIntegerIncrement = new IntegerIncrement(_power(OwningCard.Controller).GetValue(X));
       _powerIntegerIncrement.Initialize(ChangeTracker);
       _strenght.AddPowerModifier(_powerIntegerIncrement);
 
-      _toughnessIntegerIncrement = new IntegerIncrement(_toughness.GetValue(X));
+      _toughnessIntegerIncrement = new IntegerIncrement(_toughness(OwningCard.Controller).GetValue(X));
       _toughnessIntegerIncrement.Initialize(ChangeTracker);
       _strenght.AddToughnessModifier(_toughnessIntegerIncrement);
     }

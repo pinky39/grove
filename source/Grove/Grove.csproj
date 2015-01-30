@@ -339,6 +339,7 @@
     <Compile Include="CardsLibrary\KheruDreadmaw.cs" />
     <Compile Include="CardsLibrary\KillShot.cs" />
     <Compile Include="CardsLibrary\KinsbaileSkirmisher.cs" />
+    <Compile Include="CardsLibrary\KinTreeInvocation.cs" />
     <Compile Include="CardsLibrary\KiorasFollower.cs" />
     <Compile Include="CardsLibrary\KirdChieftain.cs" />
     <Compile Include="CardsLibrary\KrenkosEnforcer.cs" />
