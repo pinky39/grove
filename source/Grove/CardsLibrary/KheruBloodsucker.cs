@@ -1,7 +1,12 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
   using Effects;
+  using Modifiers;
   using Triggers;
 
   public class KheruBloodsucker : CardTemplateSource
@@ -26,6 +31,29 @@
             p.Effect = () => new CompoundEffect(
               new ChangeLife(2, yours: true),
               new ChangeLife(-2, opponents: true));
+          })
+          .ActivatedAbility(p =>
+          {
+            p.Text = "{2}{B}, Sacrifice another creature: Put a +1/+1 counter on Kheru Bloodsucker.";
+
+            p.Cost = new AggregateCost(
+              new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
+              new Sacrifice());
+
+            p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1))
+                .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+
+            p.TargetSelector.AddCost(trg =>
+            {
+              trg
+                .Is.Creature(ControlledBy.SpellOwner, canTargetSelf: false)
+                .On.Battlefield();
+
+              trg.Message = "Select a creature to sacrifice.";
+            });
+
+            p.TimingRule(new PumpOwningCardTimingRule(1, 1));
+            p.TargetingRule(new EffectOrCostRankBy(c => c.Score) { TargetLimit = 1 });
           });
     }
   }

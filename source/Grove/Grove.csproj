@@ -518,6 +518,7 @@
     <Compile Include="CardsLibrary\StubbornDenial.cs" />
     <Compile Include="CardsLibrary\SultaiBanner.cs" />
     <Compile Include="CardsLibrary\SultaiCharm.cs" />
+    <Compile Include="CardsLibrary\SultaiFlayer.cs" />
     <Compile Include="CardsLibrary\SultaiScavenger.cs" />
     <Compile Include="CardsLibrary\SultaiSoothsayer.cs" />
     <Compile Include="CardsLibrary\SummitProwler.cs" />
