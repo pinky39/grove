@@ -278,6 +278,7 @@
     <Compile Include="CardsLibrary\GoblinRoughrider.cs" />
     <Compile Include="CardsLibrary\Goblinslide.cs" />
     <Compile Include="CardsLibrary\Gravedigger.cs" />
+    <Compile Include="CardsLibrary\GrimContest.cs" />
     <Compile Include="CardsLibrary\Grindclock.cs" />
     <Compile Include="CardsLibrary\GurmagAngler.cs" />
     <Compile Include="CardsLibrary\GurmagSwiftwing.cs" />
@@ -641,6 +642,7 @@
     <Compile Include="Core\AI\TargetingRules\EffectDealDifferentDamage.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectDestroyMostCommon.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectFight.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectFlicker.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectGiveRegenerate.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectLooseEvasion.cs" />
@@ -719,6 +721,7 @@
     <Compile Include="Core\Effects\ReturnCardsFromGraveyardToHandForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ReturnOwnerAndAttachedToHand.cs" />
     <Compile Include="Core\Effects\SacrificeCreatureOrPayLifeOrOpponentDrawsCard.cs" />
+    <Compile Include="Core\Effects\EachTargetDealsDamageEqualToItsToughnessToOther.cs" />
     <Compile Include="Core\Effects\TargetPlayerSacrificesPermanents.cs" />
     <Compile Include="Core\Effects\UntapEachPermanent.cs" />
     <Compile Include="Core\Effects\YourLifeBecomesEqual.cs" />

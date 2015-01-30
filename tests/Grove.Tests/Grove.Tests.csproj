@@ -279,6 +279,7 @@
     <Compile Include="Cards\GreaterGood.cs" />
     <Compile Include="Cards\GreatWhale.cs" />
     <Compile Include="Cards\GreenerPastures.cs" />
+    <Compile Include="Cards\GrimContest.cs" />
     <Compile Include="Cards\GrimMonolith.cs" />
     <Compile Include="Cards\Hammerhand.cs" />
     <Compile Include="Cards\HarmonicConvergence.cs" />
