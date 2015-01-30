@@ -334,6 +334,7 @@
     <Compile Include="CardsLibrary\KalonianTwingrove.cs" />
     <Compile Include="CardsLibrary\KapshoKitefins.cs" />
     <Compile Include="CardsLibrary\KeldonVandals.cs" />
+    <Compile Include="CardsLibrary\KheruBloodsucker.cs" />
     <Compile Include="CardsLibrary\KillShot.cs" />
     <Compile Include="CardsLibrary\KinsbaileSkirmisher.cs" />
     <Compile Include="CardsLibrary\KiorasFollower.cs" />
