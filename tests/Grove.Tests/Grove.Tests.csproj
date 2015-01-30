@@ -104,6 +104,7 @@
     <Compile Include="Cards\Anthroplasm.cs" />
     <Compile Include="Cards\ApprenticeNecromancer.cs" />
     <Compile Include="Cards\ArcheryTraining.cs" />
+    <Compile Include="Cards\ArchfiendOfDepravity.cs" />
     <Compile Include="Cards\Archivist.cs" />
     <Compile Include="Cards\ArcLightning.cs" />
     <Compile Include="Cards\ArgothianElder.cs" />

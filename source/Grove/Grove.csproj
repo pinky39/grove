@@ -145,6 +145,7 @@
     <Compile Include="CardsLibrary\AnafenzaTheForemost.cs" />
     <Compile Include="CardsLibrary\AnkleShanker.cs" />
     <Compile Include="CardsLibrary\ArchersParapet.cs" />
+    <Compile Include="CardsLibrary\ArchfiendOfDepravity.cs" />
     <Compile Include="CardsLibrary\ArmamentCorps.cs" />
     <Compile Include="CardsLibrary\ArrowStorm.cs" />
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
@@ -688,6 +689,7 @@
     <Compile Include="Core\Effects\ExileSelectedCards.cs" />
     <Compile Include="Core\Effects\FerociousEffect.cs" />
     <Compile Include="Core\Effects\PayLifeToDrawCard.cs" />
+    <Compile Include="Core\Effects\PlayerSelectPermanentsAndSacrificeRest.cs" />
     <Compile Include="Core\Effects\Put11CountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutSelectedCardsIntoGraveyardOthersOnTop.cs" />
     <Compile Include="Core\Effects\Scry.cs" />
