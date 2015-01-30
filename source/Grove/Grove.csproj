@@ -278,6 +278,7 @@
     <Compile Include="CardsLibrary\Goblinslide.cs" />
     <Compile Include="CardsLibrary\Gravedigger.cs" />
     <Compile Include="CardsLibrary\Grindclock.cs" />
+    <Compile Include="CardsLibrary\GurmagAngler.cs" />
     <Compile Include="CardsLibrary\GurmagSwiftwing.cs" />
     <Compile Include="CardsLibrary\Hammerhand.cs" />
     <Compile Include="CardsLibrary\HarshSustenance.cs" />
