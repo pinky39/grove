@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Cards\AboutFace.cs" />
     <Compile Include="Cards\AbyssalHorror.cs" />
+    <Compile Include="Cards\AbzanBeastmaster.cs" />
     <Compile Include="Cards\AcademyRector.cs" />
     <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\Acridian.cs" />
