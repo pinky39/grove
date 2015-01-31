@@ -31,6 +31,7 @@
             }
           });
           p.Effect = () => new DrawCards(1);
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
     }
   }
