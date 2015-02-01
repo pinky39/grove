@@ -161,12 +161,36 @@
 
     public bool Has(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
     {
+      if (amount is MultiColorManaAmount)
+      {
+        var permutations = amount.Permutate();
+
+        return permutations.Any(manaAmount => 
+          TryToAllocateAmount(manaAmount, usage, additional) != null);
+      }
+
       return TryToAllocateAmount(amount, usage, additional) != null;
     }
 
     public void Consume(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
     {
-      var allocated = TryToAllocateAmount(amount, usage, additional);
+      HashSet<ManaUnit> allocated = null;
+      if (amount is MultiColorManaAmount)
+      {
+        var permutations = amount.Permutate();
+
+        foreach (var manaAmount in permutations)
+        {
+          allocated = TryToAllocateAmount(manaAmount, usage, additional);
+          if (allocated != null)
+            break;
+        }
+      }
+      else
+      {
+        allocated = TryToAllocateAmount(amount, usage, additional);
+      }
+
       Asrt.True(allocated != null, "Not enough mana available.");
 
       var sources = GetSourcesToActivate(allocated);
@@ -231,7 +255,7 @@
       return true;
     }
 
-    private HashSet<ManaUnit> TryToAllocateAmount(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional)
+    private HashSet<ManaUnit> TryToAllocateAmount(IEnumerable<SingleColorManaAmount> amount, ManaUsage usage, IEnumerable<ManaUnit> additional)
     {
       var restricted = new HashSet<ManaUnit>();
       var allocated = new HashSet<ManaUnit>();
