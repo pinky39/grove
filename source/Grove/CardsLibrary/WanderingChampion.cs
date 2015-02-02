@@ -26,7 +26,7 @@
             Condition = (t, g) => t.Controller.Battlefield.Any(x => x.HasColor(CardColor.Blue) || x.HasColor(CardColor.Red)),
           });
 
-          p.Effect = () => new DrawCards(1, discardCount: 1);
+          p.Effect = () => new DiscardCardToDrawCard();
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
     }
