@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Cards\AboutFace.cs" />
     <Compile Include="Cards\AbyssalHorror.cs" />
+    <Compile Include="Cards\AbzanBeastmaster.cs" />
     <Compile Include="Cards\AcademyRector.cs" />
     <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\Acridian.cs" />
@@ -580,6 +581,7 @@
     <Compile Include="Cards\TyrantsMachine.cs" />
     <Compile Include="Cards\Ulcerate.cs" />
     <Compile Include="Cards\Umbilicus.cs" />
+    <Compile Include="Cards\UndergrowthScavenger.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />
     <Compile Include="Cards\UrzasArmor.cs" />
     <Compile Include="Cards\UrzasIncubator.cs" />

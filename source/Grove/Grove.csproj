@@ -126,6 +126,7 @@
     <Compile Include="CardsLibrary\AbzanAscendancy.cs" />
     <Compile Include="CardsLibrary\AbzanBanner.cs" />
     <Compile Include="CardsLibrary\AbzanBattlePriest.cs" />
+    <Compile Include="CardsLibrary\AbzanBeastmaster.cs" />
     <Compile Include="CardsLibrary\AbzanCharm.cs" />
     <Compile Include="CardsLibrary\AbzanFalconer.cs" />
     <Compile Include="CardsLibrary\AbzanSkycaptain.cs" />
@@ -566,6 +567,7 @@
     <Compile Include="CardsLibrary\TyphoidRats.cs" />
     <Compile Include="CardsLibrary\TyrantsMachine.cs" />
     <Compile Include="CardsLibrary\Ulcerate.cs" />
+    <Compile Include="CardsLibrary\UndergrowthScavenger.cs" />
     <Compile Include="CardsLibrary\UnmakeTheGraves.cs" />
     <Compile Include="CardsLibrary\UnyieldingKrumar.cs" />
     <Compile Include="CardsLibrary\UrborgTombOfYawgmoth.cs" />
