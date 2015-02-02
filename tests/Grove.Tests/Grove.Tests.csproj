@@ -342,6 +342,7 @@
     <Compile Include="Cards\LotusBlossom.cs" />
     <Compile Include="Cards\Lull.cs" />
     <Compile Include="Cards\LurkingEvil.cs" />
+    <Compile Include="Cards\MagmaJet.cs" />
     <Compile Include="Cards\Magnify.cs" />
     <Compile Include="Cards\ManaLeak.cs" />
     <Compile Include="Cards\ManaLeech.cs" />

@@ -51,55 +51,5 @@
 
       return new Ordering(indices);
     }
-
-    public static Ordering OrderTopAndBottomCards(List<Card> candidates, Player controller)
-    {
-      var landsInPlay = controller.Battlefield.Lands.Count();
-
-      var needsLands = !controller.Hand.Lands.Any() &&
-        landsInPlay <= 5;
-
-      var ordering = candidates.Select((x, i) =>
-      {
-        int score;
-
-        if (x.Is().Land)
-        {
-          score = needsLands ? 100 : 0;
-        }
-        else if (x.ConvertedCost <= landsInPlay)
-        {
-          score = x.ConvertedCost;
-        }
-        else
-        {
-          score = -x.ConvertedCost;
-        }
-
-        return new
-        {
-          Card = x,
-          Index = i,
-          Score = score
-        };
-      })
-      .OrderByDescending(x => x.Score)
-//        .Select(x => x.Index)
-        .ToList();
-//        .OrderByDescending(x => x.Score)
-//        .GroupBy(x => x.Score > 0)
-//        .Select(x => x.Select(v => v.Index).ToList())
-//        .ToList();
-
-      var indices = Enumerable.Repeat(0, candidates.Count)
-        .ToArray();
-
-      for (var i = 0; i < ordering.Count; i++)
-      {
-        indices[ordering[i].Index] = ordering[i].Score;
-      }
-
-      return new Ordering(indices);
-    }
   }
 }
