@@ -274,6 +274,7 @@
     <Compile Include="CardsLibrary\GlacialCrasher.cs" />
     <Compile Include="CardsLibrary\GoblinFestival.cs" />
     <Compile Include="CardsLibrary\GoblinGardener.cs" />
+    <Compile Include="CardsLibrary\GoblinHeelcutter.cs" />
     <Compile Include="CardsLibrary\GoblinKaboomist.cs" />
     <Compile Include="CardsLibrary\GoblinMasons.cs" />
     <Compile Include="CardsLibrary\GoblinRabblemaster.cs" />
