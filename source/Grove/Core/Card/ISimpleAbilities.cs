@@ -3,6 +3,7 @@
   public interface ISimpleAbilities
   {
     bool Convoke { get; }
+    bool Dash { get; }
     bool Deathtouch { get; }
     bool Defender { get; }
     bool Delve { get; }

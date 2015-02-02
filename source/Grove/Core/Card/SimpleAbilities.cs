@@ -227,6 +227,11 @@
         get { return Has(Static.CannotBeBlockedByWalls); }
     }
 
+    public bool Dash
+    {
+      get { return Has(Static.Dash); }
+    }
+
     public bool Intimidate
     {
         get { return Has(Static.Intimidate); }
