@@ -45,7 +45,6 @@
     public abstract Zone Name { get; }
 
     public virtual void AfterAdd(Card card) {}
-
     public virtual void AfterRemove(Card card) {}
 
     void IZone.Remove(Card card)
@@ -54,7 +53,6 @@
     }
 
     public event EventHandler Shuffled = delegate { };
-
     public event EventHandler<ZoneChangedEventArgs> CardAdded = delegate { };
     public event EventHandler<ZoneChangedEventArgs> CardRemoved = delegate { };
 
@@ -100,11 +98,13 @@
     protected virtual void MoveToEnd(Card card)
     {
       _cards.MoveToEnd(card);
+      Shuffled(this, EventArgs.Empty);
     }
 
     protected virtual void MoveToFront(Card card)
     {
       _cards.MoveToFront(card);
+      Shuffled(this, EventArgs.Empty);
     }
 
     public bool Contains(Card card)
@@ -122,21 +122,18 @@
       }
 
       Shuffled(this, EventArgs.Empty);
-    }
-
+    }        
 
     public virtual void ReorderFront(int[] permutation)
     {
       _cards.ReorderFront(permutation);
 
       Shuffled(this, EventArgs.Empty);
-    }
+    }    
 
-    public virtual void ReorderFrontAndEnd(int[] permutation)
+    public virtual void ReorderEnd(int[] permutation)
     {
-      _cards.ReorderFrontAndEnd(permutation);
-
-      Shuffled(this, EventArgs.Empty);
+      
     }
 
     public override string ToString()

@@ -2,11 +2,10 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using AI;
   using Decisions;
 
-  public class Scry : Effect, IProcessDecisionResults<Ordering>,
-    IChooseDecisionResults<List<Card>, Ordering>
+  public class Scry : Effect, IProcessDecisionResults<Split>,
+    IChooseDecisionResults<List<Card>, Split>
   {
     private readonly int _count;
 
@@ -17,14 +16,68 @@
       _count = count;
     }
 
-    public Ordering ChooseResult(List<Card> candidates)
+    public Split ChooseResult(List<Card> candidates)
     {
-      return QuickDecisions.OrderTopAndBottomCards(candidates, Controller);
+      var landCount = Controller.Battlefield.Lands.Count() +
+        Controller.Hand.Lands.Count();
+
+      var needsLands = landCount < 6;
+
+      var top = new List<Card>();
+      var bottom = new List<Card>();
+
+      foreach (var candidate in candidates)
+      {
+        if (candidate.Is().Land)
+        {
+          if (needsLands)
+          {
+            top.Add(candidate);
+          }
+          else
+          {
+            bottom.Add(candidate);
+          }
+        }
+
+        else if (candidate.ConvertedCost <= landCount)
+        {
+          top.Add(candidate);
+        }
+        else
+        {
+          bottom.Add(candidate);
+        }
+      }
+
+      // Put lands on top, then order by descending score.
+      // Ordering of the cards which are put on the 
+      // bottom is not necessary.
+      top = top
+        .OrderBy(x => x.Is().Land ? int.MinValue : -x.Score)
+        .ToList();
+
+      return new Split(new[]
+        {
+          top,
+          bottom
+        });
     }
 
-    public void ProcessResults(Ordering result)
+    public void ProcessResults(Split result)
     {
-      Controller.ReorderTopAndBottomCardsOfLibrary(result.Indices);
+      IEnumerable<Card> top = result.Groups[0];
+      var bottom = result.Groups[1];
+
+      foreach (var card in bottom)
+      {
+        Controller.PutOnBottomOfLibrary(card);        
+      }
+
+      foreach (var card in top.Reverse())
+      {
+        Controller.PutCardOnTopOfLibrary(card);
+      }
     }
 
     protected override void ResolveEffect()
@@ -38,15 +91,17 @@
         card.Peek();
       }
 
-      Enqueue(new OrderTopAndBottomCards(
+      Enqueue(new SplitCards(
         Controller,
         p =>
-        {
-          p.Cards = cards;
-          p.ProcessDecisionResults = this;
-          p.ChooseDecisionResults = this;
-          p.Title = "Order any number of cards to put them on top and the rest on bottom (from top to bottom).";
-        }));
+          {
+            p.Cards = cards;
+            p.ProcessDecisionResults = this;
+            p.ChooseDecisionResults = this;
+            p.SplitText = "Select only cards which will be put on the top of library.";
+            p.PositiveText = "Order cards to put on the top.";
+            p.NegativeText = "Order cards to put on the bottom.";
+          }));
     }
   }
 }

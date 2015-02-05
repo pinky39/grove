@@ -359,6 +359,7 @@
     <Compile Include="CardsLibrary\LongshotSquad.cs" />
     <Compile Include="CardsLibrary\LotusPathDjinn.cs" />
     <Compile Include="CardsLibrary\LurkingJackals.cs" />
+    <Compile Include="CardsLibrary\MagmaJet.cs" />
     <Compile Include="CardsLibrary\Magnify.cs" />
     <Compile Include="CardsLibrary\MahamotiDjinn.cs" />
     <Compile Include="CardsLibrary\MarduBanner.cs" />
@@ -681,7 +682,8 @@
     <Compile Include="Core\Costs\AbilityCostModifier.cs" />
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Costs\PayCostParameters.cs" />
-    <Compile Include="Core\Decisions\OrderTopAndBottomCards.cs" />
+    <Compile Include="Core\Decisions\Split.cs" />
+    <Compile Include="Core\Decisions\SplitCards.cs" />
     <Compile Include="Core\Decisions\PushTriggeredEffects.cs" />
     <Compile Include="Core\Effects\AddManaForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToCard.cs" />

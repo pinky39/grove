@@ -161,36 +161,12 @@
 
     public bool Has(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
     {
-      if (amount is MultiColorManaAmount)
-      {
-        var permutations = amount.Permutate();
-
-        return permutations.Any(manaAmount => 
-          TryToAllocateAmount(manaAmount, usage, additional) != null);
-      }
-
       return TryToAllocateAmount(amount, usage, additional) != null;
     }
 
     public void Consume(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
     {
-      HashSet<ManaUnit> allocated = null;
-      if (amount is MultiColorManaAmount)
-      {
-        var permutations = amount.Permutate();
-
-        foreach (var manaAmount in permutations)
-        {
-          allocated = TryToAllocateAmount(manaAmount, usage, additional);
-          if (allocated != null)
-            break;
-        }
-      }
-      else
-      {
-        allocated = TryToAllocateAmount(amount, usage, additional);
-      }
-
+      var allocated = TryToAllocateAmount(amount, usage, additional);
       Asrt.True(allocated != null, "Not enough mana available.");
 
       var sources = GetSourcesToActivate(allocated);
@@ -255,7 +231,7 @@
       return true;
     }
 
-    private HashSet<ManaUnit> TryToAllocateAmount(IEnumerable<SingleColorManaAmount> amount, ManaUsage usage, IEnumerable<ManaUnit> additional)
+    private HashSet<ManaUnit> TryToAllocateAmount(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional)
     {
       var restricted = new HashSet<ManaUnit>();
       var allocated = new HashSet<ManaUnit>();
@@ -289,17 +265,17 @@
           }
         }
         allUnits = _units.Concat(additional).ToList();
-      }      
+      }
 
-      foreach (var manaOfSingleColor in amount)
+      var checkAmount = amount
+        .Select(x => new {Color = GetColorIndex(x), Count = x.Count})
+        .OrderBy(x => _groups[x.Color].Count)
+        .ToArray();
+
+      foreach (var manaOfSingleColor in checkAmount)
       {
-        var color = manaOfSingleColor.Color.IsColorless
-          ? 5
-          // amount never contains mana whish is multiple colors at the same time
-          : manaOfSingleColor.Color.Indices[0];
-
-        var ordered = _groups[color]
-          .Concat(additionalGrouped[color])
+        var ordered = _groups[manaOfSingleColor.Color]
+          .Concat(additionalGrouped[manaOfSingleColor.Color])
           .OrderBy(GetManaUnitAllocationOrder)
           .ToList();
 
@@ -318,6 +294,14 @@
       }
 
       return allocated;
+    }
+
+    private int GetColorIndex(SingleColorManaAmount manaOfSingleColor)
+    {
+      return manaOfSingleColor.Color.IsColorless
+        ? 5
+        // amount never contains mana whish is multiple colors at the same time
+        : manaOfSingleColor.Color.Indices[0];
     }
 
     private int GetManaUnitAllocationOrder(ManaUnit x)

@@ -659,12 +659,7 @@
     public void ReorderTopCardsOfLibrary(int[] permutation)
     {
       _library.ReorderFront(permutation);
-    }
-
-    public void ReorderTopAndBottomCardsOfLibrary(int[] permutation)
-    {
-      _library.ReorderFrontAndEnd(permutation);
-    }
+    }    
 
     public bool ShouldSkipStep(Step step)
     {

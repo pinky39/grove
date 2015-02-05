@@ -14,6 +14,7 @@
 
     public override Zone Name { get { return Zone.Library; } }
     public Card Top { get { return this.FirstOrDefault(); } }
+    public Card Bottom { get { return this.LastOrDefault(); } }
 
     public override int CalculateHash(HashCalculator calc)
     {
@@ -42,6 +43,6 @@
       {
         AddToEnd(card);
       }
-    }
+    }    
   }
 }

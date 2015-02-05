@@ -79,7 +79,14 @@
     {
       Add("{R}");
       AssertAvailable("{1}");
-    }   
+    }
+
+    [Fact]
+    public void MulticolorSourceBug1()
+    {
+      Add("{GB}{GW}");
+      AssertAvailable("{G}{B}");
+    }
 
     private readonly ManaCache _cache = new ManaCache();
 

@@ -171,7 +171,7 @@
     public void ReorderFront(int[] permutation)
     {
       var head = _items
-        .Take(permutation.Count())
+        .Take(permutation.Length)
         .ToList();
 
       foreach (var item in head)
@@ -187,34 +187,20 @@
       }
     }
 
-    public void ReorderFrontAndEnd(int[] permutation)
+    public void ReorderEnd(int[] permutation)
     {
-      var head = _items
-        .Take(permutation.Count())
+      var tail = _items        
+        .Skip(_items.Count - permutation.Length)        
         .ToList();
 
-      foreach (var item in head)
+      foreach (var item in tail)
       {
         Remove(item);
       }
 
-      var items = head
-        .Zip(permutation, (original, ordered) => new { Card = original, Order = ordered})
-        .OrderByDescending(x => x.Order)
-        .ToList();
-
-      foreach (var item in items)
-      {
-        if (item.Order >= 0)
-        {
-          AddToFront(item.Card);
-        }
-        else
-        {
-          Add(item.Card);
-        }
-      }
-    }
+      tail.ShuffleInPlace(permutation);
+      AddRange(tail);            
+    }    
 
     public void AddRange(IEnumerable<T> items)
     {
