@@ -71,11 +71,13 @@
 
       foreach (var card in bottom)
       {
+        card.ResetVisibility();
         Controller.PutOnBottomOfLibrary(card);        
       }
 
       foreach (var card in top.Reverse())
       {
+        card.ResetVisibility();
         Controller.PutCardOnTopOfLibrary(card);
       }
     }
