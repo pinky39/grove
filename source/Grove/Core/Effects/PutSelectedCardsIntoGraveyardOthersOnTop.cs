@@ -33,10 +33,6 @@
         p =>
         {
           p.SetValidator(c => cards.Contains(c));
-//          p.SetValidator(delegate
-//          {
-//            return true;
-//          });
           p.Zone = Zone.Library;
           p.MinCount = 0;
           p.MaxCount = null;
@@ -104,8 +100,6 @@
     public void ProcessResults(Ordering result)
     {
       Controller.ReorderTopCardsOfLibrary(result.Indices);
-
-      Controller.Library.ForEach(c => c.ResetVisibility());
     }
   }
 }
