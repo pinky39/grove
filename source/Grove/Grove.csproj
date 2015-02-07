@@ -595,6 +595,7 @@
     <Compile Include="CardsLibrary\WanderingChampion.cs" />
     <Compile Include="CardsLibrary\WardenOfTheBeyond.cs" />
     <Compile Include="CardsLibrary\WardenOfTheEye.cs" />
+    <Compile Include="CardsLibrary\WarFlare.cs" />
     <Compile Include="CardsLibrary\WarNameAspirant.cs" />
     <Compile Include="CardsLibrary\WasteNot.cs" />
     <Compile Include="CardsLibrary\WeaveFate.cs" />
