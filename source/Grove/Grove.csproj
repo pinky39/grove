@@ -433,6 +433,7 @@
     <Compile Include="CardsLibrary\PowderKeg.cs" />
     <Compile Include="CardsLibrary\PreeminentCaptain.cs" />
     <Compile Include="CardsLibrary\ProfaneMemento.cs" />
+    <Compile Include="CardsLibrary\Pyrotechnics.cs" />
     <Compile Include="CardsLibrary\Quickling.cs" />
     <Compile Include="CardsLibrary\QuietContemplation.cs" />
     <Compile Include="CardsLibrary\RadiantFountain.cs" />
