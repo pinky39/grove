@@ -230,6 +230,7 @@
     <Compile Include="CardsLibrary\DivineFavor.cs" />
     <Compile Include="CardsLibrary\DivineVerdict.cs" />
     <Compile Include="CardsLibrary\Donate.cs" />
+    <Compile Include="CardsLibrary\Dragonrage.cs" />
     <Compile Include="CardsLibrary\DragonscaleBoon.cs" />
     <Compile Include="CardsLibrary\DragonscaleGeneral.cs" />
     <Compile Include="CardsLibrary\DragonStyleTwins.cs" />
