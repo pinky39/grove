@@ -27,8 +27,10 @@
     {
       var chosenType = (string) results.Options[0];
 
-      var costModifier = new ChangeManaCostOfSpellsOrAbilities(_amount,
-        (card, usage, self) => usage == CostType.Spell && card.Is().Creature && card.Is(chosenType));
+      var costModifier = new ChangeManaCostOfSpellsOrAbilities(
+        -_amount,
+        (card, usage, self) => 
+          usage == CostType.Spell && card.Is().Creature && card.Is(chosenType));
 
       var addCostModifier = new AddCostModifier(costModifier);
 

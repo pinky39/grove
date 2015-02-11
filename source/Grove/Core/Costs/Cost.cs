@@ -58,7 +58,7 @@
       return true;
     }
 
-    private ManaUsage GetManaUsage()
+    protected ManaUsage GetManaUsage()
     {
       var manaUsage = Type == CostType.Ability
         ? ManaUsage.Abilities
