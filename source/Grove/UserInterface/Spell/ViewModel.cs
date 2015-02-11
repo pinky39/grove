@@ -47,8 +47,8 @@
             return;
           }
 
-          IsPlayable = Card.CanCast().Count(x => x.CanPay.Value) > 0 ||
-            Card.CanActivateAbilities().Count(x => x.CanPay.Value) > 0;
+          IsPlayable = Card.CanCast().Count(x => x.CanPay) > 0 ||
+            Card.CanActivateAbilities().Count(x => x.CanPay) > 0;
           break;
 
         case (InteractionState.SelectTarget):
@@ -78,7 +78,7 @@
     private PlayableActivator SelectActivation()
     {
       var activations = Card.CanCast()
-        .Where(x => x.CanPay.Value)
+        .Where(x => x.CanPay)
         .Select(prerequisites => new PlayableActivator
           {
             Prerequisites = prerequisites,
@@ -90,7 +90,7 @@
               }
           })
         .Concat(Card.CanActivateAbilities()
-          .Where(x => x.CanPay.Value)
+          .Where(x => x.CanPay)
           .Select(prerequisites => new PlayableActivator
             {
               Prerequisites = prerequisites,
@@ -283,7 +283,7 @@
     {
       if (prerequisites.HasXInCost)
       {
-        var dialog = ViewModels.SelectXCost.Create(prerequisites.MaxX.Value.Value);
+        var dialog = ViewModels.SelectXCost.Create(prerequisites.MaxX.Value);
         Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)

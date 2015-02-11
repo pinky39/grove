@@ -100,7 +100,7 @@
         aiInstruction.Initialize(game);
       }
 
-      _p.Cost.Initialize(card, game, _p.TargetSelector.Cost.FirstOrDefault());
+      _p.Cost.Initialize(CostType.Spell, card, game, _p.TargetSelector.Cost.FirstOrDefault());
     }
 
     private bool CanCastCardType()
@@ -132,10 +132,10 @@
 
       prerequisites = new ActivationPrerequisites
         {
-          CanPay = result.CanPay(),
+          CanPay = result.CanPay,
           Description = _p.Text,
           Selector = _p.TargetSelector,
-          MaxX = result.MaxX(),
+          MaxX = result.MaxX,
           DistributeAmount = _p.DistributeAmount,
           Card = _card,
           Rules = _p.Rules

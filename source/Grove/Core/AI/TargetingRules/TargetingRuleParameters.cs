@@ -23,11 +23,11 @@
 
     public Player Controller { get { return _context.Controller; } }
     public int? X { get { return _context.X; } }
-    public int MaxX { get { return _context.MaxX.Value.GetValueOrDefault(); } }
+    public int MaxX { get { return _context.MaxX.GetValueOrDefault(); } }
     public int EffectTargetTypeCount { get { return _context.Selector.Effect.Count; } }
     public Card Card { get { return _context.Card; } }
     public int DistributeAmount { get { return _context.DistributeAmount; } }
-    public int MaxRepetitions { get { return _context.MaxRepetitions.Value; } }
+    public int MaxRepetitions { get { return _context.MaxRepetitions; } }
 
     public bool HasCostCandidates { get { return _candidates.HasCost; } }
     public bool HasEffectCandidates { get { return _candidates.HasEffect; } }

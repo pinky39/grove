@@ -1,7 +1,5 @@
 ﻿namespace Grove.Costs
 {
-  using System;
-
   public class PayMana : Cost
   {
     private readonly IManaAmount _amount;
@@ -23,34 +21,78 @@
       _supportsRepetitions = supportsRepetitions;
     }
 
-    public override bool HasX
-    {
-      get { return _hasX; }
-    }
+    public override bool HasX { get { return _hasX; } }
 
     public override IManaAmount GetManaCost()
     {
-      return _amount;
+      var change = Game.GetCostChange(Type, Card);
+
+      if (change == 0)
+        return _amount;
+
+      return change > 0
+        ? _amount.Add(change.Colorless())
+        : _amount.Remove((-change).Colorless());
     }
 
-    protected override void CanPay(CanPayResult result)
+    public override CanPayResult CanPay()
     {
-      // mana checking is an expensive operation
-      // so it should only be done when nessesary
-      // the following lazy evaluation allows ai
-      // to only check mana costs when all the cheaper
-      // timing tests are successful
+      var actualCost = GetManaCost();
 
-      var evaluator = new PayManaEvaluator(this);
+      int? maxX = null;
+      var maxRepetitions = 1;
 
-      result.CanPay(evaluator.CanPay);
-      result.MaxX(evaluator.MaxX);
-      result.MaxRepetitions(evaluator.MaxRepetitions);
+      var canPay = Controller.HasMana(
+        actualCost,
+        _manaUsage,
+        canUseConvoke: Card.Has().Convoke,
+        canUseDelve: Card.Has().Delve);
+
+      if (canPay)
+      {
+        if (_hasX)
+        {
+          var availableMana = Controller.GetAvailableConvertedMana(_manaUsage, canUseConvoke: Card.Has().Convoke,
+            canUseDelve: Card.Has().Delve);
+          maxX = availableMana - actualCost.Converted;
+        }
+
+        if (_supportsRepetitions)
+        {
+          var count = 1;
+          var amount = actualCost;
+
+          while (true)
+          {
+            amount = amount.Add(actualCost);
+
+            if (!Controller.HasMana(amount, _manaUsage))
+            {
+              break;
+            }
+            count++;
+          }
+
+          maxRepetitions = count;
+        }
+      }
+
+      return new CanPayResult(canPay, maxX, maxRepetitions);
+    }
+
+    public override CanPayResult CanPayPartial()
+    {
+      return CanPay();
+    }
+
+    public override void PayPartial(PayCostParameters p)
+    {
+      Pay(p);
     }
 
     public override void Pay(PayCostParameters p)
     {
-      var amount = Game.GetActualCost(_amount, _manaUsage, Card);
+      var amount = GetManaCost();
 
       if (p.X.HasValue)
       {
@@ -65,104 +107,7 @@
         }
       }
 
-      Card.Controller.Consume(amount, _manaUsage, canUseConvoke: Card.Has().Convoke, canUseDelve: Card.Has().Delve);
-    }
-
-    private class PayManaEvaluator
-    {
-      private readonly PayMana _payMana;
-      private bool _canPay;
-      private bool _isEvaluated;
-      private int _maxRepetitions = 1;
-      private int? _maxX;
-
-      public PayManaEvaluator(PayMana payMana)
-      {
-        _payMana = payMana;
-      }
-
-      public Func<bool> CanPay
-      {
-        get
-        {
-          return () =>
-            {
-              Evaluate();
-              return _canPay;
-            };
-        }
-      }
-
-      public Func<int?> MaxX
-      {
-        get
-        {
-          return () =>
-            {
-              if (!_payMana._hasX)
-                return null;
-
-              Evaluate();
-              return _maxX;
-            };
-        }
-      }
-
-      public Func<int> MaxRepetitions
-      {
-        get
-        {
-          return () =>
-            {
-              if (!_payMana._supportsRepetitions)
-                return 1;
-
-              Evaluate();
-              return _maxRepetitions;
-            };
-        }
-      }
-
-      private void Evaluate()
-      {
-        if (_isEvaluated)
-          return;
-
-        var manaUsage = _payMana._manaUsage;
-        var controller = _payMana.Card.Controller;
-
-        var actualCost = _payMana.Game.GetActualCost(_payMana._amount, manaUsage, _payMana.Card);
-        _canPay = controller.HasMana(actualCost, manaUsage, canUseConvoke: _payMana.Card.Has().Convoke, canUseDelve: _payMana.Card.Has().Delve);
-
-        if (_canPay)
-        {
-          if (_payMana._hasX)
-          {
-            _maxX = controller.GetAvailableConvertedMana(manaUsage, canUseConvoke: _payMana.Card.Has().Convoke, canUseDelve: _payMana.Card.Has().Delve) - actualCost.Converted;
-          }
-
-          if (_payMana._supportsRepetitions)
-          {
-            var count = 1;
-            var amount = actualCost;
-
-            while (true)
-            {
-              amount = amount.Add(actualCost);
-
-              if (!controller.HasMana(amount, manaUsage))
-              {
-                break;
-              }
-              count++;
-            }
-
-            _maxRepetitions = count;
-          }
-        }
-
-        _isEvaluated = true;
-      }
+      Controller.Consume(amount, _manaUsage, canUseConvoke: Card.Has().Convoke, canUseDelve: Card.Has().Delve);
     }
   }
 }

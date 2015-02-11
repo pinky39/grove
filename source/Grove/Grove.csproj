@@ -679,10 +679,12 @@
     <Compile Include="Core\Card\AbilityParameters.cs" />
     <Compile Include="Core\Card\ActivatedAbilityParameters.cs" />
     <Compile Include="Core\Card\CardBase.cs" />
+    <Compile Include="Core\Card\CombatCost.cs" />
     <Compile Include="Core\Card\ManaAbilityParameters.cs" />
     <Compile Include="Core\Card\MinBlockerCount.cs" />
     <Compile Include="Core\Card\NamedGameModifiers.cs" />
-    <Compile Include="Core\Costs\AbilityCostModifier.cs" />
+    <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />
+    <Compile Include="Core\Costs\CostType.cs" />
     <Compile Include="Core\Costs\Exile.cs" />
     <Compile Include="Core\Costs\PayCostParameters.cs" />
     <Compile Include="Core\Decisions\Split.cs" />
@@ -755,6 +757,7 @@
     <Compile Include="Core\Modifiers\AddToList.cs" />
     <Compile Include="Core\Modifiers\ChangeCardTemplate.cs" />
     <Compile Include="Core\Modifiers\CardParametersSetter.cs" />
+    <Compile Include="Core\Modifiers\IncreaseCombatCost.cs" />
     <Compile Include="Core\Modifiers\IncreaseMinBlockerCount.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\Modifiers\OwnerControlsPermamentsLifetime.cs" />
@@ -926,7 +929,7 @@
     <Compile Include="Core\Card\Strenght.cs" />
     <Compile Include="Core\Costs\CostModifier.cs" />
     <Compile Include="Core\Costs\CostModifiers.cs" />
-    <Compile Include="Core\Costs\SpellCostModifier.cs" />
+    <Compile Include="Core\Costs\ChangeManaCostOfSpellsOrAbilities.cs" />
     <Compile Include="Core\Costs\DiscardRandom.cs" />
     <Compile Include="Core\Costs\TapOwner.cs" />
     <Compile Include="Core\Decisions\DecisionHandler.cs" />

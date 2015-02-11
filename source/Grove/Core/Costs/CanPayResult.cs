@@ -1,46 +1,21 @@
 ﻿namespace Grove.Costs
 {
-  using System;
-
   public class CanPayResult
   {
-    private Lazy<int> _maxRepetitions = new Lazy<int>(() => 1);
-    private Lazy<int?> _maxX = new Lazy<int?>(() => null);
-    private Lazy<bool> _canPay;
+    public readonly bool CanPay;
+    public readonly int? MaxX;
+    public readonly int MaxRepetitions;
 
-    public void CanPay(Func<bool> getValue)
+    public CanPayResult(bool canPay, int? maxX = null, int maxRepetitions = 1)
     {
-      _canPay = new Lazy<bool>(getValue);
+      CanPay = canPay;
+      MaxX = maxX;
+      MaxRepetitions = maxRepetitions;
     }
 
-    public void CanPay(bool value)
+    public static implicit operator CanPayResult(bool canPay)
     {
-      _canPay = new Lazy<bool>(() => value);
-    }
-
-    public void MaxX(Func<int?> getValue)
-    {
-      _maxX = new Lazy<int?>(getValue);
-    }
-
-    public void MaxRepetitions(Func<int> getValue)
-    {
-      _maxRepetitions = new Lazy<int>(getValue);
-    }
-
-    public Lazy<int> MaxRepetitions()
-    {
-      return _maxRepetitions;
-    }
-    
-    public Lazy<int?> MaxX()
-    {
-      return _maxX;
-    }
-
-    public Lazy<bool> CanPay()
-    {
-      return _canPay;
+      return new CanPayResult(canPay);
     }
   }
 }

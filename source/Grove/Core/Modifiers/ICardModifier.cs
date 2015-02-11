@@ -14,6 +14,7 @@
     void Apply(Level level);    
     void Apply(Strenght strenght);
     void Apply(MinBlockerCount count);
+    void Apply(CombatCost combatCost);
     void Apply(CardBase cardBase);
   }
 }

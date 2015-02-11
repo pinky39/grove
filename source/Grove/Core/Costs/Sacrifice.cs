@@ -4,20 +4,19 @@
 
   public class Sacrifice : Cost
   {
-    protected override void CanPay(CanPayResult result)
+    public override CanPayResult CanPayPartial()
     {
       if (Validator != null)
       {
-        result.CanPay(Card.Controller.Battlefield.Any(
-          permanent => Validator.IsTargetValid(permanent, Card)));
-
-        return;
+        return
+          Controller.Battlefield.Any(
+            permanent => Validator.IsTargetValid(permanent, Card));
       }
 
-      result.CanPay(() => Card.IsPermanent);
+      return Card.IsPermanent;
     }
 
-    public override void Pay(PayCostParameters p)
+    public override void PayPartial(PayCostParameters p)
     {
       var target = p.Targets.Cost.FirstOrDefault();
 

@@ -89,6 +89,7 @@
     public virtual void Apply(CardBase cardBase) {}
     public virtual void Apply(StaticAbilities abilities) {}
     public virtual void Apply(NamedGameModifiers namedGameModifiers) {}
+    public virtual void Apply(CombatCost combatCost) {}
 
     protected abstract void Unapply();
 

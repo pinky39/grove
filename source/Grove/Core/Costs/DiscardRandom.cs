@@ -2,15 +2,15 @@
 {
   public class DiscardRandom : Cost
   {
-    protected override void CanPay(CanPayResult result)
+    public override CanPayResult CanPayPartial()
     {
-      result.CanPay(() => Card.Controller.Hand.Count > 0);
+      return Card.Controller.Hand.Count > 0;
     }
 
-    public override void Pay(PayCostParameters p)
-    {
+    public override void PayPartial(PayCostParameters p)
+    {            
       var card = Card.Controller.DiscardRandomCard();
-      p.Targets.AddCost(card);
+      p.Targets.AddCost(card);      
     }
   }
 }

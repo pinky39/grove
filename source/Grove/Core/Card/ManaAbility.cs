@@ -26,7 +26,7 @@
 
     bool IManaSource.CanActivate()
     {
-      return _isEnabled && CanPay().CanPay().Value;
+      return _isEnabled && CanPay().CanPay;
     }
 
     void IManaSource.PayActivationCost()

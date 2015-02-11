@@ -32,14 +32,15 @@
     public List<StaticAbility> StaticAbilities = new List<StaticAbility>();
     public CardText Text = String.Empty;
     public int? Toughness;
+    public int CombatCost;
     public CardType Type;
     private CardParameters() { }
 
     public CardParameters(CardTemplate template)
     {
       Template = template;
-    }
-
+    }    
+    
     public int? Level
     {
       get

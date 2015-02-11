@@ -1,10 +1,8 @@
 ﻿namespace Grove
 {
-    using System;
-    using Costs;
+  using System;
+  using Costs;
 
-  
-  
   public class ActivatedAbilityParameters : AbilityParameters
   {
     public bool ActivateAsSorcery;

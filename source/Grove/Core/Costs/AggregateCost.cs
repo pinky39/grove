@@ -1,6 +1,8 @@
 ﻿namespace Grove.Costs
 {
+  using System;
   using System.Collections.Generic;
+  using System.Linq;
 
   public class AggregateCost : Cost
   {
@@ -14,82 +16,73 @@
     }
 
     public override IManaAmount GetManaCost()
-    {
-      var manaAmount = Mana.Zero;
-
-      foreach (var cost in _costs)
-      {
-        manaAmount = manaAmount.Add(cost.GetManaCost());
-      }
-
-      return manaAmount;
+    {      
+      var payMana = (PayMana) _costs.SingleOrDefault(x => x is PayMana);
+      
+      // if there is a child ManaCost use it
+      // if not just return the default impl.
+      return payMana == null 
+        ? base.GetManaCost() 
+        : payMana.GetManaCost();
     }
 
-    public override void Initialize(Card card, Game game, TargetValidator validator = null)
+    public override void Initialize(CostType type, Card card, Game game, TargetValidator validator = null)
     {
-      base.Initialize(card, game, validator);
+      base.Initialize(type, card, game, validator);
 
       foreach (var cost in _costs)
       {
-        cost.Initialize(card, game, validator);
+        cost.Initialize(type, card, game, validator);
       }
     }
 
-    protected override void CanPay(CanPayResult result)
+    public override void PayPartial(PayCostParameters p)
     {
-      var childResults = new List<CanPayResult>();
+      throw new NotSupportedException("Aggregate cost cannot be child of another one.");
+    }
 
-      foreach (var cost in _costs)
+    public override CanPayResult CanPayPartial()
+    {
+      throw new NotSupportedException("Aggregate cost cannot be child of another one.");
+    }
+
+    public override CanPayResult CanPay()
+    {
+      var hasPayMana = HasPayMana();
+
+      if (!hasPayMana && !CanPayAdditionalCost())
       {
-        childResults.Add(cost.CanPay());
+        return new CanPayResult(false);
       }
+      
+      var childResults = _costs
+        .Select(cost => cost.CanPayPartial())
+        .ToList();
 
-      result.CanPay(() =>
-        {
-          foreach (var childResult in childResults)
-          {
-            if (!childResult.CanPay().Value)
-              return false;
-          }
+      return new CanPayResult(
+        canPay: childResults.All(x => x.CanPay),
+        maxX: (childResults.FirstOrDefault(x => x.MaxX.HasValue) ?? childResults.First()).MaxX);
+    }
 
-          return true;
-        });
-
-      result.MaxX(() =>
-        {
-          int? maxX = null;
-
-          foreach (var childResult in childResults)
-          {
-            maxX = childResult.MaxX().Value;
-
-            if (maxX.HasValue)
-            {
-              break;
-            }
-          }
-
-          return maxX;
-        });
-
-      result.MaxRepetitions(() =>
-        {
-          var maxRepetitions = 1;
-
-          foreach (var childResult in childResults)
-          {
-            maxRepetitions = childResult.MaxRepetitions().Value;
-          }
-
-          return maxRepetitions;
-        });
+    private bool HasPayMana()
+    {
+      return _costs.Any(x => x is PayMana);
     }
 
     public override void Pay(PayCostParameters p)
     {
+      // if there is a child pay mana cost
+      // additional cost will be payed as
+      // part of it.
+      // if not we must pay it.
+      if (!HasPayMana())
+      {        
+        PayAdditionalCost();
+      }
+      
       foreach (var cost in _costs)
       {
-        cost.Pay(p);
+        cost.PayPartial(p);
       }
     }
   }

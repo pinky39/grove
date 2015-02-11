@@ -2,42 +2,47 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using AI;
   using Events;
-  using Grove.AI;
-  using Grove.UserInterface;
-  using Grove.UserInterface.Messages;
-  using Grove.UserInterface.SelectTarget;
+  using UserInterface;
+  using UserInterface.Messages;
+  using UserInterface.SelectTarget;
 
   public class DeclareAttackers : Decision
   {
-    private DeclareAttackers()
-    {
-    }
+    private DeclareAttackers() {}
 
     public DeclareAttackers(Player controller)
       : base(
         controller, () => new UiHandler(), () => new MachineHandler(), () => new ScenarioHandler(),
-        () => new PlaybackHandler())
-    {
-    }
+        () => new PlaybackHandler()) {}
 
     private abstract class Handler : DecisionHandler<DeclareAttackers, ChosenCards>
     {
-      protected override bool ShouldExecuteQuery
-      {
-        get { return D.Controller.Battlefield.HasCreaturesThatCanAttack; }
-      }
+      protected override bool ShouldExecuteQuery { get { return D.Controller.Battlefield.HasCreaturesThatCanAttack; } }
 
       public override void ProcessResults()
       {
         AddCreaturesThatMustAttack();
-                
+        
         foreach (var attacker in Result)
         {
-          if (attacker.CanAttack)
+          var combatCost = attacker.CombatCost;
+          if (attacker.CanAttack && (combatCost == 0 || D.Controller.HasMana(combatCost)))
           {
+            // pay for each attacker seperately
+            // if there are some attackers which are
+            // already tapped for mana, because we used them 
+            // to pay combatcost for others, then they will
+            // not be added.            
+            if (combatCost > 0)
+            {              
+              D.Controller.Consume(combatCost.Colorless(),
+                ManaUsage.Any);
+            }
+
             Combat.AddAttacker(attacker);
-          }
+          }          
         }
 
         Publish(new AttackersDeclaredEvent(Combat.Attackers));
@@ -74,40 +79,22 @@
         _executor = new MachinePlanExecutor(this);
       }
 
-      private Player Defender
-      {
-        get { return Controller.Opponent; }
-      }
+      private Player Defender { get { return Controller.Opponent; } }
 
-      public override bool HasCompleted
-      {
-        get { return _executor.HasCompleted; }
-      }
+      public override bool HasCompleted { get { return _executor.HasCompleted; } }
 
-      bool IMachineExecutionPlan.ShouldExecuteQuery
-      {
-        get { return ShouldExecuteQuery; }
-      }
+      bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
 
       void IMachineExecutionPlan.ExecuteQuery()
       {
         ExecuteQuery();
       }
 
-      Game ISearchNode.Game
-      {
-        get { return Game; }
-      }
+      Game ISearchNode.Game { get { return Game; } }
 
-      public Player Controller
-      {
-        get { return D.Controller; }
-      }
+      public Player Controller { get { return D.Controller; } }
 
-      public int ResultCount
-      {
-        get { return _declarations.Count; }
-      }
+      public int ResultCount { get { return _declarations.Count; } }
 
       public void GenerateChoices()
       {
@@ -143,12 +130,12 @@
       private List<List<Card>> GetAttackersDeclarations()
       {
         var results = new List<List<Card>>();
-
         var noAttackers = new List<Card>();
 
         results.Add(noAttackers);
 
-        var allAttackers = Controller.Battlefield.CreaturesThatCanAttack.ToList();
+        var allAttackers = RemoveAttackersIfWeCannotAffordToPayCombatCost(
+          Controller.Battlefield.CreaturesThatCanAttack.ToList());
 
         if (allAttackers.Count > 0)
         {
@@ -174,18 +161,40 @@
 
         return results;
       }
+
+      private List<Card> RemoveAttackersIfWeCannotAffordToPayCombatCost(List<Card> allAttackers)
+      {        
+        var attackersWithCombatCost = allAttackers
+          .Where(x => x.CombatCost > 0)
+          .OrderBy(x => -x.Power)
+          .ToList();
+
+        if (attackersWithCombatCost.Count == 0)
+          return allAttackers;
+
+        var availableMana = Controller.GetAvailableConvertedMana();
+
+        foreach (var card in attackersWithCombatCost)
+        {
+          if (card.CombatCost <= availableMana)
+          {
+            availableMana -= card.CombatCost;
+          }
+          else
+          {
+            allAttackers.Remove(card);
+          }
+        }
+
+        return allAttackers;
+      }
     }
 
     private class PlaybackHandler : Handler
     {
-      protected override bool ShouldExecuteQuery
-      {
-        get { return true; }
-      }
+      protected override bool ShouldExecuteQuery { get { return true; } }
 
-      public override void SaveDecisionResults()
-      {
-      }
+      public override void SaveDecisionResults() {}
 
       protected override void ExecuteQuery()
       {
@@ -200,10 +209,7 @@
         Result = new ChosenCards();
       }
 
-      protected override bool ShouldExecuteQuery
-      {
-        get { return true; }
-      }
+      protected override bool ShouldExecuteQuery { get { return true; } }
 
       protected override void ExecuteQuery()
       {
@@ -216,8 +222,10 @@
     {
       protected override void ExecuteQuery()
       {
+        var availableMana = D.Controller.GetAvailableConvertedMana();
+
         var tp = new TargetValidatorParameters {MinCount = 0, MaxCount = null, Message = "Select attackers."}
-          .Is.Card(c => c.CanAttack && c.Controller == D.Controller)
+          .Is.Card(c => c.CanAttack && c.Controller == D.Controller && c.CombatCost <= availableMana)
           .On.Battlefield();
 
         tp.MustBeTargetable = false;
@@ -229,16 +237,29 @@
           {
             Validator = validator,
             CanCancel = false,
-            TargetSelected = target => Ui.Publisher.Publish(
-              new AttackerSelected
-                {
-                  Attacker = target.Card()
-                }),
-            TargetUnselected = target => Ui.Publisher.Publish(
-              new AttackerUnselected
-                {
-                  Attacker = target.Card()
-                })
+            TargetSelected = target =>
+              {
+                var attacker = target.Card();
+
+                availableMana -= attacker.CombatCost;
+
+                Ui.Publisher.Publish(
+                  new AttackerSelected
+                    {
+                      Attacker = attacker
+                    });
+              },
+            TargetUnselected = target =>
+              {
+                var attacker = target.Card();
+                availableMana += attacker.CombatCost;
+
+                Ui.Publisher.Publish(
+                  new AttackerUnselected
+                    {
+                      Attacker = attacker
+                    });
+              }
           };
 
         var dialog = Ui.Dialogs.SelectTarget.Create(selectParameters);

@@ -26,14 +26,13 @@
 
         var abilitiesPrerequisites = card.CanActivateAbilities(ignoreManaAbilities: true);
 
-        foreach (var prerequisites in abilitiesPrerequisites)
-        {          
+        foreach (var prerequisites in abilitiesPrerequisites.Where(x => x.CanPay))
+        {                                        
           var playables = GeneratePlayables(
             prerequisites,
             () => new PlayableAbility());
-          
-          // lazy cost evaluation
-          if (playables.Count > 0 && prerequisites.CanPay.Value)
+                    
+          if (playables.Count > 0)
           {
             result.AddRange(playables);
           }
@@ -50,14 +49,13 @@
 
         var spellsPrerequisites = card.CanCast();
 
-        foreach (var prerequisites in spellsPrerequisites)
-        {
+        foreach (var prerequisites in spellsPrerequisites.Where(x => x.CanPay))
+        {                    
           var playables = GeneratePlayables(
             prerequisites,
             () => new PlayableSpell());
-
-          // lazy cost evaluation
-          if (playables.Count > 0 && prerequisites.CanPay.Value)
+          
+          if (playables.Count > 0)
           {
             result.AddRange(playables);
           }

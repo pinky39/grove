@@ -2,12 +2,12 @@
 {
   public class TapOwner : Cost
   {
-    protected override void CanPay(CanPayResult result)
-    {     
-      result.CanPay(() => Card.CanTap);
+    public override CanPayResult CanPayPartial()
+    {
+      return Card.CanTap;
     }
 
-    public override void Pay(PayCostParameters p)
+    public override void PayPartial(PayCostParameters p)
     {
       Card.Tap();
     }

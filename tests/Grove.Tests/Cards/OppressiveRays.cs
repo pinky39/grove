@@ -9,7 +9,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void EnchantedCreatureCannotAttack()
+      public void NotEnoughManaToAttack()
       {
         Hand(P1, "Oppressive Rays");
         Battlefield(P1, "Plains");        
@@ -23,7 +23,7 @@
       }
 
       [Fact]
-      public void EnchantedCreatureCannotBlock()
+      public void NotEnoughManaToBlock()
       {
         Hand(P1, "Oppressive Rays");
         Battlefield(P1, "Grizzly Bears", "Plains");
@@ -37,31 +37,31 @@
       }
 
       [Fact]
-      public void PayManaToAttackWithEnchantedCreature()
-      {
-        Hand(P1, "Oppressive Rays");
-        Battlefield(P1, "Plains");
-        P1.Life = 2;
+      public void PayManaToAttack()
+      {                
+        Battlefield(P1, C("Grizzly Bears").IsEnchantedWith("Oppressive Rays"),
+          "Plains", "Plains", "Plains");
 
-        Battlefield(P2, "Grizzly Bears", "Plains", "Plains", "Plains");
+        P2.Life = 2;
+        RunGame(1);
 
-        RunGame(2);
-
-        Equal(0, P1.Life);
+        Equal(0, P2.Life);
+        True(P1.Battlefield.Lands.All(x => x.IsTapped));
       }
 
       [Fact]
-      public void PayManaToBlockWithEnchantedCreature()
-      {
-        Hand(P1, "Oppressive Rays");
-        Battlefield(P1, "Grizzly Bears", "Plains");
+      public void PayManaToBlock()
+      {        
+        Battlefield(P1, "Juggernaut");
 
         P2.Life = 2;
-        Battlefield(P2, "Grizzly Bears", "Plains", "Plains", "Plains");
+        Battlefield(P2, C("Grizzly Bears").IsEnchantedWith("Oppressive Rays"), 
+          "Plains", "Plains", "Plains");
 
         RunGame(1);
 
         Equal(2, P2.Life);
+        True(P2.Battlefield.Lands.All(x => x.IsTapped));
       }
 
       [Fact]

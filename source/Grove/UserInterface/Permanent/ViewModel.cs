@@ -121,7 +121,7 @@
         case (InteractionState.PlaySpellsOrAbilities):
           {
             _select = Activate;
-            IsPlayable = Card.Controller.IsHuman ? Card.CanActivateAbilities().Count(x => x.CanPay.Value) > 0 : false;
+            IsPlayable = Card.Controller.IsHuman ? Card.CanActivateAbilities().Count(x => x.CanPay) > 0 : false;
             break;
           }
         case (InteractionState.SelectTarget):
@@ -211,7 +211,7 @@
     private PlayableActivator SelectAbility()
     {
       var playableActivators = Card.CanActivateAbilities()
-        .Where(x => x.CanPay.Value)
+        .Where(x => x.CanPay)
         .Select(prerequisites => new PlayableActivator
           {
             Prerequisites = prerequisites,
@@ -296,7 +296,7 @@
     {
       if (playableActivator.Prerequisites.HasXInCost)
       {
-        var dialog = ViewModels.SelectXCost.Create(playableActivator.Prerequisites.MaxX.Value.Value);
+        var dialog = ViewModels.SelectXCost.Create(playableActivator.Prerequisites.MaxX.Value);
         Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
 
         if (dialog.WasCanceled)

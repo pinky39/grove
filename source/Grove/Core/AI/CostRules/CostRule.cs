@@ -8,10 +8,10 @@
     {
       if (c.HasTargets == false)
       {
-        var p = new CostRuleParameters(c.Card, c.MaxX.Value.GetValueOrDefault());
+        var p = new CostRuleParameters(c.Card, c.MaxX.GetValueOrDefault());
         c.X = CalculateX(p);
 
-        if (c.X > c.MaxX.Value)
+        if (c.X > c.MaxX)
         {
           c.CancelActivation = true;
         }
@@ -22,10 +22,10 @@
 
       foreach (var targetsCombination in targetsCombinations)
       {
-        var p = new CostRuleParameters(c.Card, c.MaxX.Value.GetValueOrDefault(), targetsCombination.Targets);
+        var p = new CostRuleParameters(c.Card, c.MaxX.GetValueOrDefault(), targetsCombination.Targets);
         targetsCombination.X = CalculateX(p);
 
-        if (targetsCombination.X > c.MaxX.Value)
+        if (targetsCombination.X > c.MaxX)
         {
           c.RemoveTargetCombination(targetsCombination);
         }

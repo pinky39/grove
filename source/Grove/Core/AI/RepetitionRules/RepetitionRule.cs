@@ -21,7 +21,7 @@
     {
       if (c.HasTargets == false)
       {
-        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions.Value);
+        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions);
         c.Repeat = Math.Min(p.MaxRepetitions, GetRepetitionCount(p));
 
         if (c.Repeat == 0)
@@ -34,7 +34,7 @@
 
       foreach (var targetsCombination in targetsCombinations)
       {
-        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions.Value, targetsCombination.Targets);
+        var p = new RepetitionRuleParameters(c.Card, c.MaxRepetitions, targetsCombination.Targets);
         targetsCombination.Repeat = Math.Min(p.MaxRepetitions, GetRepetitionCount(p));
 
         if (targetsCombination.Repeat == 0)

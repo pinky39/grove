@@ -2,11 +2,11 @@
 {
   public class NoCost : Cost
   {
-    protected override void CanPay(CanPayResult result)
+    public override CanPayResult CanPayPartial()
     {
-      result.CanPay(true);
+      return true;
     }
 
-    public override void Pay(PayCostParameters p) {}
+    public override void PayPartial(PayCostParameters p) {}
   }
 }

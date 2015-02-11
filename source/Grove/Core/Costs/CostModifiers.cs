@@ -1,6 +1,6 @@
 ﻿namespace Grove.Costs
 {
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   [Copyable]
@@ -28,16 +28,16 @@
       _costModifiers.Remove(costModifier);
     }
 
-    public IManaAmount GetActualCost(IManaAmount amount, ManaUsage usage, Card card)
+    public int GetCostChange(CostType type, Card card)
     {
-      var actualCost = amount;
+      var change = 0;
 
       foreach (var costModifier in _costModifiers)
       {
-        actualCost = costModifier.GetActualCost(actualCost, usage, card);
+        change += costModifier.GetChange(type, card);
       }
 
-      return actualCost;
+      return change;
     }
   }
 }

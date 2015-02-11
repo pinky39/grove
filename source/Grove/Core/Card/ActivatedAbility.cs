@@ -92,14 +92,14 @@
 
         activationPrerequisites = new ActivationPrerequisites
           {
-            CanPay = result.CanPay(),
+            CanPay = result.CanPay,
             Card = OwningCard,
             Description = Text,
             Selector = _p.TargetSelector,
             DistributeAmount = _p.DistributeAmount,
-            MaxX = result.MaxX(),
+            MaxX = result.MaxX,
             Rules = _p.Rules,
-            MaxRepetitions = result.MaxRepetitions(),
+            MaxRepetitions = result.MaxRepetitions,
           };
 
         return true;
@@ -110,7 +110,7 @@
     public override void Initialize(Card owningCard, Game game)
     {
       base.Initialize(owningCard, game);
-      _p.Cost.Initialize(owningCard, game, _p.TargetSelector.Cost.FirstOrDefault());
+      _p.Cost.Initialize(CostType.Ability, owningCard, game, _p.TargetSelector.Cost.FirstOrDefault());      
       _lastActivation.Initialize(ChangeTracker);
     }
 

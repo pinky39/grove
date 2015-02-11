@@ -31,6 +31,14 @@
       {
         foreach (var pair in Result)
         {
+          var combatCost = pair.Blocker.CombatCost;
+
+          if (combatCost > 0)
+          {
+            D.Controller.Consume(combatCost.Colorless(),
+              ManaUsage.Any);
+          }
+
           Combat.AddBlocker(pair.Blocker, pair.Attacker);
         }
 
@@ -95,10 +103,13 @@
         strategies.Add(ChosenBlockers.None);
 
         // 2. Strategy, try assign some blockers via shallow strategy        
+        var allBlockerCandidates = RemoveBlockersIfWeCannotAffordToPayCombatCost(
+          D.Controller.Battlefield.CreaturesThatCanBlock.ToList());
+
         var strategy2 = BlockStrategy.ChooseBlockers(new BlockStrategyParameters
           {
             Attackers = attackers,
-            BlockerCandidates = D.Controller.Battlefield.CreaturesThatCanBlock.ToList(),
+            BlockerCandidates = allBlockerCandidates,
             DefendersLife = D.Controller.Life
           });
 
@@ -106,6 +117,33 @@
         {
           strategies.Add(strategy2);
         }
+      }
+
+      private List<Card> RemoveBlockersIfWeCannotAffordToPayCombatCost(List<Card> blockerCandidates)
+      {
+        var blockersWithCombatCost = blockerCandidates
+          .Where(x => x.CombatCost > 0)
+          .OrderBy(x => -x.Power)
+          .ToList();
+
+        if (blockersWithCombatCost.Count == 0)
+          return blockerCandidates;
+
+        var availableMana = Controller.GetAvailableConvertedMana();
+
+        foreach (var card in blockersWithCombatCost)
+        {
+          if (card.CombatCost <= availableMana)
+          {
+            availableMana -= card.CombatCost;
+          }
+          else
+          {
+            blockerCandidates.Remove(card);
+          }
+        }
+
+        return blockerCandidates;
       }
 
       private void GetBlockersDeclarationsLure(List<Card> attackers, List<ChosenBlockers> strategies)
@@ -188,18 +226,19 @@
 
     private class UiHandler : Handler
     {
-      private bool IsLureAbilitySatisfied(ChosenBlockers chosen, List<Card> lureAttackers)
+      private bool IsLureAbilitySatisfied(ChosenBlockers chosen, List<Card> lureAttackers, int availableMana)
       {
         if (lureAttackers.Count == 0)
           return true;
 
-        return D.Controller.Battlefield.Creatures.All(creature =>
+        return D.Controller.Battlefield.Creatures.All(blockerCandidate =>
           {
-            if (lureAttackers.Any(attacker => attacker.CanBeBlockedBy(creature)))
+            if (lureAttackers.Any(attacker => attacker.CanBeBlockedBy(blockerCandidate)))
             {
-              return chosen.Any(
-                x => x.Blocker == creature &&
-                  lureAttackers.Any(y => y == x.Attacker));
+              var isAlreadyAssignedToALureAttacker = chosen.Any(x =>
+                x.Blocker == blockerCandidate && lureAttackers.Any(y => y == x.Attacker));
+
+              return isAlreadyAssignedToALureAttacker || blockerCandidate.CombatCost > availableMana;
             }
 
             return true;
@@ -221,15 +260,16 @@
       }
 
       private bool IsValidBlockerDeclaration(ChosenBlockers chosen,
-        List<Card> lureAttackers)
+        List<Card> lureAttackers, int availableMana)
       {
         return IsMinimumBlockerCountSatisfied(chosen) &&
-          IsLureAbilitySatisfied(chosen, lureAttackers);
+          IsLureAbilitySatisfied(chosen, lureAttackers, availableMana);
       }
 
       protected override void ExecuteQuery()
       {
         var result = new ChosenBlockers();
+        var availableMana = D.Controller.GetAvailableConvertedMana();
 
         var lureAttackers = Combat.Attackers
           .Select(x => x.Card)
@@ -240,11 +280,11 @@
         {
           var blockerTarget = new TargetValidatorParameters
             {
-              MinCount = IsValidBlockerDeclaration(result, lureAttackers) ? 0 : 1,
+              MinCount = IsValidBlockerDeclaration(result, lureAttackers, availableMana) ? 0 : 1,
               MaxCount = 1,
               Message = "Select a blocker."
             }
-            .Is.Card(c => c.CanBlock() && c.Controller == D.Controller)
+            .Is.Card(c => c.CanBlock() && c.Controller == D.Controller && c.CombatCost <= availableMana)
             .On.Battlefield();
 
           blockerTarget.MustBeTargetable = false;
@@ -256,11 +296,12 @@
             {
               Validator = blockerValidator,
               CanCancel = false,
-              Instructions = IsValidBlockerDeclaration(result, lureAttackers) ? null : "(Additional blockers required.)"
+              Instructions =
+                IsValidBlockerDeclaration(result, lureAttackers, availableMana)
+                  ? null : "(Additional blockers required.)"
             });
 
           Ui.Shell.ShowModalDialog(selectBlocker, DialogType.Small, InteractionState.SelectTarget);
-
 
           if (selectBlocker.Selection.Count == 0)
           {
@@ -271,6 +312,7 @@
 
           if (result.ContainsBlocker(blocker))
           {
+            availableMana += blocker.CombatCost;
             result.Remove(blocker);
 
             Ui.Publisher.Publish(new BlockerUnselected
@@ -325,6 +367,7 @@
             });
 
           result.Add(blocker, attacker);
+          availableMana -= blocker.CombatCost;
         }
 
         Result = result;

@@ -10,12 +10,10 @@
     private Strenght _strenght;
     private IntegerIncrement _toughnessIntegerIncrement;
 
-    private AddPowerAndToughness() { }
+    private AddPowerAndToughness() {}
 
     public AddPowerAndToughness(Value power, Value toughness)
-      : this(getPower: (p) => power, getToughness: (p) => toughness)
-    {
-    }
+      : this(getPower: (p) => power, getToughness: (p) => toughness) {}
 
     public AddPowerAndToughness(Func<Player, Value> getPower, Func<Player, Value> getToughness)
     {

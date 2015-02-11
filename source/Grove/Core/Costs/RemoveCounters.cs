@@ -13,12 +13,13 @@
       _counterType = counterType;
     }
 
-    protected override void CanPay(CanPayResult result)
+    public override CanPayResult CanPayPartial()
     {
-      result.CanPay(() => _count == null || Card.CountersCount(_counterType) >= _count);
+      return _count == null || 
+        Card.CountersCount(_counterType) >= _count;            
     }
 
-    public override void Pay(PayCostParameters p)
+    public override void PayPartial(PayCostParameters p)
     {
       Card.RemoveCounters(_counterType, _count);
     }

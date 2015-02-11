@@ -17,17 +17,14 @@
       _supportsRepetitions = supportsRepetitions;
     }
 
-    protected override void CanPay(CanPayResult result)
+    public override CanPayResult CanPayPartial()
     {
-      result.CanPay(() => _getAmount(Card) <= Card.Controller.Life);
-
-      if (_supportsRepetitions)
-      {
-        result.MaxRepetitions(() => Card.Controller.Life - 1);
-      }
+      return new CanPayResult(
+        canPay: _getAmount(Card) <= Card.Controller.Life,
+        maxRepetitions: _supportsRepetitions ? Card.Controller.Life - 1 : 1);            
     }
 
-    public override void Pay(PayCostParameters p)
+    public override void PayPartial(PayCostParameters p)
     {      
       Card.Controller.Life -= _getAmount(Card) * p.Repeat;
     }

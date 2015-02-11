@@ -2,18 +2,18 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Costs;
-  using Grove.Decisions;
+  using Costs;
+  using Decisions;
   using Modifiers;
 
   public class CreaturesOfChosenTypeCostLess : CustomizableEffect
   {
-    private readonly IManaAmount _amount;
+    private readonly int _amount;
     private string _mostCommonType;
 
     private CreaturesOfChosenTypeCostLess() {}
 
-    public CreaturesOfChosenTypeCostLess(IManaAmount amount)
+    public CreaturesOfChosenTypeCostLess(int amount)
     {
       _amount = amount;
     }
@@ -27,8 +27,8 @@
     {
       var chosenType = (string) results.Options[0];
 
-      var costModifier = new SpellCostModifier(_amount,
-        (card, self) => card.Is().Creature && card.Is(chosenType));
+      var costModifier = new ChangeManaCostOfSpellsOrAbilities(_amount,
+        (card, usage, self) => usage == CostType.Spell && card.Is().Creature && card.Is(chosenType));
 
       var addCostModifier = new AddCostModifier(costModifier);
 

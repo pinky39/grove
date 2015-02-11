@@ -19,7 +19,7 @@
         .TriggeredAbility(p =>
           {
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new CreaturesOfChosenTypeCostLess(2.Colorless());
+            p.Effect = () => new CreaturesOfChosenTypeCostLess(2);
             p.UsesStack = false;            
           });
     }

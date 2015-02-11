@@ -30,10 +30,10 @@
       MaxRepetitions = prerequisites.MaxRepetitions;
     }
 
-    public Lazy<int> MaxRepetitions { get; private set; }
+    public int MaxRepetitions { get; private set; }
     public Player Controller { get; private set; }
     public Card Card { get; private set; }
-    public Lazy<int?> MaxX { get; private set; }
+    public int? MaxX { get; private set; }
     public TargetSelector Selector { get; private set; }
     public int DistributeAmount { get; private set; }
 

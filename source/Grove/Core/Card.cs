@@ -29,6 +29,7 @@
     private readonly Trackable<bool> _isRevealed = new Trackable<bool>();
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
+    private readonly CombatCost _combatCost;
     private readonly MinBlockerCount _minBlockerCount = new MinBlockerCount(1);
     private readonly TrackableList<ICardModifier> _modifiers = new TrackableList<ICardModifier>();
     private readonly Protections _protections;
@@ -52,6 +53,7 @@
 
       _strenght = new Strenght(_base);
       _level = new Level(_base);
+      _combatCost = new CombatCost(_base);
       _counters = new Counters(_strenght);
       _type = new CardTypeCharacteristic(_base);
       _colors = new CardColors(_base);
@@ -271,6 +273,7 @@
         yield return _minBlockerCount;
         yield return _strenght;
         yield return _level;
+        yield return _combatCost;
         yield return _counters;
         yield return _colors;
         yield return _type;
@@ -366,6 +369,11 @@
     public int? Level
     {
       get { return _level.Value; }
+    }
+
+    public int CombatCost
+    {
+      get { return _combatCost.Value.GetValueOrDefault(); }
     }
 
     public bool CanBeDestroyed
@@ -617,6 +625,7 @@
 
       _strenght.Initialize(game, this);
       _level.Initialize(game, this);
+      _combatCost.Initialize(game,this);
       _counters.Initialize(this, game);
       _type.Initialize(game, this);
       _colors.Initialize(game, this);

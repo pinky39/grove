@@ -261,9 +261,9 @@
       return Turn.ToString();
     }
 
-    public IManaAmount GetActualCost(IManaAmount amount, ManaUsage usage, Card card)
+    public int GetCostChange(CostType type, Card card)
     {
-      return _costModifiers.GetActualCost(amount, usage, card);
+      return _costModifiers.GetCostChange(type, card);
     }
 
     private void Initialize()
