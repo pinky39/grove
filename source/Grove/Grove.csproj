@@ -168,6 +168,7 @@
     <Compile Include="CardsLibrary\BitterRevelation.cs" />
     <Compile Include="CardsLibrary\BlackCat.cs" />
     <Compile Include="CardsLibrary\BlastfireBolt.cs" />
+    <Compile Include="CardsLibrary\BlindingSpray.cs" />
     <Compile Include="CardsLibrary\BloodfellCaves.cs" />
     <Compile Include="CardsLibrary\BloodfireExpert.cs" />
     <Compile Include="CardsLibrary\BloodfireMentor.cs" />
