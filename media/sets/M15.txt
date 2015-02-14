@@ -47,7 +47,7 @@ Child of Night;C;2.40
 Chronostutter;C;2.00
 Circle of Flame;U;2.30
 Clear a Path;C;1.75
-# Cone of Flame;U;3.43
+Cone of Flame;U;3.43
 Constricting Sliver;U;3.69
 Coral Barrier;C;2.60
 Covenant of Blood;C;2.79
@@ -98,7 +98,7 @@ Hornet Nest;R;3.86
 Hornet Queen;R;3.81
 Hot Soup;U;3.29
 Hunter's Ambush;C;2.25
-# Hushwing Gryff;R;3.81
+Hushwing Gryff;R;3.81
 Hydrosurge;C;1.50
 Illusory Angel;U;3.89
 Indulgent Tormentor;R;4.00
@@ -127,7 +127,7 @@ Marked by Honor;C;2.00
 Mass Calcify;R;3.36
 # Master of Predicaments;R;3.58
 Meditation Puzzle;C;1.14
-# Mercurial Pretender;R;2.58
+Mercurial Pretender;R;2.58
 Meteorite;U;2.92
 Midnight Guard;C;2.75
 Might Makes Right;U;2.08
