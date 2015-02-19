@@ -26,7 +26,7 @@
               new Sacrifice());
             p.Effect = () => new PutSelectedCardsToBattlefield(
               text: "Select an artifact in your hand.",
-              zone: Zone.Hand,
+              fromZone: Zone.Hand,
               validator: card => card.Is().Artifact
               );
             p.TimingRule(new Any(new WhenOwningCardWillBeDestroyed(), new OnEndOfOpponentsTurn()));

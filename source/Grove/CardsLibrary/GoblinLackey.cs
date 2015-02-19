@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Triggers;
+  using Effects;
+  using Triggers;
 
   public class GoblinLackey : CardTemplateSource
   {
@@ -25,8 +25,7 @@
             p.Effect = () => new PutSelectedCardsToBattlefield(
               text: "Select a goblin in your hand.",
               validator: card => card.Is("goblin"),
-              zone: Zone.Hand
-              );
+              fromZone: Zone.Hand);
           });
     }
   }

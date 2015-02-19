@@ -26,7 +26,7 @@
               new Tap());
             p.Effect = () => new PutSelectedCardsToBattlefield(
               text: "Select a creature in your hand.",
-              zone: Zone.Hand,
+              fromZone: Zone.Hand,
               validator: card => card.Is().Creature);
             p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new OnFirstMain()));
             p.TimingRule(new WhenYourHandCountIs(minCount: 1, selector: c => c.Is().Creature));
