@@ -21,12 +21,13 @@
 
         RunGame(1);
 
-        Equal(0, P1.Graveyard.Count);
-        True(P1.Hand.Count >= 6); // Might play and draw land
-        Equal(7, P2.Hand.Count);
-        Equal(0, P2.Graveyard.Count);
-        Equal(6, P1.Battlefield.Lands.Count(x => !x.IsTapped));
         Equal(Zone.Exile, C(spiral).Zone);
+        Equal(0, P1.Graveyard.Count);        
+        True(P1.Hand.Count >= 6); // Might play and draw land
+        True(P1.Battlefield.Lands.Count(x => !x.IsTapped) >= 6);
+        
+        Equal(7, P2.Hand.Count);
+        Equal(0, P2.Graveyard.Count);                
       }
     }
   }
