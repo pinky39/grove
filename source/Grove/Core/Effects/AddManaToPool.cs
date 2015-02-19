@@ -2,21 +2,12 @@
 {
   public class AddManaToPool : Effect
   {
-    private readonly DynParam<IManaAmount> _amount;
+    private readonly DynParam<ManaAmount> _amount;
     private readonly ManaUsage _usage;
 
-    private AddManaToPool() {}
+    private AddManaToPool() {}  
 
-    public AddManaToPool(IManaAmount amount, ManaUsage usage = ManaUsage.Any)
-    {
-      _usage = usage;
-      _amount = new DynParam<IManaAmount>(amount);
-
-
-      RegisterDynamicParameters(_amount);
-    }
-
-    public AddManaToPool(DynParam<IManaAmount> amount, ManaUsage usage = ManaUsage.Any)
+    public AddManaToPool(DynParam<ManaAmount> amount, ManaUsage usage = ManaUsage.Any)
     {
       _amount = amount;
       _usage = usage;

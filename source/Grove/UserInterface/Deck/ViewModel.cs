@@ -55,7 +55,7 @@
     public int CardCount { get { return _deck.CardCount; } }
     public CardInfo SelectedCard { get; private set; }
 
-    public IManaAmount Colors
+    public ManaAmount Colors
     {
       get
       {

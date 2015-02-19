@@ -69,7 +69,7 @@
       return _castRules.Value.Any(x => x.IsGoodTarget(target, controller));
     }
 
-    public IManaAmount GetManaCost(int index)
+    public ManaAmount GetManaCost(int index)
     {
       return _castRules.Value[index].GetManaCost();
     }

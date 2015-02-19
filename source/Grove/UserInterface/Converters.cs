@@ -423,7 +423,7 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var manaAmount = (IManaAmount)value;
+        var manaAmount = (ManaAmount)value;
 
         if (manaAmount == null)
           return new ImageSource[] { };

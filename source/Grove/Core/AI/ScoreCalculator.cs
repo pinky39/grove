@@ -122,7 +122,7 @@
         : Scores.ManaCostToScore[converted];
     }
 
-    private static int CalculateCardInHandScoreFromManaCost(IManaAmount mana)
+    private static int CalculateCardInHandScoreFromManaCost(ManaAmount mana)
     {
       var converted = Math.Min(7, mana.Converted);
       var score = Scores.ManaCostToScore[converted] - 100;

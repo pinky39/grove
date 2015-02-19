@@ -7,7 +7,7 @@
 
   public class ManaParser
   {
-    public static IManaAmount ParseMana(string str)
+    public static ManaAmount ParseMana(string str)
     {
       str = str.ToLowerInvariant();
       var tokens = Regex.Split(str, "}|{").Where(x => x != String.Empty);

@@ -23,7 +23,7 @@
     public bool HasXInCost;
     public bool IsLeveler;
     public List<int> ManaColorsThisCardCanProduce = new List<int>();
-    public IManaAmount ManaCost;
+    public ManaAmount ManaCost;
     public bool MayChooseToUntap;
     public int? MinBlockerPower = null;
     public string Name;

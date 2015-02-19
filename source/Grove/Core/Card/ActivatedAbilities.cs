@@ -99,12 +99,12 @@
       return result;
     }
 
-    public IManaAmount GetManaCost(int index)
+    public ManaAmount GetManaCost(int index)
     {
       return _abilities.Value[index].GetManaCost();
     }
 
-    public IEnumerable<IManaAmount> GetManaCost()
+    public IEnumerable<ManaAmount> GetManaCost()
     {
       return _abilities.Value.Select(x => x.GetManaCost());
     }

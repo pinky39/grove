@@ -66,7 +66,7 @@
       return manaUsage;
     }
 
-    public virtual IManaAmount GetManaCost()
+    public virtual ManaAmount GetManaCost()
     {
       var change = Game.GetCostChange(Type, Card);
       return change <= 0 ? Mana.Zero : change.Colorless();

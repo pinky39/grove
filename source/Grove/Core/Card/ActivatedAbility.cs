@@ -70,7 +70,7 @@
       }
     }    
 
-    public IManaAmount GetManaCost()
+    public ManaAmount GetManaCost()
     {
       return _p.Cost.GetManaCost();
     }

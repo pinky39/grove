@@ -4,12 +4,12 @@
 
   public class DefaultLevelUpTimingRule : TimingRule
   {
-    private readonly IManaAmount _cost;
+    private readonly ManaAmount _cost;
     private readonly List<LevelDefinition> _levelDefinitions = new List<LevelDefinition>();
 
     private DefaultLevelUpTimingRule() {}
 
-    public DefaultLevelUpTimingRule(IManaAmount cost, params LevelDefinition[] levelDefinitions)
+    public DefaultLevelUpTimingRule(ManaAmount cost, params LevelDefinition[] levelDefinitions)
     {
       _cost = cost;
       _levelDefinitions.AddRange(levelDefinitions);

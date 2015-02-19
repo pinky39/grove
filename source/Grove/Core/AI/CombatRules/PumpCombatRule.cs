@@ -2,13 +2,13 @@
 {
   public class PumpCombatRule : CombatRule
   {
-    private readonly IManaAmount _cost;
+    private readonly ManaAmount _cost;
     private readonly int _power;
     private readonly int _toughness;
 
     private PumpCombatRule() {}
 
-    public PumpCombatRule(int power, int toughness, IManaAmount cost)
+    public PumpCombatRule(int power, int toughness, ManaAmount cost)
     {
       _power = power;
       _toughness = toughness;

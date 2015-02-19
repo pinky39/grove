@@ -15,7 +15,7 @@
       _costs.AddRange(costs);
     }
 
-    public override IManaAmount GetManaCost()
+    public override ManaAmount GetManaCost()
     {      
       var payMana = (PayMana) _costs.SingleOrDefault(x => x is PayMana);
       

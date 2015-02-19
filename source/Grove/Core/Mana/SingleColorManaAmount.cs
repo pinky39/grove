@@ -3,7 +3,7 @@
   using System.Collections;
   using System.Collections.Generic;
 
-  public class SingleColorManaAmount : IManaAmount
+  public class SingleColorManaAmount : ManaAmount, IEnumerable
   {
     public SingleColorManaAmount(ManaColor color, int count)
     {
@@ -14,7 +14,7 @@
     public ManaColor Color { get; private set; }
     public int Count { get; private set; }
 
-    public IEnumerator<SingleColorManaAmount> GetEnumerator()
+    public override IEnumerator<SingleColorManaAmount> GetEnumerator()
     {
       yield return this;
     }
@@ -24,7 +24,7 @@
       return GetEnumerator();
     }
 
-    public int Converted
+    public override int Converted
     {
       get
       {
@@ -32,7 +32,7 @@
       }
     }
 
-    public int Generic 
+    public override int Generic 
     {
       get
       {
@@ -40,9 +40,9 @@
       }
     }
 
-    public HashSet<int> Colors { get { return new HashSet<int>(Color.Indices); } }
+    public override HashSet<int> Colors { get { return new HashSet<int>(Color.Indices); } }
 
-    public IManaAmount Add(IManaAmount amount)
+    public override ManaAmount Add(ManaAmount amount)
     {
       var dictionary = new Dictionary<ManaColor, int>();
 
@@ -69,7 +69,7 @@
       return new MultiColorManaAmount(dictionary);
     }
 
-    public IManaAmount Remove(IManaAmount amount)
+    public override ManaAmount Remove(ManaAmount amount)
     {
       var count = Count;
 

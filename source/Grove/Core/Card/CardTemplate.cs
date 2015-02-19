@@ -118,7 +118,7 @@
       return this;
     }
 
-    public CardTemplate Regenerate(IManaAmount cost, string text)
+    public CardTemplate Regenerate(ManaAmount cost, string text)
     {
       return ActivatedAbility(p =>
       {
@@ -131,7 +131,7 @@
         .CombatRule(() => new RegenerateCombatRule(cost));
     }
 
-    public CardTemplate Pump(IManaAmount cost, string text, int powerIncrease, int toughnessIncrease)
+    public CardTemplate Pump(ManaAmount cost, string text, int powerIncrease, int toughnessIncrease)
     {
       return ActivatedAbility(p =>
       {
@@ -404,7 +404,7 @@
       };
     }
 
-    private static IEnumerable<CardColor> GetCardColorsFromManaCost(IManaAmount manaCost)
+    private static IEnumerable<CardColor> GetCardColorsFromManaCost(ManaAmount manaCost)
     {
       if (manaCost == null)
       {

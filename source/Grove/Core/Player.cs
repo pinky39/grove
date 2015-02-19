@@ -336,7 +336,7 @@
       return ManaCache.GetAvailableConvertedMana(usage, additionalUnits);
     }
 
-    public void AddManaToManaPool(IManaAmount manaAmount, ManaUsage usageRestriction = ManaUsage.Any)
+    public void AddManaToManaPool(ManaAmount manaAmount, ManaUsage usageRestriction = ManaUsage.Any)
     {
       ManaCache.AddManaToPool(manaAmount, usageRestriction);
     }
@@ -346,7 +346,7 @@
       _assignedDamage.Assign(damage);
     }
 
-    public void Consume(IManaAmount amount, ManaUsage usage, bool canUseConvoke = false, bool canUseDelve = false)
+    public void Consume(ManaAmount amount, ManaUsage usage, bool canUseConvoke = false, bool canUseDelve = false)
     {
       var additionalUnits = canUseConvoke
         ? GetConvokeSources()
@@ -444,7 +444,7 @@
       return HasMana(amount.Colorless(), usage, canUseConvoke);
     }
 
-    public bool HasMana(IManaAmount amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false, bool canUseDelve = false)
+    public bool HasMana(ManaAmount amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false, bool canUseDelve = false)
     {
       var additionalUnits = canUseConvoke
         ? GetConvokeSources()

@@ -1691,7 +1691,7 @@
     <Compile Include="Core\GameObject.cs" />
     <Compile Include="Core\Sets\MagicSet.cs" />
     <Compile Include="Core\Mana\FixedManaOutput.cs" />
-    <Compile Include="Core\Mana\IManaAmount.cs" />
+    <Compile Include="Core\Mana\ManaAmount.cs" />
     <Compile Include="Core\Mana\IManaSource.cs" />
     <Compile Include="Core\Mana\Mana.cs" />
     <Compile Include="Core\Card\ManaAbility.cs" />

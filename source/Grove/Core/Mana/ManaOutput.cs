@@ -5,26 +5,26 @@
 
   public abstract class ManaOutput : GameObject
   {
-    public Action<IManaAmount> Decreased = delegate { };
-    public Action<IManaAmount> Increased = delegate { };
+    public Action<ManaAmount> Decreased = delegate { };
+    public Action<ManaAmount> Increased = delegate { };
 
     protected ManaAbility ManaAbility;
-    private Trackable<IManaAmount> _additionalOutput = new Trackable<IManaAmount>(new ZeroManaAmount());
+    private Trackable<ManaAmount> _additionalOutput = new Trackable<ManaAmount>(new ZeroManaAmount());
 
-    public virtual IManaAmount GetAmount()
+    public virtual ManaAmount GetAmount()
     {
       var amount = GetAmountInternal();
       return amount.Add(_additionalOutput.Value);
     }
 
-    protected abstract IManaAmount GetAmountInternal();
+    protected abstract ManaAmount GetAmountInternal();
 
-    public void AddAditional(IManaAmount amount)
+    public void AddAditional(ManaAmount amount)
     {
       _additionalOutput.Value = _additionalOutput.Value.Add(amount);
     }
 
-    public void RemoveAdditional(IManaAmount amount)
+    public void RemoveAdditional(ManaAmount amount)
     {
       _additionalOutput.Value = _additionalOutput.Value.Remove(amount);
     }

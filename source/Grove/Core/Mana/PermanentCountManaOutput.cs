@@ -49,7 +49,7 @@
       }
     }
 
-    protected override IManaAmount GetAmountInternal()
+    protected override ManaAmount GetAmountInternal()
     {
       int count;
 

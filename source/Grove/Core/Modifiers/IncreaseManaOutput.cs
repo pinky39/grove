@@ -2,12 +2,12 @@
 {
   public class IncreaseManaOutput : Modifier, ICardModifier
   {
-    private readonly IManaAmount _amount;
+    private readonly ManaAmount _amount;
     private ActivatedAbilities _abilities;
 
     private IncreaseManaOutput() {}
 
-    public IncreaseManaOutput(IManaAmount amount)
+    public IncreaseManaOutput(ManaAmount amount)
     {
       _amount = amount;
     }

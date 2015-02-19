@@ -72,13 +72,13 @@
       SubscribeToEvents();
     }
 
-    public void AddAditionalAmountAbilityWillProduce(IManaAmount amount)
+    public void AddAditionalAmountAbilityWillProduce(ManaAmount amount)
     {
       AddUnits(amount);
       _p.ManaOutput.AddAditional(amount);
     }
 
-    public void RemoveAdditionalAmountAbilityWillProduce(IManaAmount amount)
+    public void RemoveAdditionalAmountAbilityWillProduce(ManaAmount amount)
     {
       RemoveUnits(amount);
       _p.ManaOutput.RemoveAdditional(amount);
@@ -94,12 +94,12 @@
       OwningCard.LeftBattlefield += DeactivateSource;
     }
 
-    private void OnOutputIncreased(IManaAmount amount)
+    private void OnOutputIncreased(ManaAmount amount)
     {
       AddUnits(amount);
     }
 
-    private void OnOutputDecreased(IManaAmount amount)
+    private void OnOutputDecreased(ManaAmount amount)
     {
       RemoveUnits(amount);
     }
@@ -125,7 +125,7 @@
       _isEnabled.Value = false;
     }
 
-    private void AddUnits(IManaAmount amount)
+    private void AddUnits(ManaAmount amount)
     {
       foreach (var singleColor in amount)
       {
@@ -139,7 +139,7 @@
       }
     }
 
-    private void RemoveUnits(IManaAmount amount)
+    private void RemoveUnits(ManaAmount amount)
     {
       if (_units.Count == 0)
         return;

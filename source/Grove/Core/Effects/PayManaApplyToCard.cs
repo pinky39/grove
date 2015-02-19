@@ -5,16 +5,16 @@
 
   public class PayManaApplyToCard : Effect, IProcessDecisionResults<BooleanResult>
   {
-    private readonly DynParam<IManaAmount> _amount;
+    private readonly DynParam<ManaAmount> _amount;
     private readonly CardModifierFactory _modifier;    
     private readonly string _message;
 
     private PayManaApplyToCard() {}
 
-    public PayManaApplyToCard(IManaAmount amount, CardModifierFactory modifier, string message = null)
-      : this(new DynParam<IManaAmount>(amount), modifier, message) {}
+    public PayManaApplyToCard(ManaAmount amount, CardModifierFactory modifier, string message = null)
+      : this(new DynParam<ManaAmount>(amount), modifier, message) {}
 
-    public PayManaApplyToCard(DynParam<IManaAmount> amount, CardModifierFactory modifier, string message = null)
+    public PayManaApplyToCard(DynParam<ManaAmount> amount, CardModifierFactory modifier, string message = null)
     {
       _amount = amount;
       _modifier = modifier;

@@ -2,14 +2,14 @@
 {
   public class PayMana : Cost
   {
-    private readonly IManaAmount _amount;
+    private readonly ManaAmount _amount;
     private readonly bool _hasX;   
     private readonly bool _supportsRepetitions;
 
     private PayMana() {}
 
     public PayMana(
-      IManaAmount amount,
+      ManaAmount amount,
       bool hasX = false,
       bool supportsRepetitions = false)
     {
@@ -21,7 +21,7 @@
 
     public override bool HasX { get { return _hasX; } }
 
-    public override IManaAmount GetManaCost()
+    public override ManaAmount GetManaCost()
     {
       var change = Game.GetCostChange(Type, Card);
 

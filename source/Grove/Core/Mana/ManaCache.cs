@@ -60,7 +60,7 @@
       _removeList.Initialize(changeTracker);
     }
 
-    public void AddManaToPool(IManaAmount amount, ManaUsage usage)
+    public void AddManaToPool(ManaAmount amount, ManaUsage usage)
     {
       lock (_manaPoolCountLock)
       {
@@ -159,12 +159,12 @@
       RemovePermanently(unit);
     }
 
-    public bool Has(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
+    public bool Has(ManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
     {
       return TryToAllocateAmount(amount, usage, additional) != null;
     }
 
-    public void Consume(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
+    public void Consume(ManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
     {
       var allocated = TryToAllocateAmount(amount, usage, additional);
       Asrt.True(allocated != null, "Not enough mana available.");
@@ -231,7 +231,7 @@
       return true;
     }
 
-    private HashSet<ManaUnit> TryToAllocateAmount(IManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional)
+    private HashSet<ManaUnit> TryToAllocateAmount(ManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional)
     {
       var restricted = new HashSet<ManaUnit>();
       var allocated = new HashSet<ManaUnit>();

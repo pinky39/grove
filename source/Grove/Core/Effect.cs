@@ -67,10 +67,10 @@
     // If a spell has X, this is the chosen X value.
     public int? X { get; private set; }
 
-    private bool WasResolved
+    protected bool WasResolved
     {
       get { return _wasResolved.Value; }
-      set { _wasResolved.Value = value; }
+      private set { _wasResolved.Value = value; }
     }
 
     public Targets Targets { get; private set; }

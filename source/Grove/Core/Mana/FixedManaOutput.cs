@@ -2,16 +2,16 @@
 {
   public class FixedManaOutput : ManaOutput
   {
-    private readonly IManaAmount _amount;
+    private readonly ManaAmount _amount;
 
     private FixedManaOutput() {}
 
-    public FixedManaOutput(IManaAmount amount)
+    public FixedManaOutput(ManaAmount amount)
     {
       _amount = amount;
     }
 
-    protected override IManaAmount GetAmountInternal()
+    protected override ManaAmount GetAmountInternal()
     {
       return _amount;
     }

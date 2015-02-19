@@ -24,7 +24,7 @@
 
     public string Name { get { return Card.Name; } }
     public bool HasXInCost { get { return Card.HasXInCost; } }
-    public IManaAmount ManaCost { get { return Card.ManaCost; } }
+    public ManaAmount ManaCost { get { return Card.ManaCost; } }
     public string Illustration { get { return Card.Illustration; } }
     public CardText Text { get { return Card.Text; } }
     public CardText FlavorText { get { return Card.FlavorText; } }

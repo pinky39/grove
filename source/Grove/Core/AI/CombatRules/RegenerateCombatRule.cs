@@ -2,11 +2,11 @@
 {
   public class RegenerateCombatRule : CombatRule
   {
-    private readonly IManaAmount _cost;
+    private readonly ManaAmount _cost;
 
     private RegenerateCombatRule() {}
 
-    public RegenerateCombatRule(IManaAmount cost)
+    public RegenerateCombatRule(ManaAmount cost)
     {
       _cost = cost;
     }

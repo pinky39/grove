@@ -18,8 +18,8 @@
     OnInit,
     AfterTriggeredAbilityTargets,
     AfterCost
-  }
-
+  }    
+  
   [Copyable]
   public class DynParam<TOut> : IDynamicParameter
   {    
@@ -110,10 +110,10 @@
       return new DynParam<TOut>((e, g) => getter(e));
     }
 
-    public static implicit operator DynParam<TOut>(TOut value)
+    public static implicit operator DynParam<TOut>(TOut value) 
     {
       return new DynParam<TOut>(value);
-    }
+    }                    
 
     public static implicit operator TOut(DynParam<TOut> param)
     {

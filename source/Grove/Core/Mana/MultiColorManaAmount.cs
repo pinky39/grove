@@ -4,26 +4,28 @@
   using System.Collections.Generic;
   using System.Linq;
 
-  public class MultiColorManaAmount : IManaAmount
+  public class MultiColorManaAmount : ManaAmount, IEnumerable
   {
     private readonly List<SingleColorManaAmount> _groups = new List<SingleColorManaAmount>();
+    private readonly int _converted;
+    private readonly int _generic;
 
     public MultiColorManaAmount(Dictionary<ManaColor, int> colorCounts)
     {
       SingleColorManaAmount colorless = null;
 
-      Generic = 0;
+      _generic = 0;
 
       foreach (var colorCount in colorCounts)
       {
         var singleColor = new SingleColorManaAmount(colorCount.Key, colorCount.Value);
-        Converted += colorCount.Value;
+        _converted += colorCount.Value;
 
         if (singleColor.Color.IsColorless)
         {
           colorless = singleColor;
 
-          Generic += colorless.Count;
+          _generic += colorless.Count;
 
           continue;
         }
@@ -37,10 +39,10 @@
       }
     }
 
-    public int Converted { get; private set; }
-    public int Generic { get; private set; }
+    public override int Converted { get { return _converted; } }
+    public override int Generic { get { return _generic; }}
 
-    public HashSet<int> Colors
+    public override HashSet<int> Colors
     {
       get
       {
@@ -54,7 +56,7 @@
       }
     }
 
-    public IManaAmount Add(IManaAmount amount)
+    public override ManaAmount Add(ManaAmount amount)
     {
       var dictionary = new Dictionary<ManaColor, int>();
 
@@ -80,7 +82,7 @@
       return new MultiColorManaAmount(dictionary);
     }
 
-    public IManaAmount Remove(IManaAmount amount)
+    public override ManaAmount Remove(ManaAmount amount)
     {
       var dictionary = _groups.ToDictionary(x => x.Color, x => x.Count);
 
@@ -108,7 +110,7 @@
       return new MultiColorManaAmount(dictionary);
     }
 
-    public IEnumerator<SingleColorManaAmount> GetEnumerator()
+    public override IEnumerator<SingleColorManaAmount> GetEnumerator()
     {
       return _groups.GetEnumerator();
     }

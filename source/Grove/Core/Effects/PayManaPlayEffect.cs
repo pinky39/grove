@@ -4,16 +4,13 @@
 
   public class PayManaPlayEffect : Effect, IProcessDecisionResults<BooleanResult>
   {
-    private readonly DynParam<IManaAmount> _amount;
+    private readonly DynParam<ManaAmount> _amount;
     private readonly Effect _effect;    
     private readonly string _message;
 
-    private PayManaPlayEffect() {}
+    private PayManaPlayEffect() {}   
 
-    public PayManaPlayEffect(IManaAmount amount, Effect effect, string message = null)
-      : this(new DynParam<IManaAmount>(amount), effect, message) { }
-
-    public PayManaPlayEffect(DynParam<IManaAmount> amount, Effect effect, string message = null)
+    public PayManaPlayEffect(DynParam<ManaAmount> amount, Effect effect, string message = null)
     {
       _amount = amount;
       _effect = effect;
@@ -37,6 +34,21 @@
         return;
 
       _effect.BeginResolve();
+    }
+
+      public override void SetTriggeredAbilityTargets(Targets targets)
+    {
+      _effect.SetTriggeredAbilityTargets(targets);
+    }
+
+    public override void FinishResolve()
+    {
+      if (WasResolved)
+      {
+        _effect.AfterResolve(_effect);
+      }
+      
+      base.FinishResolve();
     }
 
     protected override void ResolveEffect()

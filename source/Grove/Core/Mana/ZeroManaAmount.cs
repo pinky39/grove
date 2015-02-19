@@ -3,9 +3,9 @@
   using System.Collections;
   using System.Collections.Generic;
 
-  public class ZeroManaAmount : IManaAmount
+  public class ZeroManaAmount : ManaAmount, IEnumerable
   {
-    public IEnumerator<SingleColorManaAmount> GetEnumerator()
+    public override IEnumerator<SingleColorManaAmount> GetEnumerator()
     {
       yield break;
     }
@@ -15,16 +15,16 @@
       return GetEnumerator();
     }
 
-    public int Converted { get { return 0; } }
-    public int Generic { get { return 0; } }
-    public HashSet<int> Colors { get { return new HashSet<int>();} }
+    public override int Converted { get { return 0; } }
+    public override int Generic { get { return 0; } }
+    public override HashSet<int> Colors { get { return new HashSet<int>();} }
 
-    public IManaAmount Add(IManaAmount amount)
+    public override ManaAmount Add(ManaAmount amount)
     {
       return amount;
     }
 
-    public IManaAmount Remove(IManaAmount amount)
+    public override ManaAmount Remove(ManaAmount amount)
     {
       return Mana.Zero;
     }

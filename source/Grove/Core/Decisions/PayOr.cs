@@ -89,7 +89,7 @@
     {
       public IChooseDecisionResults<BooleanResult> ChooseDecisionResults;
       public int? Life;
-      public IManaAmount ManaAmount;
+      public ManaAmount ManaAmount;
       public ManaUsage ManaUsage = ManaUsage.Any;
       public IProcessDecisionResults<BooleanResult> ProcessDecisionResults;
       public string Text;

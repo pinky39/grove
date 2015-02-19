@@ -195,7 +195,7 @@
         _p.Rules.Where(r => r is TargetingRule).Cast<TargetingRule>());
     }
 
-    public IManaAmount GetManaCost()
+    public ManaAmount GetManaCost()
     {
       return _p.Cost.GetManaCost();
     }

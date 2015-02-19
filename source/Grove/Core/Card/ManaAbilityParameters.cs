@@ -19,7 +19,7 @@
     public List<int> Colors { get; private set; }
     public ManaOutput ManaOutput { get; private set; }
 
-    public void ManaAmount(IManaAmount amount)
+    public void ManaAmount(ManaAmount amount)
     {
       ManaOutput = new FixedManaOutput(amount);
       Colors = amount.Colors.ToList();

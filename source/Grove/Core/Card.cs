@@ -251,7 +251,7 @@
       protected set { _isTapped.Value = value; }
     }
 
-    public IManaAmount ManaCost
+    public ManaAmount ManaCost
     {
       get { return _base.Value.ManaCost; }
     }
@@ -876,12 +876,12 @@
       _activatedAbilities.Activate(0, activationParameters);
     }
 
-    public IManaAmount GetActivatedAbilityManaCost(int index)
+    public ManaAmount GetActivatedAbilityManaCost(int index)
     {
       return _activatedAbilities.GetManaCost(index);
     }
 
-    public IEnumerable<IManaAmount> GetActivatedAbilitiesManaCost()
+    public IEnumerable<ManaAmount> GetActivatedAbilitiesManaCost()
     {
       return _activatedAbilities.GetManaCost();
     }
@@ -1167,7 +1167,7 @@
       Owner.PutCardToGraveyard(this);
     }
 
-    public IManaAmount GetSpellManaCost(int index)
+    public ManaAmount GetSpellManaCost(int index)
     {
       return _castRules.GetManaCost(index);
     }
