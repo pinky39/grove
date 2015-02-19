@@ -3,7 +3,8 @@
   using System;
   using Decisions;
 
-  public class PayLifeToDrawCard: Effect, IProcessDecisionResults<BooleanResult>, IChooseDecisionResults<BooleanResult>
+  public class PayLifeToDrawCard: Effect, IProcessDecisionResults<BooleanResult>, 
+    IChooseDecisionResults<BooleanResult>
   {
     private readonly int _life;
 

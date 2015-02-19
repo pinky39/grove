@@ -7,16 +7,11 @@
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var costCandidates = GetCandidatesThatCanBeDestroyed(p, s => s.Cost)
+      var costCandidates = p.Candidates<Card>(selectorIndex: 0, selector: c => c.Cost)
         .OrderBy(x => x.Score)
-        .ToList();
+        .Take(1);      
 
-      costCandidates.AddRange(
-        p.Candidates<Card>(selector: s => s.Cost)
-          .Where(x => x.Is().Land)
-          .OrderBy(x => x.Score));
-
-      var effectCandidates = GetCandidatesThatCanBeDestroyed(p)
+      var effectCandidates = GetCandidatesThatCanBeDestroyed(p, s => s.Effect)
         .Where(x => !x.Has().Indestructible)
         .OrderByDescending(x => x.Card().Score);
 

@@ -728,8 +728,7 @@
     <Compile Include="Core\Effects\GainLifeForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\LookAtTopCardsPutPartInHandRestIntoGraveyard.cs" />
     <Compile Include="Core\Effects\LookAtTopCardsPutPartInHandRestIntoZone.cs" />
-    <Compile Include="Core\Effects\PayManaApplyToCard.cs" />
-    <Compile Include="Core\Effects\PayManaPlayEffect.cs" />
+    <Compile Include="Core\Effects\PayThen.cs" />
     <Compile Include="Core\Effects\PreventAllDamageToTargetsFromChosenColor.cs" />
     <Compile Include="Core\Effects\PutCardToBattlefield.cs" />
     <Compile Include="Core\Effects\PutCounterOnTargetAndFightWithCreature.cs" />
@@ -1679,7 +1678,6 @@
     <Compile Include="Core\Effects\EachPlayerDiscardsHand.cs" />
     <Compile Include="Core\Effects\ExchangeForOpponentsCreature.cs" />
     <Compile Include="Core\Effects\FlipACoinReturnToHand.cs" />
-    <Compile Include="Core\Effects\PayManaOrLooseLife.cs" />
     <Compile Include="Core\Effects\PayLifeAddCounters.cs" />
     <Compile Include="Core\Effects\PutCardsFromGraveyardToBattlefield.cs" />
     <Compile Include="Core\Effects\RangeEffectChoice.cs" />

@@ -2,9 +2,10 @@
 {
   using System;
   using System.Linq;
-  using Grove.Decisions;
+  using Decisions;
 
-  public class PayLifeOrTapLand : Effect, IProcessDecisionResults<BooleanResult>, IChooseDecisionResults<BooleanResult>
+  public class PayLifeOrTapLand : Effect, IProcessDecisionResults<BooleanResult>, 
+    IChooseDecisionResults<BooleanResult>
   {
     private readonly int _life;
 
@@ -30,7 +31,7 @@
 
       // one less is available because the land
       // is already counted
-      var available = controller.GetAvailableConvertedMana(ManaUsage.Any) - 1;
+      var available = controller.GetAvailableConvertedMana() - 1;
 
       return spellsWithCost.Any(x =>
         x.ManaCost.Converted == available + 1);

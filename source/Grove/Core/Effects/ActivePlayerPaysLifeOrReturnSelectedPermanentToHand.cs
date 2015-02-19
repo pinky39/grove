@@ -3,17 +3,18 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
-  using Grove.Decisions;
+  using Decisions;
 
-  public class ActivePlayerPaysLifeOrReturnSelectedPermanentToHand : Effect, IProcessDecisionResults<BooleanResult>,
+  public class ActivePlayerPaysLifeOrReturnSelectedPermanentToHand : Effect,
+    IProcessDecisionResults<BooleanResult>,
     IChooseDecisionResults<BooleanResult>, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>
   {
-    private readonly int _life;    
+    private readonly int _life;
 
     public ActivePlayerPaysLifeOrReturnSelectedPermanentToHand(int life)
     {
-      _life = life;      
+      _life = life;
     }
 
     private ActivePlayerPaysLifeOrReturnSelectedPermanentToHand() {}

@@ -24,7 +24,7 @@
           p.Trigger(new OnCastedSpell((a, c) =>
             c.Controller == a.OwningCard.Controller && !c.Is().Creature));
 
-          p.Effect = () => new PayManaPlayEffect(1.Colorless(), new CompoundEffect(
+          p.Effect = () => new PayManaThen(1.Colorless(), new CompoundEffect(
               new TapTargets(),
               new ApplyModifiersToTargets(() =>
               {

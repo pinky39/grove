@@ -22,7 +22,7 @@
           p.Trigger(new OnCastedSpell((a, c) =>
             c.Controller == a.OwningCard.Controller && !c.Is().Creature));
 
-          p.Effect = () => new PayManaPlayEffect(1.Colorless(), new CreateTokens(
+          p.Effect = () => new PayManaThen(1.Colorless(), new CreateTokens(
             count: 1,
             token: Card
               .Named("Goblin")

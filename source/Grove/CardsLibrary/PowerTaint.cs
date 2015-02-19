@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.Triggers;
+  using AI.TargetingRules;
+  using Effects;
+  using Triggers;
 
   public class PowerTaint : CardTemplateSource
   {
@@ -26,7 +26,7 @@
           {
             p.Text =
               "At the beginning of the upkeep of enchanted enchantment's controller, that player loses 2 life unless he or she pays {2}.";
-            
+
             p.Trigger(new OnStepStart(
               step: Step.Upkeep,
               passiveTurn: true,
@@ -35,8 +35,9 @@
                 Condition = (t, g) => t.OwningCard.AttachedTo.Controller.IsActive
               });
 
-            p.Effect = () => new PayManaOrLooseLife(2, 2.Colorless(), 
-             player: P((e, g) => e.Source.OwningCard.AttachedTo.Controller));
+            p.Effect = () => new PayManaThen(2.Colorless(),
+              execIfPaid: false,
+              effect: new ChangeLifeOfEnchantedPermanentsController(-2));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

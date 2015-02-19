@@ -1,12 +1,12 @@
 ﻿namespace Grove.Effects
 {
-  using Grove.Decisions;
+  using Decisions;
 
   public class PayManaOrSacrifice : Effect, IProcessDecisionResults<BooleanResult>
   {
     private readonly DynParam<ManaAmount> _amount;
     private readonly string _message;
-    private PayManaOrSacrifice() {}    
+    private PayManaOrSacrifice() {}
 
     public PayManaOrSacrifice(DynParam<ManaAmount> amount, string message = null)
     {
@@ -20,7 +20,7 @@
     {
       if (results.IsTrue)
         return;
-      
+
       Source.OwningCard.Sacrifice();
     }
 

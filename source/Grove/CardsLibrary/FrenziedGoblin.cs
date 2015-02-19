@@ -22,7 +22,12 @@
           {
             p.Text = "Whenever Frenzied Goblin attacks, you may pay {R}. If you do, target creature can't block this turn.";
             p.Trigger(new WhenThisAttacks());
-            p.Effect = () => new PayManaApplyToCard(Mana.Red, () => new AddStaticAbility(Static.CannotBlock){UntilEot = true});
+            
+            p.Effect = () => new PayManaThen(
+              amount: Mana.Red, 
+              effect: new ApplyModifiersToTargets(() => 
+                new AddStaticAbility(Static.CannotBlock){UntilEot = true}));
+            
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new EffectTapCreature());
           });
