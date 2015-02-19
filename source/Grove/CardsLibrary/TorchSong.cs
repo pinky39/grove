@@ -33,7 +33,7 @@
             p.Text =
               "{2}{R}, Sacrifice Torch Song: Torch Song deals X damage to target creature or player, where X is the number of verse counters on Torch Song.";
             p.Cost = new AggregateCost(
-              new PayMana("{2}{R}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{R}".Parse()),
               new Sacrifice());
             p.Effect = () => new DealDamageToTargets(
               amount: P(e => e.Source.OwningCard.Counters));

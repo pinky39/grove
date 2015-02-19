@@ -22,7 +22,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{2}{U}: Untap Vigilant Drake.";
-            p.Cost = new PayMana("{2}{U}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{2}{U}".Parse());
             p.Effect = () => new UntapOwner();
             
             p.TimingRule(new Any(new OnSecondMain(), new BeforeYouDeclareAttackers()));

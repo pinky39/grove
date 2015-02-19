@@ -20,7 +20,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{X}: Chimeric Staff becomes an X/X Construct artifact creature until end of turn.";
-            p.Cost = new PayMana(Mana.Zero, ManaUsage.Abilities, hasX: true);
+            p.Cost = new PayMana(Mana.Zero, hasX: true);
 
             p.Effect = () => new ApplyModifiersToSelf(() =>
               new ChangeToCreature(

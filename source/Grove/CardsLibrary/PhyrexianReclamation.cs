@@ -22,7 +22,7 @@
             p.Text = "{1}{B}, Pay 2 life: Return target creature card from your graveyard to your hand.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{1}{B}".Parse(), ManaUsage.Abilities),
+              new PayMana("{1}{B}".Parse()),
               new PayLife(2));
 
             p.Effect = () => new ReturnToHand();

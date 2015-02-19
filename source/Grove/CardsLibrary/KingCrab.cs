@@ -24,7 +24,7 @@
             p.Text = "{1}{U},{T}: Put target green creature on top of its owner's library.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{1}{U}".Parse(), ManaUsage.Abilities),
+              new PayMana("{1}{U}".Parse()),
               new Tap());
 
             p.Effect = () => new PutTargetsOnTopOfLibrary();

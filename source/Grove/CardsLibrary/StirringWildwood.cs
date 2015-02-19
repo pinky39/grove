@@ -26,7 +26,7 @@
           {
             p.Text =
               "{1}{G}{W}: Until end of turn, Stirring Wildwood becomes a 3/4 green and white Elemental creature with reach. It's still a land.";
-            p.Cost = new PayMana("{1}{G}{W}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{G}{W}".Parse());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

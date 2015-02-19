@@ -30,7 +30,7 @@
               "{4},{T}: Put an X/X black Minion creature token onto the battlefield, where X is the life paid as Phyrexian Processor entered the battlefield.";
 
             p.Cost = new AggregateCost(
-              new PayMana(4.Colorless(), ManaUsage.Abilities),
+              new PayMana(4.Colorless()),
               new Tap());
 
             p.Effect = () => new CreateTokens(

@@ -25,7 +25,7 @@
               "{2}{U},{T}: Reveal any number of blue cards in your hand. Counter target spell unless its controller pays {1} for each card revealed this way.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{2}{U}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{U}".Parse()),
               new Tap());
 
             p.Effect = () => new CounterTargetSpellUnlessControllerPays1ForEachRevealedCard();

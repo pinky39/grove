@@ -22,7 +22,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{U}: Return Fleeting Image to its owner's hand.";
-            p.Cost = new PayMana("{1}{U}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{U}".Parse());
             p.Effect = () => new ReturnToHand(returnOwningCard: true);
 
             p.TimingRule(new WhenOwningCardWillBeDestroyed());

@@ -22,7 +22,7 @@
             p.Text =
               "{2}{W},{T}: Reveal any number of white cards in your hand. You gain 2 life for each card revealed this way.";
             p.Cost = new AggregateCost(
-              new PayMana("{2}{W}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{W}".Parse()),
               new Tap());
 
             p.Effect = () => new GainLifeForEachRevealedCard(c => c.HasColor(CardColor.White), 2);

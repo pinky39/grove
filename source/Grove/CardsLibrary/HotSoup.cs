@@ -22,7 +22,7 @@
         {
           p.Text = "Equip {3} ({3}: Attach to target creature you control. Equip only as a sorcery.)";
 
-          p.Cost = new PayMana(3.Colorless(), ManaUsage.Abilities);
+          p.Cost = new PayMana(3.Colorless());
 
           p.Effect = () => new Attach(
             () => new AddStaticAbility(Static.Unblockable));

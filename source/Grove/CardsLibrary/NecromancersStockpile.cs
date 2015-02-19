@@ -21,7 +21,7 @@
           p.Text = "{1}{B}, Discard a creature card: Draw a card. If the discarded card was a Zombie card, put a 2/2 black Zombie creature token onto the battlefield tapped.";
 
           p.Cost = new AggregateCost(
-            new PayMana("{1}{B}".Parse(), ManaUsage.Abilities),
+            new PayMana("{1}{B}".Parse()),
             new DiscardTarget());
 
           p.Effect = () => new DrawCardsCreateTokens(count: 1, effect: new CreateTokens(

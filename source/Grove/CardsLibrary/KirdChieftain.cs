@@ -28,7 +28,7 @@
         {
           p.Text = "{4}{G}: Target creature gets +2/+2 and gains trample until end of turn.";
 
-          p.Cost = new PayMana("{4}{G}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
+          p.Cost = new PayMana("{4}{G}".Parse(), supportsRepetitions: true);
 
           p.Effect = () => new ApplyModifiersToTargets(
             () => new AddPowerAndToughness(2, 2){UntilEot = true},

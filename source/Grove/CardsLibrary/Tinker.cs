@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Cost = new AggregateCost(
-              new PayMana("{2}{U}".Parse(), ManaUsage.Spells),
+              new PayMana("{2}{U}".Parse()),
               new Sacrifice());
 
             p.TargetSelector.AddCost(trg =>

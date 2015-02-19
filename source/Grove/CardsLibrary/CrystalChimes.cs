@@ -20,7 +20,7 @@
           {
             p.Text = "{3},{T}, Sacrifice Crystal Chimes: Return all enchantment cards from your graveyard to your hand.";
             p.Cost = new AggregateCost(
-              new PayMana(3.Colorless(), ManaUsage.Abilities),
+              new PayMana(3.Colorless()),
               new Tap(),
               new Sacrifice());
             p.Effect = () => new ReturnAllCardsInGraveyardToHand(c => c.Is().Enchantment);

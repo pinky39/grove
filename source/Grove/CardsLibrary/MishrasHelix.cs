@@ -24,7 +24,7 @@
             p.Text = "{X},{T}: Tap X target lands.";
 
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Zero, ManaUsage.Abilities, hasX: true),
+              new PayMana(Mana.Zero, hasX: true),
               new Tap());
 
             p.Effect = () => new TapTargets();

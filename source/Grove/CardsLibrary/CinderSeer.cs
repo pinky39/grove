@@ -24,7 +24,7 @@
           {
             p.Text = "{2}{R},{T}: Reveal any number of red cards in your hand. Cinder Seer deals X damage to target creature or player, where X is the number of cards revealed this way.";
             p.Cost = new AggregateCost(
-              new PayMana("{2}{R}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{R}".Parse()),
               new Tap());
 
             p.Effect = () => new DealDamageToTargetForEachRevealedCard(c => c.HasColor(CardColor.Red));

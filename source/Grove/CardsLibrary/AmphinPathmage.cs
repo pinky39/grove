@@ -22,7 +22,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{2}{U}: Target creature can't be blocked this turn.";
-          p.Cost = new PayMana("{2}{U}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{2}{U}".Parse());
 
           p.Effect = () => new ApplyModifiersToTargets(
               () => new AddStaticAbility(Static.Unblockable) { UntilEot = true });

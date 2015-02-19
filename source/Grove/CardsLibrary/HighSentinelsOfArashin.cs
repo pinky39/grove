@@ -34,7 +34,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{3}{W}: Put a +1/+1 counter on target creature.";
-          p.Cost = new PayMana("{3}{W}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
+          p.Cost = new PayMana("{3}{W}".Parse(), supportsRepetitions: true);
 
           p.Effect = () => new ApplyModifiersToTargets(() => new AddCounters(
             () => new PowerToughness(1, 1), count: 1));

@@ -22,7 +22,7 @@
           {
             p.Text = "{2},{T}: All creatures get +2/+2 for as long as Thran Weaponry remains tapped.";
             p.Cost = new AggregateCost(
-              new PayMana(2.Colorless(), ManaUsage.Abilities),
+              new PayMana(2.Colorless()),
               new Tap());
 
             p.Effect = () => new ApplyModifiersToPlayer(

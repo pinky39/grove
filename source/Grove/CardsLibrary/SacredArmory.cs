@@ -21,7 +21,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{2}: Target creature gets +1/+0 until end of turn.";
-            p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities, supportsRepetitions: true);
+            p.Cost = new PayMana(2.Colorless(), supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddPowerAndToughness(1, 0) {UntilEot = true});
 

@@ -33,7 +33,7 @@
                   {
                     ap.Text = "{R}, Sacrifice this artifact: This artifact deals 2 damage to target attacking creature without flying.";
                     ap.Cost = new AggregateCost(
-                      new PayMana(Mana.Red, ManaUsage.Abilities),
+                      new PayMana(Mana.Red),
                       new Sacrifice());
                     ap.Effect = () => new DealDamageToTargets(2);
                     ap.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.IsAttacker && !c.Has().Flying));

@@ -22,7 +22,7 @@
           {
             p.Text = "{2}{B},{T}: Exile up to three target cards from a single graveyard.";
             p.Cost = new AggregateCost(
-              new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{B}".Parse()),
               new Tap());
             p.Effect = () => new ExileTargets();
             p.TargetSelector.AddEffect(trg =>

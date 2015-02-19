@@ -21,7 +21,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{5}: Permanents you control gain indestructible until end of turn.";
-          p.Cost = new PayMana("{5}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{5}".Parse());
 
           p.Effect = () => new ApplyModifiersToPermanents(
             selector: (e, c) => c.Is().Creature,
@@ -35,7 +35,7 @@
         {
           p.Text = "{5}, Exile Soul of New Phyrexia from your graveyard: Permanents you control gain indestructible until end of turn.";
           p.Cost = new AggregateCost(
-            new PayMana("{5}".Parse(), ManaUsage.Abilities),
+            new PayMana("{5}".Parse()),
             new Exile(fromGraveyard: true));
 
           p.Effect = () => new ApplyModifiersToPermanents(

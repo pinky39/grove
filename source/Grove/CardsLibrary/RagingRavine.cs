@@ -28,7 +28,7 @@
             p.Text =
               "{2}{R}{G}: Until end of turn, Raging Ravine becomes a 3/3 red and green Elemental creature with Whenever this creature attacks, put a +1/+1 counter on it. It's still a land.";
 
-            p.Cost = new PayMana("{2}{R}{G}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{2}{R}{G}".Parse());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

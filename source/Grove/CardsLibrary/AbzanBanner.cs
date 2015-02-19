@@ -23,7 +23,7 @@
         {
           p.Text = "{W}{B}{G}, {T}, Sacrifice Abzan Banner: Draw a card.";
           p.Cost = new AggregateCost(
-            new PayMana("{W}{B}{G}".Parse(), ManaUsage.Abilities),
+            new PayMana("{W}{B}{G}".Parse()),
             new Tap(),
             new Sacrifice());
           p.Effect = () => new DrawCards(1);

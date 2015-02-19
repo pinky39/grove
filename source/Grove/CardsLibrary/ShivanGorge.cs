@@ -23,7 +23,7 @@
             p.Text = "{2}{R},{T}: Shivan Gorge deals 1 damage to each opponent.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{2}{R}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{R}".Parse()),
               new Tap());
 
             p.Effect = () => new DealDamageToPlayer(1, P(e => e.Controller.Opponent));

@@ -22,7 +22,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{3}{U}: Untap Blizzard Elemental.";
-            p.Cost = new PayMana("{3}{U}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{3}{U}".Parse());
             p.Effect = () => new UntapOwner();
             
             p.TimingRule(new Any(new OnSecondMain(), new BeforeYouDeclareAttackers()));

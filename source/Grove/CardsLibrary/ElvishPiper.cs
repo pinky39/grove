@@ -22,7 +22,7 @@
           {
             p.Text = "{G},{T}: You may put a creature card from your hand onto the battlefield.";
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Green, ManaUsage.Abilities),
+              new PayMana(Mana.Green),
               new Tap());
             p.Effect = () => new PutSelectedCardsToBattlefield(
               text: "Select a creature in your hand.",

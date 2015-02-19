@@ -19,7 +19,7 @@
             p.Text = "{2},{T}: Add one mana of any color to your mana pool.";
 
             p.Cost = new AggregateCost(
-              new PayMana(2.Colorless(), ManaUsage.Abilities),
+              new PayMana(2.Colorless()),
               new Tap());
 
             p.Effect = () => new AddManaToPool(Mana.Any);

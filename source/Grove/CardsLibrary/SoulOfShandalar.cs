@@ -23,7 +23,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{3}{R}{R}: Soul of Shandalar deals 3 damage to target player and 3 damage to up to one target creature that player controls.";
-          p.Cost = new PayMana("{3}{R}{R}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
+          p.Cost = new PayMana("{3}{R}{R}".Parse(), supportsRepetitions: true);
 
           p.Effect = () => new DealDamageToTargets(3);
           p.TargetSelector
@@ -46,7 +46,7 @@
         {
           p.Text = "{3}{R}{R}, Exile Soul of Shandalar from your graveyard: Soul of Shandalar deals 3 damage to target player and 3 damage to up to one target creature that player controls.";
           p.Cost = new AggregateCost(
-            new PayMana("{3}{R}{R}".Parse(), ManaUsage.Abilities),
+            new PayMana("{3}{R}{R}".Parse()),
             new Exile(fromGraveyard: true));
 
           p.Effect = () => new DealDamageToTargets(3);

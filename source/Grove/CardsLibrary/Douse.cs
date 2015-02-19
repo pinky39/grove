@@ -21,7 +21,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{U}: Counter target red spell.";
-            p.Cost = new PayMana("{1}{U}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{U}".Parse());
             p.Effect = () => new CounterTargetSpell();
             p.TargetSelector.AddEffect(trg => trg
               .Is.CounterableSpell(e => e.HasColor(CardColor.Red))

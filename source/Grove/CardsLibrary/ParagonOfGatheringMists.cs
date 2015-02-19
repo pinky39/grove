@@ -32,7 +32,7 @@
         {
           p.Text = "{U},{T}: Another target blue creature you control gains flying until end of turn.";
           p.Cost = new AggregateCost(
-            new PayMana("{U}".Parse(), ManaUsage.Abilities), 
+            new PayMana("{U}".Parse()), 
             new Tap());
 
           p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Flying) { UntilEot = true });

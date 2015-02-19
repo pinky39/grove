@@ -24,7 +24,7 @@
           })
         .ActivatedAbility(p =>
           {
-            p.Cost = new PayMana(Mana.Blue, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Blue);
             p.Text = "{U}: Return enchanted creature and Disappear to their owners' hands.";
             p.Effect = () => new ReturnOwnerAndAttachedToHand();
 

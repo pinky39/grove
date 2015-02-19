@@ -21,7 +21,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{2}{W}: Leaping Master gains flying until end of turn.";
-          p.Cost = new PayMana("{2}{W}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{2}{W}".Parse());
           p.Effect = () => new ApplyModifiersToSelf(() => new AddStaticAbility(Static.Flying){ UntilEot = true });
           p.TimingRule(new WhenCardHas(c => !c.Has().Flying));
         });

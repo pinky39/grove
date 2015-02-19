@@ -25,7 +25,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{R}: Shivan Hellkite deals 1 damage to target creature or player.";
-            p.Cost = new PayMana("{1}{R}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
+            p.Cost = new PayMana("{1}{R}".Parse(), supportsRepetitions: true);
             p.Effect = () => new DealDamageToTargets(1);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 

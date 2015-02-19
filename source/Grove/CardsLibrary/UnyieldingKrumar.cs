@@ -22,7 +22,7 @@
         {
           p.Text = "{1}{W}: Unyielding Krumar gains first strike until end of turn.";
 
-          p.Cost = new PayMana("{1}{W}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{1}{W}".Parse());
 
           p.Effect = () => new ApplyModifiersToSelf(
             () => new AddStaticAbility(Static.FirstStrike) { UntilEot = true });

@@ -33,7 +33,7 @@
           {
             p.Text =
               "{1}: Target noncreature artifact becomes an artifact creature with power and toughness each equal to its converted mana cost until end of turn.";
-            p.Cost = new PayMana(1.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(1.Colorless());
 
             p.Effect = () => new ApplyModifiersToTargets(() => new ChangeToCreature(
               power: m => m.OwningCard.ConvertedCost,

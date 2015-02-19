@@ -37,7 +37,7 @@
             p.Text = "{2}{B}, Sacrifice another creature: Put a +1/+1 counter on Kheru Bloodsucker.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{B}".Parse()),
               new Sacrifice());
 
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1))

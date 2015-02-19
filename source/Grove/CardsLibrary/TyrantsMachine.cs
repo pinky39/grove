@@ -22,7 +22,7 @@
             p.Text = "{4},{T}: Tap target creature.";
 
             p.Cost = new AggregateCost(
-              new PayMana(4.Colorless(), ManaUsage.Abilities),
+              new PayMana(4.Colorless()),
               new Tap());
 
             p.Effect = () => new TapTargets();

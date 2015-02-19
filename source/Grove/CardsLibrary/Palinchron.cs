@@ -34,7 +34,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{2}{U}{U}: Return Palinchron to its owner's hand.";
-            p.Cost = new PayMana("{2}{U}{U}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{2}{U}{U}".Parse());
             p.Effect = () => new ReturnToHand(returnOwningCard: true);
 
             p.TimingRule(new WhenOwningCardWillBeDestroyed());

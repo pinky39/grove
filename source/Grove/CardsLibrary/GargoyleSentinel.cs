@@ -25,7 +25,7 @@
           {
             p.Text = "{3}: Until end of turn, Gargoyle Sentinel loses defender and gains flying.";
 
-            p.Cost = new PayMana(3.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(3.Colorless());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new RemoveAbility(Static.Defender) {UntilEot = true},

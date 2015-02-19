@@ -29,7 +29,7 @@
           {
             p.Text = "{4}{W}: Creatures you control get +1/+1 until end of turn.";
 
-            p.Cost = new PayMana("{4}{W}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
+            p.Cost = new PayMana("{4}{W}".Parse(), supportsRepetitions: true);
 
             p.Effect = () => new ApplyModifiersToPermanents((e, c) => c.Is().Creature, ControlledBy.SpellOwner,
               () => new AddPowerAndToughness(1, 1) {UntilEot = true});

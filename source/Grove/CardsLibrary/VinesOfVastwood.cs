@@ -29,7 +29,7 @@
         .Cast(p =>
           {
             p.Text = p.KickerDescription;
-            p.Cost = new PayMana("{G}{G}".Parse(), ManaUsage.Spells);
+            p.Cost = new PayMana("{G}{G}".Parse());
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddStaticAbility(Static.Hexproof) {UntilEot = true},
               () => new AddPowerAndToughness(4, 4) {UntilEot = true})

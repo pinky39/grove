@@ -18,7 +18,7 @@
         .ActivatedAbility(p =>
         {
           p.Cost = new AggregateCost(
-            new PayMana("{5}".Parse(), ManaUsage.Abilities),
+            new PayMana("{5}".Parse()),
             new Tap(),
             new Exile());
 

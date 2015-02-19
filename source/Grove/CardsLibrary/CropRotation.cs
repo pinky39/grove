@@ -20,7 +20,7 @@
         .Cast(p =>
           {
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Green, ManaUsage.Spells),
+              new PayMana(Mana.Green),
               new Sacrifice());
 
             p.Effect = () => new SearchLibraryPutToZone(

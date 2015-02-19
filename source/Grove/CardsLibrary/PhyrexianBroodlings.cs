@@ -26,7 +26,7 @@
             p.Text = "{1}, Sacrifice a creature: Put a +1/+1 counter on Phyrexian Broodlings.";
 
             p.Cost = new AggregateCost(
-              new PayMana(1.Colorless(), ManaUsage.Abilities),
+              new PayMana(1.Colorless()),
               new Sacrifice());
 
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(

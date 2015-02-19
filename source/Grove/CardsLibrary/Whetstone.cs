@@ -18,7 +18,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{3}: Each player puts the top two cards of his or her library into his or her graveyard.";
-            p.Cost = new PayMana(3.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(3.Colorless());
             p.Effect = () => new EachPlayerPutTopCardsFromLibraryToGraveyard(2);
             p.TimingRule(new OnOpponentsTurn(Step.Upkeep));
           });

@@ -34,7 +34,7 @@
               "{1}{B}, Sacrifice Vile Requiem: Destroy up to X target nonblack creatures, where X is the number of verse counters on Vile Requiem. They can't be regenerated.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{1}{B}".Parse(), ManaUsage.Abilities),
+              new PayMana("{1}{B}".Parse()),
               new Sacrifice());
 
             p.Effect = () => new DestroyTargetPermanents(canRegenerate: false);

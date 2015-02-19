@@ -26,7 +26,7 @@
           {
             p.Text = "{1}{B}: Target creature gains lifelink until end of turn.";
 
-            p.Cost = new PayMana("{1}{B}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{B}".Parse());
 
             p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Lifelink) { UntilEot = true });
 

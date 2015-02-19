@@ -20,7 +20,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{3}{B}{B}: Return up to three target creature cards from your graveyard to your hand.";
-          p.Cost = new PayMana("{3}{B}{B}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{3}{B}{B}".Parse());
 
           p.Effect = () => new Effects.ReturnToHand();
           p.TargetSelector.AddEffect(trg =>
@@ -37,7 +37,7 @@
         {
           p.Text = "{3}{B}{B}, Exile Soul of Innistrad from your graveyard: Return up to three target creature cards from your graveyard to your hand.";
           p.Cost = new AggregateCost(
-            new PayMana("{3}{B}{B}".Parse(), ManaUsage.Abilities),
+            new PayMana("{3}{B}{B}".Parse()),
             new Exile(fromGraveyard: true));
 
           p.Effect = () => new Effects.ReturnToHand();

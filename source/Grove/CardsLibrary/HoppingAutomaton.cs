@@ -21,7 +21,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{0}: Hopping Automaton gets -1/-1 and gains flying until end of turn.";
-            p.Cost = new PayMana(Mana.Zero, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Zero);
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(-1, -1) {UntilEot = true},
               () => new AddStaticAbility(Static.Flying) {UntilEot = true});

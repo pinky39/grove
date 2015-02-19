@@ -20,7 +20,7 @@
             p.Text = "{4},{T}: You may put a creature card from your hand onto the battlefield.";
 
             p.Cost = new AggregateCost(
-              new PayMana(4.Colorless(), ManaUsage.Abilities),
+              new PayMana(4.Colorless()),
               new Tap());
 
             p.Effect = () => new PutSelectedCardsToBattlefield(

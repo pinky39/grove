@@ -27,7 +27,7 @@
               "{1}{W},{T}: Target creature becomes an enchantment and loses all abilities until a player casts a creature spell.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{1}{W}".Parse(), ManaUsage.Abilities),
+              new PayMana("{1}{W}".Parse()),
               new Tap());
 
             p.Effect = () => new ApplyModifiersToTargets(

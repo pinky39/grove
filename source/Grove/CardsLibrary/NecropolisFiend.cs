@@ -25,7 +25,7 @@
           {
             p.Text = "{X}, {T}, Exile X cards from your graveyard: Target creature gets -X/-X until end of turn.";
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Zero, ManaUsage.Abilities, hasX: true),
+              new PayMana(Mana.Zero, hasX: true),
               new Tap());
 
             p.Effect = () => new CompoundEffect(

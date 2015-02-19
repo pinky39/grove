@@ -28,7 +28,7 @@
               "{2},{T}, Sacrifice Braidwood Sextant: Search your library for a basic land card, reveal that card, and put it into your hand. Then shuffle your library.";
 
             p.Cost = new AggregateCost(
-              new PayMana(2.Colorless(), ManaUsage.Abilities),
+              new PayMana(2.Colorless()),
               new Tap(),
               new Sacrifice());
 

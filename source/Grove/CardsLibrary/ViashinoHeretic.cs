@@ -26,7 +26,7 @@
               "{1}{R},{T}: Destroy target artifact. Viashino Heretic deals damage to that artifact's controller equal to the artifact's converted mana cost.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{1}{R}".Parse(), ManaUsage.Abilities),
+              new PayMana("{1}{R}".Parse()),
               new Tap());
 
             p.Effect = () => new CompoundEffect(

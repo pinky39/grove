@@ -22,7 +22,7 @@
           {
             p.Text = "{B}, Sacrifice a creature: Destroy target nonblack creature.";
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Black, ManaUsage.Abilities),
+              new PayMana(Mana.Black),
               new Sacrifice());
 
             p.Effect = () => new DestroyTargetPermanents();

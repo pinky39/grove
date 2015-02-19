@@ -21,7 +21,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{2}: Goblin Festival deals 1 damage to target creature or player. Flip a coin. If you lose the flip, choose one of your opponents. That player gains control of Goblin Festival.";
-            p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities, supportsRepetitions: true);
+            p.Cost = new PayMana(2.Colorless(), supportsRepetitions: true);
             
             p.Effect = () => new CompoundEffect(
               new DealDamageToTargets(1), 

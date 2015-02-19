@@ -32,7 +32,7 @@
         {
           p.Text = "{R},{T}: Another target red creature you control gains haste until end of turn.";
           p.Cost = new AggregateCost(
-            new PayMana("{R}".Parse(), ManaUsage.Abilities),
+            new PayMana("{R}".Parse()),
             new Tap());
 
           p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Haste) { UntilEot = true });

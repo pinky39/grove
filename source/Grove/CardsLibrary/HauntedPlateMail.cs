@@ -24,7 +24,7 @@
           {
             p.Text = "Equip {4} ({4}: Attach to target creature you control. Equip only as a sorcery.)";
 
-            p.Cost = new PayMana(4.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(4.Colorless());
 
             p.Effect = () => new Attach(
               () => new AddPowerAndToughness(4, 4)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
@@ -42,7 +42,7 @@
             p.Text =
               "{0}: Until end of turn, Haunted Plate Mail becomes a 4/4 Spirit artifact creature that's no longer an Equipment.";
 
-            p.Cost = new PayMana(Mana.Zero, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Zero);
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

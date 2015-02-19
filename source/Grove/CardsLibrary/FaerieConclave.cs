@@ -27,7 +27,7 @@
             p.Text =
               "{1}{U}: Faerie Conclave becomes a 2/1 blue Faerie creature with flying until end of turn. It's still a land.";
 
-            p.Cost = new PayMana("{1}{U}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{U}".Parse());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

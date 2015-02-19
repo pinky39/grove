@@ -24,7 +24,7 @@
             p.Text = "{R}, Sacrifice Torch Fiend: Destroy target artifact.";
 
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Red, ManaUsage.Abilities),
+              new PayMana(Mana.Red),
               new Sacrifice());
 
             p.Effect = () => new DestroyTargetPermanents();

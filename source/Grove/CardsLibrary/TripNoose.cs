@@ -21,7 +21,7 @@
           {
             p.Text = "{2},{T}: Tap target creature.";
             p.Cost = new AggregateCost(
-              new PayMana(2.Colorless(), ManaUsage.Abilities),
+              new PayMana(2.Colorless()),
               new Tap());
             p.Effect = () => new TapTargets();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

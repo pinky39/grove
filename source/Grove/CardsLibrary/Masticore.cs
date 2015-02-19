@@ -31,7 +31,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{2}: Masticore deals 1 damage to target creature.";
-            p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities, supportsRepetitions: true);
+            p.Cost = new PayMana(2.Colorless(), supportsRepetitions: true);
             p.Effect = () => new DealDamageToTargets(1);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

@@ -24,7 +24,7 @@
             p.Text =
               "{2}{G},{T}: Reveal any number of green cards in your hand. Target creature gets +X/+X until end of turn, where X is the number of cards revealed this way.";
             p.Cost = new AggregateCost(
-              new PayMana("{2}{G}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{G}".Parse()),
               new Tap());
 
             p.Effect = () => new CreatureGetsPwtForEachRevealedCard(1, 1, c => c.HasColor(CardColor.Green));

@@ -23,7 +23,7 @@
         {
           p.Text = "Equip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)";
 
-          p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities);
+          p.Cost = new PayMana(2.Colorless());
 
           p.Effect = () => new CompoundEffect(
             new Attach(),

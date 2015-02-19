@@ -24,7 +24,7 @@
           p.Text = "{1}{B},{T}: Each opponent loses 1 life.";
 
           p.Cost = new AggregateCost(
-            new PayMana("{1}{B}".Parse(), ManaUsage.Abilities),
+            new PayMana("{1}{B}".Parse()),
             new Tap());
 
           p.Effect = () => new ChangeLife(-1, opponents: true);

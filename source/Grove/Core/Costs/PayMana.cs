@@ -3,20 +3,18 @@
   public class PayMana : Cost
   {
     private readonly IManaAmount _amount;
-    private readonly bool _hasX;
-    private readonly ManaUsage _manaUsage;
+    private readonly bool _hasX;   
     private readonly bool _supportsRepetitions;
 
     private PayMana() {}
 
     public PayMana(
       IManaAmount amount,
-      ManaUsage manaUsage,
       bool hasX = false,
       bool supportsRepetitions = false)
     {
       _amount = amount;
-      _manaUsage = manaUsage;
+      
       _hasX = hasX;
       _supportsRepetitions = supportsRepetitions;
     }
@@ -44,7 +42,7 @@
 
       var canPay = Controller.HasMana(
         actualCost,
-        _manaUsage,
+        GetManaUsage(),
         canUseConvoke: Card.Has().Convoke,
         canUseDelve: Card.Has().Delve);
 
@@ -52,7 +50,7 @@
       {
         if (_hasX)
         {
-          var availableMana = Controller.GetAvailableConvertedMana(_manaUsage, canUseConvoke: Card.Has().Convoke,
+          var availableMana = Controller.GetAvailableConvertedMana(GetManaUsage(), canUseConvoke: Card.Has().Convoke,
             canUseDelve: Card.Has().Delve);
           maxX = availableMana - actualCost.Converted;
         }
@@ -66,7 +64,7 @@
           {
             amount = amount.Add(actualCost);
 
-            if (!Controller.HasMana(amount, _manaUsage))
+            if (!Controller.HasMana(amount, GetManaUsage()))
             {
               break;
             }
@@ -107,7 +105,7 @@
         }
       }
 
-      Controller.Consume(amount, _manaUsage, canUseConvoke: Card.Has().Convoke, canUseDelve: Card.Has().Delve);
+      Controller.Consume(amount, GetManaUsage(), canUseConvoke: Card.Has().Convoke, canUseDelve: Card.Has().Delve);
     }
   }
 }

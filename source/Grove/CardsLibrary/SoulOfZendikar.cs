@@ -19,7 +19,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{3}{G}{G}: Put a 3/3 green Beast creature token onto the battlefield.";
-          p.Cost = new PayMana("{3}{G}{G}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{3}{G}{G}".Parse());
 
           p.Effect = () => new CreateTokens(
               count: 1,
@@ -34,7 +34,7 @@
         {
           p.Text = "{3}{G}{G}, Exile Soul of Zendikar from your graveyard: Put a 3/3 green Beast creature token onto the battlefield.";
           p.Cost = new AggregateCost(
-            new PayMana("{3}{G}{G}".Parse(), ManaUsage.Abilities),
+            new PayMana("{3}{G}{G}".Parse()),
             new Exile(fromGraveyard: true));
 
           p.Effect = () => new CreateTokens(

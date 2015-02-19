@@ -27,7 +27,7 @@
                   var ap = new ActivatedAbilityParameters
                     {
                       Text = "{G}: Regenerate enchanted creature.",
-                      Cost = new PayMana(Mana.Green, ManaUsage.Abilities),
+                      Cost = new PayMana(Mana.Green),
                       Effect = () => new RegenerateOwner()
                     };
 

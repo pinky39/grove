@@ -23,7 +23,7 @@
           {
             p.Text =
               "{3}: Mobile Fort gets +3/-1 until end of turn and can attack this turn as though it didn't have defender. Activate this ability only once each turn.";
-            p.Cost = new PayMana(3.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(3.Colorless());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(3, -1) {UntilEot = true},

@@ -22,7 +22,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{2}: Attach to target creature you control. Equip only as a sorcery.";
-            p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(2.Colorless());
             p.Effect = () => new Attach(
               () => new AddStaticAbility(Static.Deathtouch),
               () => new AddStaticAbility(Static.Lifelink));

@@ -22,7 +22,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{2}: Regenerate target artifact creature.";
-            p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(2.Colorless());
             p.Effect = () => new RegenerateTarget();
             p.TargetSelector.AddEffect(trg =>
               trg.Is.Card(c => c.Is().Creature && c.Is().Artifact).On.Battlefield());

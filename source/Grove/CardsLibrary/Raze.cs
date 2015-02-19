@@ -20,7 +20,7 @@
         .Cast(p =>
           {
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Red, ManaUsage.Spells),
+              new PayMana(Mana.Red),
               new Sacrifice());
 
             p.Effect = () => new DestroyTargetPermanents();

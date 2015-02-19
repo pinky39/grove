@@ -21,7 +21,7 @@
         {
           p.Text = "{3}{B}: Until end of turn, Xathrid Slyblade loses hexproof and gains first strike and deathtouch.";
 
-          p.Cost = new PayMana("{3}{B}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{3}{B}".Parse());
 
           p.Effect = () => new ApplyModifiersToSelf(
             () => new RemoveAbility(Static.Hexproof) {UntilEot = true},

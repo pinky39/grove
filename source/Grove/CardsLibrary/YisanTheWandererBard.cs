@@ -19,7 +19,7 @@
         .ActivatedAbility(p =>
         {
           p.Cost = new AggregateCost(
-            new PayMana("{2}{G}".Parse(), ManaUsage.Abilities),
+            new PayMana("{2}{G}".Parse()),
             new Tap());
 
           p.Effect = () => new CompoundEffect(

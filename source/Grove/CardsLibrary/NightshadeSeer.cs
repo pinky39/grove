@@ -26,7 +26,7 @@
               "{2}{B},{T}: Reveal any number of black cards in your hand. Target creature gets -X/-X until end of turn, where X is the number of cards revealed this way.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{B}".Parse()),
               new Tap());
 
             p.Effect = () => new CreatureGetsPwtForEachRevealedCard(-1, -1, c => c.HasColor(CardColor.Black));

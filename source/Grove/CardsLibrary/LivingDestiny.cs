@@ -20,7 +20,7 @@
         .Cast(p =>
           {
             p.Cost = new AggregateCost(
-              new PayMana("{3}{G}".Parse(), ManaUsage.Spells),
+              new PayMana("{3}{G}".Parse()),
               new Reveal());
 
             p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().ManaCost.Converted), yours: true);

@@ -35,7 +35,7 @@
               "{U}, Sacrifice Recantation: Return up to X target permanents to their owners' hands, where X is the number of verse counters on Recantation.";
 
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Blue, ManaUsage.Abilities),
+              new PayMana(Mana.Blue),
               new Sacrifice());
 
             p.Effect = () => new ReturnToHand();

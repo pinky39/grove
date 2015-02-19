@@ -23,7 +23,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{B}{B},{T}: Destroy target white creature.";
-            p.Cost = new AggregateCost(new PayMana("{B}{B}".Parse(), ManaUsage.Abilities), new Tap());
+            p.Cost = new AggregateCost(new PayMana("{B}{B}".Parse()), new Tap());
             p.Effect = () => new DestroyTargetPermanents();
             p.TargetSelector.AddEffect(trg => trg
               .Is.Card(c => c.Is().Creature && c.HasColor(CardColor.White))

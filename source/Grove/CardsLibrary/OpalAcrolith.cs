@@ -38,7 +38,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{0}: Opal Acrolith becomes an enchantment.";
-            p.Cost = new PayMana(Mana.Zero, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.Zero);
             p.Effect = () => new RemoveModifier(typeof (ChangeToCreature));
 
             p.TimingRule(new WhenCardHas(c => c.Is().Creature));

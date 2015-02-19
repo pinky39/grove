@@ -31,7 +31,7 @@
             p.Text =
               "{4},{T}, Sacrifice Barrin's Codex: Draw X cards, where X is the number of page counters on Barrin's Codex.";
             p.Cost = new AggregateCost(
-              new PayMana(4.Colorless(), ManaUsage.Abilities),
+              new PayMana(4.Colorless()),
               new Tap(),
               new Sacrifice());
             p.Effect = () => new DrawCards(count: P(e => e.Source.OwningCard.Counters));

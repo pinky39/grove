@@ -21,7 +21,7 @@
         {
           p.Text = "{2}{U}, {T}: Draw a card, then discard a card.";
           p.Cost = new AggregateCost(
-            new PayMana("{2}{U}".Parse(), ManaUsage.Abilities),
+            new PayMana("{2}{U}".Parse()),
             new Tap());
 
           p.Effect = () => new DrawCards(1, discardCount: 1);

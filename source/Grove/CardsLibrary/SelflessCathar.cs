@@ -23,7 +23,7 @@
             p.Text = "{1}{W}, Sacrifice Selfless Cathar: Creatures you control get +1/+1 until end of turn.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{1}{W}".Parse(), ManaUsage.Abilities),
+              new PayMana("{1}{W}".Parse()),
               new Sacrifice());
 
             p.Effect = () => new ApplyModifiersToPermanents((e, c) => c.Is().Creature, ControlledBy.SpellOwner,

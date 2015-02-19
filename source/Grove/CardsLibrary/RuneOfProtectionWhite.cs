@@ -22,7 +22,7 @@
           {
             p.Text =
               "{W}: The next time a white source of your choice would deal damage to you this turn, prevent that damage.";
-            p.Cost = new PayMana(Mana.White, ManaUsage.Abilities);
+            p.Cost = new PayMana(Mana.White);
             p.Effect = () => new PreventDamageFromSourceToController();
 
             p.TargetSelector.AddEffect(trg =>

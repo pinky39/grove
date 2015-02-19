@@ -23,7 +23,7 @@
         .Cast(p => { p.Effect = () => new CastPermanent(); })
         .Cast(p =>
         {
-          p.Cost = new PayMana("{2}{R}".Parse(), ManaUsage.Spells);
+          p.Cost = new PayMana("{2}{R}".Parse());
           p.Text = "{{2}}{{R}}: Dash";
           p.Effect = () => new CompoundEffect(
             new CastPermanent(),

@@ -23,7 +23,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "Put a +1/+1 counter on Carnivorous Moss-Beast.";
-          p.Cost = new PayMana("{5}{G}{G}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
+          p.Cost = new PayMana("{5}{G}{G}".Parse(), supportsRepetitions: true);
 
           p.Effect = () => new ApplyModifiersToSelf(
             () => new AddCounters(() => new PowerToughness(1, 1), count: 1))

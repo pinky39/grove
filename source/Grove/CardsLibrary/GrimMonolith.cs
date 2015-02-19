@@ -25,7 +25,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{4}: Untap Grim Monolith.";
-            p.Cost = new PayMana(4.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(4.Colorless());
             p.Effect = () => new UntapOwner();
 
             p.TimingRule(new WhenCardHas(c => c.IsTapped));

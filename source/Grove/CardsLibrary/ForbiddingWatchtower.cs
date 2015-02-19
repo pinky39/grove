@@ -27,7 +27,7 @@
             p.Text =
               "{1}{W}: Forbidding Watchtower becomes a 1/5 white Soldier creature until end of turn. It's still a land.";
 
-            p.Cost = new PayMana("{1}{W}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{W}".Parse());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

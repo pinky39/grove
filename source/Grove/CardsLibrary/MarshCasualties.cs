@@ -28,7 +28,7 @@
         .Cast(p =>
           {
             p.Text = p.KickerDescription;
-            p.Cost = new PayMana("{3}{B}{B}".Parse(), ManaUsage.Spells);
+            p.Cost = new PayMana("{3}{B}{B}".Parse());
             p.Effect = () => new ApplyModifiersToPermanents(
               selector: (effect, card) => card.Is().Creature,
               modifiers: () => new AddPowerAndToughness(-2, -2) {UntilEot = true}) {ToughnessReduction = 2};

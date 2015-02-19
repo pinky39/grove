@@ -20,7 +20,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{5}{U}{U}: Draw a card for each color among permanents you control.";
-          p.Cost = new PayMana("{5}{U}{U}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{5}{U}{U}".Parse());
 
           p.Effect = () => new DrawCards(P(e => e.Controller.Battlefield.Where(x => !x.HasColor(CardColor.None) && !x.HasColor(CardColor.Colorless)).SelectMany(x => x.Colors).Distinct().Count()));
         })
@@ -28,7 +28,7 @@
         {
           p.Text = "{5}{U}{U}, Exile Soul of Ravnica from your graveyard: Draw a card for each color among permanents you control.";
           p.Cost = new AggregateCost(
-            new PayMana("{5}{U}{U}".Parse(), ManaUsage.Abilities),
+            new PayMana("{5}{U}{U}".Parse()),
             new Exile(fromGraveyard: true));
 
           p.Effect = () => new DrawCards(P(e => e.Controller.Battlefield.Where(x => !x.IsColorless()).Select(x => x.Colors).Distinct().Count()));

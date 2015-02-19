@@ -44,7 +44,7 @@
           p.Text = "{1}{W}, Sacrifice a Spirit: Target non-Spirit creature gains indestructible until end of turn.";
 
           p.Cost = new AggregateCost(
-              new PayMana("{1}{W}".Parse(), ManaUsage.Abilities),
+              new PayMana("{1}{W}".Parse()),
               new Sacrifice());
 
           p.TargetSelector.AddCost(trg =>

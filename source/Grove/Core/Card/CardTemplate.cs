@@ -123,7 +123,7 @@
       return ActivatedAbility(p =>
       {
         p.Text = text;
-        p.Cost = new PayMana(cost, ManaUsage.Abilities);
+        p.Cost = new PayMana(cost);
         p.Effect = () => new RegenerateOwner();
 
         p.TimingRule(new RegenerateSelfTimingRule());
@@ -136,7 +136,7 @@
       return ActivatedAbility(p =>
       {
         p.Text = text;
-        p.Cost = new PayMana(cost, ManaUsage.Abilities, supportsRepetitions: true);
+        p.Cost = new PayMana(cost, supportsRepetitions: true);
         p.Effect = () =>
         {
           var effect = new ApplyModifiersToSelf(() => new AddPowerAndToughness(
@@ -267,7 +267,7 @@
       ActivatedAbility(p =>
       {
         p.Text = string.Format("Cycling {0} ({0}, Discard this card: Draw a card.)", cost);
-        p.Cost = new AggregateCost(new PayMana(cost.Parse(), ManaUsage.Abilities), new DiscardThis());
+        p.Cost = new AggregateCost(new PayMana(cost.Parse()), new DiscardThis());
         p.Effect = () => new DrawCards(1);
         p.ActivationZone = Zone.Hand;
         p.TimingRule(new DefaultCyclingTimingRule());
@@ -283,7 +283,7 @@
         p.Text =
           string.Format("Outlast {0}({0}, {{T}}: Put a +1/+1 counter on this creature. Outlast only as a sorcery.)",
             cost);
-        p.Cost = new AggregateCost(new PayMana(cost.Parse(), ManaUsage.Abilities), new Tap());
+        p.Cost = new AggregateCost(new PayMana(cost.Parse()), new Tap());
         p.Effect =
           () =>
             new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1)).SetTags(
@@ -344,7 +344,7 @@
       ActivatedAbility(p =>
       {
         p.Text = String.Format("{0}: Put a level counter on this. Level up only as sorcery.", cost);
-        p.Cost = new PayMana(cost.Parse(), ManaUsage.Abilities);
+        p.Cost = new PayMana(cost.Parse());
         p.Effect = () => new ApplyModifiersToSelf(() => new IncreaseLevel()).SetTags(tag);
         p.TimingRule(new DefaultLevelUpTimingRule(cost.Parse(), levels));
         p.ActivateAsSorcery = true;
@@ -398,7 +398,7 @@
     {
       return new CastRule.Parameters
       {
-        Cost = new PayMana(cp.ManaCost ?? Mana.Zero, ManaUsage.Spells, cp.HasXInCost),
+        Cost = new PayMana(cp.ManaCost ?? Mana.Zero, cp.HasXInCost),
         Text = string.Format("Cast {0}.", cp.Name),
         Effect = () => new CastPermanent(),
       };

@@ -33,7 +33,7 @@
               "{R}, Sacrifice Rumbling Crescendo: Destroy up to X target lands, where X is the number of verse counters on Rumbling Crescendo.";
 
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Red, ManaUsage.Abilities),
+              new PayMana(Mana.Red),
               new Sacrifice());
 
             p.Effect = () => new DestroyTargetPermanents();

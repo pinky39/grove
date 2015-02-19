@@ -22,7 +22,7 @@
           {
             p.Text = "{4}, Sacrifice Copper Gnomes: You may put an artifact card from your hand onto the battlefield.";
             p.Cost = new AggregateCost(
-              new PayMana(4.Colorless(), ManaUsage.Abilities),
+              new PayMana(4.Colorless()),
               new Sacrifice());
             p.Effect = () => new PutSelectedCardsToBattlefield(
               text: "Select an artifact in your hand.",

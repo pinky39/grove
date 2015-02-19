@@ -27,7 +27,7 @@
             p.Text =
               "{1}{G}: Treetop Village becomes a 3/3 green Ape creature with trample until end of turn. It's still a land.";
 
-            p.Cost = new PayMana("{1}{G}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{G}".Parse());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

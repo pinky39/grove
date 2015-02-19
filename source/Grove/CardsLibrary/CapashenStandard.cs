@@ -32,7 +32,7 @@
             p.Text = "{2}, Sacrifice Capashen Standard: Draw a card.";
 
             p.Cost = new AggregateCost(
-              new PayMana(2.Colorless(), ManaUsage.Abilities),
+              new PayMana(2.Colorless()),
               new Sacrifice());
 
             p.Effect = () => new DrawCards(1);

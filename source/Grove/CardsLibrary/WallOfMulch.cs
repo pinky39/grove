@@ -24,7 +24,7 @@
             p.Text = "{G}, Sacrifice a Wall: Draw a card.";
 
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Green, ManaUsage.Abilities),
+              new PayMana(Mana.Green),
               new Sacrifice());
 
             p.TargetSelector.AddCost(trg => trg.Is.Card(c => c.Is("wall"), ControlledBy.SpellOwner)

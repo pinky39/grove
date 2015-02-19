@@ -38,7 +38,7 @@
                 .ActivatedAbility(ap =>
                 {
                   ap.Text = "{R}: This creature gets +1/+0 until end of turn.";
-                  ap.Cost = new PayMana(Mana.Red, ManaUsage.Abilities, supportsRepetitions: true);
+                  ap.Cost = new PayMana(Mana.Red, supportsRepetitions: true);
                   ap.Effect = () => new ApplyModifiersToSelf(
                     () => new AddPowerAndToughness(1, 0){UntilEot = true}).SetTags(EffectTag.IncreasePower);
                   ap.TimingRule(new Any(new PumpOwningCardTimingRule(1, 0), new OnEndOfOpponentsTurn()));

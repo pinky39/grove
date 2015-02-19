@@ -27,7 +27,7 @@
             p.Text =
               "{1}{B}: Spawning Pool becomes a 1/1 black Skeleton creature with '{B}': Regenerate this creature' until end of turn. It's still a land.";
 
-            p.Cost = new PayMana("{1}{B}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{B}".Parse());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(
@@ -40,7 +40,7 @@
                   var ap = new ActivatedAbilityParameters
                     {
                       Text = "{B}: Regenerate this creature.",
-                      Cost = new PayMana(Mana.Black, ManaUsage.Abilities),
+                      Cost = new PayMana(Mana.Black),
                       Effect = () => new RegenerateOwner()
                     };
 

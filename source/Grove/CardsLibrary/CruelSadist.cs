@@ -25,7 +25,7 @@
             p.Text = "{B},{T}, Pay 1 life: Put a +1/+1 counter on Cruel Sadist.";
             
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Black, ManaUsage.Abilities),
+              new PayMana(Mana.Black),
               new Tap(),
               new PayLife(1));
 
@@ -39,7 +39,7 @@
             p.Text = "{2}{B},{T}, Remove X +1/+1 counters from Cruel Sadist: Cruel Sadist deals X damage to target creature.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
+              new PayMana("{2}{B}".Parse()),
               new Tap(),
               new RemoveCounters(CounterType.PowerToughness));
 

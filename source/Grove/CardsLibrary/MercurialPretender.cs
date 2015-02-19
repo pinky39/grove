@@ -38,7 +38,7 @@
                   var ap = new ActivatedAbilityParameters
                     {
                       Text = "{2}{U}{U}: Return this creature to its owner's hand.",
-                      Cost = new PayMana("{2}{U}{U}".Parse(), ManaUsage.Abilities),
+                      Cost = new PayMana("{2}{U}{U}".Parse()),
                       Effect = () => new ReturnToHand(returnOwningCard: true)
                     };
 

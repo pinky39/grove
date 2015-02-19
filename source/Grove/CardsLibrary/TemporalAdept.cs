@@ -22,7 +22,7 @@
           {
             p.Text = "{U}{U}{U},{T}: Return target permanent to its owner's hand.";
             p.Cost = new AggregateCost(
-              new PayMana("{U}{U}{U}".Parse(), ManaUsage.Abilities),
+              new PayMana("{U}{U}{U}".Parse()),
               new Tap());
 
             p.Effect = () => new Effects.ReturnToHand();

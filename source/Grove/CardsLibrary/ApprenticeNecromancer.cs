@@ -25,7 +25,7 @@
               "{B},{T},Sacrifice Apprentice Necromancer: Return target creature card from your graveyard to the battlefield. That creature gains haste. At the beginning of the next end step, sacrifice it.";
             
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Black, ManaUsage.Abilities),
+              new PayMana(Mana.Black),
               new Tap(),
               new Sacrifice());
 

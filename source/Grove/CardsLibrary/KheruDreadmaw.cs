@@ -23,7 +23,7 @@
           p.Text = "{1}{G}, Sacrifice another creature: You gain life equal to the sacrificed creature's toughness.";
 
           p.Cost = new AggregateCost(
-            new PayMana("{1}{G}".Parse(), ManaUsage.Abilities),
+            new PayMana("{1}{G}".Parse()),
             new Sacrifice());
 
           p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().Toughness.GetValueOrDefault()), yours: true);

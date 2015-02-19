@@ -27,7 +27,7 @@
             p.Text =
               "{1}{R}: Ghitu Encampment becomes a 2/1 red Warrior creature with first strike until end of turn. It's still a land.";
 
-            p.Cost = new PayMana("{1}{R}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{R}".Parse());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

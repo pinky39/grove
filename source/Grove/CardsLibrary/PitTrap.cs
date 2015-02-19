@@ -23,7 +23,7 @@
               "{2},{T}, Sacrifice Pit Trap: Destroy target attacking creature without flying. It can't be regenerated.";
 
             p.Cost = new AggregateCost(
-              new PayMana(2.Colorless(), ManaUsage.Abilities),
+              new PayMana(2.Colorless()),
               new Tap(),
               new Sacrifice());
 

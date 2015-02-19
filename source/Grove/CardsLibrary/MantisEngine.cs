@@ -22,7 +22,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{2}: Mantis Engine gains flying until end of turn.";
-            p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(2.Colorless());
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddStaticAbility(Static.Flying) {UntilEot = true});
 
@@ -35,7 +35,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{2}: Mantis Engine gains first strike until end of turn.";
-            p.Cost = new PayMana(2.Colorless(), ManaUsage.Abilities);
+            p.Cost = new PayMana(2.Colorless());
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true});
 

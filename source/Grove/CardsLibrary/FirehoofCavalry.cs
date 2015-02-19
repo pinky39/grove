@@ -23,7 +23,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{3}{R}: Firehoof Cavalry gets +2/+0 and gains trample until end of turn.";
-          p.Cost = new PayMana("{3}{R}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
+          p.Cost = new PayMana("{3}{R}".Parse(), supportsRepetitions: true);
           p.Effect = () => new ApplyModifiersToSelf(
             () => new AddPowerAndToughness(2, 0){UntilEot = true},
             () => new AddStaticAbility(Static.Trample) { UntilEot = true }).SetTags(EffectTag.IncreasePower);

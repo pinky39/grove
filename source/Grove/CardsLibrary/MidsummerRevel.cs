@@ -31,7 +31,7 @@
             p.Text =
               "{G},Sacrifice Midsummer Revel: Put X 3/3 green Beast creature tokens onto the battlefield, where X is the number of verse counters on Midsummer Revel.";
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Green, ManaUsage.Abilities),
+              new PayMana(Mana.Green),
               new Sacrifice());
             p.Effect = () => new CreateTokens(
               count: P(e => e.Source.OwningCard.Counters),

@@ -24,7 +24,7 @@
         .ActivatedAbility(p =>
           {
             p.Text = "{1}{R}{R}: Put a +1/+1 counter on Molten Hydra.";
-            p.Cost = new PayMana("{1}{R}{R}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
+            p.Cost = new PayMana("{1}{R}{R}".Parse(), supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(
               () => new PowerToughness(1, 1), count: 1)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
             

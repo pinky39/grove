@@ -25,7 +25,7 @@
             p.Text = "{1}{B}, Sacrifice another creature: Put a +1/+1 counter on Blood Host and you gain 2 life.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{1}{B}".Parse(), ManaUsage.Abilities),
+              new PayMana("{1}{B}".Parse()),
               new Sacrifice());
 
             p.Effect = () => new CompoundEffect(

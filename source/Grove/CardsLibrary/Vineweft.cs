@@ -28,7 +28,7 @@
         {
           p.Text = "{4}{G}: Return Vineweft from your graveyard to your hand.";
 
-          p.Cost = new PayMana("{4}{G}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{4}{G}".Parse());
 
           p.Effect = () => new Effects.ReturnToHand();
           p.ActivationZone = Zone.Graveyard;

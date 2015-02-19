@@ -32,7 +32,7 @@
           p.Text = "{R}, Sacrifice Inferno Fist: Inferno Fist deals 2 damage to target creature or player.";
 
           p.Cost = new AggregateCost(
-            new PayMana(Mana.Red, ManaUsage.Abilities),
+            new PayMana(Mana.Red),
             new Sacrifice());
 
           p.Effect = () => new DealDamageToTargets(2);

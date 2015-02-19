@@ -22,7 +22,7 @@
           {
             p.Text = "{3},{T} : Put a +1/+1 counter on target creature.";
             p.Cost = new AggregateCost(
-              new PayMana(3.Colorless(), ManaUsage.Abilities),
+              new PayMana(3.Colorless()),
               new Tap());
 
             p.Effect = () => new ApplyModifiersToTargets(() => new AddCounters(

@@ -21,7 +21,7 @@
             p.Text = "{1},{T}: Untap target artifact.";
 
             p.Cost = new AggregateCost(
-              new PayMana(1.Colorless(), ManaUsage.Abilities),
+              new PayMana(1.Colorless()),
               new Tap());
 
             p.Effect = () => new UntapTargetPermanents();

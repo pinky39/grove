@@ -31,7 +31,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{W},{T}: Another target white creature you control gains vigilance until end of turn.";
-          p.Cost = new AggregateCost(new PayMana("{W}".Parse(), ManaUsage.Abilities), new Tap());
+          p.Cost = new AggregateCost(new PayMana("{W}".Parse()), new Tap());
           p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Vigilance){ UntilEot = true });
 
           p.TargetSelector.AddEffect(trg => trg

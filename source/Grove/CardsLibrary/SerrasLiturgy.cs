@@ -33,7 +33,7 @@
               "{W}, Sacrifice Serra's Liturgy: Destroy up to X target artifacts and/or enchantments, where X is the number of verse counters on Serra's Liturgy.";
 
             p.Cost = new AggregateCost(
-              new PayMana(Mana.White, ManaUsage.Abilities),
+              new PayMana(Mana.White),
               new Sacrifice());
 
             p.Effect = () => new DestroyTargetPermanents();

@@ -24,7 +24,7 @@
           {
             p.Text = "{G},{T}: Regenerate target creature.";
             p.Cost = new AggregateCost(
-              new PayMana("{G}".Parse(), ManaUsage.Abilities),
+              new PayMana("{G}".Parse()),
               new Tap());
 
             p.Effect = () => new RegenerateTarget();

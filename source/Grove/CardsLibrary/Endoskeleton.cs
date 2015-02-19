@@ -22,7 +22,7 @@
           {
             p.Text = "{2},{T}: Target creature gets +0/+3 for as long as Endoskeleton remains tapped.";
             p.Cost = new AggregateCost(
-              new PayMana(2.Colorless(), ManaUsage.Abilities),
+              new PayMana(2.Colorless()),
               new Tap());
 
             p.Effect = () => new ApplyModifiersToTargets(() =>

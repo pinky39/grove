@@ -32,7 +32,7 @@
             p.Text = "{X},{T}: Remove all +1/+1 counters from Anthroplasm and put X +1/+1 counters on it.";
 
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Zero, ManaUsage.Abilities, hasX: true),
+              new PayMana(Mana.Zero, hasX: true),
               new Tap());
 
             p.Effect = () => new CompoundEffect(

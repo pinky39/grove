@@ -22,7 +22,7 @@
           {
             p.Text =
               "{1}{W}: Prevent all damage that would be dealt to another target creature this turn by sources of the color of your choice.";
-            p.Cost = new PayMana("{1}{W}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{W}".Parse());
 
             p.Effect = () => new PreventAllDamageToTargetsFromChosenColor();
 
@@ -39,7 +39,7 @@
           {
             p.Text =
               "{5}{W}{W}: Prevent all damage that would be dealt to target player this turn by sources of the color of your choice.";
-            p.Cost = new PayMana("{5}{W}{W}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{5}{W}{W}".Parse());
 
             p.Effect = () => new PreventAllDamageToTargetsFromChosenColor();
 

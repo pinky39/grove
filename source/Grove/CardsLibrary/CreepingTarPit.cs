@@ -27,7 +27,7 @@
             p.Text =
               "{1}{U}{B}: Until end of turn, Creeping Tar Pit becomes a 3/2 blue and black Elemental creature and is unblockable. It's still a land.";
 
-            p.Cost = new PayMana("{1}{U}{B}".Parse(), ManaUsage.Abilities);
+            p.Cost = new PayMana("{1}{U}{B}".Parse());
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

@@ -26,7 +26,7 @@
           {
             p.Text = "{1}, Sacrifice a permanent: You gain 1 life.";
             p.Cost = new AggregateCost(
-              new PayMana(1.Colorless(), ManaUsage.Abilities),
+              new PayMana(1.Colorless()),
               new Sacrifice());
             p.Effect = () => new ChangeLife(amount: 1, yours: true);
             p.TargetSelector.AddCost(trg =>

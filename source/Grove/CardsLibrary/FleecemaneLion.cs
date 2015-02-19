@@ -26,7 +26,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{3}{G}{W}: Monstrosity 1.{I}(If this creature isn't monstrous, put a +1/+1 counter on it and it becomes monstrous.){/I}";
-          p.Cost = new PayMana("{3}{G}{W}".Parse(), ManaUsage.Abilities);
+          p.Cost = new PayMana("{3}{G}{W}".Parse());
           p.Effect = () => new BecomeMonstrosity(1);
           p.TimingRule(new WhenCardHas(c => !c.Has().Monstrosity));
         });

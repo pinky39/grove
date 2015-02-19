@@ -31,7 +31,7 @@
         {
           p.Text = "{2}{B},{T}: Another target black creature you control gains deathtouch until end of turn.";
           p.Cost = new AggregateCost(
-            new PayMana("{2}{B}".Parse(), ManaUsage.Abilities),
+            new PayMana("{2}{B}".Parse()),
             new Tap());
 
           p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Deathtouch) { UntilEot = true });

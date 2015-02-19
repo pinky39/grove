@@ -21,7 +21,7 @@
           .ActivatedAbility(p =>
           {
             p.Text = "{2}{R}: Miner's Bane gets +1/+0 and gains trample until end of turn.";
-            p.Cost = new PayMana("{2}{R}".Parse(), ManaUsage.Abilities, supportsRepetitions: true);
+            p.Cost = new PayMana("{2}{R}".Parse(), supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(1, 0){UntilEot = true},
               () => new AddStaticAbility(Static.Trample){UntilEot = true});

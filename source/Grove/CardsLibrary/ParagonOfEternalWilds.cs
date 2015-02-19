@@ -32,7 +32,7 @@
         {
           p.Text = "{G},{T}: Another target green creature you control gains trample until end of turn.";
           p.Cost = new AggregateCost(
-            new PayMana("{G}".Parse(), ManaUsage.Abilities),
+            new PayMana("{G}".Parse()),
             new Tap());
 
           p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Trample) { UntilEot = true });

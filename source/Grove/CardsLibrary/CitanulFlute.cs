@@ -22,7 +22,7 @@
               "{X},{T}: Search your library for a creature card with converted mana cost X or less, reveal it, and put it into your hand. Then shuffle your library.";
 
             p.Cost = new AggregateCost(
-              new PayMana(Mana.Zero, ManaUsage.Abilities, hasX: true),
+              new PayMana(Mana.Zero, hasX: true),
               new Tap());
 
             p.Effect = () => new SearchLibraryPutToZone(

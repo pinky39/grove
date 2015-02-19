@@ -25,7 +25,7 @@
               "{3}, Discard a card at random: Pyromancy deals damage to target creature or player equal to the converted mana cost of the discarded card.";
 
             p.Cost = new AggregateCost(
-              new PayMana(3.Colorless(), ManaUsage.Abilities),
+              new PayMana(3.Colorless()),
               new DiscardRandom());
 
             p.Effect = () => new DealDamageToTargets(

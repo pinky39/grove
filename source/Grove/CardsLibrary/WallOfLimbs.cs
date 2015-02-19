@@ -37,7 +37,7 @@
             p.Text = "{5}{B}{B},Sacrifice Wall of Limbs: Target player loses X life, where X is Wall of Limbs's power.";
 
             p.Cost = new AggregateCost(
-              new PayMana("{5}{B}{B}".Parse(), ManaUsage.Abilities),
+              new PayMana("{5}{B}{B}".Parse()),
               new Sacrifice());
 
             p.Effect = () => new ChangeLife(

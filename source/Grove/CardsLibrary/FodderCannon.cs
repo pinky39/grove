@@ -22,7 +22,7 @@
             p.Text = "{4},{T}, Sacrifice a creature: Fodder Cannon deals 4 damage to target creature.";
 
             p.Cost = new AggregateCost(
-              new PayMana(4.Colorless(), ManaUsage.Abilities),
+              new PayMana(4.Colorless()),
               new TapOwner(),
               new Sacrifice());
 
