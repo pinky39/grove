@@ -3,7 +3,7 @@
   public class IncreaseMinBlockerCount : Modifier, ICardModifier
   {
     private readonly IntegerIncrement _integerIncrement;
-    private MinBlockerCount _minBlockerCount;
+    private MinimumBlockerCount _minimumBlockerCount;
 
     private IncreaseMinBlockerCount() {}
 
@@ -12,16 +12,16 @@
       _integerIncrement = new IntegerIncrement(amount);
     }
 
-    public override void Apply(MinBlockerCount count)
+    public override void Apply(MinimumBlockerCount count)
     {
-      _minBlockerCount = count;
+      _minimumBlockerCount = count;
       _integerIncrement.Initialize(ChangeTracker);
-      _minBlockerCount.AddModifier(_integerIncrement);
+      _minimumBlockerCount.AddModifier(_integerIncrement);
     }
 
     protected override void Unapply()
     {
-      _minBlockerCount.RemoveModifier(_integerIncrement);
+      _minimumBlockerCount.RemoveModifier(_integerIncrement);
     }
   }
 }

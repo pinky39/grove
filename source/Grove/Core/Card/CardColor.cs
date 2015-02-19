@@ -10,4 +10,17 @@
     Colorless = 5,
     None = 6,
   }
+
+  public static class CardColors
+  {
+    public static readonly CardColor[] All = new[]
+      {
+        CardColor.White,
+        CardColor.Blue,
+        CardColor.Black,
+        CardColor.Red,
+        CardColor.Green,
+      };
+  }
+  
 }

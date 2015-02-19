@@ -8,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void JoinSoldierToAttack()
+      public void ArchersJoinTheAttack()
       {
         Hand(P1, "Elite Archers");
         Battlefield(P1, "Preeminent Captain");

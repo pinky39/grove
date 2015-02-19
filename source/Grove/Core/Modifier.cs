@@ -73,10 +73,10 @@
     public virtual void Apply(TriggeredAbilities abilities) {}
     public virtual void Apply(SimpleAbilities abilities) {}
     public virtual void Apply(ActivatedAbilities abilities) {}
-    public virtual void Apply(CardColors colors) {}
+    public virtual void Apply(ColorsOfCard colors) {}
     public virtual void Apply(DamagePreventions damagePreventions) {}
     public virtual void Apply(Protections protections) {}
-    public virtual void Apply(CardTypeCharacteristic cardType) {}
+    public virtual void Apply(TypeOfCard typeOfCard) {}
     public virtual void Apply(Counters counters) {}
     public virtual void Apply(Level level) {}
     public virtual void Apply(DamageRedirections damageRedirections) {}
@@ -85,7 +85,7 @@
     public virtual void Apply(Strenght strenght) {}
     public virtual void Apply(SkipSteps skipSteps) {}
     public virtual void Apply(CostModifiers costModifiers) {}
-    public virtual void Apply(MinBlockerCount count) {}
+    public virtual void Apply(MinimumBlockerCount count) {}
     public virtual void Apply(CardBase cardBase) {}
     public virtual void Apply(StaticAbilities abilities) {}
     public virtual void Apply(NamedGameModifiers namedGameModifiers) {}

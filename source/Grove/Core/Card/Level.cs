@@ -1,6 +1,5 @@
 ﻿namespace Grove
 {
-  using System;
   using Events;
   using Infrastructure;
   using Modifiers;
@@ -15,7 +14,7 @@
 
     public Level(CardBase cardBase) : base(cardBase.Value.Level)
     {
-      _cardBase = cardBase;      
+      _cardBase = cardBase;
     }
 
     public void Accept(ICardModifier modifier)
@@ -25,7 +24,7 @@
 
     protected override void AfterMemberCopy()
     {
-      _cardBase.Changed += OnCardBaseChanged;      
+      _cardBase.Changed += OnCardBaseChanged;
     }
 
     public override void Initialize(Game game, IHashDependancy hashDependancy)

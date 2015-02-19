@@ -8,7 +8,7 @@
     private readonly bool _replace;
     private ActivatedAbilities _abilities;
     private ActivatedAbility _addedAbility;
-    private CardTypeCharacteristic _cardType;
+    private TypeOfCard _typeOfCard;
     private CardTypeSetter _cardTypeModifier;
     private PropertyModifier<List<ActivatedAbility>> _modifier;
 
@@ -46,20 +46,20 @@
       _abilities.AddModifier(_modifier);
     }
 
-    public override void Apply(CardTypeCharacteristic cardType)
+    public override void Apply(TypeOfCard typeOfCard)
     {
-      _cardType = cardType;
+      _typeOfCard = typeOfCard;
 
-      var type = _cardType.Value.Change(subTypes: _landSubtype);
+      var type = _typeOfCard.Value.Change(subTypes: _landSubtype);
       _cardTypeModifier = new CardTypeSetter(type);
       _cardTypeModifier.Initialize(ChangeTracker);
 
-      _cardType.AddModifier(_cardTypeModifier);
+      _typeOfCard.AddModifier(_cardTypeModifier);
     }
 
     protected override void Unapply()
     {
-      _cardType.RemoveModifier(_cardTypeModifier);
+      _typeOfCard.RemoveModifier(_cardTypeModifier);
       _abilities.RemoveModifier(_modifier);
     }
   }

@@ -11,8 +11,8 @@
     private readonly Func<Modifier, int> _toughness;
     private readonly Func<Modifier, CardType> _type;
     private CardColorSetter _cardColorSetter;
-    private CardColors _cardColors;
-    private CardTypeCharacteristic _cardType;
+    private ColorsOfCard _colorsOfCard;
+    private TypeOfCard _typeOfCard;
     private IntegerSetter _powerIntegerSetter;
     private Strenght _strenght;
     private IntegerSetter _toughnessIntegerSetter;
@@ -32,15 +32,15 @@
     public ChangeToCreature(Value power, Value toughness, Func<CardType, CardType> type, IEnumerable<CardColor> colors = null) : this(
       m => power.GetValue(m.X), m => toughness.GetValue(m.X), m => type(m.OwningCard.Type), colors) { }
 
-    public override void Apply(CardColors color)
+    public override void Apply(ColorsOfCard color)
     {
       if (_colors == null)
         return;
 
-      _cardColors = color;
+      _colorsOfCard = color;
       _cardColorSetter = new CardColorSetter(_colors);
       _cardColorSetter.Initialize(ChangeTracker);
-      _cardColors.AddModifier(_cardColorSetter);
+      _colorsOfCard.AddModifier(_cardColorSetter);
     }
 
     public override void Apply(Strenght strenght)
@@ -57,12 +57,12 @@
       _strenght.AddToughnessModifier(_toughnessIntegerSetter);
     }
 
-    public override void Apply(CardTypeCharacteristic cardType)
+    public override void Apply(TypeOfCard typeOfCard)
     {
-      _cardType = cardType;
+      _typeOfCard = typeOfCard;
       _typeSetter = new CardTypeSetter(_type(this));
       _typeSetter.Initialize(ChangeTracker);
-      _cardType.AddModifier(_typeSetter);
+      _typeOfCard.AddModifier(_typeSetter);
     }
 
     protected override void Unapply()
@@ -71,9 +71,9 @@
       _strenght.RemoveToughnessModifier(_toughnessIntegerSetter);
 
       if (_cardColorSetter != null)
-        _cardColors.RemoveModifier(_cardColorSetter);
+        _colorsOfCard.RemoveModifier(_cardColorSetter);
 
-      _cardType.RemoveModifier(_typeSetter);
+      _typeOfCard.RemoveModifier(_typeSetter);
     }
   }
 }

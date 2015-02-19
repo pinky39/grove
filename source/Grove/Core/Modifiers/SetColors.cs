@@ -6,7 +6,7 @@
   {
     private readonly List<CardColor> _colors = new List<CardColor>();
     private CardColorSetter _cardColorSetter;
-    private CardColors _cardColors;
+    private ColorsOfCard _colorsOfCard;
 
     private SetColors() {}
 
@@ -15,17 +15,17 @@
       _colors.Add(color);
     }
 
-    public override void Apply(CardColors colors)
+    public override void Apply(ColorsOfCard colors)
     {
-      _cardColors = colors;
+      _colorsOfCard = colors;
       _cardColorSetter = new CardColorSetter(_colors);
       _cardColorSetter.Initialize(ChangeTracker);
-      _cardColors.AddModifier(_cardColorSetter);
+      _colorsOfCard.AddModifier(_cardColorSetter);
     }
 
     protected override void Unapply()
     {
-      _cardColors.RemoveModifier(_cardColorSetter);
+      _colorsOfCard.RemoveModifier(_cardColorSetter);
     }
   }
 }

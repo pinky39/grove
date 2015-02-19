@@ -2,18 +2,21 @@
 {
   using System.Linq;
   using Events;
-  using Grove.Infrastructure;
+  using Infrastructure;
   using Modifiers;
 
   public class CardController : Characteristic<Player>, IAcceptsCardModifier
   {
     private Card _card;
 
-    private CardController() { }
+    private CardController() {}
 
-    public CardController(Player controller) : base(controller) { }
+    public CardController(Player controller) : base(controller) {}
 
-    public void Accept(ICardModifier modifier) { modifier.Apply(this); }
+    public void Accept(ICardModifier modifier)
+    {
+      modifier.Apply(this);
+    }
 
     protected override void OnCharacteristicChanged(Player oldValue, Player newValue)
     {
@@ -29,7 +32,7 @@
         foreach (var attachment in _card.Attachments.Where(x => x.IsPermanent && (x.Is().Aura || x.Is().Equipment)))
         {
           newValue.PutCardToBattlefield(attachment);
-        }        
+        }
       }
 
       _card.HasSummoningSickness = true;

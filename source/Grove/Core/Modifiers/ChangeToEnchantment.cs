@@ -3,16 +3,16 @@
   public class ChangeToEnchantment : Modifier, ICardModifier
   {
     private Strenght _strenght;
-    private CardTypeCharacteristic _cardType;
+    private TypeOfCard _typeOfCard;
     private readonly IntegerSetter _integerSetter = new IntegerSetter();
     private CardTypeSetter _typeSetter;
 
-    public override void Apply(CardTypeCharacteristic cardType)
+    public override void Apply(TypeOfCard typeOfCard)
     {
-      _cardType = cardType;
+      _typeOfCard = typeOfCard;
       _typeSetter = new CardTypeSetter("enchantment");      
       _typeSetter.Initialize(ChangeTracker);
-      _cardType.AddModifier(_typeSetter);
+      _typeOfCard.AddModifier(_typeSetter);
     }
 
     protected override void Initialize()
@@ -29,7 +29,7 @@
 
     protected override void Unapply()
     {
-      _cardType.RemoveModifier(_typeSetter);
+      _typeOfCard.RemoveModifier(_typeSetter);
       _strenght.RemovePowerModifier(_integerSetter);
       _strenght.RemoveToughnessModifier(_integerSetter);      
     }

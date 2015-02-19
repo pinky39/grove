@@ -685,7 +685,7 @@
     <Compile Include="Core\Card\CardBase.cs" />
     <Compile Include="Core\Card\CombatCost.cs" />
     <Compile Include="Core\Card\ManaAbilityParameters.cs" />
-    <Compile Include="Core\Card\MinBlockerCount.cs" />
+    <Compile Include="Core\Card\MinimumBlockerCount.cs" />
     <Compile Include="Core\Card\NamedGameModifiers.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />
     <Compile Include="Core\Costs\CostType.cs" />
@@ -1564,7 +1564,7 @@
     <Compile Include="Core\Damage\DamageFromSource.cs" />
     <Compile Include="Core\Card\CardInfo.cs" />
     <Compile Include="Core\Card\CardsSearch.cs" />
-    <Compile Include="Core\Card\CardColors.cs" />
+    <Compile Include="Core\Card\ColorsOfCard.cs" />
     <Compile Include="Core\Costs\DiscardTarget.cs" />
     <Compile Include="Core\Counter\CounterType.cs" />
     <Compile Include="Core\Damage\PreventAllCombatDamage.cs" />
@@ -1952,7 +1952,7 @@
     <Compile Include="Core\Modifiers\EndOfTurnLifetime.cs" />
     <Compile Include="Core\Modifiers\Lifetime.cs" />
     <Compile Include="Core\Modifiers\PropertyModifier.cs" />
-    <Compile Include="Core\Card\CardTypeCharacteristic.cs" />
+    <Compile Include="Core\Card\TypeOfCard.cs" />
     <Compile Include="Core\Combat\Combat.cs" />
     <Compile Include="Core\Card\ActivatedAbilities.cs" />
     <Compile Include="Core\Card\CardColor.cs" />

@@ -16,7 +16,7 @@
     private readonly TrackableList<Card> _attachments = new TrackableList<Card>();
     private readonly CardBase _base;
     private readonly CastRules _castRules;
-    private readonly CardColors _colors;
+    private readonly ColorsOfCard _colors;
     private readonly CombatRules _combatRules;
     private readonly Counters _counters;
     private readonly Trackable<int> _damage = new Trackable<int>();
@@ -30,14 +30,14 @@
     private readonly Trackable<bool> _isTapped = new Trackable<bool>();
     private readonly Level _level;
     private readonly CombatCost _combatCost;
-    private readonly MinBlockerCount _minBlockerCount = new MinBlockerCount(1);
+    private readonly MinimumBlockerCount _minimumBlockerCount = new MinimumBlockerCount(1);
     private readonly TrackableList<ICardModifier> _modifiers = new TrackableList<ICardModifier>();
     private readonly Protections _protections;
     private readonly SimpleAbilities _simpleAbilities;
     private readonly StaticAbilities _staticAbilities;
     private readonly Strenght _strenght;
     private readonly TriggeredAbilities _triggeredAbilities;
-    private readonly CardTypeCharacteristic _type;
+    private readonly TypeOfCard _typeOfCard;
     private readonly Trackable<int> _usageScore = new Trackable<int>();
     private readonly Trackable<IZone> _zone = new Trackable<IZone>(new NullZone());
     public TrackableEvent JoinedBattlefield;
@@ -55,8 +55,8 @@
       _level = new Level(_base);
       _combatCost = new CombatCost(_base);
       _counters = new Counters(_strenght);
-      _type = new CardTypeCharacteristic(_base);
-      _colors = new CardColors(_base);
+      _typeOfCard = new TypeOfCard(_base);
+      _colors = new ColorsOfCard(_base);
 
       _protections = new Protections(_base);
 
@@ -83,7 +83,7 @@
 
     public int MinimalBlockerCount
     {
-      get { return _minBlockerCount.Value.GetValueOrDefault(); }
+      get { return _minimumBlockerCount.Value.GetValueOrDefault(); }
     }
 
     public Card AttachedTo
@@ -270,13 +270,13 @@
     {
       get
       {
-        yield return _minBlockerCount;
+        yield return _minimumBlockerCount;
         yield return _strenght;
         yield return _level;
         yield return _combatCost;
         yield return _counters;
         yield return _colors;
-        yield return _type;
+        yield return _typeOfCard;
         yield return _protections;
         yield return _triggeredAbilities;
         yield return _activatedAbilities;
@@ -358,7 +358,7 @@
 
     public CardType Type
     {
-      get { return _type.Value; }
+      get { return _typeOfCard.Value; }
     }
 
     public Zone Zone
@@ -403,7 +403,7 @@
 
     public IEnumerable<string> Subtypes
     {
-      get { return _type.Value.SubTypes; }
+      get { return _typeOfCard.Value.SubTypes; }
     }
 
     public bool IsEnchanted
@@ -510,7 +510,7 @@
           calc.Calculate(_strenght),
           Level.GetHashCode(),
           Counters.GetHashCode(),
-          calc.Calculate(_type.Value),
+          calc.Calculate(_typeOfCard.Value),
           Zone.GetHashCode(),
           _isRevealed.Value.GetHashCode(),
           _isPeeked.Value.GetHashCode(),
@@ -627,7 +627,7 @@
       _level.Initialize(game, this);
       _combatCost.Initialize(game,this);
       _counters.Initialize(this, game);
-      _type.Initialize(game, this);
+      _typeOfCard.Initialize(game, this);
       _colors.Initialize(game, this);
       _protections.Initialize(game, this);
       _zone.Initialize(ChangeTracker, this);
@@ -656,7 +656,7 @@
       _combatRules.Initialize(this, game);
 
 
-      _minBlockerCount.Initialize(Game, null);
+      _minimumBlockerCount.Initialize(Game, null);
       _isPreview = false;
 
       return this;
@@ -899,25 +899,23 @@
     public bool HasProtectionFrom(CardColor color)
     {
       return _protections.HasProtectionFrom(color);
+    }    
+
+    public bool HasProtectionFromAny(IEnumerable<CardColor> colors)
+    {
+      return colors.Any(x => _protections.HasProtectionFrom(x));
     }
 
-    public bool HasProtectionFrom(IEnumerable<CardColor> colors)
+    public bool HasProtectionFromAny(IEnumerable<string> types)
     {
-      return _protections.HasProtectionFromAnyColor() &&
-        colors.Any(x => _protections.HasProtectionFrom(x));
-    }
-
-    public bool HasProtectionFromTypes(IEnumerable<string> types)
-    {
-      return _protections.HasProtectionFromAnyTypes() &&
-        types.Any(x => _protections.HasProtectionFrom(x));
+      return types.Any(x => _protections.HasProtectionFrom(x));
     }
 
     public bool HasProtectionFrom(Card card)
     {
-      return HasProtectionFrom(card._colors) ||
-        HasProtectionFromTypes(card._type.Value.BaseTypes) ||
-        HasProtectionFromTypes(card._type.Value.SubTypes);
+      return HasProtectionFromAny(card._colors) ||
+        HasProtectionFromAny(card._typeOfCard.Value.BaseTypes) ||
+        HasProtectionFromAny(card._typeOfCard.Value.SubTypes);
     }
 
     public void Hide()
@@ -928,12 +926,12 @@
 
     public ITargetType Is()
     {
-      return _type.Value;
+      return _typeOfCard.Value;
     }
 
     public bool Is(string type)
     {
-      return _type.Value.Is(type);
+      return _typeOfCard.Value.Is(type);
     }
 
     public void RemoveCounters(CounterType counterType, int? count = null)

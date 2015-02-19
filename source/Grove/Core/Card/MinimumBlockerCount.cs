@@ -2,11 +2,11 @@
 {
   using Modifiers;
 
-  public class MinBlockerCount : Characteristic<int?>, IAcceptsCardModifier
+  public class MinimumBlockerCount : Characteristic<int?>, IAcceptsCardModifier
   {
-    private MinBlockerCount() {}
+    private MinimumBlockerCount() {}
 
-    public MinBlockerCount(int value)
+    public MinimumBlockerCount(int value)
       : base(value) {}
 
     public void Accept(ICardModifier modifier)
