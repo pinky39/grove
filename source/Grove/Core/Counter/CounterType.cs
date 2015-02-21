@@ -14,6 +14,7 @@
     Infection,
     Arrow,
     Fuse,
-    Growth
+    Growth,
+    Gem,
   }
 }

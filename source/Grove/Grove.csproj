@@ -179,6 +179,7 @@
     <Compile Include="CardsLibrary\BoonweaverGiant.cs" />
     <Compile Include="CardsLibrary\BorderlandMarauder.cs" />
     <Compile Include="CardsLibrary\BrawlersPlate.cs" />
+    <Compile Include="CardsLibrary\BribersPurse.cs" />
     <Compile Include="CardsLibrary\BrineSeer.cs" />
     <Compile Include="CardsLibrary\BringLow.cs" />
     <Compile Include="CardsLibrary\BronzeSable.cs" />
