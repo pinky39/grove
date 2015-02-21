@@ -131,6 +131,7 @@
     <Compile Include="Cards\Blaze.cs" />
     <Compile Include="Cards\BlessedReversal.cs" />
     <Compile Include="Cards\BloodHost.cs" />
+    <Compile Include="Cards\BloodsoakedChampion.cs" />
     <Compile Include="Cards\BloodVassal.cs" />
     <Compile Include="Cards\BlooshotCyclops.cs" />
     <Compile Include="Cards\BodySnatcher.cs" />

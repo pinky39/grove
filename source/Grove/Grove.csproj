@@ -173,6 +173,7 @@
     <Compile Include="CardsLibrary\BloodfireExpert.cs" />
     <Compile Include="CardsLibrary\BloodfireMentor.cs" />
     <Compile Include="CardsLibrary\BloodHost.cs" />
+    <Compile Include="CardsLibrary\BloodsoakedChampion.cs" />
     <Compile Include="CardsLibrary\BlossomingSands.cs" />
     <Compile Include="CardsLibrary\BoonweaverGiant.cs" />
     <Compile Include="CardsLibrary\BorderlandMarauder.cs" />
