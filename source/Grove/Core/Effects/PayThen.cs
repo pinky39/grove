@@ -6,8 +6,8 @@
   {
     private readonly DynParam<ManaAmount> _amount;
 
-    public PayManaThen(DynParam<ManaAmount> amount, Effect effect, bool execIfPaid = true, string message = null)
-      :base(effect, execIfPaid, message ?? "Pay mana?")
+    public PayManaThen(DynParam<ManaAmount> amount, Effect effect, Parameters parameters = null)
+      : base(effect, parameters ?? new Parameters() { Message = "Pay mana?" })
     {
       _amount = amount;
       RegisterDynamicParameters(_amount);
@@ -28,8 +28,8 @@
   {
     private readonly DynParam<int> _amount;
 
-    public PayLifeThen(DynParam<int> amount, Effect effect, bool execIfPaid = true, string message = null)
-      : base(effect, execIfPaid, message ?? "Pay life?")
+    public PayLifeThen(DynParam<int> amount, Effect effect, Parameters parameters = null)
+      : base(effect, parameters ?? new Parameters(){ Message = "Pay life?"})
     {
       _amount = amount;
       RegisterDynamicParameters(_amount);
@@ -54,12 +54,12 @@
 
     private PayThen() {}
 
-    protected PayThen(Effect effect, bool execIfPaid, string message)
+    protected PayThen(Effect effect, Parameters p)
     {
       
       _effect = effect;
-      _execIfPaid = execIfPaid;
-      _message = message;      
+      _execIfPaid = p.ExecuteIfPaid;
+      _message = p.Message;      
     }
 
     public override Effect Initialize(EffectParameters p, Game game, bool evaluateParameters = true)
@@ -82,7 +82,7 @@
       _effect.BeginResolve();
     }
 
-      public override void SetTriggeredAbilityTargets(Targets targets)
+    public override void SetTriggeredAbilityTargets(Targets targets)
     {
       _effect.SetTriggeredAbilityTargets(targets);
     }
@@ -116,6 +116,12 @@
     public virtual BooleanResult ChooseResult()
     {
       return true;
+    }
+
+    public class Parameters
+    {
+      public string Message = null;
+      public bool ExecuteIfPaid = true;
     }
   }
 }

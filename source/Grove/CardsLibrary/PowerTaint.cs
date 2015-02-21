@@ -36,8 +36,11 @@
               });
 
             p.Effect = () => new PayManaThen(2.Colorless(),
-              execIfPaid: false,
-              effect: new ChangeLifeOfEnchantedPermanentsController(-2));
+              effect: new ChangeLifeOfEnchantedPermanentsController(-2),
+              parameters: new PayThen.Parameters()
+              {
+                ExecuteIfPaid = false,
+              });
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
