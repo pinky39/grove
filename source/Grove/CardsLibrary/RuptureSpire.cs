@@ -29,7 +29,12 @@
           {
             p.Text = "When Rupture Spire enters the battlefield, sacrifice it unless you pay {1}.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new PayManaOrSacrifice(1.Colorless());
+            p.Effect = () => new PayManaThen(1.Colorless(),
+              effect: new SacrificeOwner(),
+              parameters: new PayThen.Parameters()
+              {
+                ExecuteIfPaid = false,
+              });
           });
     }
   }

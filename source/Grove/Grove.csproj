@@ -1830,7 +1830,6 @@
     <Compile Include="Core\Effects\ExileTargets.cs" />
     <Compile Include="Core\Effects\PlayerPutsTopCardsFromLibraryToGraveyard.cs" />
     <Compile Include="Core\Effects\PayLifeOrTapLand.cs" />
-    <Compile Include="Core\Effects\PayManaOrSacrifice.cs" />
     <Compile Include="Core\Effects\ReturnAllPermanentsToHand.cs" />
     <Compile Include="Core\Effects\ReturnToHand.cs" />
     <Compile Include="Core\Effects\TapTargets.cs" />

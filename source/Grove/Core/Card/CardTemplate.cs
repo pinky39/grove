@@ -109,7 +109,13 @@
         p.Trigger(new OnStepStart(Step.Upkeep, onlyOnce: true));
         p.Text =
           "At the beginning of your upkeep, if this came under your control since the beginning of your last upkeep, sacrifice it unless you pay its echo cost.";
-        p.Effect = () => new PayManaOrSacrifice(amount, "Pay echo?");
+        p.Effect = () => new PayManaThen(amount, 
+          effect: new SacrificeOwner(),
+          parameters: new PayThen.Parameters()
+          {
+            ExecuteIfPaid = false,
+            Message = "Pay echo?",
+          });
         p.TriggerOnlyIfOwningCardIsInPlay = true;
       });
 

@@ -26,7 +26,13 @@
                     Text =
                       "At the beginning of the upkeep of enchanted creature's controller, that player sacrifices that creature unless he or she pays {2}.",
                     Effect =
-                      () => new PayManaOrSacrifice(2.Colorless(), "Pay upkeep cost?"),
+                      () => new PayManaThen(2.Colorless(),
+                        effect: new SacrificeOwner(),
+                        parameters: new PayThen.Parameters()
+                        {
+                          ExecuteIfPaid = false,
+                          Message = "Pay upkeep cost?",
+                        }),
                   };
 
                 tp.Trigger(new OnStepStart(Step.Upkeep));

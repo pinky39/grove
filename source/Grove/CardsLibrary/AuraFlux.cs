@@ -25,7 +25,13 @@
                   {
                     Text =
                       "At the beginning of your upkeep, sacrifice this enchantment unless you pay {2}.",
-                    Effect =() => new PayManaOrSacrifice(2.Colorless(), "Pay upkeep?")
+                    Effect = () => new PayManaThen(2.Colorless(), 
+                      effect: new SacrificeOwner(),
+                      parameters: new PayThen.Parameters()
+                      {
+                        ExecuteIfPaid = false,
+                        Message = "Pay upkeep?",
+                      })
                   };
 
                 tp.Trigger(new OnStepStart(Step.Upkeep));

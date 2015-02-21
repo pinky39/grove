@@ -7,6 +7,8 @@
   {
     private readonly DynParam<ManaAmount> _amount;
 
+    private PayManaThen() {}
+
     public PayManaThen(DynParam<ManaAmount> amount, Effect effect, Parameters parameters = null)
       : base(effect, parameters ?? new Parameters() { Message = "Pay mana?" })
     {
@@ -54,7 +56,7 @@
     private readonly string _message;
     private readonly Func<Effect, bool> _aiPaysIf;
 
-    private PayThen() {}
+    protected PayThen() {}
 
     protected PayThen(Effect effect, Parameters p)
     {
