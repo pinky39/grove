@@ -36,7 +36,9 @@
             dmg.IsCombat &&
             dmg.Source.Is("warrior")));
 
-          p.Effect = () => new PayLifeToDrawCard(1);
+          p.Effect = () => new PayLifeThen(1,
+            effect: new DrawCards(1),
+            parameters: new PayThen.Parameters() { AiPaysIf = (e) => e.Controller.Hand.Count < 4 });
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });

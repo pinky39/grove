@@ -707,7 +707,6 @@
     <Compile Include="Core\Effects\ExileTargetsUntilOwnerLeavesBattlefield.cs" />
     <Compile Include="Core\Effects\ExileSelectedCards.cs" />
     <Compile Include="Core\Effects\FerociousEffect.cs" />
-    <Compile Include="Core\Effects\PayLifeToDrawCard.cs" />
     <Compile Include="Core\Effects\PlayerSelectPermanentsAndSacrificeRest.cs" />
     <Compile Include="Core\Effects\Put11CountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutSelectedCardsIntoGraveyardOthersOnTop.cs" />

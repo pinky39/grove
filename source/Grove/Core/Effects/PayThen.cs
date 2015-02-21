@@ -1,5 +1,6 @@
 ﻿namespace Grove.Effects
 {
+  using System;
   using Decisions;
     
   public class PayManaThen : PayThen
@@ -51,6 +52,7 @@
     private readonly Effect _effect;
     private readonly bool _execIfPaid;
     private readonly string _message;
+    private readonly Func<Effect, bool> _aiPaysIf;
 
     private PayThen() {}
 
@@ -59,7 +61,8 @@
       
       _effect = effect;
       _execIfPaid = p.ExecuteIfPaid;
-      _message = p.Message;      
+      _message = p.Message;
+      _aiPaysIf = p.AiPaysIf;
     }
 
     public override Effect Initialize(EffectParameters p, Game game, bool evaluateParameters = true)
@@ -113,15 +116,16 @@
         }));
     }
 
-    public virtual BooleanResult ChooseResult()
+    public BooleanResult ChooseResult()
     {
-      return true;
+      return _aiPaysIf(this);
     }
 
     public class Parameters
     {
       public string Message = null;
       public bool ExecuteIfPaid = true;
+      public Func<Effect, bool> AiPaysIf = (e) => true;
     }
   }
 }
