@@ -1,7 +1,6 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using AI;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Costs;

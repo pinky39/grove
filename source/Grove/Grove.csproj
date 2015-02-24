@@ -208,6 +208,7 @@
     <Compile Include="CardsLibrary\CinderSeer.cs" />
     <Compile Include="CardsLibrary\CircleOfFlame.cs" />
     <Compile Include="CardsLibrary\ClearAPath.cs" />
+    <Compile Include="CardsLibrary\CleverImpersonator.cs" />
     <Compile Include="CardsLibrary\CollateralDamage.cs" />
     <Compile Include="CardsLibrary\ColosYearling.cs" />
     <Compile Include="CardsLibrary\Compost.cs" />
