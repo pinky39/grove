@@ -187,6 +187,7 @@
     <Compile Include="CardsLibrary\BubblingBeebles.cs" />
     <Compile Include="CardsLibrary\BubblingMuck.cs" />
     <Compile Include="CardsLibrary\BurningAnger.cs" />
+    <Compile Include="CardsLibrary\ButcherOfTheHorde.cs" />
     <Compile Include="CardsLibrary\Caltrops.cs" />
     <Compile Include="CardsLibrary\Cancel.cs" />
     <Compile Include="CardsLibrary\CapashenKnight.cs" />
