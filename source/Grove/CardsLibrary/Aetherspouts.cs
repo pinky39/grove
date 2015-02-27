@@ -19,7 +19,6 @@
           p.Text = "For each attacking creature, its owner puts it on the top or bottom of his or her library.";
 
           p.Effect = () => new PutSelectedAttackersOnTopRestOnBottom();
-
           p.TimingRule(new AfterOpponentDeclaresAttackers());
         });
     }

@@ -9,12 +9,11 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void DrawCardAddCounter()
+      public void WhenP2DrawsSkulkerGets11Counter()
       {
         var skulker = C("Chasm Skulker");
 
         Library(P1, "Swamp");
-
         Library(P2, "Island");
         Battlefield(P2, skulker);
 

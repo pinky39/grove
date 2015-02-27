@@ -8,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void ReturnBearsToLibrary()
+      public void PutBearsOnTopOfLibrary()
       {
         Battlefield(P1, "Grizzly Bears", "Grizzly Bears");
 

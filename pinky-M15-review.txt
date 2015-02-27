@@ -131,11 +131,11 @@ o Return to the Ranks
 o Soul of Theros
 o Spectra Ward
 o Spirit Bonds
-Warden of the Beyond
+o Warden of the Beyond
 
-Aetherspouts
-Amphin Pathmage
-Chasm Skulker
+o Aetherspouts
+o Amphin Pathmage
+o Chasm Skulker
 Chief Engineer
 Chronostutter
 Diffusion Sliver

@@ -1,6 +1,5 @@
 ﻿namespace Grove.Effects
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
@@ -8,10 +7,6 @@
   public class PutSelectedAttackersOnTopRestOnBottom : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>
   {
-    public PutSelectedAttackersOnTopRestOnBottom()
-    {
-    }
-
     public ChosenCards ChooseResult(List<Card> candidates)
     {
       return candidates.OrderBy(x => x.Score).ToList();
@@ -29,7 +24,7 @@
       foreach (var chosenCard in results)
       {
         chosenCard.PutOnTopOfLibrary();
-      }      
+      }
     }
 
     protected override void ResolveEffect()
@@ -39,7 +34,8 @@
           p.SetValidator(c => c.IsAttacker);
           p.Zone = Zone.Battlefield;
           p.MinCount = 0;
-          p.Text = "Choose attacking creatures to put on the top of library.";
+          p.Text = "Choose attackers to put on the top of library";
+          p.Instructions = "(others will be put on the bottom).";
           p.OwningCard = Source.OwningCard;
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;

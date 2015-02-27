@@ -8,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void GiveUnblockable()
+      public void MageBecomesUnblockable()
       {
         Battlefield(P1, "Amphin Pathmage", "Island", "Plains", "Island");
 
@@ -16,7 +16,6 @@
         Battlefield(P2, "Grizzly Bears", "Island", "Plains", "Island");
 
         RunGame(1);
-
         Equal(0, P2.Life);
       }
     }
