@@ -43,6 +43,11 @@
       {
         return _owningCard.Has().Has(ability);
       }
+
+      public bool OpponentHasCardInExile()
+      {
+        return _owningCard.Controller.Opponent.Exile.Any();
+      }
     }
   }
 }
