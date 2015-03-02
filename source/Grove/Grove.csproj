@@ -229,6 +229,7 @@
     <Compile Include="CardsLibrary\DarkDeal.cs" />
     <Compile Include="CardsLibrary\DarksteelCitadel.cs" />
     <Compile Include="CardsLibrary\DauntlessRiverMarshal.cs" />
+    <Compile Include="CardsLibrary\DazzlingRamparts.cs" />
     <Compile Include="CardsLibrary\DeadDrop.cs" />
     <Compile Include="CardsLibrary\DebilitatingInjury.cs" />
     <Compile Include="CardsLibrary\DevouringLight.cs" />
