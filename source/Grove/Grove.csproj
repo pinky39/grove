@@ -218,6 +218,7 @@
     <Compile Include="CardsLibrary\CovenantOfBlood.cs" />
     <Compile Include="CardsLibrary\CovetousDragon.cs" />
     <Compile Include="CardsLibrary\CracklingDoom.cs" />
+    <Compile Include="CardsLibrary\CranialArchive.cs" />
     <Compile Include="CardsLibrary\CripplingBlight.cs" />
     <Compile Include="CardsLibrary\CripplingChill.cs" />
     <Compile Include="CardsLibrary\CrowdsFavor.cs" />
