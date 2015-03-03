@@ -436,6 +436,7 @@
     <Compile Include="CardsLibrary\ParagonOfGatheringMists.cs" />
     <Compile Include="CardsLibrary\ParagonOfNewDawns.cs" />
     <Compile Include="CardsLibrary\ParagonOfOpenGraves.cs" />
+    <Compile Include="CardsLibrary\PathToExile.cs" />
     <Compile Include="CardsLibrary\PeelFromReality.cs" />
     <Compile Include="CardsLibrary\PerilousVault.cs" />
     <Compile Include="CardsLibrary\PhyrexianNegator.cs" />
