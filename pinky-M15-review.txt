@@ -136,9 +136,9 @@ o Warden of the Beyond
 o Aetherspouts
 o Amphin Pathmage
 o Chasm Skulker
-Chief Engineer
-Chronostutter
-Diffusion Sliver
+o Chief Engineer
+o Chronostutter
+o Diffusion Sliver
 Dissipate
 Hydrosurge
 Invisibility

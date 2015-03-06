@@ -1,9 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI.TimingRules;
-  using Grove.Triggers;
+  using AI.TimingRules;
+  using Effects;
+  using Events;
+  using Triggers;
 
   public class PresenceOfTheMaster : CardTemplateSource
   {
@@ -20,7 +21,7 @@
           {
             p.Text = "Whenever a player casts an enchantment spell, counter it.";
             p.Trigger(new OnCastedSpell((_, spell) => spell.Is().Enchantment));
-            p.Effect = () => new CounterTopSpell();
+            p.Effect = () => new CounterThatSpell(P(e => e.TriggerMessage<SpellPutOnStackEvent>().Effect));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

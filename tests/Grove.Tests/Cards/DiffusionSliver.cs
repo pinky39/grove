@@ -5,36 +5,42 @@
 
   public class DiffusionSliver
   {
-    public class Ai : AiScenario
+    public class PredefinedAi : PredefinedAiScenario
     {
       [Fact]
-      public void PayManaDoNotCounterSpell()
+      public void EnoughManaToPayTheExtraCost()
       {
-        Battlefield(P1, "Diffusion Sliver", "Diffusion Sliver");
+        var blade = C("Doom blade");
+        var sliver = C("Diffusion Sliver");
 
-        P2.Life = 2;
-        Battlefield(P2, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp");
-        Hand(P2, "Doom blade");
+        Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp");
+        Hand(P1, blade);
+        Battlefield(P2, sliver, "Diffusion Sliver");
 
-        RunGame(1);
-
-        Equal(0, P2.Hand.Count);
-        Equal(1, P2.Life);
+        Exec(
+          At(Step.FirstMain)
+            .Cast(blade, target: sliver),
+          At(Step.SecondMain)
+            .Verify(() =>
+              Equal(Zone.Graveyard, C(sliver).Zone)));
       }
 
       [Fact]
-      public void CounterSpellWhenCannotPayMana()
+      public void NotEnoughManaToPayTheExtraCost()
       {
-        Battlefield(P1, "Diffusion Sliver", "Diffusion Sliver");
+        var blade = C("Doom blade");
+        var sliver = C("Diffusion Sliver");
 
-        P2.Life = 2;
-        Battlefield(P2, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp");
-        Hand(P2, "Doom blade");
+        Battlefield(P1, "Swamp", "Swamp", "Swamp");
+        Hand(P1, blade);
+        Battlefield(P2, sliver, "Diffusion Sliver");
 
-        RunGame(1);
-
-        Equal(1, P2.Hand.Count);
-        Equal(0, P2.Life);
+        Exec(
+          At(Step.FirstMain)
+            .Cast(blade, target: sliver),
+          At(Step.SecondMain)
+            .Verify(() =>
+              Equal(Zone.Battlefield, C(sliver).Zone)));
       }
     }
   }

@@ -2,8 +2,8 @@
 {
   using System;
   using System.Linq;
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
   public class OnBeingTargetedBySpellOrAbility : Trigger, IReceive<EffectPutOnStackEvent>
   {
@@ -18,9 +18,11 @@
 
     public void Receive(EffectPutOnStackEvent message)
     {
-      var validTargets = message.Effect.Targets.Where(target => _predicate(target, message.Effect, this));
+      var effectTargets = message.Effect.Targets
+        .Where(target => _predicate(target, message.Effect, this))
+        .ToList();
 
-      foreach (var target in validTargets)
+      foreach (var target in effectTargets)
       {
         Set(message);
       }

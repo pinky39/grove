@@ -87,13 +87,10 @@
       Add(card, c => _cards.AddToFront(c));
     }
 
-    public virtual void AddToFront(Card card, int skipCount)
+    public virtual void InsertAt(int index, Card card)
     {
-      if (skipCount > _cards.Count)
-        skipCount = _cards.Count;
-
-      Add(card, c => _cards.Insert(skipCount, c));
-    }
+      Add(card, c => _cards.Insert(index, c));
+    }        
 
     protected virtual void MoveToEnd(Card card)
     {

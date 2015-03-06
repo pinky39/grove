@@ -720,6 +720,7 @@
     <Compile Include="Core\Effects\PlayerSelectPermanentsAndSacrificeRest.cs" />
     <Compile Include="Core\Effects\Put11CountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutSelectedCardsIntoGraveyardOthersOnTop.cs" />
+    <Compile Include="Core\Effects\PutTargetsOnTopOfLibrary.cs" />
     <Compile Include="Core\Effects\Scry.cs" />
     <Compile Include="Core\Effects\SearchAuraAndAttachToOwningCard.cs" />
     <Compile Include="Core\Effects\CounterTargetSpellUnlessControllerPays1ForEachRevealedCard.cs" />
@@ -956,7 +957,7 @@
     <Compile Include="Core\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Core\Effects\PutAllPermanentsOnTopOfLibrary.cs" />
     <Compile Include="Core\Effects\PutFirstCardInPlayPutOtherCardsInZone.cs" />
-    <Compile Include="Core\Effects\PutTargetsOnTopOfLibrary.cs" />
+    <Compile Include="Core\Effects\PutTargetsIntoLibraryAtPosition.cs" />
     <Compile Include="Core\Effects\RegenerateTarget.cs" />
     <Compile Include="Core\Effects\RemoveAllCountersFromOwner.cs" />
     <Compile Include="Core\Effects\SacrificeToDealDamageToTarget.cs" />

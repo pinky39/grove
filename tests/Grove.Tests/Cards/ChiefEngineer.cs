@@ -10,14 +10,14 @@
       [Fact]
       public void CastJuggernautForConvoke()
       {
-        Hand(P1, "Juggernaut", "Darksteel Citadel");
-        Battlefield(P1, "Chief Engineer", "Island", "Island");
-
+        var juggernaut = C("Juggernaut");
+        Hand(P1, juggernaut);
+        Battlefield(P1, "Chief Engineer", "Island", "Island", "Grizzly Bears");
         Battlefield(P2, "Grizzly Bears");
 
         RunGame(1);
 
-        Equal(0, P1.Hand.Count);
+        Equal(Zone.Battlefield, C(juggernaut).Zone);
       }
     }
   }

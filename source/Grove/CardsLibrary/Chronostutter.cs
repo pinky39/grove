@@ -20,7 +20,7 @@
         {
           p.Text = "Put target creature into its owner's library second from the top.";
 
-          p.Effect = () => new PutTargetsOnTopOfLibrary(skipCount: 1);
+          p.Effect = () => new PutTargetsIntoLibraryAtPosition(positionFromTheTop: 1);
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

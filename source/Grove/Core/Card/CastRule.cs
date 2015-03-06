@@ -177,10 +177,8 @@
       }
 
       Publish(new SpellCastEvent(_card, p.Targets));
-
-
       Stack.Push(effect);
-      Publish(new SpellPutOnStackEvent(_card, p.Targets));
+      Publish(new SpellPutOnStackEvent(effect));
     }
 
     public bool CanTarget(ITarget target)

@@ -611,7 +611,7 @@
       _library.PutOnTop(card);
     }
 
-    public void PutCardOnTopOfLibrary(Card card, int skipCount)
+    public void PutCardIntoLibraryAtPosition(int positionFromTop, Card card)
     {
       if (card.Is().Token)
       {
@@ -619,7 +619,7 @@
         return;
       }
 
-      _library.AddToFront(card, skipCount);
+      _library.InsertAt(positionFromTop, card);
     }
 
     public void PutOnBottomOfLibrary(Card card)
