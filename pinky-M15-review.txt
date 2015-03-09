@@ -143,7 +143,7 @@ o Dissipate
 o Hydrosurge
 o Invisibility
 o Jace's Ingenuity
-Jalira, Master Polymorphist
+o Jalira, Master Polymorphist
 Jorubai Murk Lurker
 Master of Predicaments
 Military Intelligence

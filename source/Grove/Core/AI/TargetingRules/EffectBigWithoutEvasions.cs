@@ -17,7 +17,7 @@
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)        
+      var candidates = p.Candidates<Card>(ControlledBy.SpellOwner)
         .Where(attacker => _filter(attacker))
         .OrderByDescending(CalculateScore);
 
@@ -29,8 +29,8 @@
       if (!creature.CanAttack)
         return -1;
 
-      return Combat.CouldBeBlockedByAny(creature) ? 1 : 
-        creature.CalculateCombatDamageAmount(singleDamageStep: false);        
+      return Combat.CouldBeBlockedByAny(creature) ? 1 :
+        creature.CalculateCombatDamageAmount(singleDamageStep: false);
     }
   }
 }

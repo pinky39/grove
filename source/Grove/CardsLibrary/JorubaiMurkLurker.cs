@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
   using Modifiers;
@@ -32,7 +33,8 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-            p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
+            p.TargetingRule(new EffectYourAttackerOrBlocker());
+            p.TimingRule(new Any(new AfterYouDeclareAttackers(), new AfterYouDeclareBlockers()));
           });
     }
   }

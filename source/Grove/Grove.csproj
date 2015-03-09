@@ -677,6 +677,7 @@
     <Compile Include="Core\AI\TargetingRules\CostSacrificeLandToSearchLand.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectSwitchPowerAndToughness.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectUntapPermanent.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectYourAttackerOrBlocker.cs" />
     <Compile Include="Core\AI\TargetingRules\PreventNextDamage.cs" />
     <Compile Include="Core\AI\TimingRules\AfterOpponentDeclaresBlockers.cs" />
     <Compile Include="Core\AI\TimingRules\AfterYouDeclareAttackers.cs" />

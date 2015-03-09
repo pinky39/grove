@@ -322,6 +322,7 @@
     <Compile Include="Cards\JaliraMasterPolymorphist.cs" />
     <Compile Include="Cards\JasmineSeer.cs" />
     <Compile Include="Cards\JhoirasToolbox.cs" />
+    <Compile Include="Cards\JorubaiMurkLurker.cs" />
     <Compile Include="Cards\Juggernaut.cs" />
     <Compile Include="Cards\KapshoKitefins.cs" />
     <Compile Include="Cards\KarmicGuide.cs" />
