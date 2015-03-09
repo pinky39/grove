@@ -139,7 +139,7 @@ o Chasm Skulker
 o Chief Engineer
 o Chronostutter
 o Diffusion Sliver
-Dissipate
+o Dissipate
 Hydrosurge
 Invisibility
 Jace's Ingenuity
