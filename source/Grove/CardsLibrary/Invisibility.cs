@@ -15,17 +15,16 @@
         .ManaCost("{U}{U}")
         .Type("Enchantment - Aura")
         .Text("Enchant creature{EOL}Enchanted creature can't be blocked except by Walls. ")
-        .FlavorText("Verick held his breath. Breathing wouldn't reveal his position, but it would force him to smell the goblins.")
+        .FlavorText(
+          "Verick held his breath. Breathing wouldn't reveal his position, but it would force him to smell the goblins.")
         .Cast(p =>
-        {
-          p.Effect = () => new Attach(
-            () => new AddStaticAbility(Static.CanOnlyBeBlockedByWalls));
+          {
+            p.Effect = () => new Attach(() => new AddStaticAbility(Static.CanOnlyBeBlockedByWalls));
+            p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-          p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-
-          p.TimingRule(new OnFirstMain());
-          p.TargetingRule(new EffectCombatEnchantment());
-        });
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectCombatEnchantment());
+          });
     }
   }
 }

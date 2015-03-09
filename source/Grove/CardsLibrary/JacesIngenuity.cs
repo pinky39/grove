@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TimingRules;
   using Effects;
 
   public class JacesIngenuity : CardTemplateSource
@@ -14,9 +15,10 @@
         .Text("Draw three cards.")
         .FlavorText("\"Brute force can sometimes kick down a locked door, but knowledge is a skeleton key.\"")
         .Cast(p =>
-        {
-          p.Effect = () => new DrawCards(3);
-        });
+          {
+            p.Effect = () => new DrawCards(3);
+            p.TimingRule(new OnEndOfOpponentsTurn());
+          });
     }
   }
 }

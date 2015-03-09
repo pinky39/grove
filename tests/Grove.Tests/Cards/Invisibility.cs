@@ -8,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void EnchantedCannotBeBlockedWithBear()
+      public void BearIsUnblockable()
       {
         Battlefield(P1, C("Grizzly Bears").IsEnchantedWith("Invisibility"));
 
@@ -21,7 +21,7 @@
       }
 
       [Fact]
-      public void EnchantedIsBlockedWithWall()
+      public void BearCanBeBlockedByWall()
       {
         Battlefield(P1, C("Grizzly Bears").IsEnchantedWith("Invisibility", "Battle Mastery"));
 

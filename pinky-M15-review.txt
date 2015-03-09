@@ -140,9 +140,9 @@ o Chief Engineer
 o Chronostutter
 o Diffusion Sliver
 o Dissipate
-Hydrosurge
-Invisibility
-Jace's Ingenuity
+o Hydrosurge
+o Invisibility
+o Jace's Ingenuity
 Jalira, Master Polymorphist
 Jorubai Murk Lurker
 Master of Predicaments
