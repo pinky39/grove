@@ -956,7 +956,7 @@
     <Compile Include="Core\Effects\LookAtTopCardsPutPartInHandRestOnBottom.cs" />
     <Compile Include="Core\Effects\OpponentDiscardsHand.cs" />
     <Compile Include="Core\Effects\PutAllPermanentsOnTopOfLibrary.cs" />
-    <Compile Include="Core\Effects\PutFirstCardInPlayPutOtherCardsInZone.cs" />
+    <Compile Include="Core\Effects\PutFirstCardInPlayPutOtherCardsToZone.cs" />
     <Compile Include="Core\Effects\PutTargetsIntoLibraryAtPosition.cs" />
     <Compile Include="Core\Effects\RegenerateTarget.cs" />
     <Compile Include="Core\Effects\RemoveAllCountersFromOwner.cs" />

@@ -26,7 +26,7 @@
 
             p.Effect = () => new CompoundEffect(
               new ExileOwner(),
-              new PutFirstCardInPlayPutOtherCardsInZone(Zone.Graveyard, 
+              new PutFirstCardInPlayPutOtherCardsToZone(Zone.Graveyard, 
                 filter: c => c.Is().Creature));
           });
     }

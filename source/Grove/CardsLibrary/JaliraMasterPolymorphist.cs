@@ -35,10 +35,11 @@
             trg.Message = "Select a creature to sacrifice.";
           });
 
-          p.Effect = () => new PutFirstCardInPlayPutOtherCardsInZone(Zone.Library, 
+          p.Effect = () => new PutFirstCardInPlayPutOtherCardsToZone(
+            toZone: Zone.Library, 
             filter: c => c.Is().Creature && !c.Is().Legendary);
 
-          p.TargetingRule(new EffectOrCostRankBy(c => c.Score) { TargetLimit = 1 });
+          p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
         });
     }
   }
