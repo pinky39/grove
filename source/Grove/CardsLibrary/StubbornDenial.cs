@@ -20,7 +20,7 @@
           p.Effect = () => new FerociousEffect(
             normalEffects: new Effect[]
             {
-              new CounterTargetSpell(doNotCounterCost: 1),
+              new CounterTargetSpell(ep => ep.DoNotCounterCost = 1),
             },
             ferociousEffects: new Effect[]
             {

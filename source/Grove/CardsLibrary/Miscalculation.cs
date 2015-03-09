@@ -17,7 +17,7 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Effect = () => new CounterTargetSpell(doNotCounterCost: 2);
+            p.Effect = () => new CounterTargetSpell(ep => ep.DoNotCounterCost = 2);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
             p.TimingRule(new WhenTopSpellIsCounterable(2));
             p.TargetingRule(new EffectCounterspell());
