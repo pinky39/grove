@@ -144,8 +144,8 @@ o Hydrosurge
 o Invisibility
 o Jace's Ingenuity
 o Jalira, Master Polymorphist
-Jorubai Murk Lurker
-Master of Predicaments
+o Jorubai Murk Lurker
+o Master of Predicaments
 Military Intelligence
 Mind Sculpt
 Nimbus of the Isles

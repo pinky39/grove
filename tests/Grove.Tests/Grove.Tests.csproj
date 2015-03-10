@@ -356,6 +356,7 @@
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\MassCalcify.cs" />
+    <Compile Include="Cards\MasterOfPredicaments.cs" />
     <Compile Include="Cards\Masticore.cs" />
     <Compile Include="Cards\MeditationPuzzle.cs" />
     <Compile Include="Cards\Meltdown.cs" />

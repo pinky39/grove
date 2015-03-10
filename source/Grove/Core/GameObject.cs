@@ -104,9 +104,9 @@
       return hasWon;
     }
 
-    protected int RollADice()
-    {
-      return Game.Random.RollADice();
+    protected int RollADice(int numOfSides = 42)
+    {            
+      return Game.Random.RollADice(numOfSides);
     }
 
     protected void Publish<T>(T message)
