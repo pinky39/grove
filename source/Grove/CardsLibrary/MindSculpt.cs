@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TimingRules;
   using Effects;
 
   public class MindSculpt : CardTemplateSource
@@ -16,6 +17,7 @@
         .Cast(p =>
         {
           p.Effect = () => new PlayerPutsTopCardsFromLibraryToGraveyard(P(e => e.Controller.Opponent), count: 7);;
+          p.TimingRule(new OnFirstMain());
         });
     }
   }

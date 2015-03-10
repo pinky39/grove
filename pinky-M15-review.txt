@@ -146,9 +146,9 @@ o Jace's Ingenuity
 o Jalira, Master Polymorphist
 o Jorubai Murk Lurker
 o Master of Predicaments
-Military Intelligence
-Mind Sculpt
-Nimbus of the Isles
+o Military Intelligence
+o Mind Sculpt
+o Nimbus of the Isles
 Paragon of Gathering Mists
 Polymorphist's Jest
 Quickling
