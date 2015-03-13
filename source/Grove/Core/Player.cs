@@ -492,11 +492,6 @@
         result.AddRange(new PhyrexiaManaSource(this).GetUnits());
       }
       return result;
-//      return amount
-//        .Where(x => x.Color.IsPhyrexian)
-//        .Select(x => new { Color = x.Color, Count = x.Count })
-//        .SelectMany(x => new PhyrexiaManaSource(this, x.Color, x.Count).GetUnits())
-//        .ToList();
     }
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()
