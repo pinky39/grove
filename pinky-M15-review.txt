@@ -136,19 +136,19 @@ o Warden of the Beyond
 o Aetherspouts
 o Amphin Pathmage
 o Chasm Skulker
-Chief Engineer
-Chronostutter
-Diffusion Sliver
-Dissipate
-Hydrosurge
-Invisibility
-Jace's Ingenuity
-Jalira, Master Polymorphist
-Jorubai Murk Lurker
-Master of Predicaments
-Military Intelligence
-Mind Sculpt
-Nimbus of the Isles
+o Chief Engineer
+o Chronostutter
+o Diffusion Sliver
+o Dissipate
+o Hydrosurge
+o Invisibility
+o Jace's Ingenuity
+o Jalira, Master Polymorphist
+o Jorubai Murk Lurker
+o Master of Predicaments
+o Military Intelligence
+o Mind Sculpt
+o Nimbus of the Isles
 Paragon of Gathering Mists
 Polymorphist's Jest
 Quickling

@@ -303,6 +303,7 @@
     <Compile Include="Cards\HuntersAmbush.cs" />
     <Compile Include="Cards\HuntingMoa.cs" />
     <Compile Include="Cards\HushwingGryff.cs" />
+    <Compile Include="Cards\Hydrosurge.cs" />
     <Compile Include="Cards\IllGottenGains.cs" />
     <Compile Include="Cards\IllusoryAngel.cs" />
     <Compile Include="Cards\Impatience.cs" />
@@ -322,6 +323,7 @@
     <Compile Include="Cards\JaliraMasterPolymorphist.cs" />
     <Compile Include="Cards\JasmineSeer.cs" />
     <Compile Include="Cards\JhoirasToolbox.cs" />
+    <Compile Include="Cards\JorubaiMurkLurker.cs" />
     <Compile Include="Cards\Juggernaut.cs" />
     <Compile Include="Cards\KapshoKitefins.cs" />
     <Compile Include="Cards\KarmicGuide.cs" />
@@ -355,6 +357,7 @@
     <Compile Include="Cards\MartialCoup.cs" />
     <Compile Include="Cards\MartyrsCause.cs" />
     <Compile Include="Cards\MassCalcify.cs" />
+    <Compile Include="Cards\MasterOfPredicaments.cs" />
     <Compile Include="Cards\Masticore.cs" />
     <Compile Include="Cards\MeditationPuzzle.cs" />
     <Compile Include="Cards\Meltdown.cs" />

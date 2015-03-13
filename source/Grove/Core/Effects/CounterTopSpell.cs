@@ -2,37 +2,35 @@
 {
   using Decisions;
 
-  public class CounterTopSpell : Effect, IProcessDecisionResults<BooleanResult>
+  public class CounterThatSpell : Effect, IProcessDecisionResults<BooleanResult>
   {
+    private readonly DynParam<Effect> _spell;
     private readonly DynParam<int> _doNotCounterCost;
 
-    private CounterTopSpell() {}
+    private CounterThatSpell() {}
 
-    public CounterTopSpell(DynParam<int> doNotCounterCost = null)
+    public CounterThatSpell(DynParam<Effect> spell, DynParam<int> doNotCounterCost = null)
     {
+      _spell = spell;
       _doNotCounterCost = doNotCounterCost;
 
-      RegisterDynamicParameters(doNotCounterCost);
+      RegisterDynamicParameters(_doNotCounterCost, _spell);
     }
 
     protected override void ResolveEffect()
     {
-      if (Stack.TopSpell == null)
-        return;
-
       if (_doNotCounterCost == null)
       {
-        CounterSpell();
+        CounterSpell(_spell.Value);
         return;
       }
 
-      Enqueue(new PayOr(Stack.TopSpell.Controller, p =>
-      {
-        p.ManaAmount = _doNotCounterCost.Value.Colorless();
-        p.Text = string.Format("Pay {0}?", _doNotCounterCost);
-        p.ProcessDecisionResults = this;
-      }));
-
+      Enqueue(new PayOr(_spell.Value.Controller, p =>
+        {
+          p.ManaAmount = _doNotCounterCost.Value.Colorless();
+          p.Text = string.Format("Pay {0}?", _doNotCounterCost);
+          p.ProcessDecisionResults = this;
+        }));
     }
 
     public void ProcessResults(BooleanResult results)
@@ -40,13 +38,15 @@
       if (results.IsTrue)
         return;
 
-      CounterSpell();
+      CounterSpell(_spell.Value);
     }
 
-    private void CounterSpell()
+    private void CounterSpell(Effect spell)
     {
-      if (Stack.TopSpell != null)
-        Stack.Counter(Stack.TopSpell);
+      if (spell == null)
+        return;
+
+      Stack.Counter(spell);
     }
   }
 }

@@ -1,25 +1,32 @@
 ﻿namespace Grove.Effects
 {
-  using Grove.Decisions;
+  using System;
+  using Decisions;
+  using Infrastructure;
 
   public class CounterTargetSpell : Effect, IProcessDecisionResults<BooleanResult>
   {
-    private readonly int? _controllerLifeloss;
-    private readonly DynParam<int> _doNotCounterCost;
-    private readonly bool _tapLandsAndEmptyManaPool;
-    private readonly bool _exileTarget;
+    private readonly Parameters _p = new Parameters();
 
     private CounterTargetSpell() {}
 
-    public CounterTargetSpell(DynParam<int> doNotCounterCost = null, int? controllerLifeloss = null,
-      bool tapLandsAndEmptyManaPool = false, bool exileTarget = false)
+    [Copyable]
+    public class Parameters
     {
-      _controllerLifeloss = controllerLifeloss;
-      _doNotCounterCost = doNotCounterCost;
-      _tapLandsAndEmptyManaPool = tapLandsAndEmptyManaPool;
-      _exileTarget = exileTarget;
+      public DynParam<int> DoNotCounterCost;
+      public int? ControllerLifeloss;
+      public bool TapLandsAndEmptyManaPool;
+      public bool ExileSpell;
+    }
 
-      RegisterDynamicParameters(doNotCounterCost);
+    public CounterTargetSpell(Action<Parameters> setParmeters = null)
+    {
+      if (setParmeters != null)
+      {
+        setParmeters(_p);
+      }
+
+      RegisterDynamicParameters(_p.DoNotCounterCost);
     }
 
     public void ProcessResults(BooleanResult results)
@@ -34,7 +41,7 @@
     {
       var targetSpellController = Target.Effect().Controller;
 
-      if (_doNotCounterCost == null)
+      if (_p.DoNotCounterCost == null)
       {
         CounterSpell();
         return;
@@ -42,23 +49,22 @@
 
       Enqueue(new PayOr(targetSpellController, p =>
         {
-          p.ManaAmount = _doNotCounterCost.Value.Colorless();
-          p.Text = string.Format("Pay {0}?", _doNotCounterCost);
+          p.ManaAmount = _p.DoNotCounterCost.Value.Colorless();
+          p.Text = string.Format("Pay {0}?", _p.DoNotCounterCost);
           p.ProcessDecisionResults = this;
         }));
-      return;
     }
 
     private void CounterSpell()
     {
       var targetSpellController = Target.Effect().Controller;
 
-      if (_controllerLifeloss.HasValue)
+      if (_p.ControllerLifeloss.HasValue)
       {
-        targetSpellController.Life -= _controllerLifeloss.Value;
+        targetSpellController.Life -= _p.ControllerLifeloss.Value;
       }
 
-      if (_tapLandsAndEmptyManaPool)
+      if (_p.TapLandsAndEmptyManaPool)
       {
         foreach (var land in targetSpellController.Battlefield.Lands)
         {
@@ -70,7 +76,7 @@
 
       Stack.Counter(Target.Effect());
 
-      if (_exileTarget)
+      if (_p.ExileSpell)
       {
         Target.Effect().Source.OwningCard.Exile();
       }

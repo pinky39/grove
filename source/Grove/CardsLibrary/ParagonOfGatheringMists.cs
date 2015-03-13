@@ -41,8 +41,8 @@
               .Is.Card(c => c.Is().Creature && c.HasColor(CardColor.Blue), controlledBy: ControlledBy.SpellOwner, canTargetSelf: false)
               .On.Battlefield());
 
-          p.TimingRule(new OnFirstMain());
-          p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, controlledBy: ControlledBy.SpellOwner));
+          p.TimingRule(new BeforeYouDeclareAttackers());
+          p.TargetingRule(new EffectBigWithoutEvasions(c => !c.Has().Flying));
         });
     }
   }

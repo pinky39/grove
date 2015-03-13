@@ -23,7 +23,7 @@
           {
             p.Text = "{T}: Counter target spell unless its controller pays {1}.";
             p.Cost = new Tap();
-            p.Effect = () => new CounterTargetSpell(doNotCounterCost: 1);
+            p.Effect = () => new CounterTargetSpell(ep => ep.DoNotCounterCost = 1);
             p.TargetSelector.AddEffect(trg => trg.Is.CounterableSpell().On.Stack());
 
             p.TargetingRule(new EffectCounterspell());

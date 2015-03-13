@@ -46,9 +46,8 @@
       return result == 0;
     }
 
-    public int RollADice()
-    {
-      const int numOfSides = 42;
+    public int RollADice(int numOfSides)
+    {      
       return Next(1, numOfSides);
     }
 

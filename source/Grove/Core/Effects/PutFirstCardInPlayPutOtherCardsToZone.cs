@@ -3,38 +3,38 @@
   using System;
   using System.Collections.Generic;
 
-  public class PutFirstCardInPlayPutOtherCardsInZone : Effect
+  public class PutFirstCardInPlayPutOtherCardsToZone : Effect
   {
     private readonly Func<Card, bool> _filter;
-    private readonly Zone _zone;
+    private readonly Zone _toZone;
 
-    private PutFirstCardInPlayPutOtherCardsInZone() {}
+    private PutFirstCardInPlayPutOtherCardsToZone() {}
 
-    public PutFirstCardInPlayPutOtherCardsInZone(Zone zone, Func<Card, bool> filter = null)
+    public PutFirstCardInPlayPutOtherCardsToZone(Zone toZone, Func<Card, bool> filter = null)
     {
-      _zone = zone;
+      _toZone = toZone;
       _filter = filter ?? delegate { return true; };
     }
 
     protected override void ResolveEffect()
     {
-      var toGraveyard = new List<Card>();
-      
+      var toOtherZone = new List<Card>();
+
       foreach (var card in Controller.Library)
       {
         if (_filter(card))
         {
           card.PutToBattlefield();
-        
-          break;                    
+
+          break;
         }
-        
-        toGraveyard.Add(card);
+
+        toOtherZone.Add(card);
       }
 
-      foreach (var card in toGraveyard)
+      foreach (var card in toOtherZone)
       {
-        switch (_zone)
+        switch (_toZone)
         {
           case Zone.Graveyard:
             card.PutToGraveyard();
@@ -45,8 +45,8 @@
             break;
 
           default:
-            throw new NotSupportedException("Zone is not supported: " + _zone);
-        }        
+            throw new NotSupportedException("Zone is not supported: " + _toZone);
+        }
       }
     }
   }

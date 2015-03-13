@@ -1,8 +1,14 @@
 ﻿namespace Grove.Events
 {
-  public class SpellPutOnStackEvent : SpellCastEvent
+  public class SpellPutOnStackEvent
   {
-    public SpellPutOnStackEvent(Card card, Targets targets) 
-      : base(card, targets) {}
+    public readonly Effect Effect;
+    public Card Card { get { return Effect.Source.OwningCard; } }
+    public Player Controller { get { return Effect.Controller; } }
+
+    public SpellPutOnStackEvent(Effect effect)
+    {
+      Effect = effect;
+    }
   }
 }
