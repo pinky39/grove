@@ -20,9 +20,10 @@
           {
             token = token.ToLowerInvariant();
 
-            if (token == "w" || token == "u" || token == "b" || token == "r" || token == "g" || token == "t" || token == "x" ||
-              token == "1" || token == "2" || token == "3" || token == "4" || token == "5" || token == "6" ||
-                token == "7" || token == "8" || token == "9")
+            if (token == "w" || token == "u" || token == "b" || token == "r" || token == "g" ||
+              token == "wp" || token == "up" || token == "bp" || token == "rp" || token == "gp" ||
+              token == "t" || token == "x" ||
+              token == "1" || token == "2" || token == "3" || token == "4" || token == "5" || token == "6" || token == "7" || token == "8" || token == "9")
             {
               return new ManaSymbolToken(token);
             }

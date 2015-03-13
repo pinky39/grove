@@ -23,7 +23,7 @@
           parsed[ManaColor.Colorless] = colorless.Value;
           continue;
         }
-
+        
         var color = ParseColored(token);
 
         if (parsed.ContainsKey(color))
@@ -44,7 +44,7 @@
 
     private static ManaColor ParseColored(string token)
     {
-      bool isWhite = false, isBlue = false, isBlack = false, isRed = false, isGreen = false;
+      bool isWhite = false, isBlue = false, isBlack = false, isRed = false, isGreen = false, isPhyrexian = false;
 
       foreach (var ch in token)
       {
@@ -65,10 +65,13 @@
           case ('G'):
             isGreen = true;
             break;
+          case ('P'):
+            isPhyrexian = true;
+            break;
         }
       }
 
-      return new ManaColor(isWhite, isBlue, isBlack, isRed, isGreen);
+      return new ManaColor(isWhite, isBlue, isBlack, isRed, isGreen, false, isPhyrexian);
     }
 
     private static int? ParseColorless(string token)

@@ -21,8 +21,10 @@
     private readonly bool[] _isColor;
 
     public ManaColor(bool isWhite = false, bool isBlue = false, bool isBlack = false, bool isRed = false,
-      bool isGreen = false, bool isColorless = false)
+      bool isGreen = false, bool isColorless = false, bool isPhyrexian = false)
     {
+      IsPhyrexian = isPhyrexian;
+
       _isColor = new[] {isWhite, isBlue, isBlack, isRed, isGreen, isColorless};
 
       for (var i = 0; i < _isColor.Length; i++)
@@ -33,6 +35,8 @@
         }
       }
     }
+
+    public bool IsPhyrexian { get; private set; }
 
     public List<int> Indices { get { return _colorIndices; } }
 
@@ -49,7 +53,8 @@
       if (ReferenceEquals(null, other)) return false;
       if (ReferenceEquals(this, other)) return true;
 
-      return _colorIndices.SequenceEqual(other._colorIndices);
+      return _colorIndices.SequenceEqual(other._colorIndices) 
+        && this.IsPhyrexian == other.IsPhyrexian;
     }
 
     public override bool Equals(object obj)

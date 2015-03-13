@@ -247,11 +247,18 @@
         };
 
       IEnumerable<ManaUnit> allUnits = _units;
+      var phyrexianUnits = new List<ManaUnit>();
       
       if (additional != null)
       {
         foreach (var unit in additional)
         {
+          if (unit.Color.IsPhyrexian)
+          {
+            phyrexianUnits.Add(unit);
+            continue;
+          }
+
           foreach (var color in unit.Color.Indices)
           {
             additionalGrouped[color].Add(unit);
@@ -268,7 +275,7 @@
       }
 
       var checkAmount = amount
-        .Select(x => new {Color = GetColorIndex(x), Count = x.Count})
+        .Select(x => new {Color = GetColorIndex(x), Count = x.Count, IsPhyrexian = x.Color.IsPhyrexian})
         .OrderBy(x => _groups[x.Color].Count)
         .ToArray();
 
@@ -283,13 +290,30 @@
         {
           var allocatedUnit = ordered.FirstOrDefault(unit => IsAvailable(unit, restricted, usage));
 
+          if (manaOfSingleColor.IsPhyrexian)
+          {
+            var phyrexianUnit = phyrexianUnits.FirstOrDefault(unit => IsAvailable(unit, restricted, usage));
+
+            var totalOfSameColor = ordered.Count(x => x.Color.Indices.Any(index => index == manaOfSingleColor.Color));
+            var totalOfAllColors = allUnits.Count(x => !x.Color.IsPhyrexian);
+
+            // i reduces allocated units
+            if (totalOfSameColor <= manaOfSingleColor.Count - i || totalOfAllColors < amount.Converted - i)
+            {
+              allocatedUnit = phyrexianUnit ?? allocatedUnit;
+            }            
+          }
+
           if (allocatedUnit == null)
             return null;
 
           restricted.Add(allocatedUnit);
           allocated.Add(allocatedUnit);
 
-          RestrictUsingDifferentSourcesFromSameCard(allocatedUnit, restricted, allUnits);
+          if (!manaOfSingleColor.IsPhyrexian)
+          {
+            RestrictUsingDifferentSourcesFromSameCard(allocatedUnit, restricted, allUnits);
+          }          
         }
       }
 

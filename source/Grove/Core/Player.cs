@@ -356,7 +356,11 @@
         ? GetDelveSources()
         : Enumerable.Empty<ManaUnit>();
 
-      additionalUnits = additionalUnits.Concat(fromDelveUnits);
+      var phyrexianUnits = GetPhyrexiaSources();
+
+      additionalUnits = additionalUnits
+        .Concat(fromDelveUnits)
+        .Concat(phyrexianUnits);
 
       ManaCache.Consume(amount, usage, additionalUnits);
     }
@@ -454,7 +458,11 @@
         ? GetDelveSources()
         : Enumerable.Empty<ManaUnit>();
 
-      additionalUnits = additionalUnits.Concat(fromDelveUnits);
+      var phyrexianUnits = GetPhyrexiaSources();
+
+      additionalUnits = additionalUnits
+        .Concat(fromDelveUnits)
+        .Concat(phyrexianUnits);
 
       return ManaCache.Has(amount, usage, additionalUnits);
     }
@@ -473,6 +481,22 @@
         .OrderBy(x => x.Score)
         .SelectMany(x => new DelveManaSource(x).GetUnits())
         .ToList();
+    }
+
+    private IEnumerable<ManaUnit> GetPhyrexiaSources()
+    {
+      var result = new List<ManaUnit>();
+      var count = this.Life/2;
+      for (int i = 0; i < count; i++)
+      {
+        result.AddRange(new PhyrexiaManaSource(this).GetUnits());
+      }
+      return result;
+//      return amount
+//        .Where(x => x.Color.IsPhyrexian)
+//        .Select(x => new { Color = x.Color, Count = x.Count })
+//        .SelectMany(x => new PhyrexiaManaSource(this, x.Color, x.Count).GetUnits())
+//        .ToList();
     }
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()

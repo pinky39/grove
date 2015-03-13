@@ -204,6 +204,7 @@
     <Compile Include="Cards\DiscipleOfGrace.cs" />
     <Compile Include="Cards\DiscordantDirge.cs" />
     <Compile Include="Cards\DiseaseCarriers.cs" />
+    <Compile Include="Cards\Dismember.cs" />
     <Compile Include="Cards\Disorder.cs" />
     <Compile Include="Cards\Dissipate.cs" />
     <Compile Include="Cards\DivineFavor.cs" />

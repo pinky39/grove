@@ -446,7 +446,10 @@
 
           for (var i = 0; i < single.Count; i++)
           {
-            images.Add(symbol.Symbol);
+            var symbolValue = single.Color.IsPhyrexian
+              ? symbol.Symbol + "p"
+              : symbol.Symbol;
+            images.Add(symbolValue);
           }
         }
 
