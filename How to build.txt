@@ -1,3 +1,0 @@
-You need Powershell to build the project.
-
-Run Build.bat

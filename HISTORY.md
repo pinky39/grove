@@ -1,5 +1,3 @@
-# Release notes
-
 ## Version 3.0 (2014/08/11)
 
 ### New cards (140)
