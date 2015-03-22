@@ -248,6 +248,7 @@
     <Compile Include="CardsLibrary\DragonscaleBoon.cs" />
     <Compile Include="CardsLibrary\DragonscaleGeneral.cs" />
     <Compile Include="CardsLibrary\DragonStyleTwins.cs" />
+    <Compile Include="CardsLibrary\DromokaDunecaster.cs" />
     <Compile Include="CardsLibrary\EliteScaleguard.cs" />
     <Compile Include="CardsLibrary\ElvishLookout.cs" />
     <Compile Include="CardsLibrary\ElvishMystic.cs" />
