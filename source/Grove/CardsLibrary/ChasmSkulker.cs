@@ -35,7 +35,7 @@
           p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
 
           p.Effect = () => new CreateTokens(
-              count: P(e => e.Source.OwningCard.Counters),
+              count: P(e => e.Source.OwningCard.CountersCount(CounterType.PowerToughness)),
               token: Card
                 .Named("Squid")
                 .Power(1)
