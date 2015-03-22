@@ -60,9 +60,9 @@ task DoRelease -depends Compile {
   $zip = "$tools_dir\\7za.exe"
 
   cp "$build_dir\grove.exe" $release_dir
-  cp "$base_dir\readme.txt" $release_dir
-  cp "$base_dir\license.txt" $release_dir
-	cp "$base_dir\release notes.txt" $release_dir
+  cp "$base_dir\readme.md" "$release_dir\readme.txt"
+  cp "$base_dir\license" $release_dir
+	cp "$base_dir\history.md" "$release_dir\history.txt"
 	cp "$base_dir\cards.txt" $release_dir
 
   cp -recurse "$media_dir\decks" "$release_dir\media\decks"
