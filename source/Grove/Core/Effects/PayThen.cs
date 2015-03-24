@@ -2,7 +2,7 @@
 {
   using System;
   using Decisions;
-    
+
   public class PayManaThen : PayThen
   {
     private readonly DynParam<ManaAmount> _amount;
@@ -10,7 +10,7 @@
     private PayManaThen() {}
 
     public PayManaThen(DynParam<ManaAmount> amount, Effect effect, Parameters parameters = null)
-      : base(effect, parameters ?? new Parameters() { Message = "Pay mana?" })
+      : base(effect, parameters ?? new Parameters {Message = "Pay mana?"})
     {
       _amount = amount;
       RegisterDynamicParameters(_amount);
@@ -29,10 +29,12 @@
 
   public class PayLifeThen : PayThen
   {
+    private PayLifeThen() {}
+
     private readonly DynParam<int> _amount;
 
     public PayLifeThen(DynParam<int> amount, Effect effect, Parameters parameters = null)
-      : base(effect, parameters ?? new Parameters(){ Message = "Pay life?"})
+      : base(effect, parameters ?? new Parameters {Message = "Pay life?"})
     {
       _amount = amount;
       RegisterDynamicParameters(_amount);
@@ -48,9 +50,9 @@
       return _amount;
     }
   }
-  
+
   public abstract class PayThen : Effect, IProcessDecisionResults<BooleanResult>, IChooseDecisionResults<BooleanResult>
-  {    
+  {
     private readonly Effect _effect;
     private readonly bool _execIfPaid;
     private readonly string _message;
@@ -60,7 +62,6 @@
 
     protected PayThen(Effect effect, Parameters p)
     {
-      
       _effect = effect;
       _execIfPaid = p.ExecuteIfPaid;
       _message = p.Message;
@@ -98,7 +99,7 @@
       {
         _effect.AfterResolve(_effect);
       }
-      
+
       base.FinishResolve();
     }
 

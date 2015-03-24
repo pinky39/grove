@@ -24,7 +24,7 @@
       if (Turn.Step != Step.SecondMain)
         return false;
 
-      var availableMana = p.Controller.GetAvailableConvertedMana(
+      var availableMana = p.Controller.GetAvailableMana(
         canUseConvoke: p.Card.Has().Convoke, 
         canUseDelve: p.Card.Has().Delve);
 

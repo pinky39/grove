@@ -36,7 +36,7 @@
       }
     }
 
-    public bool IsPhyrexian { get; private set; }
+    public readonly bool IsPhyrexian;
 
     public List<int> Indices { get { return _colorIndices; } }
 

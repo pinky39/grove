@@ -1,8 +1,9 @@
 ﻿namespace Grove.Tests.Unit
 {
+  using Infrastructure;
   using Xunit;
 
-  public class ManaFacts
+  public class ManaFacts : PredefinedScenario
   {
     [Fact]
     public void Consume1()
@@ -88,33 +89,38 @@
       AssertAvailable("{G}{B}");
     }
 
-    private readonly ManaCache _cache = new ManaCache();
+    public ManaFacts()
+    {
+      _cache = new ManaCache(P1);
+    }
+
+    private readonly ManaCache _cache;
 
     private void Add(string manaAmount)
     {
       _cache.AddManaToPool(manaAmount.Parse(), ManaUsage.Any);
-    }    
+    }
 
     private void Consume(string manaAmount)
     {
-      _cache.Consume(manaAmount.Parse(), ManaUsage.Any);
+      _cache.Consume(manaAmount.Parse(), ManaUsage.Any, false, false);
     }
 
     private void AssertHas(int count)
     {
-      var amount = _cache.GetAvailableConvertedMana(ManaUsage.Any);
+      var amount = _cache.GetAvailableMana(ManaUsage.Any, false, false);
       Assert.Equal(count, amount);
     }
 
     private void AssertAvailable(string amount)
     {
-      var has = _cache.Has(amount.Parse(), ManaUsage.Any);
+      var has = _cache.Has(amount.Parse(), ManaUsage.Any, false, false);
       Assert.True(has);
     }
 
     private void AssertNotAvailable(string amount)
     {
-      var has = _cache.Has(amount.Parse(), ManaUsage.Any);
+      var has = _cache.Has(amount.Parse(), ManaUsage.Any, false, false);
       Assert.False(has);
     }
   }

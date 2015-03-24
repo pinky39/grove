@@ -50,7 +50,7 @@
       {
         if (_hasX)
         {
-          var availableMana = Controller.GetAvailableConvertedMana(GetManaUsage(), canUseConvoke: Card.Has().Convoke,
+          var availableMana = Controller.GetAvailableMana(GetManaUsage(), canUseConvoke: Card.Has().Convoke,
             canUseDelve: Card.Has().Delve);
           maxX = availableMana - actualCost.Converted;
         }

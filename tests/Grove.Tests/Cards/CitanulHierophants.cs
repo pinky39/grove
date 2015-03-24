@@ -18,7 +18,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(hierophants)
-            .Verify(() => Equal(3, P1.GetAvailableConvertedMana()))
+            .Verify(() => Equal(3, P1.GetAvailableMana()))
           );
       }
     }

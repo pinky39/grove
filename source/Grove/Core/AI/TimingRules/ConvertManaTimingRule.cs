@@ -17,7 +17,7 @@
       if (Turn.Step != Step.FirstMain && Turn.Step != Step.SecondMain)
         return false;
 
-      var availableMana = p.Controller.GetAvailableConvertedMana() - _relativeCost;
+      var availableMana = p.Controller.GetAvailableMana() - _relativeCost;
 
       // only cards in hand
       foreach (var card in p.Controller.Hand)

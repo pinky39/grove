@@ -9,7 +9,7 @@
 
   public class Player : GameObject, ITarget, IDamageable, IHasLife, IModifiable
   {
-    public readonly ManaCache ManaCache = new ManaCache();
+    public readonly ManaCache ManaCache;
 
     private readonly AssignedDamage _assignedDamage;
     private readonly Battlefield _battlefield;
@@ -35,6 +35,7 @@
       AvatarId = p.AvatarId;
       Type = controllerType;
 
+      ManaCache = new ManaCache(this);
       _assignedDamage = new AssignedDamage(this);
       _battlefield = new Battlefield(this);
       _hand = new Hand(this);
@@ -48,16 +49,9 @@
     public PlayerType Type { get; private set; }
     public string Name { get; private set; }
 
-    public Player Opponent
-    {
-      get { return Players.GetOpponent(this); }
-    }
+    public Player Opponent { get { return Players.GetOpponent(this); } }
 
-    public int LandsPlayedCount
-    {
-      get { return _landsPlayedCount.Value; }
-      set { _landsPlayedCount.Value = value; }
-    }
+    public int LandsPlayedCount { get { return _landsPlayedCount.Value; } set { _landsPlayedCount.Value = value; } }
 
     private IEnumerable<IAcceptsPlayerModifier> ModifiableProperties
     {
@@ -71,96 +65,41 @@
 
     public int AvatarId { get; private set; }
 
-    public Deck Deck
-    {
-      get { return _deck; }
-    }
+    public Deck Deck { get { return _deck; } }
 
-    public IBattlefieldQuery Battlefield
-    {
-      get { return _battlefield; }
-    }
+    public IBattlefieldQuery Battlefield { get { return _battlefield; } }
 
-    public IEnumerable<Card> Exile
-    {
-      get { return _exile; }
-    }
+    public IEnumerable<Card> Exile { get { return _exile; } }
 
-    public bool CanMulligan
-    {
-      get { return _hand.CanMulligan && HasMulligan; }
-    }
+    public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }
 
-    public bool CanPlayLands
-    {
-      get { return LandsPlayedCount < _landLimit.Value; }
-    }
+    public bool CanPlayLands { get { return LandsPlayedCount < _landLimit.Value; } }
 
-    public IGraveyardQuery Graveyard
-    {
-      get { return _graveyard; }
-    }
+    public IGraveyardQuery Graveyard { get { return _graveyard; } }
 
-    public IHandQuery Hand
-    {
-      get { return _hand; }
-    }
+    public IHandQuery Hand { get { return _hand; } }
 
-    public bool HasLost
-    {
-      get { return _hasLost.Value; }
-      set { _hasLost.Value = value; }
-    }
+    public bool HasLost { get { return _hasLost.Value; } set { _hasLost.Value = value; } }
 
-    public bool HasMulligan
-    {
-      get { return _hasMulligan.Value; }
-      set { _hasMulligan.Value = value; }
-    }
+    public bool HasMulligan { get { return _hasMulligan.Value; } set { _hasMulligan.Value = value; } }
 
-    public bool HasPriority
-    {
-      get { return _hasPriority.Value; }
-      set { _hasPriority.Value = value; }
-    }
+    public bool HasPriority { get { return _hasPriority.Value; } set { _hasPriority.Value = value; } }
 
-    public virtual bool IsActive
-    {
-      get { return _isActive.Value; }
-      set { _isActive.Value = value; }
-    }
+    public virtual bool IsActive { get { return _isActive.Value; } set { _isActive.Value = value; } }
 
-    public bool IsHuman
-    {
-      get { return Type == PlayerType.Human; }
-    }
+    public bool IsHuman { get { return Type == PlayerType.Human; } }
 
-    public bool IsMachine
-    {
-      get { return Type == PlayerType.Machine; }
-    }
+    public bool IsMachine { get { return Type == PlayerType.Machine; } }
 
-    public bool IsScenario
-    {
-      get { return Type == PlayerType.Scenario; }
-    }
+    public bool IsScenario { get { return Type == PlayerType.Scenario; } }
 
     public bool IsMax { get; set; }
 
-    public ILibraryQuery Library
-    {
-      get { return _library; }
-    }
+    public ILibraryQuery Library { get { return _library; } }
 
-    public bool HasAttackedThisTurn
-    {
-      get { return IsActive && Game.Turn.Events.HasActivePlayerAttackedThisTurn; }
-    }
+    public bool HasAttackedThisTurn { get { return IsActive && Game.Turn.Events.HasActivePlayerAttackedThisTurn; } }
 
-    public int NumberOfCardsAboveMaximumHandSize
-    {
-      get { return Math.Max(0, _hand.Count - 7); }
-    }
+    public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
 
     public int Score
     {
@@ -321,19 +260,10 @@
       _battlefield.Add(card);
     }
 
-    public int GetAvailableConvertedMana(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false, bool canUseDelve = false)
-    {
-      var additionalUnits = canUseConvoke
-       ? GetConvokeSources()
-       : Enumerable.Empty<ManaUnit>();
-
-      var fromDelveUnits = canUseDelve
-        ? GetDelveSources()
-        : Enumerable.Empty<ManaUnit>();
-
-      additionalUnits = additionalUnits.Concat(fromDelveUnits);
-
-      return ManaCache.GetAvailableConvertedMana(usage, additionalUnits);
+    public int GetAvailableMana(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
+      bool canUseDelve = false)
+    {      
+      return ManaCache.GetAvailableMana(usage, canUseConvoke, canUseDelve);
     }
 
     public void AddManaToManaPool(ManaAmount manaAmount, ManaUsage usageRestriction = ManaUsage.Any)
@@ -347,22 +277,8 @@
     }
 
     public void Consume(ManaAmount amount, ManaUsage usage, bool canUseConvoke = false, bool canUseDelve = false)
-    {
-      var additionalUnits = canUseConvoke
-        ? GetConvokeSources()
-        : Enumerable.Empty<ManaUnit>();
-
-      var fromDelveUnits = canUseDelve
-        ? GetDelveSources()
-        : Enumerable.Empty<ManaUnit>();
-
-      var phyrexianUnits = GetPhyrexiaSources();
-
-      additionalUnits = additionalUnits
-        .Concat(fromDelveUnits)
-        .Concat(phyrexianUnits);
-
-      ManaCache.Consume(amount, usage, additionalUnits);
+    {      
+      ManaCache.Consume(amount, usage, canUseConvoke, canUseDelve);
     }
 
     public void DealAssignedDamage()
@@ -448,51 +364,11 @@
       return HasMana(amount.Colorless(), usage, canUseConvoke);
     }
 
-    public bool HasMana(ManaAmount amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false, bool canUseDelve = false)
-    {
-      var additionalUnits = canUseConvoke
-        ? GetConvokeSources()
-        : Enumerable.Empty<ManaUnit>();
-
-      var fromDelveUnits = canUseDelve
-        ? GetDelveSources()
-        : Enumerable.Empty<ManaUnit>();
-
-      var phyrexianUnits = GetPhyrexiaSources();
-
-      additionalUnits = additionalUnits
-        .Concat(fromDelveUnits)
-        .Concat(phyrexianUnits);
-
-      return ManaCache.Has(amount, usage, additionalUnits);
-    }
-
-    private IEnumerable<ManaUnit> GetConvokeSources()
-    {
-      return Battlefield.Creatures
-        .OrderBy(x => x.Power)
-        .SelectMany(x => new ConvokeManaSource(x).GetUnits())        
-        .ToList();
-    }
-
-    private IEnumerable<ManaUnit> GetDelveSources()
-    {
-      return Graveyard
-        .OrderBy(x => x.Score)
-        .SelectMany(x => new DelveManaSource(x).GetUnits())
-        .ToList();
-    }
-
-    private IEnumerable<ManaUnit> GetPhyrexiaSources()
-    {
-      var result = new List<ManaUnit>();
-      var count = this.Life/2;
-      for (int i = 0; i < count; i++)
-      {
-        result.AddRange(new PhyrexiaManaSource(this).GetUnits());
-      }
-      return result;
-    }
+    public bool HasMana(ManaAmount amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
+      bool canUseDelve = false)
+    {      
+      return ManaCache.Has(amount, usage, canUseConvoke, canUseDelve);
+    }    
 
     public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()
     {
@@ -678,7 +554,7 @@
     public void ReorderTopCardsOfLibrary(int[] permutation)
     {
       _library.ReorderFront(permutation);
-    }    
+    }
 
     public bool ShouldSkipStep(Step step)
     {

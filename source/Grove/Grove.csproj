@@ -770,7 +770,6 @@
     <Compile Include="Core\GameParameters.cs" />
     <Compile Include="Core\Mana\ConvokeManaSource.cs" />
     <Compile Include="Core\Mana\DelveManaSource.cs" />
-    <Compile Include="Core\Mana\PhyrexiaManaSource.cs" />
     <Compile Include="Core\Modifiers\AddNamedGameModifier.cs" />
     <Compile Include="Core\Modifiers\AddToList.cs" />
     <Compile Include="Core\Modifiers\ChangeCardTemplate.cs" />

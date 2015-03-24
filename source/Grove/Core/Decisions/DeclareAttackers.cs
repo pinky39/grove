@@ -172,7 +172,7 @@
         if (attackersWithCombatCost.Count == 0)
           return allAttackers;
 
-        var availableMana = Controller.GetAvailableConvertedMana();
+        var availableMana = Controller.GetAvailableMana();
 
         foreach (var card in attackersWithCombatCost)
         {
@@ -222,7 +222,7 @@
     {
       protected override void ExecuteQuery()
       {
-        var availableMana = D.Controller.GetAvailableConvertedMana();
+        var availableMana = D.Controller.GetAvailableMana();
 
         var tp = new TargetValidatorParameters {MinCount = 0, MaxCount = null, Message = "Select attackers."}
           .Is.Card(c => c.CanAttack && c.Controller == D.Controller && c.CombatCost <= availableMana)

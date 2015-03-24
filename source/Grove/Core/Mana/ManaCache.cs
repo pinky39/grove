@@ -7,14 +7,18 @@
   [Copyable]
   public class ManaCache
   {
+    private readonly Player _controller;
     private readonly List<TrackableList<ManaUnit>> _groups;
     private readonly TrackableList<ManaUnit> _manaPool = new TrackableList<ManaUnit>();
     private readonly object _manaPoolCountLock = new object();
     private readonly TrackableList<ManaUnit> _removeList = new TrackableList<ManaUnit>();
     private readonly TrackableList<ManaUnit> _units = new TrackableList<ManaUnit>();
 
-    public ManaCache()
+    private ManaCache() {}
+
+    public ManaCache(Player controller)
     {
+      _controller = controller;
       _groups = new List<TrackableList<ManaUnit>>
         {
           new TrackableList<ManaUnit>(),
@@ -77,30 +81,60 @@
       }
     }
 
-    public int GetAvailableConvertedMana(ManaUsage usage, IEnumerable<ManaUnit> additional = null)
+    private List<ManaUnit> GetAdditionalManaSources(bool canUseConvoke, bool canUseDelve)
+    {
+      var additional = new List<ManaUnit>();
+
+      if (canUseConvoke)
+      {
+        additional.AddRange(GetConvokeSources());
+      }
+
+      if (canUseDelve)
+      {
+        additional.AddRange(GetDelveSources());
+      }
+
+      return additional;
+    }
+
+    public int GetAvailableMana(ManaUsage usage, bool canUseConvoke, bool canUseDelve)
     {
       var restricted = new HashSet<ManaUnit>();
       var allocated = new List<ManaUnit>();
 
-      additional = additional ?? Enumerable.Empty<ManaUnit>();
-
-      var all = _units.Concat(additional).ToList();
-      
-      foreach (var manaUnit in all)
+      foreach (var manaUnit in _units.Concat(GetAdditionalManaSources(canUseConvoke, canUseDelve)))
       {
         if (IsAvailable(manaUnit, restricted, usage))
         {
           restricted.Add(manaUnit);
           allocated.Add(manaUnit);
 
-          RestrictUsingDifferentSourcesFromSameCard(manaUnit, restricted, all);
+          RestrictUsingDifferentSourcesFromSameCard(manaUnit, restricted, _units);
         }
       }
 
       return allocated.Count;
     }
 
-    private void RestrictUsingDifferentSourcesFromSameCard(ManaUnit allocated, HashSet<ManaUnit> restricted, IEnumerable<ManaUnit> units)
+    private IEnumerable<ManaUnit> GetConvokeSources()
+    {
+      return _controller.Battlefield.Creatures
+        .OrderBy(x => x.Power)
+        .SelectMany(x => new ConvokeManaSource(x).GetUnits())
+        .ToList();
+    }
+
+    private IEnumerable<ManaUnit> GetDelveSources()
+    {
+      return _controller.Graveyard
+        .OrderBy(x => x.Score)
+        .SelectMany(x => new DelveManaSource(x).GetUnits())
+        .ToList();
+    }
+
+    private void RestrictUsingDifferentSourcesFromSameCard(ManaUnit allocated, HashSet<ManaUnit> restricted,
+      IEnumerable<ManaUnit> units)
     {
       // Same card cannot be tapped twice, therefore multiple sources 
       // from same card cannot be used simultaniously.
@@ -159,17 +193,19 @@
       RemovePermanently(unit);
     }
 
-    public bool Has(ManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
+    public bool Has(ManaAmount amount, ManaUsage usage, bool canUseConvoke, bool canUseDelve)
     {
-      return TryToAllocateAmount(amount, usage, additional) != null;
+      var allocated = TryToAllocateAmount(amount, usage, canUseConvoke, canUseDelve);
+
+      return allocated != null && allocated.Lifeloss < _controller.Life;
     }
 
-    public void Consume(ManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional = null)
+    public void Consume(ManaAmount amount, ManaUsage usage, bool canUseConvoke, bool canUseDelve)
     {
-      var allocated = TryToAllocateAmount(amount, usage, additional);
+      var allocated = TryToAllocateAmount(amount, usage, canUseConvoke, canUseDelve);
       Asrt.True(allocated != null, "Not enough mana available.");
 
-      var sources = GetSourcesToActivate(allocated);
+      var sources = GetSourcesToActivate(allocated.Units);
 
       foreach (var source in sources)
       {
@@ -186,16 +222,18 @@
 
       lock (_manaPoolCountLock)
       {
-        foreach (var unit in allocated)
+        foreach (var unit in allocated.Units)
         {
           _manaPool.Remove(unit);
         }
       }
 
-      foreach (var unit in allocated.Where(x => !x.HasSource))
+      foreach (var unit in allocated.Units.Where(x => !x.HasSource))
       {
         RemovePermanently(unit);
       }
+
+      _controller.Life -= allocated.Lifeloss;
     }
 
     private void RemoveAllScheduled()
@@ -231,52 +269,34 @@
       return true;
     }
 
-    private HashSet<ManaUnit> TryToAllocateAmount(ManaAmount amount, ManaUsage usage, IEnumerable<ManaUnit> additional)
+    private class AllocatedAmount
+    {
+      public readonly HashSet<ManaUnit> Units = new HashSet<ManaUnit>();
+      public int Lifeloss;
+    }
+
+    private AllocatedAmount TryToAllocateAmount(ManaAmount amount, ManaUsage usage, bool canUseConvoke, bool canUseDelve)
     {
       var restricted = new HashSet<ManaUnit>();
-      var allocated = new HashSet<ManaUnit>();
+      var allocated = new AllocatedAmount();
 
-      var additionalGrouped = new[]
-        {
-          new List<ManaUnit>(),
-          new List<ManaUnit>(),
-          new List<ManaUnit>(),
-          new List<ManaUnit>(),
-          new List<ManaUnit>(),
-          new List<ManaUnit>(),
-        };
-
-      IEnumerable<ManaUnit> allUnits = _units;
-      var phyrexianUnits = new List<ManaUnit>();
-      
-      if (additional != null)
-      {
-        foreach (var unit in additional)
-        {
-          if (unit.Color.IsPhyrexian)
-          {
-            phyrexianUnits.Add(unit);
-            continue;
-          }
-
-          foreach (var color in unit.Color.Indices)
-          {
-            additionalGrouped[color].Add(unit);
-          }
-
-          // Every mana can be used as colorless.
-          // True colorless mana was already added, so we don't add it again.
-          if (!unit.Color.IsColorless)
-          {
-            additionalGrouped[5].Add(unit);
-          }
-        }
-        allUnits = _units.Concat(additional).ToList();
-      }
+      var additional = GetAdditionalManaSources(canUseConvoke, canUseDelve);
+      var additionalGrouped = GroupAdditionalSources(additional);
+      var units = _units.Concat(additional).ToList();
 
       var checkAmount = amount
-        .Select(x => new {Color = GetColorIndex(x), Count = x.Count, IsPhyrexian = x.Color.IsPhyrexian})
-        .OrderBy(x => _groups[x.Color].Count)
+        .Select(x => new
+          {
+            Color = GetColorIndex(x),
+            Count = x.Count,
+            IsPhyrexian = x.Color.IsPhyrexian
+          })
+        
+        // if cost has phyrexian mana, check it at the end
+        .OrderBy(x => x.IsPhyrexian ? 2 : 1) 
+        
+        // first check for mana which has only few mana sources
+        .ThenBy(x => _groups[x.Color].Count)
         .ToArray();
 
       foreach (var manaOfSingleColor in checkAmount)
@@ -290,34 +310,57 @@
         {
           var allocatedUnit = ordered.FirstOrDefault(unit => IsAvailable(unit, restricted, usage));
 
-          if (manaOfSingleColor.IsPhyrexian)
+          if (allocatedUnit == null)
           {
-            var phyrexianUnit = phyrexianUnits.FirstOrDefault(unit => IsAvailable(unit, restricted, usage));
-
-            var totalOfSameColor = ordered.Count(x => x.Color.Indices.Any(index => index == manaOfSingleColor.Color));
-            var totalOfAllColors = allUnits.Count(x => !x.Color.IsPhyrexian);
-
-            // i reduces allocated units
-            if (totalOfSameColor <= manaOfSingleColor.Count - i || totalOfAllColors < amount.Converted - i)
+            if (manaOfSingleColor.IsPhyrexian)
             {
-              allocatedUnit = phyrexianUnit ?? allocatedUnit;
-            }            
+              allocated.Lifeloss += 2;
+              continue;
+            }
+
+            return null;
           }
 
-          if (allocatedUnit == null)
-            return null;
-
           restricted.Add(allocatedUnit);
-          allocated.Add(allocatedUnit);
-
-          if (!manaOfSingleColor.IsPhyrexian)
-          {
-            RestrictUsingDifferentSourcesFromSameCard(allocatedUnit, restricted, allUnits);
-          }          
+          allocated.Units.Add(allocatedUnit);
+          
+          RestrictUsingDifferentSourcesFromSameCard(allocatedUnit, restricted, units);          
         }
       }
 
       return allocated;
+    }
+
+    private List<ManaUnit>[] GroupAdditionalSources(List<ManaUnit> additional)
+    {
+      var additionalGrouped = new[]
+        {
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+          new List<ManaUnit>(),
+        };
+
+      if (additional != null)
+      {
+        foreach (var unit in additional)
+        {
+          foreach (var color in unit.Color.Indices)
+          {
+            additionalGrouped[color].Add(unit);
+          }
+
+          // Every mana can be used as colorless.
+          // True colorless mana was already added, so we don't add it again.
+          if (!unit.Color.IsColorless)
+          {
+            additionalGrouped[5].Add(unit);
+          }
+        }
+      }
+      return additionalGrouped;
     }
 
     private int GetColorIndex(SingleColorManaAmount manaOfSingleColor)
