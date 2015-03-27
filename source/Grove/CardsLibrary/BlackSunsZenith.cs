@@ -20,8 +20,8 @@
           {
             p.AfterResolve = c => c.ShuffleIntoLibrary();
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (effect, card) => card.Is().Creature,
-              modifiers: () => new AddCounters(() => new PowerToughness(-1, -1), Value.PlusX))
+              selector: (c, ctx) => c.Is().Creature,
+              modifier: () => new AddCounters(() => new PowerToughness(-1, -1), Value.PlusX))
               {ToughnessReduction = Value.PlusX};
 
             p.TimingRule(new OnFirstMain());

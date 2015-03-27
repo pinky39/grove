@@ -21,9 +21,8 @@
         .Cast(p =>
           {            
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (_, c) => c.Is().Creature,
-              controlledBy: ControlledBy.SpellOwner,
-              modifiers: () => new AddPowerAndToughness(3, 3) {UntilEot = true}).SetTags(
+              selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,              
+              modifier: () => new AddPowerAndToughness(3, 3) {UntilEot = true}).SetTags(
                 EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TimingRule(new OnFirstMain());

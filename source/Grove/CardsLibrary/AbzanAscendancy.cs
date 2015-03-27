@@ -21,9 +21,8 @@
           p.Text = "When Abzan Ascendancy enters the battlefield, put a +1/+1 counter on each creature you control.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
           p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => c.Is().Creature,
-              controlledBy: ControlledBy.SpellOwner,
-              modifiers: () => new AddCounters(() => new PowerToughness(1, 1), 1));
+              selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,              
+              modifier: () => new AddCounters(() => new PowerToughness(1, 1), 1));
         })
         .TriggeredAbility(p =>
         {

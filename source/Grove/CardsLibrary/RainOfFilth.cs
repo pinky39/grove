@@ -19,9 +19,8 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => c.Is().Land,
-              controlledBy: ControlledBy.SpellOwner,
-              modifiers: () =>
+              selector: (c, ctx) => c.Is().Land && ctx.You == c.Controller,              
+              modifier: () =>
                 {
                   var mp = new ActivatedAbilityParameters
                     {

@@ -34,9 +34,8 @@
                 amountCreature: 1,
                 filterCreature: (effect, card) => card.Controller != effect.Source.OwningCard.Controller),
               new ApplyModifiersToPermanents(
-                selector: (e, c) => c.Is().Creature,
-                controlledBy: ControlledBy.Opponent,
-                modifiers: () => new AddStaticAbility(Static.CannotBlock){UntilEot = true}), 
+                selector: (c, ctx) => c.Is().Creature && ctx.Opponent == c.Controller,                
+                modifier: () => new AddStaticAbility(Static.CannotBlock){UntilEot = true}), 
             });
 
 

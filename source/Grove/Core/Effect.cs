@@ -10,10 +10,12 @@
   using Modifiers;
   using Triggers;
 
-  public delegate Effect EffectFactory();
-
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
+    public delegate Effect Factory();
+
+    public delegate bool CardSelector(Card card, Context ctx);
+
     // Holds a list of effect parameters which must be evaluated either 
     // when effect is created, put on stack or resolved.
     private readonly List<IDynamicParameter> _dynamicParameters = new List<IDynamicParameter>();
@@ -42,7 +44,6 @@
     // If multiple effect would be put on stack AI uses this to sort them.
     public int TriggerOrderRule = TriggerOrder.Normal;
 
-
     // AI uses this to evaluate if it should play some
     // spells in response.
     public Value ToughnessReduction
@@ -55,10 +56,7 @@
       }
     }
 
-    public Player Controller
-    {
-      get { return Source.OwningCard.Controller; }
-    }
+    public Player Controller { get { return Source.OwningCard.Controller; } }
 
     // Effect source can be Activated Ability, Triggered Ability or
     // Casting Rule.
@@ -67,25 +65,15 @@
     // If a spell has X, this is the chosen X value.
     public int? X { get; private set; }
 
-    protected bool WasResolved
-    {
-      get { return _wasResolved.Value; }
-      private set { _wasResolved.Value = value; }
-    }
+    protected bool WasResolved { get { return _wasResolved.Value; } private set { _wasResolved.Value = value; } }
 
     public Targets Targets { get; private set; }
 
-    public bool IsOnStack
-    {
-      get { return Stack.Contains(this); }
-    }
+    public bool IsOnStack { get { return Stack.Contains(this); } }
 
     // AI uses this to evaluate if it should play some
     // spells in response.
-    public virtual bool AffectsEffectSource
-    {
-      get { return false; }
-    }
+    public virtual bool AffectsEffectSource { get { return false; } }
 
     public ITarget Target
     {
@@ -122,10 +110,7 @@
       }
     }
 
-    public CardColor[] Colors
-    {
-      get { return Source.OwningCard.Colors; }
-    }
+    public CardColor[] Colors { get { return Source.OwningCard.Colors; } }
 
     public bool HasColor(CardColor color)
     {
@@ -324,6 +309,25 @@
       foreach (var parameter in _dynamicParameters)
       {
         parameter.EvaluateAfterTriggeredAbilityTargets(this, Game);
+      }
+    }
+
+    protected Context Ctx { get { return new Context(this, Game); } }
+
+    public class Context
+    {
+      private readonly Effect _effect;
+      private readonly Game _game;
+
+      public ITarget Target { get { return _effect.Target; } }
+      public Player You { get { return _effect.Controller; } }
+      public Player Opponent { get { return _effect.Controller.Opponent; } }
+      public Card OwningCard { get { return _effect.Source.OwningCard; } }
+      
+      public Context(Effect effect, Game game)
+      {
+        _effect = effect;
+        _game = game;
       }
     }
   }

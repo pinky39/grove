@@ -15,14 +15,17 @@
         .ManaCost("{2}{W}{W}")
         .Type("Instant")
         .Text("Creatures you control get +2/+1 until end of turn.")
-        .FlavorText("\"Impossible! How could they overwhelm us? We had barricades, war elephants, . . . and they were barely a tenth of our number!\"{EOL}—General Avitora")
+        .FlavorText(
+          "\"Impossible! How could they overwhelm us? We had barricades, war elephants, . . . and they were barely a tenth of our number!\"{EOL}—General Avitora")
         .Cast(p =>
-        {
-          p.Effect = () => new ApplyModifiersToPermanents((e, c) => c.Is().Creature, ControlledBy.SpellOwner,
-                () => new AddPowerAndToughness(2, 1) { UntilEot = true }).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+          {
+            p.Effect = () => new ApplyModifiersToPermanents(
+              (c, ctx) => c.Is().Creature && ctx.You == c.Controller,
+              () => new AddPowerAndToughness(2, 1) {UntilEot = true})
+              .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
-          p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new BeforeYouDeclareAttackers()));
-        });
+            p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new BeforeYouDeclareAttackers()));
+          });
     }
   }
 }

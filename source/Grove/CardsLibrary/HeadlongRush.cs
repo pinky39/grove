@@ -19,8 +19,8 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => c.IsAttacker,
-              modifiers: () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true});
+              selector: (c, ctx) => c.IsAttacker,
+              modifier: () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true});
             
             p.TimingRule(new OnYourTurn(Step.DeclareBlockers));            
           });

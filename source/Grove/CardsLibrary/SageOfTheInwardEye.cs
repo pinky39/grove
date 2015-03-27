@@ -25,9 +25,8 @@
             c.Controller == a.OwningCard.Controller && !c.Is().Creature));
 
           p.Effect = () => new ApplyModifiersToPermanents(
-            selector: (e, c) => c.Is().Creature, 
-            controlledBy: ControlledBy.SpellOwner, 
-            modifiers: () => new AddStaticAbility(Static.Lifelink) { UntilEot = true });
+            selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,             
+            modifier: () => new AddStaticAbility(Static.Lifelink) { UntilEot = true });
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });

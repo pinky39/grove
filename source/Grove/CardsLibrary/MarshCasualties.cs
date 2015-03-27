@@ -19,8 +19,8 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (effect, card) => card.Is().Creature,
-              modifiers: () => new AddPowerAndToughness(-1, -1) {UntilEot = true}) {ToughnessReduction = 1};
+              selector: (c, ctx) => c.Is().Creature && ctx.Target == c.Controller,
+              modifier: () => new AddPowerAndToughness(-1, -1) {UntilEot = true}) {ToughnessReduction = 1};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
             p.TargetingRule(new EffectOpponent());
@@ -30,8 +30,8 @@
             p.Text = p.KickerDescription;
             p.Cost = new PayMana("{3}{B}{B}".Parse());
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (effect, card) => card.Is().Creature,
-              modifiers: () => new AddPowerAndToughness(-2, -2) {UntilEot = true}) {ToughnessReduction = 2};
+              selector: (c, ctx) => c.Is().Creature && ctx.Target == c.Controller,
+              modifier: () => new AddPowerAndToughness(-2, -2) {UntilEot = true}) {ToughnessReduction = 2};
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
             p.TargetingRule(new EffectOpponent());

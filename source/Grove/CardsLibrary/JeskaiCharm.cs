@@ -35,13 +35,11 @@
         {
           p.Text = "{{U}}{{R}}{{W}}: Creatures you control get +1/+1 and gain lifelink until end of turn.";
           p.Effect = () => new ApplyModifiersToPermanents(
-            selector: (e, c) => c.Is().Creature,
-            controlledBy: ControlledBy.SpellOwner,
-            modifiers: new CardModifierFactory[]
-            {
+            selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
+            modifiers: L(            
               () => new AddPowerAndToughness(1, 1){UntilEot = true},
-              () => new AddStaticAbility(Static.Lifelink){UntilEot = true}, 
-            });
+              () => new AddStaticAbility(Static.Lifelink){UntilEot = true}
+            ));
 
           p.TimingRule(new OnStep(Step.BeginningOfCombat));
         });

@@ -25,14 +25,12 @@
           p.Cost = new PayMana("{4}{W}{W}".Parse());
 
           p.Effect = () => new ApplyModifiersToPermanents(
-            selector: (e, c) => c.Is().Creature,
-            controlledBy: ControlledBy.SpellOwner,
-            modifiers: new CardModifierFactory[]
-            {
+            selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
+            modifiers: L(
               () => new AddPowerAndToughness(2, 2){UntilEot = true},
               () => new AddStaticAbility(Static.FirstStrike){UntilEot = true},
-              () => new AddStaticAbility(Static.Lifelink){UntilEot = true}
-            }).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+              () => new AddStaticAbility(Static.Lifelink){UntilEot = true})
+            ).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
           p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new BeforeYouDeclareAttackers()));
         })
@@ -44,8 +42,7 @@
             new Exile(fromGraveyard: true));
 
           p.Effect = () => new ApplyModifiersToPermanents(
-            selector: (e, c) => c.Is().Creature,
-            controlledBy: ControlledBy.SpellOwner,
+            selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
             modifiers: new CardModifierFactory[]
             {
               () => new AddPowerAndToughness(2, 2){UntilEot = true},

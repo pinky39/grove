@@ -21,14 +21,12 @@
           {
             p.Effect = () => new CompoundEffect(
               new ApplyModifiersToPermanents(
-                selector: (e, c) => c.Is().Creature,
-                controlledBy: ControlledBy.SpellOwner,
-                modifiers: () => new AddPowerAndToughness(2, 1) {UntilEot = true})
+                selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,                
+                modifier: () => new AddPowerAndToughness(2, 1) {UntilEot = true})
                 .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness),
               new ApplyModifiersToPermanents(
-                selector: (e, c) => c.Is().Creature && c.HasColor(CardColor.White),
-                controlledBy: ControlledBy.SpellOwner,
-                modifiers: () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true}));
+                selector: (c, ctx) => c.Is().Creature && c.HasColor(CardColor.White) && ctx.You == c.Controller,                
+                modifier: () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true}));
 
             p.TimingRule(new Any(
               new AfterOpponentDeclaresAttackers(),

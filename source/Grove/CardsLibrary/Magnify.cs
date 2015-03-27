@@ -18,8 +18,8 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => c.Is().Creature,
-              modifiers: () => new AddPowerAndToughness(1, 1) {UntilEot = true});
+              selector: (c, ctx) => c.Is().Creature,
+              modifier: () => new AddPowerAndToughness(1, 1) {UntilEot = true});
 
             p.TimingRule(new OnYourTurn(Step.BeginningOfCombat));
           });

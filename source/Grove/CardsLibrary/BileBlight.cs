@@ -19,12 +19,10 @@
         .FlavorText("Not an arrow loosed, javelin thrown, nor sword raised. None were needed.")
         .Cast(p =>
         {
-          p.Effect = () => new CompoundEffect(
-            new ApplyModifiersToTargets(
-              () => new AddPowerAndToughness(-3, -3) {UntilEot = true}),
+          p.Effect = () => new CompoundEffect(           
             new ApplyModifiersToPermanents(
-              selector: (e, c) => e.Target.Card().Name == c.Name,
-              modifiers: () => new AddPowerAndToughness(-3, -3) {UntilEot = true}))
+              selector: (c, ctx) => ctx.Target.Card().Name == c.Name,
+              modifier: () => new AddPowerAndToughness(-3, -3) {UntilEot = true}))
           {
             ToughnessReduction = 3
           }.SetTags(EffectTag.ReduceToughness);

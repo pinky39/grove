@@ -22,8 +22,8 @@
             p.Text = "Whenever this creature attacks, each other attacking creature gets +1/+0 until end of turn.";
             p.Trigger(new WhenThisAttacks());
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (effect, card) => effect.Source.OwningCard != card && card.IsAttacker,
-              modifiers: () => new AddPowerAndToughness(1, 0) {UntilEot = true});
+              selector: (c, ctx) => ctx.OwningCard != c && c.IsAttacker,
+              modifier: () => new AddPowerAndToughness(1, 0) {UntilEot = true});
           })
         .TriggeredAbility(p =>
           {

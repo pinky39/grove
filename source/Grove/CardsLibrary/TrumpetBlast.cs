@@ -18,8 +18,8 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => c.IsAttacker,
-              modifiers: () => new AddPowerAndToughness(2, 0) {UntilEot = true});
+              selector: (c, ctx) => c.IsAttacker,
+              modifier: () => new AddPowerAndToughness(2, 0) {UntilEot = true});
 
             p.TimingRule(new OnYourTurn(Step.DeclareBlockers));
           });

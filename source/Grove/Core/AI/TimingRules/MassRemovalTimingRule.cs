@@ -24,7 +24,7 @@
     }
 
     public override bool? ShouldPlay1(TimingRuleParameters p)
-    {
+    {                  
       if (StackHasInterestingSpells())
       {
         return true;
@@ -38,12 +38,12 @@
       if (IsAfterOpponentDeclaresAttackers(p.Controller))
       {
         return Combat.Attackers.Count() > 0;
-      }
-
+      }     
+      
       if (Stack.CanBeDestroyedByTopSpell(p.Card))
         return true;
 
-      if (IsEndOfOpponentsTurn(p.Controller))
+      if (IsEndOfOpponentsTurn(p.Controller) && _removalTag != EffectTag.Humble)
       {
         return true;
       }

@@ -25,9 +25,8 @@
             new AddManaToPool(P(e =>
               Mana.Colored(ManaColor.Red, e.Controller.Battlefield.Creatures.Count(x => x.IsAttacker)))),
             new ApplyModifiersToPermanents(
-              selector: (e, c) => c.Is().Creature && c.IsAttacker, 
-              controlledBy: ControlledBy.SpellOwner,
-              modifiers: () =>
+              selector: (c, ctx) => c.Is().Creature && c.IsAttacker && ctx.You == c.Controller,               
+              modifier: () =>
               {
                 var ap = new ActivatedAbilityParameters
                 {

@@ -26,7 +26,8 @@
               new PayMana("{1}{W}".Parse()),
               new Sacrifice());
 
-            p.Effect = () => new ApplyModifiersToPermanents((e, c) => c.Is().Creature, ControlledBy.SpellOwner,
+            p.Effect = () => new ApplyModifiersToPermanents(
+              (c, ctx) => c.Is().Creature && ctx.You == c.Controller,
               () => new AddPowerAndToughness(1, 1) {UntilEot = true});
 
             p.TimingRule(new Any(

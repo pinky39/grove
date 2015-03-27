@@ -27,8 +27,8 @@
               "Whenever Wall of Frost blocks a creature, that creature doesn't untap during its controller's next untap step.";
             p.Trigger(new WhenThisBlocks());            
 
-            p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => e.TriggerMessage<BlockerJoinedCombatEvent>().Attacker.Card == c,
+            p.Effect = () => new ApplyModifiersToCard(
+              card: P(e => e.TriggerMessage<BlockerJoinedCombatEvent>().Attacker.Card),              
               modifiers: () =>
                 {
                   var modifier = new AddStaticAbility(Static.DoesNotUntap);

@@ -17,8 +17,8 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => c.Is().Creature && !(c.HasColor(CardColor.Black)),
-              modifiers: () => new AddPowerAndToughness(-1, -1) {UntilEot = true});
+              selector: (c,ctx) => c.Is().Creature && !(c.HasColor(CardColor.Black)),
+              modifier: () => new AddPowerAndToughness(-1, -1) {UntilEot = true});
           });
     }
   }

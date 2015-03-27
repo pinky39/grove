@@ -19,9 +19,8 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => c.Is().Creature,
-              controlledBy: ControlledBy.SpellOwner,
-              modifiers: () => new AddCounters(() => new PowerToughness(1, 1), 1));
+              selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,              
+              modifier: () => new AddCounters(() => new PowerToughness(1, 1), 1));
 
             p.TimingRule(new OnFirstMain());
           });

@@ -25,8 +25,7 @@
             p.Trigger(new WhenThisAttacks());
 
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => c.Is().Creature, 
-              controlledBy: ControlledBy.SpellOwner,
+              selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,               
               modifiers: new CardModifierFactory[]
               {
                 () => new AddStaticAbility(Static.FirstStrike) { UntilEot = true },

@@ -19,8 +19,8 @@
         {
           p.Effect = () => new CompoundEffect(
             new ApplyModifiersToPermanents(
-              selector: (effect, card) => card.Is().Creature && card.Controller != effect.Source.OwningCard.Controller,
-              modifiers: () => new AddPowerAndToughness(-4, 0) { UntilEot = true }),
+              selector: (c, ctx) => c.Is().Creature && c.Controller == ctx.Opponent,
+              modifier: () => new AddPowerAndToughness(-4, 0) { UntilEot = true }),
             new DrawCards(1));
 
           p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new AfterOpponentDeclaresBlockers()));

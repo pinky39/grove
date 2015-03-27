@@ -23,8 +23,8 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
 
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (_, card) => card.Is().Creature && card.HasColor(CardColor.Green),
-              modifiers: () => new AddPowerAndToughness(-1, -1) {UntilEot = true})
+              selector: (c, ctx) => c.Is().Creature && c.HasColor(CardColor.Green),
+              modifier: () => new AddPowerAndToughness(-1, -1) {UntilEot = true})
               {
                 ToughnessReduction = 1
               };

@@ -1,23 +1,27 @@
 ﻿namespace Grove.Effects
 {
-  using System;
   using System.Collections.Generic;
   using Modifiers;
 
   public class ApplyModifiersToPermanents : Effect
-  {
-    private readonly ControlledBy _controlledBy;
+  {    
     private readonly List<CardModifierFactory> _modifiers = new List<CardModifierFactory>();
-    private readonly Func<ApplyModifiersToPermanents, Card, bool> _selector;
+    private readonly CardSelector _selector;
 
-    private ApplyModifiersToPermanents() {}
+    private ApplyModifiersToPermanents() {}    
 
-    public ApplyModifiersToPermanents(params CardModifierFactory[] modifiers) : this(null, modifiers: modifiers) {}
-
-    public ApplyModifiersToPermanents(Func<Effect, Card, bool> selector,
-      ControlledBy controlledBy = ControlledBy.Any, params CardModifierFactory[] modifiers)
+    public ApplyModifiersToPermanents(
+      CardSelector selector,
+      CardModifierFactory modifier)
     {
-      _controlledBy = controlledBy;
+      _selector = selector ?? delegate { return true; };
+      _modifiers.Add(modifier);
+    }
+
+    public ApplyModifiersToPermanents(
+      CardSelector selector,      
+      params CardModifierFactory[] modifiers)
+    {      
       _selector = selector ?? delegate { return true; };
       _modifiers.AddRange(modifiers);
     }
@@ -25,7 +29,7 @@
 
     public override int CalculateToughnessReduction(Card card)
     {
-      if ((Target == null || card.Controller == Target) && _selector(this, card))
+      if ((Target == null || card.Controller == Target) && _selector(card, Ctx))
       {
         return ToughnessReduction.GetValue(X);
       }
@@ -34,36 +38,10 @@
     }
 
     protected override void ResolveEffect()
-    {
-      if (Target != null && Target.IsPlayer())
+    {     
+      foreach (var permanent in Players.Permanents())
       {
-        ApplyModifierToPlayersPermanents(Target.Player());
-        return;
-      }
-
-      if (_controlledBy == ControlledBy.SpellOwner)
-      {
-        ApplyModifierToPlayersPermanents(Controller);
-        return;
-      }
-
-      if (_controlledBy == ControlledBy.Opponent)
-      {
-        ApplyModifierToPlayersPermanents(Controller.Opponent);
-        return;
-      }
-
-      foreach (var player in Players)
-      {
-        ApplyModifierToPlayersPermanents(player);
-      }
-    }
-
-    private void ApplyModifierToPlayersPermanents(Player player)
-    {
-      foreach (var permanent in player.Battlefield)
-      {
-        if (!_selector(this, permanent))
+        if (!_selector(permanent, Ctx))
           continue;
 
         foreach (var modifierFactory in _modifiers)
@@ -71,11 +49,11 @@
           var p = new ModifierParameters
             {
               SourceEffect = this,
-              SourceCard = Source.OwningCard,              
+              SourceCard = Source.OwningCard,
               X = X
             };
 
-          var modifier = modifierFactory();          
+          var modifier = modifierFactory();
           permanent.AddModifier(modifier, p);
         }
       }

@@ -19,8 +19,8 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (e, c) => e.Source.OwningCard.Controller == c.Controller && c.Is().Creature,
-              modifiers: () => new AddPowerAndToughness(0, 5) {UntilEot = true});
+              selector: (c, ctx) => c.Controller == ctx.You && c.Is().Creature,
+              modifier: () => new AddPowerAndToughness(0, 5) {UntilEot = true});
 
             p.TimingRule(new AfterOpponentDeclaresAttackers());
           });

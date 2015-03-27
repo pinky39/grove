@@ -1,7 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Effects;
   using Modifiers;
 
@@ -19,19 +21,19 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (effect, card) => card.Is().Creature,
-              modifiers: new CardModifierFactory[]
-                {
+              selector: (c, ctx) => c.Is().Creature && ctx.Target == c.Controller,
+              modifiers: L(                
                   () => new ChangeToCreature(
                     power: m => 1,
                     toughness: m => 1,
                     colors: L(CardColor.Blue),
                     type: m => m.OwningCard.Type.Change(subTypes: "frog")) {UntilEot = true},
                   () => new DisableAllAbilities(activated: true, simple: true, triggered: true) {UntilEot = true}
-                });
+                ));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Player());
             p.TargetingRule(new EffectOpponent());
+            p.TimingRule(new MassRemovalTimingRule(removalTag: EffectTag.Humble));
           });
     }
   }

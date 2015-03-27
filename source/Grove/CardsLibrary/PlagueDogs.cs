@@ -43,8 +43,8 @@
             p.TriggerOnlyIfOwningCardIsInPlay = true;
 
             p.Effect = () => new ApplyModifiersToPermanents(
-              selector: (effect, card) => card.Is().Creature,
-              modifiers: () => new AddPowerAndToughness(-1, -1) {UntilEot = true}) {ToughnessReduction = 1};
+              selector: (c, ctx) => c.Is().Creature,
+              modifier: () => new AddPowerAndToughness(-1, -1) {UntilEot = true}) {ToughnessReduction = 1};
           });
     }
   }

@@ -14,7 +14,7 @@
   {
     public readonly List<MachinePlayRule> Rules = new List<MachinePlayRule>();
     public int DistributeAmount;
-    public EffectFactory Effect;
+    public Effect.Factory Effect;
     public TargetSelector TargetSelector = new TargetSelector();
     public string Text;
     public bool UsesStack = true;

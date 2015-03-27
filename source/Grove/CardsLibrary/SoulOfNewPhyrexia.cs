@@ -24,12 +24,9 @@
           p.Cost = new PayMana("{5}".Parse());
 
           p.Effect = () => new ApplyModifiersToPermanents(
-            selector: (e, c) => c.Is().Creature,
-            controlledBy: ControlledBy.SpellOwner,
-            modifiers: new CardModifierFactory[]
-            {
-              () => new AddStaticAbility(Static.Indestructible){UntilEot = true}
-            }).SetTags(EffectTag.Indestructible);
+            selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
+            modifier: () => new AddStaticAbility(Static.Indestructible){UntilEot = true}
+            ).SetTags(EffectTag.Indestructible);
         })
         .ActivatedAbility(p =>
         {
@@ -39,12 +36,9 @@
             new Exile(fromGraveyard: true));
 
           p.Effect = () => new ApplyModifiersToPermanents(
-            selector: (e, c) => c.Is().Creature,
-            controlledBy: ControlledBy.SpellOwner,
-            modifiers: new CardModifierFactory[]
-            {
-              () => new AddStaticAbility(Static.Indestructible){UntilEot = true}
-            }).SetTags(EffectTag.Indestructible);
+            selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
+            modifier: () => new AddStaticAbility(Static.Indestructible){UntilEot = true}
+            ).SetTags(EffectTag.Indestructible);
 
           p.ActivationZone = Zone.Graveyard;
         });
