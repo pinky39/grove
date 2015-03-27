@@ -151,7 +151,7 @@ o Mind Sculpt
 o Nimbus of the Isles
 o Paragon of Gathering Mists
 o Polymorphist's Jest
-Quickling
+o Quickling
 Soul of Ravnica
 Statute of Denial
 Void Snare

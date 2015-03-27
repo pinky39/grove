@@ -2,8 +2,7 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Infrastructure;
-    
+
   public class Battlefield : UnorderedZone, IBattlefieldQuery
   {
     public Battlefield(Player owner) : base(owner) {}
@@ -22,7 +21,18 @@
     public IEnumerable<Card> CreaturesThatCanAttack { get { return Creatures.Where(x => x.CanAttack); } }
     public IEnumerable<Card> CreaturesThatCanBlock { get { return Creatures.Where(x => x.CanBlock()); } }
     public bool HasCreaturesThatCanAttack { get { return Creatures.Any(card => card.CanAttack); } }
-    public IEnumerable<Card> Legends { get { return this.Where(x => x.Is().Legendary); } }       
+    public IEnumerable<Card> Legends { get { return this.Where(x => x.Is().Legendary); } }
+
+    public IEnumerable<CardColor> PermanentsColors
+    {
+      get
+      {
+        return this          
+          .SelectMany(x => x.Colors)
+          .Where(x => x != CardColor.Colorless && x != CardColor.None)
+          .Distinct();
+      }
+    }
 
     public override void AfterAdd(Card card)
     {
