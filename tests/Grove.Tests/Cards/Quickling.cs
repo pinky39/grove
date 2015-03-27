@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using System.Linq;
   using Infrastructure;
   using Xunit;
 
@@ -9,17 +8,20 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void SacrificeQuickling()
+      public void ReturnWizardToHand()
       {
         var quickling = C("Quickling");
+        var wizard = C("Fugitive Wizard");
+
         Hand(P1, quickling);
-        Battlefield(P1, "Island", "Island", "Fugitive Wizard");
+        Battlefield(P1, "Island", "Island", wizard);
 
         RunGame(1);
 
         Battlefield(P2, "Wall of Frost");
 
         Equal(Zone.Battlefield, C(quickling).Zone);
+        Equal(Zone.Hand, C(wizard).Zone);
       }
     }
   }
