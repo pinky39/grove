@@ -62,7 +62,7 @@
       // effects.
       foreach (var effect in _childEffects)
       {
-        effect.AfterResolve(effect);
+        effect.AfterResolve(new Context(this, Game));
       }
       
       base.FinishResolve();                  

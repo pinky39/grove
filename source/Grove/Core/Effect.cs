@@ -14,7 +14,11 @@
   {
     public delegate Effect Factory();
 
-    public delegate bool CardSelector(Card card, Context ctx);
+    public delegate bool Selector(Card card, Context ctx);
+
+    public delegate bool Predicate(Context ctx);
+
+    public delegate void Action(Context ctx);
 
     // Holds a list of effect parameters which must be evaluated either 
     // when effect is created, put on stack or resolved.
@@ -28,8 +32,8 @@
     private object _triggerMessage;
 
     // Allows extending effect on the fly
-    public Action<Effect> AfterResolve = delegate { };
-    public Action<Effect> BeforeResolve = delegate { };
+    public Action AfterResolve = delegate { };
+    public Action BeforeResolve = delegate { };
 
     // If there are multiple targets and this is true all the targets
     // must still be valid for effect to resolve
@@ -39,7 +43,7 @@
 
     // Allow custom checks if effect should resolve.
     // Runs right before the Effect would resolve.
-    public Func<Effect, bool> ShouldResolve = delegate { return true; };
+    public Predicate ShouldResolve = delegate { return true; };
 
     // If multiple effect would be put on stack AI uses this to sort them.
     public int TriggerOrderRule = TriggerOrder.Normal;
@@ -213,7 +217,7 @@
     {
       if (WasResolved)
       {
-        AfterResolve(this);
+        AfterResolve(new Context(this, Game));
         Source.EffectResolved();
         Publish(new EffectResolvedEvent(this));
         return;
@@ -247,9 +251,9 @@
     // and starts resolving.
     public virtual void BeginResolve()
     {
-      BeforeResolve(this);
+      BeforeResolve(new Context(this, Game));
 
-      if (ShouldResolve(this))
+      if (ShouldResolve(new Context(this, Game)))
       {
         foreach (var parameter in _dynamicParameters)
         {
@@ -323,7 +327,8 @@
       public Player You { get { return _effect.Controller; } }
       public Player Opponent { get { return _effect.Controller.Opponent; } }
       public Card OwningCard { get { return _effect.Source.OwningCard; } }
-      
+      public int? X { get { return _effect.X; } }
+
       public Context(Effect effect, Game game)
       {
         _effect = effect;

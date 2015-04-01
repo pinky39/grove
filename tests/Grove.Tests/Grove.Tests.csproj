@@ -541,6 +541,7 @@
     <Compile Include="Cards\StabWound.cs" />
     <Compile Include="Cards\StaffOfTheDeathMagus.cs" />
     <Compile Include="Cards\StaffOfTheSunMagus.cs" />
+    <Compile Include="Cards\StatuteOfDenial.cs" />
     <Compile Include="Cards\SteamVents.cs" />
     <Compile Include="Cards\StormtideLeviathan.cs" />
     <Compile Include="Cards\StrokeOfGenius.cs" />

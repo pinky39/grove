@@ -97,7 +97,7 @@
     {
       if (WasResolved)
       {
-        _effect.AfterResolve(_effect);
+        _effect.AfterResolve(new Context(_effect, Game));
       }
 
       base.FinishResolve();

@@ -23,7 +23,7 @@
                 minCount: 1,
                 maxCount: 1,
                 revealCards: false)
-                {AfterResolve = e => e.Controller.DiscardRandomCard()};
+                {AfterResolve = ctx => ctx.You.DiscardRandomCard()};
 
             p.TimingRule(new OnFirstMain());
           });
