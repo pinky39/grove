@@ -24,7 +24,7 @@
 
             p.Trigger(new OnStepStart(step: Step.Upkeep)
               {
-                Condition = (t, g) => t.OwningCard.Controller.Battlefield.Count(c => !c.Is().Land) > 1
+                Condition = ctx => ctx.You.Battlefield.Count(c => !c.Is().Land) > 1
               });
 
             p.Effect = () => new SacrificeOwner();

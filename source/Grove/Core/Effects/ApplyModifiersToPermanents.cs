@@ -6,12 +6,12 @@
   public class ApplyModifiersToPermanents : Effect
   {    
     private readonly List<CardModifierFactory> _modifiers = new List<CardModifierFactory>();
-    private readonly Selector _selector;
+    private readonly CardSelector _selector;
 
     private ApplyModifiersToPermanents() {}    
 
     public ApplyModifiersToPermanents(
-      Selector selector,
+      CardSelector selector,
       CardModifierFactory modifier)
     {
       _selector = selector ?? delegate { return true; };
@@ -19,7 +19,7 @@
     }
 
     public ApplyModifiersToPermanents(
-      Selector selector,      
+      CardSelector selector,      
       params CardModifierFactory[] modifiers)
     {      
       _selector = selector ?? delegate { return true; };

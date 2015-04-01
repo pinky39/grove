@@ -45,7 +45,7 @@
               new OnZoneChanged(
                 @from: Zone.Battlefield,
                 to: Zone.Graveyard,
-                filter: (c, a, g) => c.CountersCount(CounterType.Fungus) > 0));
+                selector: (c, ctx) => c.CountersCount(CounterType.Fungus) > 0));
 
             p.Effect = () => new CreateTokens(
               count: P(e => e.TriggerMessage<ZoneChangedEvent>().Card.CountersCount(CounterType.Fungus)),

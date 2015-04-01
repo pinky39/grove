@@ -32,7 +32,7 @@
             p.Trigger(new OnZoneChanged(
               @from: Zone.Battlefield,
               to: Zone.Graveyard,
-              filter: (c, a, g) => a.OwningCard.AttachedTo == c));
+              selector: (c, ctx) => ctx.OwningCard.AttachedTo == c));
 
             p.Effect = () => new SearchLibraryPutToZone(
               zone: Zone.Battlefield,

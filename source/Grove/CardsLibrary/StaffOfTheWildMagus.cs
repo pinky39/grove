@@ -23,8 +23,8 @@
 
           p.Trigger(new OnZoneChanged(
             to: Zone.Battlefield,
-            filter: (c, a, _) => c.Is("forest") &&
-              c.Controller == a.OwningCard.Controller));
+            selector: (c, ctx) => c.Is("forest") &&
+              c.Controller == ctx.You));
 
           p.Effect = () => new ChangeLife(amount: 1, yours: true);
 

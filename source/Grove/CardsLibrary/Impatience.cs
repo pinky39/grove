@@ -23,7 +23,7 @@
 
             p.Trigger(new OnStepStart(Step.EndOfTurn, activeTurn: true, passiveTurn: true)
               {
-                Condition = (t, g) => g.Turn.Events.HasActivePlayerPlayedAnySpell == false
+                Condition = ctx => ctx.Turn.Events.HasActivePlayerPlayedAnySpell == false
               });
 
             p.Effect = () => new DealDamageToPlayer(

@@ -51,7 +51,7 @@
           p.Text = "When equipped creature dies, target opponent gains control of Avarice Amulet.";
 
           p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard,
-            filter: (card, ability, _) => card == ability.OwningCard.AttachedTo));
+            selector: (c, ctx) => c == ctx.OwningCard.AttachedTo));
 
           p.Effect = () => new SwitchController();
 

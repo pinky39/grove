@@ -29,7 +29,7 @@
             p.Text = "At the beginning of the end step, if no creatures are on the battlefield, sacrifice Pestilence.";
             p.Trigger(new OnStepStart(Step.EndOfTurn, activeTurn: true, passiveTurn: true)
               {
-                Condition = (t, g) => g.Players.Permanents().None(x => x.Is().Creature)
+                Condition = ctx => ctx.Players.Permanents().None(x => x.Is().Creature)
               });
             p.Effect = () => new SacrificeOwner();
 

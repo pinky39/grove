@@ -23,7 +23,7 @@
 
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              filter: (card, ability, game) => card.Is().Creature && card != ability.OwningCard));
+              selector: (c, ctx) => c.Is().Creature && c != ctx.OwningCard));
 
             p.Effect = () => new UntapOwner();
 

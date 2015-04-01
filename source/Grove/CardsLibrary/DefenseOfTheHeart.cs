@@ -22,7 +22,7 @@
 
             p.Trigger(new OnStepStart(step: Step.Upkeep)
               {
-                Condition = (t, g) => t.OwningCard.Controller.Opponent.Battlefield.Count(c => c.Is().Creature) >= 3
+                Condition = ctx => ctx.Opponent.Battlefield.Count(c => c.Is().Creature) >= 3
               });
 
             p.Effect = () => new CompoundEffect(

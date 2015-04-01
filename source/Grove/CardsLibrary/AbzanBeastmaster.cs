@@ -22,11 +22,11 @@
           p.Text = "At the beginning of your upkeep, draw a card if you control the creature with the greatest toughness or tied for the greatest toughness.";
           p.Trigger(new OnStepStart(Step.Upkeep)
           {
-            Condition = (trigger, game) =>
+            Condition = ctx =>
             {
-              var creatures = game.Players.Permanents().Where(c => c.Is().Creature);
+              var creatures = ctx.Players.Permanents().Where(c => c.Is().Creature);
 
-              return trigger.OwningCard.Controller.Battlefield.Creatures.Any(
+              return ctx.You.Battlefield.Creatures.Any(
                 c => creatures.All(x => x.Toughness <= c.Toughness));
             }
           });

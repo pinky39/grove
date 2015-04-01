@@ -26,7 +26,7 @@
               "Whenever a nontoken creature enters the battlefield under your control, you may pay {W}. If you do, put a 1/1 white Spirit creature token with flying onto the battlefield.";
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              filter: (c, a, g) => a.OwningCard.Controller == c.Controller && c.Is().Creature && !c.Is().Token));
+              selector: (c, ctx) => ctx.You == c.Controller && c.Is().Creature && !c.Is().Token));
 
             p.Effect = () => new PayManaThen(Mana.White, new CreateTokens(
               count: 1,

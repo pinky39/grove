@@ -32,7 +32,7 @@
               passiveTurn: true,
               activeTurn: true)
               {
-                Condition = (t, g) => t.OwningCard.AttachedTo.Controller.IsActive
+                Condition = ctx => ctx.OwningCard.AttachedTo.Controller.IsActive
               });
 
             p.Effect = () => new DealDamageToPlayer(

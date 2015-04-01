@@ -36,7 +36,7 @@
             p.Text = "When Vebulid attacks or blocks, destroy it at end of combat.";
             
             p.Trigger(new OnStepStart(Step.EndOfCombat, activeTurn: true, passiveTurn: true)
-              {Condition = (t, g) => g.Turn.Events.HasAttacked(t.OwningCard) || g.Turn.Events.HasBlocked(t.OwningCard)});
+              {Condition = ctx => ctx.Turn.Events.HasAttacked(ctx.OwningCard) || ctx.Turn.Events.HasBlocked(ctx.OwningCard)});
             
             p.Effect = () => new DestroyOwner();
             p.TriggerOnlyIfOwningCardIsInPlay = true;

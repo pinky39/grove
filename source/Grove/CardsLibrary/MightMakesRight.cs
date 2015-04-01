@@ -21,7 +21,13 @@
         {
           p.Trigger(new OnStepStart(Step.BeginningOfCombat)
           {
-            Condition = (trigger, game) => trigger.Controller.Battlefield.Creatures.All(c1 => trigger.Controller.Opponent.Battlefield.Creatures.All(c2 => c2.Power < c1.Power))
+            Condition = ctx =>
+              {
+                var yours = ctx.You.Battlefield.Creatures.Max(x => x.Power);
+                var opponents = ctx.Opponent.Battlefield.Creatures.Max(x => x.Power);
+
+                return yours > opponents || opponents == null;
+              }
           });
 
           p.Effect = () => new CompoundEffect(

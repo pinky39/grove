@@ -24,7 +24,7 @@
           p.Trigger(new OnZoneChanged(
             from: Zone.Graveyard,
             to: Zone.Exile,
-            filter: (c, a, _) => c.Controller == a.OwningCard.Controller && c != a.OwningCard));
+            selector: (c, ctx) => c.Controller == ctx.You && c != ctx.OwningCard));
 
           p.Effect = () => new ApplyModifiersToSelf(
             () => new AddCounters(() => new PowerToughness(1, 1), count: 1));

@@ -28,7 +28,7 @@
 
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield, to: Zone.Graveyard,
-              filter: (card, ability, _) => card.Is().Creature && card.Controller != ability.OwningCard.Controller));
+              selector: (c, ctx) => c.Is().Creature && c.Controller == ctx.Opponent));
           });
     }
   }

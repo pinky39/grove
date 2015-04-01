@@ -22,7 +22,7 @@
 
             p.Trigger(new OnZoneChanged(
               to: Zone.Graveyard,
-              filter: (c, a, _) => c.Owner != a.OwningCard.Controller && c.HasColor(CardColor.Black)));
+              selector: (c, ctx) => c.Owner == ctx.Opponent && c.HasColor(CardColor.Black)));
 
             p.Effect = () => new DrawCards(1);
             

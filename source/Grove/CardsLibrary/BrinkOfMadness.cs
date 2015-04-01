@@ -1,8 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Triggers;
+  using Effects;
+  using Triggers;
 
   public class BrinkOfMadness : CardTemplateSource
   {
@@ -21,7 +21,7 @@
               "At the beginning of your upkeep, if you have no cards in hand, sacrifice Brink of Madness and target opponent discards his or her hand.";
 
             p.Trigger(new OnStepStart(activeTurn: true, passiveTurn: false, step: Step.Upkeep)
-              {Condition = (t, g) => t.Controller.Hand.Count == 0});
+              {Condition = ctx => ctx.You.Hand.Count == 0});
 
             p.Effect = () => new CompoundEffect(
               new SacrificeOwner(),

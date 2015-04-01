@@ -24,14 +24,7 @@
 
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              filter: (card, ability, _) =>
-              {
-                if (ability.OwningCard == card)
-                  return false;
-
-                return ability.OwningCard.Zone == Zone.Battlefield &&
-                  card.Is().Creature && ability.OwningCard.Controller == card.Controller;
-              }));
+              selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller && ctx.OwningCard != c));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(1, 0) { UntilEot = true })

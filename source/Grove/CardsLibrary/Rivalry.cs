@@ -29,10 +29,10 @@
 
             p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: true, passiveTurn: true)
               {
-                Condition = (tr, game) =>
+                Condition = ctx =>
                   {
-                    var activeCount = game.Players.Active.Battlefield.Lands.Count();
-                    var passiveCount = game.Players.Passive.Battlefield.Lands.Count();
+                    var activeCount = ctx.Players.Active.Battlefield.Lands.Count();
+                    var passiveCount = ctx.Players.Passive.Battlefield.Lands.Count();
                     return activeCount > passiveCount;
                   }
               });

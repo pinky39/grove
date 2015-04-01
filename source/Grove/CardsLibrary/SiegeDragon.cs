@@ -33,7 +33,7 @@
 
             p.Trigger(new WhenThisAttacks
               {
-                Condition = (t, g) => g.Players.Passive.Battlefield.Creatures.None(c => c.Is("wall"))
+                Condition = ctx => ctx.Players.Passive.Battlefield.Creatures.None(c => c.Is("wall"))
               });
 
             p.Effect = () => new DealDamageToCreaturesAndPlayers(

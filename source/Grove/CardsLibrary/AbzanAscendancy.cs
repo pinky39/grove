@@ -31,7 +31,7 @@
           p.Trigger(new OnZoneChanged(
             from: Zone.Battlefield,
             to: Zone.Graveyard,
-            filter: (c, a, g) => a.OwningCard.Controller == c.Controller && c.Is().Creature && !c.Is().Token));
+            selector: (c, ctx) => ctx.You == c.Controller && c.Is().Creature && !c.Is().Token));
 
           p.Effect = () => new CreateTokens(
               count: 1,

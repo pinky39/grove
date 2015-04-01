@@ -30,7 +30,7 @@
             p.Trigger(new OnZoneChanged(
               @from: Zone.Battlefield,
               to: Zone.Graveyard,
-              filter: (c, a, g) => a.SourceCard.AttachedTo == c));
+              selector: (c, ctx) => ctx.OwningCard.AttachedTo == c));
 
             p.Effect = () => new DiscardCards(2);
             p.TargetSelector.AddEffect(s => s.Is.Player());

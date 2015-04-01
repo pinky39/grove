@@ -27,7 +27,8 @@
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield, 
               to: Zone.Graveyard, 
-              filter: (card, ability, _) => card.Controller == ability.SourceCard.Controller && card.Is().Creature && card.Toughness >= 4));
+              selector: (c, ctx) => c.Controller == ctx.You && c.Is().Creature && c.Toughness >= 4));
+            
             p.Effect = () => new CompoundEffect(
               new ChangeLife(2, yours: true),
               new ChangeLife(-2, opponents: true));

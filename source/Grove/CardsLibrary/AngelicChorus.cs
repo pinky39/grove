@@ -23,7 +23,7 @@
               "Whenever a creature enters the battlefield under your control, you gain life equal to its toughness.";
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              filter: (c, a, g) => a.OwningCard.Controller == c.Controller && c.Is().Creature));
+              selector: (c, ctx) => ctx.You == c.Controller && c.Is().Creature));
             p.Effect = () => new ChangeLife(
               amount: P(e => e.TriggerMessage<ZoneChangedEvent>().Card.Toughness.GetValueOrDefault()), yours: true);
             p.TriggerOnlyIfOwningCardIsInPlay = true;

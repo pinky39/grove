@@ -24,7 +24,7 @@
           p.Text = "War-Name Aspirant enters the battlefield with a +1/+1 counter on it if you attacked with a creature this turn.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
           {
-            Condition = (t, g) => g.Turn.Events.HasActivePlayerAttackedThisTurn,
+            Condition = ctx => ctx.Turn.Events.HasActivePlayerAttackedThisTurn,
           });
 
           p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1))

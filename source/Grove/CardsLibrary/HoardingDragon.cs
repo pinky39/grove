@@ -39,7 +39,7 @@
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield,
               to: Zone.Graveyard,
-              filter: (c, a, g) => a.OwningCard == c && a.OwningCard.AttachedTo != null));
+              selector: (c, ctx) => ctx.OwningCard == c && ctx.OwningCard.AttachedTo != null));
 
             p.Effect = () => new ReturnToHand(P(e => e.Source.OwningCard.AttachedTo));
           });

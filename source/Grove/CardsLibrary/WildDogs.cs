@@ -23,13 +23,7 @@
               "At the beginning of your upkeep, if a player has more life than each other player, the player with the most life gains control of Wild Dogs.";
             p.Trigger(new OnStepStart(Step.Upkeep)
               {
-                Condition = (t, g) =>
-                  {
-                    var controller = t.OwningCard.Controller;
-                    var opponent = g.Players.GetOpponent(controller);
-
-                    return controller.Life < opponent.Life;
-                  }
+                Condition = ctx => ctx.You.Life < ctx.Opponent.Life
               });
             p.Effect = () => new SwitchController();
             p.TriggerOnlyIfOwningCardIsInPlay = true;

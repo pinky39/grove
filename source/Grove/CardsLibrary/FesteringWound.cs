@@ -39,11 +39,8 @@
               "At the beginning of the upkeep of enchanted creature's controller, Festering Wound deals X damage to that player, where X is the number of infection counters on Festering Wound.";
             p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: true, passiveTurn: true)
               {
-                Condition = (t, g) =>
-                  {
-                    return t.OwningCard.IsAttached &&
-                      t.OwningCard.AttachedTo.Controller.IsActive;
-                  }
+                Condition = ctx => ctx.OwningCard.IsAttached &&
+                  ctx.OwningCard.AttachedTo.Controller.IsActive
               });
 
             p.Effect = () => new DealDamageToPlayer(

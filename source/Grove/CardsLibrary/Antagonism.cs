@@ -23,7 +23,7 @@
 
             p.Trigger(new OnStepStart(Step.EndOfTurn, activeTurn: true, passiveTurn: true)
               {
-                Condition = (t, g) => g.Turn.Events.HasBeenDamaged(t.Controller.Opponent) == false
+                Condition = ctx => ctx.Turn.Events.HasBeenDamaged(ctx.Opponent) == false
               });
 
             p.Effect = () => new DealDamageToPlayer(

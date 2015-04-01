@@ -26,7 +26,7 @@
             p.Trigger(new OnStepStart(
               step: Step.EndOfCombat,
               passiveTurn: true,
-              activeTurn: false) {Condition = (t, g) => t.OwningCard.IsBlocker});
+              activeTurn: false) {Condition = ctx => ctx.OwningCard.IsBlocker});
 
             p.Effect = () => new ReturnToHand(returnOwningCard: true);
             p.TriggerOnlyIfOwningCardIsInPlay = true;

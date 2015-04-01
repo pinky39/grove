@@ -35,7 +35,7 @@
           p.Text = "You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.";
           p.Trigger(new OnStepStart(step: Step.EndOfTurn)
           {
-            Condition = (t, g) => t.OwningCard.Has().Dash
+            Condition = ctx => ctx.OwningCard.Has().Dash
           });
 
           p.Effect = () => new Effects.ReturnToHand(returnOwningCard: true);

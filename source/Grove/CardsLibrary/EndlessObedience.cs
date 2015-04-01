@@ -21,7 +21,7 @@
 
           p.Effect = () => new PutTargetsToBattlefield();
 
-          p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Graveyard());
+          p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.Graveyard());
 
           p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
         });

@@ -20,7 +20,7 @@
           p.Text = "When Bellowing Saddlebrute enters the battlefield, you lose 4 life unless you attacked with a creature this turn.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
           {
-            Condition = (t, g) => !g.Turn.Events.HasActivePlayerAttackedThisTurn,
+            Condition = ctx => !ctx.Turn.Events.HasActivePlayerAttackedThisTurn,
           });
 
           p.Effect = () => new ChangeLife(-4, yours: true);

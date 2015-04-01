@@ -25,7 +25,7 @@
 
           p.Trigger(new WhenThisAttacks()
           {
-            Condition = (t, g) => t.OwningCard.Controller.Battlefield.Creatures.Any(x => x.Power >= 4)
+            Condition = ctx => ctx.You.Battlefield.Creatures.Any(x => x.Power >= 4)
           });
 
           p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 1) { UntilEot = true });

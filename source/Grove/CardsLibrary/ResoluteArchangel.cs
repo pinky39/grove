@@ -25,7 +25,7 @@
 
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
               {
-                Condition = (t, g) => t.Controller.Life < 20
+                Condition = ctx => ctx.You.Life < 20
               });
 
             p.Effect = () => new YourLifeBecomesEqual(20);

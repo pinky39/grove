@@ -26,8 +26,8 @@
             p.Trigger(new OnZoneChanged(
               @from: Zone.Battlefield,
               to: Zone.Graveyard,
-              filter: (c, t, g) =>
-                t.OwningCard.Is().Enchantment && c.Is().Creature && c.Owner != t.OwningCard.Controller));
+              selector: (c, ctx) =>
+                ctx.OwningCard.Is().Enchantment && c.Is().Creature && c.Owner == ctx.Opponent));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

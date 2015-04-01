@@ -21,7 +21,7 @@
 
             p.Trigger(new OnZoneChanged(
               to: Zone.Graveyard,
-              filter: (c, a, _) => c.Owner != a.OwningCard.Controller && c.Is().Creature));
+              selector: (c, ctx) => c.Owner == ctx.Opponent && c.Is().Creature));
 
             p.Effect = () => new ChangeLife(amount: 1, yours: true);
 

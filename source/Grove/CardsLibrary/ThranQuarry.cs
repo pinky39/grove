@@ -24,7 +24,7 @@
             p.Text = "At the beginning of the end step, if you control no creatures, sacrifice Thran Quarry.";
             p.Trigger(new OnStepStart(Step.EndOfTurn, activeTurn: true, passiveTurn: true)
               {
-                Condition = (t, g) => t.Ability.OwningCard.Controller.Battlefield.None(x => x.Is().Creature)
+                Condition = ctx => ctx.You.Battlefield.None(x => x.Is().Creature)
               });
 
             p.Effect = () => new SacrificeOwner();

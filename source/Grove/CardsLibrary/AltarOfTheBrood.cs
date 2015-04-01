@@ -20,12 +20,12 @@
 
           p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              filter: (card, ability, _) =>
-              {
-                if (ability.OwningCard == card)
+              selector: (c, ctx) =>
+              {                                
+                if (ctx.OwningCard == c)
                   return false;
 
-                return ability.OwningCard.Controller == card.Controller;
+                return ctx.You == c.Controller;
               }));
 
           p.Effect = () => new PlayerPutsTopCardsFromLibraryToGraveyard(P(e => e.Controller.Opponent), count: 1);

@@ -24,7 +24,7 @@
               "At the beginning of your upkeep, if there are seven or more lands on the battlefield, sacrifice Impending Disaster and destroy all lands.";
 
             p.Trigger(new OnStepStart(Step.Upkeep)
-              {Condition = (t, g) => g.Players.Permanents().Count(c => c.Is().Land) >= 7});
+              {Condition = ctx => ctx.Players.Permanents().Count(c => c.Is().Land) >= 7});
 
             p.Effect = () => new CompoundEffect(
               new SacrificeOwner(),

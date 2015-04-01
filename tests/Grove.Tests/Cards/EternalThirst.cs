@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Cards
 {
-  using System.Linq;
   using Infrastructure;
   using Xunit;
 
@@ -9,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void EnchantedGainsCounter()
+      public void JuggernautGetsCounter()
       {
         var juggernaut = C("Juggernaut").IsEnchantedWith("Eternal Thirst");
         Battlefield(P1, juggernaut);

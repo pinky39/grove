@@ -25,7 +25,7 @@
           p.Text = "When Aven Surveyor enters the battlefield, choose one —{EOL}• Put a +1/+1 counter on Aven Surveyor.{EOL}• Return target creature to its owner's hand.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
           {
-            Condition = (t, g) => t.OwningCard.Controller.Opponent.Battlefield.Creatures.Any(),
+            Condition = ctx => ctx.Opponent.Battlefield.Creatures.Any(),
           });
           p.Effect = () => new ChooseOneEffectFromGiven(
             message: "Press 'Yes' to put a +1/+1 counter on Aven Surveyor. Press 'No' to return target creature to its owner's hand",
@@ -45,7 +45,7 @@
           p.Text = "When Aven Surveyor enters the battlefield, choose one —{EOL}• Put a +1/+1 counter on Aven Surveyor.{EOL}• Return target creature to its owner's hand.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
           {
-            Condition = (t, g) => t.OwningCard.Controller.Opponent.Battlefield.Creatures.None(),
+            Condition = ctx => ctx.Opponent.Battlefield.Creatures.None(),
           });
           p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1));
         });

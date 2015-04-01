@@ -40,7 +40,7 @@
           p.Text = "If a creature card would be put into an opponent's graveyard from anywhere, exile it instead.";
           p.Trigger(new OnZoneChanged(
             to: Zone.Graveyard,
-            filter: (card, ability, _) => card.Is().Creature && ability.OwningCard.Controller != card.Controller));
+            selector: (c, ctx) => c.Is().Creature && c.Controller == ctx.Opponent));
           p.Effect = () => new ExileCard(P(e => e.TriggerMessage<ZoneChangedEvent>().Card), Zone.Graveyard);
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });

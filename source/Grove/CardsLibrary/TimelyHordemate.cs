@@ -21,7 +21,7 @@
           p.Text = "When Timely Hordemate enters the battlefield, if you attacked with a creature this turn, return target creature card with converted mana cost 2 or less from your graveyard to the battlefield.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
           {
-            Condition = (t, g) => g.Turn.Events.HasActivePlayerAttackedThisTurn,
+            Condition = ctx => ctx.Turn.Events.HasActivePlayerAttackedThisTurn,
           });
 
           p.Effect = () => new PutTargetsToBattlefield();

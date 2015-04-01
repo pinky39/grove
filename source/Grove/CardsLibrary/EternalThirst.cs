@@ -32,16 +32,15 @@
 
               tp.Trigger(new OnZoneChanged(
                 from: Zone.Battlefield, to: Zone.Graveyard, 
-                filter: (card, ability, _) => card.Is().Creature && card.Controller != ability.OwningCard.Controller));
+                selector: (c,ctx) => c.Is().Creature && c.Controller == ctx.Opponent));
 
               return new AddTriggeredAbility(new TriggeredAbility(tp));
             });
 
-          p.TargetSelector.AddEffect(
-            trg => trg.Is.Creature().On.Battlefield());
+          p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
           p.TimingRule(new OnFirstMain());
-          p.TargetingRule(new EffectOrCostRankBy(x => -x.Power.GetValueOrDefault(), ControlledBy.SpellOwner));
+          p.TargetingRule(new EffectCombatEnchantment());
         });
     }
   }

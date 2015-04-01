@@ -39,7 +39,7 @@
             p.Trigger(new OnZoneChanged(
               @from: Zone.Battlefield,
               to: Zone.Graveyard,
-              filter: (c, a, g) => a.SourceCard.AttachedTo == c));
+              selector: (c, ctx) => ctx.OwningCard.AttachedTo == c));
 
             p.Effect = () => new CompoundEffect(
               new ExileCard(P(e => e.Source.OwningCard.AttachedTo), Zone.Graveyard),
@@ -52,7 +52,7 @@
 
             p.Trigger(new OnZoneChanged(
               @from: Zone.Battlefield,
-              filter: (c, a, g) => a.OwningCard == c && a.OwningCard.AttachedTo != null));
+              selector: (c, ctx) => ctx.OwningCard == c && ctx.OwningCard.AttachedTo != null));
 
             p.Effect = () => new ExileCard(P(e => e.Source.OwningCard.AttachedTo), Zone.Battlefield);
           }

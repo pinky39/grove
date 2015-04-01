@@ -24,7 +24,7 @@
             p.Trigger(new OnZoneChanged(
               @from: Zone.Battlefield,
               to: Zone.Graveyard,
-              filter: (c, a, g) => c.Is().Creature));
+              selector: (c, ctx) => c.Is().Creature));
 
             p.Effect = () => new DrawCards(
               count: 1,

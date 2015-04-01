@@ -29,7 +29,7 @@
 
             p.Trigger(new OnStepStart(Step.Upkeep, activeTurn: true, passiveTurn: true)
               {
-                Condition = (t, g) => t.OwningCard.IsAttached && t.OwningCard.AttachedTo.Controller.IsActive
+                Condition = ctx => ctx.OwningCard.IsAttached && ctx.OwningCard.AttachedTo.Controller.IsActive
               });
 
             p.Effect = () => new ChangeLifeOfEnchantedPermanentsController(-2);

@@ -14,7 +14,7 @@
   {
     public delegate Effect Factory();
 
-    public delegate bool Selector(Card card, Context ctx);
+    public delegate bool CardSelector(Card card, Context ctx);
 
     public delegate bool Predicate(Context ctx);
 

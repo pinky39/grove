@@ -22,7 +22,7 @@
             p.Text = "Whenever a creature enters the battlefield, you lose 1 life and add {B} to your mana pool.";
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              filter: (c, a, g) => c.Is().Creature));
+              selector: (c, ctx) => c.Is().Creature));
 
             p.Effect = () => new CompoundEffect(
               new ChangeLife(amount: -1, yours: true),

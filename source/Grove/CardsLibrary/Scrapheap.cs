@@ -24,7 +24,7 @@
             p.Trigger(new OnZoneChanged(
               @from: Zone.Battlefield,
               to: Zone.Graveyard,
-              filter: (c, a, _) => c.Owner == a.OwningCard.Controller && (c.Is().Artifact || c.Is().Enchantment)));
+              selector: (c, ctx) => c.Owner == ctx.You && (c.Is().Artifact || c.Is().Enchantment)));
 
             p.Effect = () => new ChangeLife(amount: 1, yours: true);
 

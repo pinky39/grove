@@ -21,7 +21,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a creature enters the battlefield, its controller sacrifices a creature or land.";
-            p.Trigger(new OnZoneChanged(to: Zone.Battlefield, filter: (c, a , g) => c.Is().Creature));
+            p.Trigger(new OnZoneChanged(to: Zone.Battlefield, selector: (c, ctx) => c.Is().Creature));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
 
             p.Effect = () => new PlayerSacrificePermanents(

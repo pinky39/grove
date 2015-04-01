@@ -21,7 +21,7 @@
           p.Text = "When Mardu Warshrieker enters the battlefield, if you attacked with a creature this turn, add {R}{W}{B} to your mana pool.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
           {
-            Condition = (t, g) => g.Turn.Events.HasActivePlayerAttackedThisTurn,
+            Condition = ctx => ctx.Turn.Events.HasActivePlayerAttackedThisTurn,
           });
 
           p.Effect = () => new AddManaToPool("{R}{W}{B}".Parse());

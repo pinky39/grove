@@ -158,7 +158,7 @@ o Void Snare
 o Black Cat
 o Covenant of Blood
 o Cruel Sadist
-Endless Obedience
+o Endless Obedience
 Eternal Thirst
 Feast on the Fallen
 In Garruk's Wake

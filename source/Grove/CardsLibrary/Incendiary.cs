@@ -36,12 +36,9 @@
           {
             p.Text = "When enchanted creature dies, Incendiary deals X damage to target creature or player, where X is the number of fuse counters on Incendiary.";
             p.Trigger(new OnZoneChanged(@from: Zone.Battlefield, to: Zone.Graveyard,
-              filter: (c, a, _) => c == a.OwningCard.AttachedTo));
+              selector: (c, ctx) => c == ctx.OwningCard.AttachedTo));
 
-            p.Effect = () => new DealDamageToTargets(P(e =>
-              {
-                return e.Source.OwningCard.CountersCount(CounterType.Fuse);
-              }));
+            p.Effect = () => new DealDamageToTargets(P(e => e.Source.OwningCard.CountersCount(CounterType.Fuse)));
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             
             // we cannot obtain the number of counters since this executes

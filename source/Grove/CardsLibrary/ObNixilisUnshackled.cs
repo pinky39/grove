@@ -34,13 +34,7 @@
           p.Text = "Whenever another creature dies, put a +1/+1 counter on Ob Nixilis, Unshackled.";
 
           p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard, 
-            filter: (card, ability, _) =>
-            {
-              if (ability.OwningCard == card)
-                return false;
-
-              return card.Is().Creature;
-            }));
+            selector: (c, ctx) => c.Is().Creature && ctx.OwningCard != c));
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
 

@@ -24,7 +24,7 @@
               "Whenever a creature dealt damage by enchanted creature this turn dies, put a +1/+1 counter on that creature.";
 
             p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard,
-              filter: (c, a, g) => g.Turn.Events.HasBeenDamagedBy(c, a.OwningCard.AttachedTo)));
+              selector: (c, ctx) => ctx.Turn.Events.HasBeenDamagedBy(c, ctx.OwningCard.AttachedTo)));
 
             p.Effect =
               () => new ApplyModifiersToCard(P(e => e.Source.OwningCard.AttachedTo),

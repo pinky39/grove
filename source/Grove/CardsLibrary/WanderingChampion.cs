@@ -23,7 +23,7 @@
           p.Trigger(new OnDamageDealt(dmg =>
               dmg.IsCombat && dmg.IsDealtByOwningCard && dmg.IsDealtToPlayer)
           {
-            Condition = (t, g) => t.Controller.Battlefield.Any(x => x.HasColor(CardColor.Blue) || x.HasColor(CardColor.Red)),
+            Condition = ctx => ctx.You.Battlefield.Any(x => x.HasColor(CardColor.Blue) || x.HasColor(CardColor.Red)),
           });
 
           p.Effect = () => new DiscardCardToDrawCard();

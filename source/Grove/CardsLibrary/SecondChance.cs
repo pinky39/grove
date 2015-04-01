@@ -22,7 +22,7 @@
 
             p.Trigger(new OnStepStart(step: Step.Upkeep)
               {
-                Condition = (t, g) => t.OwningCard.Controller.Life <= 5
+                Condition = ctx => ctx.You.Life <= 5
               });
 
             p.Effect = () => new CompoundEffect(

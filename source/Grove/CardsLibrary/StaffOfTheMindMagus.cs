@@ -24,8 +24,8 @@
 
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              filter: (c, a, _) =>
-                c.Is("Island") && c.Controller == a.OwningCard.Controller));
+              selector: (c, ctx) =>
+                c.Is("Island") && c.Controller == ctx.You));
 
             p.Effect = () => new ChangeLife(amount: 1, yours: true);
             p.TriggerOnlyIfOwningCardIsInPlay = true;

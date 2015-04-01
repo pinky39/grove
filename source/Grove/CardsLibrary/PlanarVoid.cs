@@ -23,7 +23,7 @@
 
             p.Trigger(new OnZoneChanged(
               to: Zone.Graveyard,
-              filter: delegate { return true; }));
+              selector: delegate { return true; }));
 
             p.Effect = () => new ExileCard(P(e => e.TriggerMessage<ZoneChangedEvent>().Card), Zone.Graveyard);
             p.TriggerOnlyIfOwningCardIsInPlay = true;

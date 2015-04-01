@@ -6,7 +6,7 @@
 
   public class OnZoneChanged : Trigger, IReceive<ZoneChangedEvent>
   {
-    private readonly Func<Card, TriggeredAbility, Game, bool> _filter;
+    private readonly CardSelector _selector;
     private readonly Zone _from;
     private readonly Zone _to;
 
@@ -15,16 +15,16 @@
     public Zone To { get { return _to; } }
 
     public OnZoneChanged(Zone @from = Zone.None, Zone to = Zone.None,
-      Func<Card, TriggeredAbility, Game, bool> filter = null)
+      CardSelector selector = null)
     {
       _from = from;
       _to = to;
-      _filter = filter ?? ((card, ability, game) => ability.OwningCard == card);
+      _selector = selector ?? ((card, ctx) => ctx.OwningCard == card);
     }
 
     public void Receive(ZoneChangedEvent message)
     {
-      if (!_filter(message.Card, Ability, Game))
+      if (!_selector(message.Card, new Context(this, Game)))
         return;
 
       // all scenario cards have zone set to None

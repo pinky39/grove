@@ -21,7 +21,7 @@
           p.Text = "When Mardu Hordechief enters the battlefield, if you attacked with a creature this turn, put a 1/1 white Warrior creature token onto the battlefield.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield)
           {
-            Condition = (t, g) => g.Turn.Events.HasActivePlayerAttackedThisTurn,
+            Condition = ctx => ctx.Turn.Events.HasActivePlayerAttackedThisTurn,
           });
 
           p.Effect = () => new CreateTokens(

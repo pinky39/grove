@@ -37,7 +37,7 @@
           {
             p.Text = "When enchanted creature dies, draw a card for each page counter on Private Research.";
             p.Trigger(new OnZoneChanged(@from: Zone.Battlefield, to: Zone.Graveyard,
-              filter: (c, a, _) => c == a.OwningCard.AttachedTo));
+              selector: (c, ctx) => c == ctx.OwningCard.AttachedTo));
 
             p.Effect = () => new DrawCards(P(e => e.Source.OwningCard.CountersCount(CounterType.Page)));
             p.TriggerOnlyIfOwningCardIsInPlay = true;

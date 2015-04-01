@@ -29,7 +29,7 @@
           {
             p.Trigger(new OnAttachmentAttached(c => c.Is().Aura)
             {
-                Condition = (t, g) => t.OwningCard.Attachments.Count() == 1
+                Condition = ctx => ctx.OwningCard.Attachments.Count() == 1
             });
 
             p.Effect = () =>
