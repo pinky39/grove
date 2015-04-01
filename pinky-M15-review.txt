@@ -154,10 +154,10 @@ o Polymorphist's Jest
 o Quickling
 o Soul of Ravnica
 o Statute of Denial
-Void Snare
-Black Cat
-Covenant of Blood
-Cruel Sadist
+o Void Snare
+o Black Cat
+o Covenant of Blood
+o Cruel Sadist
 Endless Obedience
 Eternal Thirst
 Feast on the Fallen

@@ -92,7 +92,7 @@
     {
       var amount = GetManaCost();
 
-      if (p.X.HasValue)
+      if (_hasX)
       {
         amount = amount.Add(p.X.Value.Colorless());
       }

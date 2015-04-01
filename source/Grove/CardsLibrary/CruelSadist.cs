@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using AI;
+  using AI.CostRules;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Costs;
@@ -19,7 +20,7 @@
           .Text("{B},{T}, Pay 1 life: Put a +1/+1 counter on Cruel Sadist.{EOL}{2}{B},{T}, Remove X +1/+1 counters from Cruel Sadist: Cruel Sadist deals X damage to target creature.")
           .FlavorText("Face of innocence. Hand of death.")
           .Power(1)
-          .Toughness(1)
+          .Toughness(1)          
           .ActivatedAbility(p =>
           {
             p.Text = "{B},{T}, Pay 1 life: Put a +1/+1 counter on Cruel Sadist.";
@@ -41,13 +42,14 @@
             p.Cost = new AggregateCost(
               new PayMana("{2}{B}".Parse()),
               new Tap(),
-              new RemoveCounters(CounterType.PowerToughness));
-
+              new RemoveCounters(CounterType.PowerToughness, hasX: true));
+           
             p.Effect = () => new DealDamageToTargets(P(e => e.Source.OwningCard.CountersCount(CounterType.PowerToughness)));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-
-            p.TargetingRule(new EffectDealDamage(p1 => p1.Card.CountersCount(CounterType.PowerToughness)));
+            
+            p.TargetingRule(new EffectDealDamage());
+            p.CostRule(new XIsTargetsLifepointsLeft());
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });
     }

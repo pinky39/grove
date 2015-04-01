@@ -38,8 +38,8 @@
         {
           _type = ValueType.Constant,
           _value = value
-        };
-    }
+        };    
+    }        
 
     public int GetValue(int? x)
     {

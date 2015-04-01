@@ -183,6 +183,7 @@
     <Compile Include="Cards\CropRotation.cs" />
     <Compile Include="Cards\Crosswinds.cs" />
     <Compile Include="Cards\CrucibleOfFire.cs" />
+    <Compile Include="Cards\CruelSadist.cs" />
     <Compile Include="Cards\Curfew.cs" />
     <Compile Include="Cards\DarkDeal.cs" />
     <Compile Include="Cards\DarkestHour.cs" />

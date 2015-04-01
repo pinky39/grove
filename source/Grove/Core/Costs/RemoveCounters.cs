@@ -3,25 +3,33 @@
   public class RemoveCounters : Cost
   {
     private readonly int? _count;
+    private readonly bool _hasX;
     private readonly CounterType _counterType;
 
     private RemoveCounters() {}
 
-    public RemoveCounters(CounterType counterType, int? count = null)
+    public override bool HasX { get { return _hasX; } }
+
+    public RemoveCounters(CounterType counterType, int? count = null, bool hasX = false)
     {
       _count = count;
+      _hasX = hasX;
       _counterType = counterType;
     }
 
     public override CanPayResult CanPayPartial()
     {
-      return _count == null || 
-        Card.CountersCount(_counterType) >= _count;            
+      var countersCount = Card.CountersCount(_counterType);
+      
+      bool canPay = _count == null || countersCount >= _count;
+      int? maxX = _hasX ? countersCount : (int?) null;
+      return new CanPayResult(canPay, maxX);
     }
 
     public override void PayPartial(PayCostParameters p)
     {
-      Card.RemoveCounters(_counterType, _count);
+      var count = _hasX ? p.X : _count;
+      Card.RemoveCounters(_counterType, count);
     }
   }
 }
