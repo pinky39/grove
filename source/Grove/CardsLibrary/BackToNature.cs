@@ -15,8 +15,8 @@
         .FlavorText("There will always be those who presume to improve nature, or dare to befoul it. And nature will always have a response.")
         .Cast(p =>
         {
-          p.Effect = () => new DestroyAllPermanents((e, c) => c.Is().Enchantment);
-        });
+          p.Effect = () => new DestroyAllPermanents((c, ctx) => c.Is().Enchantment);
+        }); 
     }
   }
 }

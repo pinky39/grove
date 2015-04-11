@@ -28,7 +28,7 @@
 
             p.Effect = () => new CompoundEffect(
               new SacrificeOwner(),
-              new DestroyAllPermanents((e, c) => c.Is().Land));
+              new DestroyAllPermanents((c, ctx) => c.Is().Land));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

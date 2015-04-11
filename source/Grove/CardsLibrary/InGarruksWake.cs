@@ -16,7 +16,7 @@
         .Cast(p =>
         {
           p.Effect = () => new DestroyAllPermanents(
-            filter: (effect, card) => (card.Is().Creature || card.Is("Planeswalker")) && card.Controller != effect.Controller);
+            filter: (c, ctx) => (c.Is().Creature || c.Is("Planeswalker")) && c.Controller == ctx.Opponent);
         });
     }
   }

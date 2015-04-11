@@ -16,7 +16,7 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Effect = () => new DestroyAllPermanents((e, card) => card.Is().Enchantment);
+            p.Effect = () => new DestroyAllPermanents((c, ctx) => c.Is().Enchantment);
             p.TimingRule(new OnFirstMain());
           });
     }

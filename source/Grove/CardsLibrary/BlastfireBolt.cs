@@ -19,7 +19,7 @@
           {
             p.Effect = () => new CompoundEffect(
               new DealDamageToTargets(5),
-              new DestroyAllPermanents((e, c) => c.Is().Equipment && c.AttachedTo == e.Target));
+              new DestroyAttachedAttachments(P(e => e.Target.Card()), (c, ctx) => c.Is().Equipment));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

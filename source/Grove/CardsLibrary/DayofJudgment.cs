@@ -16,7 +16,7 @@
         .Cast(p =>
           {
             p.TimingRule(new OnSecondMain());
-            p.Effect = () => new DestroyAllPermanents((e, c) => c.Is().Creature);
+            p.Effect = () => new DestroyAllPermanents((c, ctx) => c.Is().Creature);
           });
     }
   }

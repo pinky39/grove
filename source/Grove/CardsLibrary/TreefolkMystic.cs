@@ -27,14 +27,16 @@
             p.Trigger(new WhenThisBlocks());
             p.Trigger(new WhenThisBecomesBlocked(triggerForEveryBlocker: true));            
             
-            p.Effect = () => new DestroyAttachedAuras(P((e =>
+            p.Effect = () => new DestroyAttachedAttachments(P((e =>
               {
                 var message = e.TriggerMessage<BlockerJoinedCombatEvent>();
 
                 return message.Attacker.Card == e.Source.OwningCard
                   ? message.Blocker.Card
                   : message.Attacker.Card;
-              })));
+              })), 
+              
+              (c, ctx) => c.Is().Aura);
           });
     }
   }

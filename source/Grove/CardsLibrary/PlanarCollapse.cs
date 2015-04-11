@@ -26,7 +26,7 @@
 
             p.Effect = () => new CompoundEffect(
               new SacrificeOwner(),
-              new DestroyAllPermanents((e, c) => c.Is().Creature, allowToRegenerate: false));
+              new DestroyAllPermanents((c, ctx) => c.Is().Creature, allowToRegenerate: false));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

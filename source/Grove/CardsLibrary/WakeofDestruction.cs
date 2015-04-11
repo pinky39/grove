@@ -20,7 +20,7 @@
           {
             p.Effect = () => new CompoundEffect(
               new DestroyTargetPermanents(),
-              new DestroyAllPermanents((e, c) => e.Target.Card().Name == c.Name));
+              new DestroyAllPermanents((c, ctx) => ctx.Target.Card().Name == c.Name));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
             p.TimingRule(new OnFirstMain());

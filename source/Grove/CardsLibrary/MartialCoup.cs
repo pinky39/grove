@@ -21,7 +21,7 @@
           {
             p.Effect = () => new CompoundEffect(
               new DestroyAllPermanents(
-                filter: (e, c) => c.Is().Creature)
+                filter: (c, ctx) => c.Is().Creature)
                 {ShouldResolve = ctx => ctx.X >= 5},
               new CreateTokens(
                 count: Value.PlusX,

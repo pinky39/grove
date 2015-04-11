@@ -19,7 +19,7 @@
           {
             p.Effect = ()  => new CompoundEffect(
               new ChangeLife(amount: P((e, g) => 2 * g.Players.Permanents().Count(c => c.Is().Enchantment)), yours: true),
-              new DestroyAllPermanents((e, card) => card.Is().Enchantment));
+              new DestroyAllPermanents((c, ctx) => c.Is().Enchantment));
                     
             p.TimingRule(new OnFirstMain());
           });

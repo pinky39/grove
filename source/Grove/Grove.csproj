@@ -722,6 +722,7 @@
     <Compile Include="Core\Effects\ExileSelectedCards.cs" />
     <Compile Include="Core\Effects\FerociousEffect.cs" />
     <Compile Include="Core\Effects\PlayerSelectPermanentsAndSacrificeRest.cs" />
+    <Compile Include="Core\Effects\PowderKegEffect.cs" />
     <Compile Include="Core\Effects\Put11CountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutSelectedCardsIntoGraveyardOthersOnTop.cs" />
     <Compile Include="Core\Effects\PutTargetsOnTopOfLibrary.cs" />
@@ -953,7 +954,7 @@
     <Compile Include="Core\Decisions\IDecisionHandler.cs" />
     <Compile Include="Core\Effects\CreatureGetsPwtForEachRevealedCard.cs" />
     <Compile Include="Core\Effects\CreaturesOfChosenTypeCostLess.cs" />
-    <Compile Include="Core\Effects\DestroyAttachedAuras.cs" />
+    <Compile Include="Core\Effects\DestroyAttachedAttachments.cs" />
     <Compile Include="Core\Effects\ExchangeCardsInBattlefieldAndGraveyard.cs" />
     <Compile Include="Core\Effects\ExileCardsWithSameNameAsTargetFromGHL.cs" />
     <Compile Include="Core\Effects\ExileOwnerUnlessYouDiscardCreatureCard.cs" />

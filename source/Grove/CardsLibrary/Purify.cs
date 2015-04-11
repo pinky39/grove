@@ -15,7 +15,7 @@
         .FlavorText("Our Mother The sky was Her hair; the sun, Her face. She danced on the grass and in the hills.")
         .Cast(p =>
           {
-            p.Effect = () => new DestroyAllPermanents((e, c) => c.Is().Enchantment || c.Is().Artifact);
+            p.Effect = () => new DestroyAllPermanents((c, ctx) => c.Is().Enchantment || c.Is().Artifact);
           });
     }
   }

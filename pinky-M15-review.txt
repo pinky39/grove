@@ -159,9 +159,9 @@ o Black Cat
 o Covenant of Blood
 o Cruel Sadist
 o Endless Obedience
-Eternal Thirst
-Feast on the Fallen
-In Garruk's Wake
+o Eternal Thirst
+o Feast on the Fallen
+o In Garruk's Wake
 Leeching Sliver
 Mind Rot
 Necrobite

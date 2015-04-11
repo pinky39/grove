@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Effect = () => new DestroyAllPermanents(
-              (e, card) => card.Is().Artifact && card.ConvertedCost <= e.X);
+              (c, ctx) => c.Is().Artifact && c.ConvertedCost <= ctx.X);
 
             p.TimingRule(new OnFirstMain());
             p.CostRule(new XIsOptimalConvertedCost(selector: c =>c.Is().Artifact));

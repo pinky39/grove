@@ -16,7 +16,7 @@
         .FlavorText("The dead serve as their own tombstones.")
         .Cast(p =>
           {
-            p.Effect = () => new DestroyAllPermanents((e, c) => 
+            p.Effect = () => new DestroyAllPermanents((c, ctx) => 
               c.Is().Creature && !(c.HasColor(CardColor.White)));
             
             p.TimingRule(new WhenOpponentControllsPermanents(

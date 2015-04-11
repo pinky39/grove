@@ -24,7 +24,7 @@
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
 
             p.Effect = () => new DestroyAllPermanents(
-              (e, c) => c.Is("wall") && c.Controller != e.Source.OwningCard.Controller);
+              (c, ctx) => c.Is("wall") && c.Controller == ctx.Opponent);
           })
         .TriggeredAbility(p =>
           {
