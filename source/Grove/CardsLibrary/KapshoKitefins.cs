@@ -26,7 +26,14 @@
 
             p.Trigger(new OnZoneChanged(
               to: Zone.Battlefield,
-              selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller));
+              selector: (card, ctx) =>
+              {
+                if (ctx.OwningCard == card)
+                  return true;
+
+                return ctx.OwningCard.Zone == Zone.Battlefield &&
+                  card.Is().Creature && ctx.OwningCard.Controller == card.Controller;
+              }));
 
             p.Effect = () => new TapTargets();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.Opponent).On.Battlefield());
