@@ -20,11 +20,6 @@
       _p = p;
     }
 
-    public bool IsEquip
-    {
-      get { return _p.IsEquip; }
-    }
-
     public virtual void OnEnable() {}
 
     public virtual void OnDisable() {}

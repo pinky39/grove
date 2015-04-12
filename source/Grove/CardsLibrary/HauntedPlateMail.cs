@@ -9,7 +9,6 @@
   using Infrastructure;
   using Modifiers;
 
-  // todo, equip ability should check card type
   public class HauntedPlateMail : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
@@ -31,7 +30,6 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());
 
-            p.IsEquip = true;
             p.ActivateAsSorcery = true;
 
             p.TargetingRule(new EffectCombatEquipment());
@@ -49,7 +47,8 @@
                 power: 4,
                 toughness: 4,
                 type: t => t.Change(baseTypes: "artifact creature", subTypes: "spirit"),
-                colors: L(CardColor.Colorless)) {UntilEot = true});
+                colors: L(CardColor.Colorless)) {UntilEot = true}
+                );
 
             p.Condition = (card, _) => card.Controller.Battlefield.Creatures.None();
           });

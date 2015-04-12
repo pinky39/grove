@@ -11,13 +11,11 @@
       [Fact]
       public void ChangePlateToCreature()
       {
-        Battlefield(P1, "Haunted Plate Mail");
-
-        P2.Life = 4;
+        Battlefield(P1, "Haunted Plate Mail", "Plains", "Plains", "Plains", "Plains");
 
         RunGame(1);
 
-        Equal(0, P2.Life);        
+        Equal(16, P2.Life);        
       }
 
       [Fact]

@@ -32,7 +32,6 @@
           p.TargetingRule(new EffectCombatEquipment());
           p.TimingRule(new OnFirstMain());
 
-          p.IsEquip = true;
           p.ActivateAsSorcery = true;
         })
         .TriggeredAbility(p =>

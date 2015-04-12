@@ -24,6 +24,15 @@
       return 0;
     }
 
+    public override bool CanBeResolved()
+    {
+      // Fix: when equipment becomes creature (e.g Ensoul Artifact, Haunted Plate Mail) it tries to equip self. It caused StackOverflow exception
+      if (Source.OwningCard.Is().Creature)
+        return false;
+
+      return base.CanBeResolved();
+    }
+
     protected override void ResolveEffect()
     {
       var attachTo = (Card) Target;

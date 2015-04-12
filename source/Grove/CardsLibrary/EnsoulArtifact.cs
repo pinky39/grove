@@ -6,7 +6,6 @@
   using Effects;
   using Modifiers;
 
-  // todo, equip ability should check card type
   public class EnsoulArtifact : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
@@ -26,12 +25,6 @@
                 power: m => 5,
                 toughness: m => 5,
                 type: m => m.OwningCard.Type.Add(baseTypes: "creature"))
-              //() =>
-              //  {
-              //    var modifier = new DisableAllAbilities(a => a.IsEquip, s => false, t => false);
-              //    modifier.AddLifetime(new OwningCardLifetime());
-              //    return modifier;
-              //  }
               );
 
             p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Artifact).On.Battlefield());
