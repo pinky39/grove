@@ -14,11 +14,11 @@
 
     protected override void ResolveEffect()
     {
-      var permanenentsToDestroy = Players.Permanents()
+      var permanentsToDestroy = Players.Permanents()
         .Where(x => (x.Is().Artifact || x.Is().Creature) && x.ConvertedCost == _countersCount)
         .ToList();
 
-      foreach (var card in permanenentsToDestroy)
+      foreach (var card in permanentsToDestroy)
       {
         card.Destroy();
       }
