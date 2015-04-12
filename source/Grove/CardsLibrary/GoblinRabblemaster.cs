@@ -35,6 +35,7 @@
                 .Text("{Haste}")
                 .Colors(CardColor.Red)
                 .SimpleAbilities(Static.Haste));
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
           .TriggeredAbility(p =>
           {
