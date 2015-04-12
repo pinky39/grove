@@ -29,6 +29,7 @@
             p.Trigger(new OnZoneChanged(
               from: Zone.Battlefield, to: Zone.Graveyard,
               selector: (c, ctx) => c.Is().Creature && c.Controller == ctx.Opponent));
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
   }
