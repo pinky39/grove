@@ -22,7 +22,7 @@
 
           p.Trigger(new OnZoneChanged(
             to: Zone.Battlefield,
-            selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller));
+            selector: (c, ctx) => c.Is().Creature && c.Power >= 3 && ctx.You == c.Controller));
           
           p.TriggerOnlyIfOwningCardIsInPlay = true;
           
