@@ -16,9 +16,11 @@
 
     public delegate bool CardSelector(Card card, Context ctx);
 
-    public delegate bool Predicate(Context ctx);
+    public delegate bool EffectPredicate(Context ctx);
 
-    public delegate void Action(Context ctx);
+    public delegate void EffectAction(Context ctx);
+
+    public delegate void EffectAction<in T>(T card, Context ctx);
 
     // Holds a list of effect parameters which must be evaluated either 
     // when effect is created, put on stack or resolved.
@@ -32,8 +34,8 @@
     private object _triggerMessage;
 
     // Allows extending effect on the fly
-    public Action AfterResolve = delegate { };
-    public Action BeforeResolve = delegate { };
+    public EffectAction AfterResolve = delegate { };
+    public EffectAction BeforeResolve = delegate { };
 
     // If there are multiple targets and this is true all the targets
     // must still be valid for effect to resolve
@@ -43,7 +45,7 @@
 
     // Allow custom checks if effect should resolve.
     // Runs right before the Effect would resolve.
-    public Predicate ShouldResolve = delegate { return true; };
+    public EffectPredicate ShouldResolve = delegate { return true; };
 
     // If multiple effect would be put on stack AI uses this to sort them.
     public int TriggerOrderRule = TriggerOrder.Normal;
@@ -328,6 +330,7 @@
       public Player Opponent { get { return _effect.Controller.Opponent; } }
       public Card OwningCard { get { return _effect.Source.OwningCard; } }
       public int? X { get { return _effect.X; } }
+      public Combat Combat { get { return _game.Combat; } }
 
       public Context(Effect effect, Game game)
       {

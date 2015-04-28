@@ -41,7 +41,7 @@
                 .Toughness(1)
                 .Type("Token Creature - Soldier")
                 .Colors(CardColor.White),
-              afterTokenComesToPlay: (token, game) => game.Combat.AddAttacker(token));
+              afterTokenComesToPlay: (token, ctx) => ctx.Combat.AddAttacker(token));
           });
     }
   }

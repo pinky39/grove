@@ -735,7 +735,6 @@
     <Compile Include="Core\Effects\DealDifferentDamageToTargets.cs" />
     <Compile Include="Core\Effects\DiscardCardOrSacrificeOwner.cs" />
     <Compile Include="Core\Effects\DistributeCountersAmongTargets.cs" />
-    <Compile Include="Core\Effects\DrawCardsCreateTokens.cs" />
     <Compile Include="Core\Effects\ExileAllCards.cs" />
     <Compile Include="Core\Effects\ExileTargetThenPutIntoPlayUnderOwnersControl.cs" />
     <Compile Include="Core\Effects\FlipACoinOpponentGainsControl.cs" />

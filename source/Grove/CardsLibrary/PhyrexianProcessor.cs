@@ -40,10 +40,10 @@
                 .FlavorText("A minion given over to Tevesh Szat is a stronger minion gained.")
                 .Type("Token Creature - Minion")
                 .Colors(CardColor.Black),
-              tokenParameters: (e, token) =>
+              tokenParameters: (token, ctx) =>
                 {
-                  token.Power(e.Source.OwningCard.Counters);
-                  token.Toughness(e.Source.OwningCard.Counters);
+                  token.Power(ctx.OwningCard.Counters);
+                  token.Toughness(ctx.OwningCard.Counters);
                 });
 
             p.TimingRule(new Any(

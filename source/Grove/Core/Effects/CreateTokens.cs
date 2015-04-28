@@ -5,9 +5,9 @@
 
   public class CreateTokens : Effect
   {
-    private readonly Action<Card, Game> _afterTokenComesToPlay;
+    private readonly EffectAction<Card> _afterTokenComesToPlay;
     private readonly DynParam<int> _count;
-    private readonly Action<Effect, CardTemplate> _setTokenParameters = delegate { };
+    private readonly EffectAction<CardTemplate> _setTokenParameters = delegate { };
     private readonly DynParam<Player> _tokenController;
     private readonly List<CardTemplate> _tokenFactories = new List<CardTemplate>();
 
@@ -23,9 +23,9 @@
     public CreateTokens(
       DynParam<int> count,
       CardTemplate token,
-      Action<Card, Game> afterTokenComesToPlay = null,
+      EffectAction<Card> afterTokenComesToPlay = null,
       DynParam<Player> tokenController = null,
-      Action<Effect, CardTemplate> tokenParameters = null)
+      EffectAction<CardTemplate> tokenParameters = null)
     {
       _afterTokenComesToPlay = afterTokenComesToPlay ?? delegate { };
       _tokenController = tokenController;
@@ -45,13 +45,13 @@
       {
         foreach (var tokenFactory in _tokenFactories)
         {
-          _setTokenParameters(this, tokenFactory);
+          _setTokenParameters(tokenFactory, Ctx);
 
           var token = tokenFactory.CreateCard();
           token.Initialize(controller.Value, Game);
           token.PutToBattlefield();
 
-          _afterTokenComesToPlay(token, Game);
+          _afterTokenComesToPlay(token, Ctx);
         }
       }
     }
