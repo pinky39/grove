@@ -29,8 +29,9 @@
         {
           p.Text = "{T}: Target player puts the top X cards of his or her library into his or her graveyard, where X is the number of charge counters on Grindclock.";
           p.Cost = new Tap();
+         
           p.Effect = () => new PlayerPutsTopCardsFromLibraryToGraveyard(
-            player: null,
+            player: P(e => (Player)e.Target),
             count: P(e => e.Source.OwningCard.CountersCount(CounterType.Charge)));
 
           p.TargetSelector.AddEffect(trg => trg.Is.Player());

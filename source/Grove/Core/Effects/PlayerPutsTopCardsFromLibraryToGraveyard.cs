@@ -17,11 +17,8 @@
 
     protected override void ResolveEffect()
     {
-      var player = Target != null && Target.IsPlayer() 
-        ? Target.Player() 
-        : _player.Value;
+      _player.Value.Mill(_count.Value);
       
-      player.Mill(_count.Value);
     }
   }
 }
