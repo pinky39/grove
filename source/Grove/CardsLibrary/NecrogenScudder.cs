@@ -16,6 +16,7 @@
         .FlavorText("Contrary to popular belief, it's kept aloft by necrogen gas, not the screaming agony of a thousand murdered souls.")
         .Power(3)
         .Toughness(3)
+        .SimpleAbilities(Static.Flying)
         .TriggeredAbility(p =>
         {
           p.Text = "When Necrogen Scudder enters the battlefield, you lose 3 life.";
