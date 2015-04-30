@@ -22,7 +22,7 @@
         {
           p.Text = "When Jungle Hollow enters the battlefield, you gain 1 life.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-          p.Effect = () => new ChangeLife(1, yours: true);
+          p.Effect = () => new ChangeLife(1, whos: P(e => e.Controller));
         });
     }
   }

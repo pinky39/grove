@@ -29,7 +29,7 @@
                 dmg.IsDealtToOwningCard));
 
             p.Effect =
-              () => new ChangeLife(amount: P(e => e.TriggerMessage<DamageDealtEvent>().Damage.Amount), yours: true);
+              () => new ChangeLife(amount: P(e => e.TriggerMessage<DamageDealtEvent>().Damage.Amount), whos: P(e => e.Controller));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

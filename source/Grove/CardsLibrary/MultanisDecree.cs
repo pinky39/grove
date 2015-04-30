@@ -18,7 +18,7 @@
         .Cast(p =>
           {
             p.Effect = ()  => new CompoundEffect(
-              new ChangeLife(amount: P((e, g) => 2 * g.Players.Permanents().Count(c => c.Is().Enchantment)), yours: true),
+              new ChangeLife(P((e, g) => 2 * g.Players.Permanents().Count(c => c.Is().Enchantment)), P(e => e.Controller)),
               new DestroyAllPermanents((c, ctx) => c.Is().Enchantment));
                     
             p.TimingRule(new OnFirstMain());

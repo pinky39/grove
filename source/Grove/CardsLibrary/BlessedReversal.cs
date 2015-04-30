@@ -17,8 +17,8 @@
         .Cast(p =>
           {
             p.Effect = () => new ChangeLife(
-              amount: P((e, g) => e.Controller.IsActive ? 0
-                : g.Combat.AttackerCount*3), yours: true);
+              P((e, g) => e.Controller.IsActive ? 0
+                : g.Combat.AttackerCount * 3), P(e => e.Controller));
 
             p.TimingRule(new AfterOpponentDeclaresAttackers());
           });

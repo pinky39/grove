@@ -25,7 +25,7 @@
               selector: (c, ctx) => c.Is().Creature));
 
             p.Effect = () => new CompoundEffect(
-              new ChangeLife(amount: -1, yours: true),
+              new ChangeLife(amount: -1, whos: P(e => e.Controller)),
               new AddManaToPool(Mana.Black));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

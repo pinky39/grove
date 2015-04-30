@@ -26,7 +26,7 @@
             new PayMana("{1}{G}".Parse()),
             new Sacrifice());
 
-          p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().Toughness.GetValueOrDefault()), yours: true);
+          p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().Toughness.GetValueOrDefault()), whos: P(e => e.Controller));
 
           p.TargetSelector.AddCost(trg =>
           {

@@ -21,7 +21,7 @@
               selectedCount: 1,
               youChooseDiscardedCards: true,
               filter: card => !card.Is().Land),
-            new ChangeLife(-2, yours: true)); 
+            new ChangeLife(-2, whos: P(e => e.Controller))); 
 
           p.TimingRule(new OnFirstMain());
           p.TimingRule(new WhenOpponentsHandCountIs(minCount: 2));

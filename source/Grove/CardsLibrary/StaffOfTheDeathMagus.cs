@@ -26,7 +26,7 @@
               to: Zone.Battlefield, 
               selector: (c, ctx) => c.Is("swamp") && c.Controller == ctx.You));
 
-            p.Effect = () => new ChangeLife(amount: 1, yours: true);
+            p.Effect = () => new ChangeLife(amount: 1, whos: P(e => e.Controller));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

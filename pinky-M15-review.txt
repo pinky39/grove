@@ -169,8 +169,8 @@ o Necrogen Scudder
 o Necromancer's Assistant
 o Necromancer's Stockpile
 o Ob Nixilis, Unshackled
-Paragon of Open Graves
-Rotfeaster Maggot
+o Paragon of Open Graves
+o Rotfeaster Maggot
 Soul of Innistrad
 Unmake the Graves
 Waste Not

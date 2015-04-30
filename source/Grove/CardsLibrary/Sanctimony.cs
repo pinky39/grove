@@ -21,7 +21,7 @@
             p.Trigger(new OnPermanentGetsTapped((a, c) =>
               c.Is("mountain") && c.Controller == a.OwningCard.Controller.Opponent));
 
-            p.Effect = () => new ChangeLife(amount: 1, yours: true);
+            p.Effect = () => new ChangeLife(amount: 1, whos: P(e => e.Controller));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }

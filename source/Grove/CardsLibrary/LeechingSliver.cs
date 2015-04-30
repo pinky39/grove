@@ -22,7 +22,7 @@
 
           p.Trigger(new WhenACreatureAttacks(t => t.Opponent && t.AttackerHas(c => c.Is("sliver"))));                    
           p.TriggerOnlyIfOwningCardIsInPlay = true;
-          p.Effect = () => new ChangeLife(amount: -1, opponents: true);
+          p.Effect = () => new ChangeLife(-1, P(e => e.Controller.Opponent));
         });
     }
   }

@@ -27,7 +27,7 @@
             new PayMana("{1}{B}".Parse()),
             new Tap());
 
-          p.Effect = () => new ChangeLife(-1, opponents: true);
+          p.Effect = () => new ChangeLife(-1, P(e => e.Controller.Opponent));
 
           p.TimingRule(new OnEndOfOpponentsTurn());
         });

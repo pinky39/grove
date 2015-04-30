@@ -31,8 +31,8 @@
               player: P(e => e.Controller.Opponent),
               filter: c => c.Is().Creature,
               text: "Select a creature to sacrifice."),
-              
-            new ChangeLife(amount: -10, opponents: true));
+
+            new ChangeLife(amount: -10, whos: P(e => e.Controller.Opponent)));
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         })

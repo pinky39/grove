@@ -21,7 +21,7 @@
         .Cast(p =>
         {
           p.Effect = () => new CompoundEffect(
-            new ChangeLife(amount: 4, yours: true),
+            new ChangeLife(amount: 4, whos: P(e => e.Controller)),
             new ApplyModifiersToTargets(() => new AddCounters(
             () => new PowerToughness(1, 1), count: 2))).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
           p.TargetSelector.AddEffect(

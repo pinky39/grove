@@ -30,8 +30,8 @@
               selector: (c, ctx) => c.Controller == ctx.You && c.Is().Creature && c.Toughness >= 4));
             
             p.Effect = () => new CompoundEffect(
-              new ChangeLife(2, yours: true),
-              new ChangeLife(-2, opponents: true));
+              new ChangeLife(2, P(e => e.Controller)),
+              new ChangeLife(-2, P(e => e.Controller.Opponent)));
           })
           .ActivatedAbility(p =>
           {

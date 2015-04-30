@@ -31,7 +31,7 @@
             p.Effect = () => new CompoundEffect(
               new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1))
                 .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness),
-              new ChangeLife(amount: 2, yours: true));            
+              new ChangeLife(amount: 2, whos: P(e => e.Controller)));            
 
             p.TargetSelector.AddCost(trg =>
               {

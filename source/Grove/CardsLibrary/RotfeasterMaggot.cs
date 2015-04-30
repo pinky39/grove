@@ -22,11 +22,17 @@
           p.Text = "When Rotfeaster Maggot enters the battlefield, exile target creature card from a graveyard. You gain life equal to that card's toughness.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
 
-          p.Effect = () => new ExileTargets(effectControllerGainsLifeEqualToToughness: true);
+          p.Effect = () => new CompoundEffect(
+              new ExileTargets(),
+              new ChangeLife(
+                amount: P(e => e.Target.Card().Toughness.GetValueOrDefault()),
+                whos: P(e => e.Controller)));                    
 
-          p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Graveyard());
+          p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.Graveyard());
 
-          p.TargetingRule(new EffectOrCostRankBy(c => -c.Toughness.GetValueOrDefault(), controlledBy: ControlledBy.SpellOwner));
+          p.TargetingRule(
+            new EffectOrCostRankBy(c => -c.Toughness.GetValueOrDefault(), 
+              controlledBy: ControlledBy.Opponent));
         });
     }
   }

@@ -23,7 +23,7 @@
               new PayMana("{3}{G}".Parse()),
               new Reveal());
 
-            p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().ManaCost.Converted), yours: true);
+            p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().ManaCost.Converted), whos: P(e => e.Controller));
             p.TargetSelector.AddCost(trg => trg.Is.Creature().In.OwnersHand());
             p.TimingRule(new OnEndOfOpponentsTurn());
             p.TargetingRule(new EffectOrCostRankBy(c => -c.ConvertedCost));

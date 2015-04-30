@@ -20,7 +20,7 @@
           {
             p.Text = "{T}: You gain 1 life.";
             p.Cost = new Tap();
-            p.Effect = () => new ChangeLife(amount: 1, yours: true);
+            p.Effect = () => new ChangeLife(amount: 1, whos: P(e => e.Controller));
             p.TimingRule(new Any(new OnEndOfOpponentsTurn(), new WhenOwningCardWillBeDestroyed()));
           });
     }

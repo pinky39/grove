@@ -26,7 +26,7 @@
               to: Zone.Graveyard,
               selector: (c, ctx) => c.Owner == ctx.You && (c.Is().Artifact || c.Is().Enchantment)));
 
-            p.Effect = () => new ChangeLife(amount: 1, yours: true);
+            p.Effect = () => new ChangeLife(amount: 1, whos: P(e => e.Controller));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

@@ -22,8 +22,8 @@
           p.Text = "When Siege Rhino enters the battlefield, each opponent loses 3 life and you gain 3 life.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
           p.Effect = () => new CompoundEffect(
-              new ChangeLife(amount: -3, opponents: true),
-              new ChangeLife(amount: 3, yours: true));
+              new ChangeLife(-3, P(e => e.Controller.Opponent)),
+              new ChangeLife(3, P(e => e.Controller)));
         });
     }
   }

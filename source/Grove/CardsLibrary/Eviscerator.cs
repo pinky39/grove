@@ -22,7 +22,7 @@
           {
             p.Text = "When Eviscerator enters the battlefield, you lose 5 life.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-            p.Effect = () => new ChangeLife(amount: -5, yours: true);
+            p.Effect = () => new ChangeLife(amount: -5, whos: P(e => e.Controller));
           });
     }
   }

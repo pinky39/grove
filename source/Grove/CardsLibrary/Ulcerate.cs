@@ -23,7 +23,7 @@
             p.Effect = () => new CompoundEffect(
               new ApplyModifiersToTargets(
                 () => new AddPowerAndToughness(-3, -3) {UntilEot = true}) {ToughnessReduction = 3},
-              new ChangeLife(amount: -3, yours: true));
+              new ChangeLife(amount: -3, whos: P(e => e.Controller)));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

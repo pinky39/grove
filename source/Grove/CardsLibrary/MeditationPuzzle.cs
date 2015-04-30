@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Text = "You gain 8 life.";
-            p.Effect = () => new ChangeLife(amount: 8, yours: true);
+            p.Effect = () => new ChangeLife(8, P(e => e.Controller));
             p.TimingRule(new Any(
               new OnEndOfOpponentsTurn(), 
               new AfterYouDeclareBlockers(), 

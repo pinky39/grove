@@ -23,7 +23,7 @@
             Condition = ctx => !ctx.Turn.Events.HasActivePlayerAttackedThisTurn,
           });
 
-          p.Effect = () => new ChangeLife(-4, yours: true);
+          p.Effect = () => new ChangeLife(-4, whos: P(e => e.Controller));
         });
     }
   }

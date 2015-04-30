@@ -22,7 +22,11 @@
               selectedCount: 1,
               youChooseDiscardedCards: true,
               filter: card => !card.Is().Land),
-            new ChangeLife(P(e => e.Controller.Battlefield.Creatures.Any(x => x.Is("warrior")) ? -2 : 0), opponents: true));
+            new ChangeLife(
+              -2, P(e => e.Controller.Opponent))
+              {
+                ShouldResolve = ctx => ctx.You.Battlefield.Creatures.Any(x => x.Is("warrior"))
+              });
 
           p.TimingRule(new OnFirstMain());
           p.TimingRule(new WhenOpponentsHandCountIs(minCount: 2));

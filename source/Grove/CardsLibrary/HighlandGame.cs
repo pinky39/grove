@@ -20,7 +20,7 @@
           {
             p.Text = "When Highland Game dies, you gain 2 life.";
             p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
-            p.Effect = () => new ChangeLife(2, yours: true);
+            p.Effect = () => new ChangeLife(2, whos: P(e => e.Controller));
           });
     }
   }

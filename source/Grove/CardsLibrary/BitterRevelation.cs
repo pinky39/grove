@@ -17,7 +17,7 @@
         {
           p.Effect = () => new CompoundEffect(
             new LookAtTopCardsPutPartInHandRestIntoGraveyard(4, toHandAmount: 2),
-            new ChangeLife(-2, yours: true));
+            new ChangeLife(-2, P(e => e.Controller)));
         });
     }
   }
