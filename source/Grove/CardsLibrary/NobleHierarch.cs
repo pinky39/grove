@@ -27,7 +27,7 @@
         .TriggeredAbility(p =>
         {
           p.Text = "Exalted{I}(Whenever a creature you control attacks alone, that creature gets +1/+1 until end of turn.){/I}";
-          p.Trigger(new AfterAttackersAreDeclared(t => t.Yours && t.Attackers.Count() == 1));
+          p.Trigger(new AfterAttackersAreDeclared(ctx => ctx.You.IsActive && ctx.Combat.Attackers.Count() == 1));
           p.Effect = () => new ApplyModifiersToCard(P(e => e.TriggerMessage<AttackersDeclaredEvent>().Attackers.Single().Card),
             () => new AddPowerAndToughness(1, 1){UntilEot = true});
           p.TriggerOnlyIfOwningCardIsInPlay = true;

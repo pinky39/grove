@@ -79,6 +79,7 @@
       public Player Opponent { get { return _trigger.Controller.Opponent; } }
       public TurnInfo Turn { get { return _game.Turn; } }
       public Players Players { get { return _game.Players; } }
+      public Combat Combat { get { return _game.Combat; } }
     }
   }
 }

@@ -20,7 +20,7 @@
         .Toughness(3)
         .TriggeredAbility(p =>
           {
-            p.Trigger(new OnAttachmentAttached(c => c.Is().Aura));
+            p.Trigger(new OnAttachmentAttached((c, ctx) => c.Is().Aura));
 
             p.Effect = () => new ApplyModifiersToSelf(() =>
               {

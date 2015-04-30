@@ -1,24 +1,25 @@
 ﻿namespace Grove.Triggers
 {
-  using System;
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
   public class OnAttachmentAttached : Trigger, IReceive<AttachmentAttachedEvent>
   {
-    private readonly Func<Card, bool> _filter;
+    private readonly CardSelector _cond;
 
     private OnAttachmentAttached() {}
 
-    public OnAttachmentAttached(Func<Card, bool> filter = null)
+    public OnAttachmentAttached(CardSelector cond = null)
     {
-      _filter = filter ?? delegate { return true; };
+      _cond = cond ?? delegate { return true; };
     }
 
     public void Receive(AttachmentAttachedEvent message)
     {
-      if (message.AttachedTo == Ability.SourceCard && _filter(message.Attachment))
+      if (message.AttachedTo == Ability.SourceCard && _cond(message.Attachment, Ctx))
+      {
         Set(message);
+      }
     }
   }
 }
