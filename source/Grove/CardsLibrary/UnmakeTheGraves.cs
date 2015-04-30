@@ -28,7 +28,9 @@
           });
 
           p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
-          p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature));
+
+          p.TimingRule(new OnEndOfOpponentsTurn());
+          p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature, 2));
         });
     }
   }

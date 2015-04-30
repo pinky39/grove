@@ -171,8 +171,8 @@ o Necromancer's Stockpile
 o Ob Nixilis, Unshackled
 o Paragon of Open Graves
 o Rotfeaster Maggot
-Soul of Innistrad
-Unmake the Graves
+o Soul of Innistrad
+o Unmake the Graves
 Waste Not
 Xathrid Slyblade
 Aggressive Mining
