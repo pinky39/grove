@@ -780,6 +780,7 @@
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\Modifiers\OwnerControlsPermamentsLifetime.cs" />
     <Compile Include="Core\Modifiers\OwnerHasCardsInExile.cs" />
+    <Compile Include="Core\Modifiers\PreventPlayingLands.cs" />
     <Compile Include="Core\Modifiers\RemoveFromList.cs" />
     <Compile Include="Core\Modifiers\SetList.cs" />
     <Compile Include="Core\SaveLoad\RenameBinder.cs" />

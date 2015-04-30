@@ -15,7 +15,7 @@
         .ManaCost("{3}{R}")
         .Type("Enchantment")
         .Text("You can't play lands.{EOL}Sacrifice a land: Draw two cards. Activate this ability only once each turn.")
-        .StaticAbility(p => p.Modifier(() => new IncreaseLandLimit(amount: -1000))) // Just to avoid effects of spells increase land limit
+        .StaticAbility(p => p.Modifier(() => new PreventPlayingLands()))
         .ActivatedAbility(p =>
         {
           p.Text = "Sacrifice a land: Draw two cards. Activate this ability only once each turn.";
