@@ -17,7 +17,7 @@
         {
           p.Text = "Whenever an opponent discards a creature card, put a 2/2 black Zombie creature token onto the battlefield.";
 
-          p.Trigger(new OnPlayerDiscardsCard(
+          p.Trigger(new WhenPlayerDiscardsCard(
             filter:(ability, player, card) => ability.OwningCard.Controller != player && card.Is().Creature));
 
           p.Effect = () => new CreateTokens(count: 1,
@@ -34,7 +34,7 @@
         {
           p.Text = "Whenever an opponent discards a land card, add {B}{B} to your mana pool.";
 
-          p.Trigger(new OnPlayerDiscardsCard(
+          p.Trigger(new WhenPlayerDiscardsCard(
             filter: (ability, player, card) => ability.OwningCard.Controller != player && card.Is().Land));
 
           p.Effect = () => new AddManaToPool("{B}{B}".Parse());
@@ -45,7 +45,7 @@
         {
           p.Text = "Whenever an opponent discards a noncreature, nonland card, draw a card.";
 
-          p.Trigger(new OnPlayerDiscardsCard(
+          p.Trigger(new WhenPlayerDiscardsCard(
             filter: (ability, player, card) => ability.OwningCard.Controller != player && !card.Is().Land && !card.Is().Creature));
 
           p.Effect = () => new DrawCards(1);

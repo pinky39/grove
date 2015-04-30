@@ -396,6 +396,7 @@
     <Compile Include="Cards\NobleHierarch.cs" />
     <Compile Include="Cards\NoeticScales.cs" />
     <Compile Include="Cards\NoRestForTheWicked.cs" />
+    <Compile Include="Cards\ObNixilisUnshackled.cs" />
     <Compile Include="Cards\OpalAvenger.cs" />
     <Compile Include="Cards\OpalCaryatid.cs" />
     <Compile Include="Cards\Opalescence.cs" />

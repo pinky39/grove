@@ -1458,9 +1458,9 @@
     <Compile Include="Core\PlayModes\SealedDeckIndex.cs" />
     <Compile Include="Core\Triggers\AfterAttackersAreDeclared.cs" />
     <Compile Include="Core\Triggers\OnLifeChanged.cs" />
-    <Compile Include="Core\Triggers\OnPlayerDiscardsCard.cs" />
-    <Compile Include="Core\Triggers\OnPlayerDrawsCard.cs" />
-    <Compile Include="Core\Triggers\OnPlayerSearchesLibrary.cs" />
+    <Compile Include="Core\Triggers\WhenPlayerDiscardsCard.cs" />
+    <Compile Include="Core\Triggers\WhenPlayerDrawsCard.cs" />
+    <Compile Include="Core\Triggers\WhenPlayerSearchesLibrary.cs" />
     <Compile Include="Core\Triggers\WhenPermanentLeavesPlay.cs" />
     <Compile Include="Core\Triggers\WhenThisAttacks.cs" />
     <Compile Include="Core\Triggers\WhenThisBlocks.cs" />

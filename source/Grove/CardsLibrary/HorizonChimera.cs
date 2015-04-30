@@ -21,7 +21,7 @@
         {
           p.Text = "Whenever you draw a card, you gain 1 life.";
 
-          p.Trigger(new OnPlayerDrawsCard((ability, player) => ability.OwningCard.Controller == player));
+          p.Trigger(new WhenPlayerDrawsCard((ability, player) => ability.OwningCard.Controller == player));
 
           p.Effect = () => new ChangeLife(amount: 1, yours: true);
         });

@@ -4,13 +4,13 @@
   using Events;
   using Infrastructure;
 
-  public class OnPlayerDrawsCard : Trigger, IReceive<PlayerDrawsCardEvent>
+  public class WhenPlayerDrawsCard : Trigger, IReceive<PlayerDrawsCardEvent>
   {
     private readonly Func<TriggeredAbility, Player, bool> _filter;
 
-    private OnPlayerDrawsCard() {}
+    private WhenPlayerDrawsCard() {}
 
-    public OnPlayerDrawsCard(Func<TriggeredAbility, Player, bool> filter = null)
+    public WhenPlayerDrawsCard(Func<TriggeredAbility, Player, bool> filter = null)
     {
       _filter = filter ?? delegate { return true; };
     }

@@ -5,11 +5,13 @@
 
   public abstract class Trigger : GameObject, IHashable
   {
-    public delegate bool Predicate(Context ctx);
+    public delegate bool TriggerPredicate(Context ctx);
+
+    public delegate bool TriggerPredicate<in T>(T p, Context ctx);
 
     public delegate bool CardSelector(Card card, Context ctx);
 
-    public Predicate Condition = delegate { return true; };
+    public TriggerPredicate Condition = delegate { return true; };
     public TriggeredAbility Ability { get; private set; }
     public Card OwningCard { get { return Ability.OwningCard; } }
     public Player Controller { get { return Ability.OwningCard.Controller; } }
@@ -49,6 +51,8 @@
     protected virtual void Initialize() {}
     protected virtual void OnActivate() {}
 
+    protected Context Ctx { get { return new Context(this, Game); } }
+
     public class TriggerEventArgs : EventArgs
     {
       public TriggerEventArgs(object triggerMessage)
@@ -70,7 +74,7 @@
         _game = game;
       }
 
-      public Card OwningCard {get { return _trigger.OwningCard; }}
+      public Card OwningCard { get { return _trigger.OwningCard; } }
       public Player You { get { return _trigger.Controller; } }
       public Player Opponent { get { return _trigger.Controller.Opponent; } }
       public TurnInfo Turn { get { return _game.Turn; } }

@@ -21,13 +21,20 @@
         .TriggeredAbility(p =>
         {
           p.Text = "Whenever an opponent searches his or her library, that player sacrifices a creature and loses 10 life.";
-          p.Trigger(new OnPlayerSearchesLibrary(filter: (ability, player) => ability.OwningCard.Controller != player));
+          p.Trigger(new WhenPlayerSearchesLibrary(
+            (player, ctx) => ctx.Opponent == player));
+          
           p.Effect = () => new CompoundEffect(
-            new PlayersSacrificePermanents(
+            
+            new PlayerSacrificePermanents(
               count: 1,
-              validator: c => c.Is().Creature,
+              player: P(e => e.Controller.Opponent),
+              filter: c => c.Is().Creature,
               text: "Select a creature to sacrifice."),
+              
             new ChangeLife(amount: -10, opponents: true));
+
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
         })
         .TriggeredAbility(p =>
         {

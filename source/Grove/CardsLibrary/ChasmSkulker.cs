@@ -21,7 +21,7 @@
         {
           p.Text = "Whenever you draw a card, put a +1/+1 counter on Chasm Skulker.";
 
-          p.Trigger(new OnPlayerDrawsCard((ability, player) => ability.OwningCard.Controller == player));
+          p.Trigger(new WhenPlayerDrawsCard((ability, player) => ability.OwningCard.Controller == player));
 
           p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1))
             .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);

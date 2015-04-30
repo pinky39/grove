@@ -167,8 +167,8 @@ o Mind Rot
 o Necrobite
 o Necrogen Scudder
 o Necromancer's Assistant
-Necromancer's Stockpile
-Ob Nixilis, Unshackled
+o Necromancer's Stockpile
+o Ob Nixilis, Unshackled
 Paragon of Open Graves
 Rotfeaster Maggot
 Soul of Innistrad

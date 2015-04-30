@@ -1,6 +1,5 @@
 ﻿namespace Grove
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using AI;
@@ -20,7 +19,7 @@
 
     public delegate void EffectAction(Context ctx);
 
-    public delegate void EffectAction<in T>(T card, Context ctx);
+    public delegate void EffectAction<in T>(T p, Context ctx);
 
     // Holds a list of effect parameters which must be evaluated either 
     // when effect is created, put on stack or resolved.
