@@ -5,6 +5,7 @@
 
   public class Any : TimingRule
   {
+    private List<TimingRule> _cached;
     private readonly List<TimingRule> _rules;
 
     private Any() {}
@@ -14,35 +15,18 @@
       _rules = rules.ToList();
     }
 
-    public override bool? ShouldPlay1(TimingRuleParameters p)
+    public override bool ShouldPlayBeforeTargets(TimingRuleParameters p)
     {
-      bool? result = null;
-      foreach (var rule in _rules)
-      {
-        result = rule.ShouldPlay1(p);
-        
-        if (result == true)
-          return true;
+      _cached = _rules        
+        .Where(rule => !rule.ShouldPlayBeforeTargets(p))        
+        .ToList();
 
-        if (result == null)
-          return null;
-      }
-
-      return result;           
+      return _cached.Count < _rules.Count;
     }
-        
-    public override bool? ShouldPlay2(TimingRuleParameters p)
-    {            
-      bool? result = null;
-      foreach (var rule in _rules)
-      {
-        result = rule.ShouldPlay2(p);
-        
-        if (result == true)
-          return true;
-      }
 
-      return result;           
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
+    {
+      return _rules.Select(rule => !_cached.Contains(rule) && rule.ShouldPlayAfterTargets(p)).Any(x => x);                       
     }   
 
     public override void Initialize(Game game)

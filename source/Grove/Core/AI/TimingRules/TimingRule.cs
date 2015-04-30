@@ -1,7 +1,7 @@
 ﻿namespace Grove.AI.TimingRules
 {
   using System.Linq;
-  using Grove.Infrastructure;
+  using Infrastructure;
 
   public abstract class TimingRule : MachinePlayRule
   {
@@ -26,13 +26,12 @@
     public void Process1(ActivationContext c)
     {
       var p = new TimingRuleParameters(c.Card);
-      var result = ShouldPlay1(p);
+      var result = ShouldPlayBeforeTargets(p);
 
       if (result == false)
       {
         c.CancelActivation = true;
       }
-      return;
     }
 
     public void Process2(ActivationContext c)
@@ -44,7 +43,7 @@
         // one possiblility
 
         var p = new TimingRuleParameters(c.Card, x: c.X);
-        var result = ShouldPlay2(p);
+        var result = ShouldPlayAfterTargets(p);
 
         if (result == false)
         {
@@ -62,7 +61,7 @@
       {
         var p = new TimingRuleParameters(c.Card, targetsCombination.Targets, targetsCombination.X);
 
-        var result = ShouldPlay2(p);
+        var result = ShouldPlayAfterTargets(p);
         if (result == false)
         {
           c.RemoveTargetCombination(targetsCombination);
@@ -76,14 +75,14 @@
       }
     }
 
-    public virtual bool? ShouldPlay2(TimingRuleParameters p)
+    public virtual bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
-      return ShouldPlay1(p);
+      return true;
     }
 
-    public virtual bool? ShouldPlay1(TimingRuleParameters p)
+    public virtual bool ShouldPlayBeforeTargets(TimingRuleParameters p)
     {
-      return null;
+      return true;
     }
 
     protected bool CanBeDestroyed(Card card, bool targetOnly = false, bool considerCombat = true)

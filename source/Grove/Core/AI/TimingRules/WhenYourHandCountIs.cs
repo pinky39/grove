@@ -18,7 +18,7 @@
       _minCount = minCount;
     }
 
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
       var result = true;
 

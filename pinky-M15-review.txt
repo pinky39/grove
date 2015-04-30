@@ -175,12 +175,12 @@ o Soul of Innistrad
 o Unmake the Graves
 o Waste Not
 o Xathrid Slyblade
-Aggressive Mining
-Altac Bloodseeker
-Belligerent Sliver
-Borderland Marauder
-Brood Keeper
-Circle of Flame
+o Aggressive Mining
+o Altac Bloodseeker
+o Belligerent Sliver
+o Borderland Marauder
+o Brood Keeper
+o Circle of Flame
 Crowd's Favor
 Crucible of Fire
 Forge Devil

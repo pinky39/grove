@@ -24,10 +24,9 @@
             p.Trigger(new WhenACreatureAttacks(t =>
               t.You && t.AttackerHas(c => !c.Has().Flying)));
 
-            p.Effect =
-              () =>
-                new DealDamageToCreature(amount: 1,
-                  creature: P(e => e.TriggerMessage<AttackerJoinedCombatEvent>().Attacker.Card));
+            p.Effect = () => new DealDamageToCreature(
+              amount: 1,
+              creature: P(e => e.TriggerMessage<AttackerJoinedCombatEvent>().Attacker.Card));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

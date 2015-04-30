@@ -13,7 +13,7 @@
       _amount = amount;
     }
 
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
       if (!Stack.IsEmpty)
         return false;

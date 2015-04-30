@@ -13,7 +13,7 @@
       _maxCount = maxCount;
     }
 
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
       var opponent = p.Controller.Opponent;
 

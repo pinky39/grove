@@ -2,7 +2,7 @@
 {
   public class OnFirstDetachedOnSecondAttached : TimingRule
   {
-    public override bool? ShouldPlay1(TimingRuleParameters p)
+    public override bool ShouldPlayBeforeTargets(TimingRuleParameters p)
     {
       if (p.Card.IsAttached)
       {        

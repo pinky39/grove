@@ -102,7 +102,7 @@
       return IsEndOfOpponentsTurn(p.Controller);
     }
 
-    public override bool? ShouldPlay1(TimingRuleParameters p)
+    public override bool ShouldPlayBeforeTargets(TimingRuleParameters p)
     {
       // quick check before target generation      
       if (Stack.IsEmpty)
@@ -122,7 +122,7 @@
       return StackHasInterestingSpells();
     }
 
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
       foreach (var target in p.Targets<Card>())
       {

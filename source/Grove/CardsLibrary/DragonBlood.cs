@@ -29,6 +29,7 @@
               () => new PowerToughness(1, 1), count: 1));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+            
             p.TimingRule(new PumpTargetCardTimingRule(untilEot: false));
             p.TargetingRule(new EffectPumpInstant(1, 1, untilEot: false));
           });

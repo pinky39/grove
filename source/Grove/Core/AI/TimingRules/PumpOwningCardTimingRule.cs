@@ -15,7 +15,7 @@
       _toughness = toughness;
     }
 
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
       var power = _power.GetValue(p.X);
       var toughness = _toughness.GetValue(p.X);

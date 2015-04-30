@@ -11,11 +11,13 @@
       _untilEot = untilEot;
     }
 
-    public override bool? ShouldPlay1(TimingRuleParameters p)
+    public override bool ShouldPlayBeforeTargets(TimingRuleParameters p)
     {
       if (!Stack.IsEmpty)
       {
-        return (Stack.TopSpell.HasTag(EffectTag.DealDamage) || Stack.TopSpell.HasTag(EffectTag.ReduceToughness) || Stack.TopSpell.HasTag(EffectTag.Destroy)) &&
+        return (Stack.TopSpell.HasTag(EffectTag.DealDamage) || 
+          Stack.TopSpell.HasTag(EffectTag.ReduceToughness) || 
+          Stack.TopSpell.HasTag(EffectTag.Destroy)) &&
           !Stack.TopSpell.HasTag(EffectTag.CannotRegenerate);
       }
 

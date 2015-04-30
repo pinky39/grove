@@ -13,7 +13,7 @@
       _considerCombat = considerCombat;
     }
 
-    public override bool? ShouldPlay1(TimingRuleParameters p)
+    public override bool ShouldPlayBeforeTargets(TimingRuleParameters p)
     {
       return CanBeDestroyed(p.Card, _targetOnly, _considerCombat);
     }

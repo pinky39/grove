@@ -2,7 +2,7 @@
 {
   public class DefaultLandsTimingRule : TimingRule
   {
-    public override bool? ShouldPlay1(TimingRuleParameters p)
+    public override bool ShouldPlayBeforeTargets(TimingRuleParameters p)
     {
       return true;
     }

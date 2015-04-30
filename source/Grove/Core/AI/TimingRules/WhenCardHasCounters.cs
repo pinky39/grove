@@ -13,7 +13,7 @@
       _onlyAtEot = onlyAtEot;
     }
 
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
       if (p.Card.Counters > 0 && CanBeDestroyed(p.Card))
         return true;

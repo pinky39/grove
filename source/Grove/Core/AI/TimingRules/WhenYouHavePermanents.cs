@@ -16,7 +16,7 @@
       _minCount = minCount;
     }
 
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
       return Players.Permanents().Count(x => _selector(x) && x.Controller == p.Controller) >= _minCount;
     }

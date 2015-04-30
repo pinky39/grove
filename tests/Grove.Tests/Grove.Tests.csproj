@@ -145,6 +145,7 @@
     <Compile Include="Cards\Breach.cs" />
     <Compile Include="Cards\BrineSeer.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
+    <Compile Include="Cards\BroodKeeper.cs" />
     <Compile Include="Cards\BubblingMuck.cs" />
     <Compile Include="Cards\BurningAnger.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />

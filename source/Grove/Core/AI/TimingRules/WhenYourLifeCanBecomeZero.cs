@@ -2,7 +2,7 @@
 {
   public class WhenYourLifeCanBecomeZero : TimingRule
   {
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
       return Stack.CanTopSpellReducePlayersLifeToZero(p.Controller);
     }

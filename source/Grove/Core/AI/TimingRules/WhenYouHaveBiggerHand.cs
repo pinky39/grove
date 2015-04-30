@@ -11,7 +11,7 @@
       _minDifference = minDifference;
     }
 
-    public override bool? ShouldPlay2(TimingRuleParameters p)
+    public override bool ShouldPlayAfterTargets(TimingRuleParameters p)
     {
       var controllerCount = p.Controller.Hand.Count;
       var opponentCount = p.Controller.Opponent.Hand.Count;

@@ -2,7 +2,7 @@
 {
   public class AfterOpponentDeclaresBlockers : TimingRule
   {
-    public override bool? ShouldPlay1(TimingRuleParameters p)
+    public override bool ShouldPlayBeforeTargets(TimingRuleParameters p)
     {
       return IsAfterOpponentDeclaresBlockers(p.Controller);
     }

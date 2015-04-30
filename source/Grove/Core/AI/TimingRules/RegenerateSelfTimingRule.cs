@@ -2,7 +2,7 @@
 {
   public class RegenerateSelfTimingRule : TimingRule
   {
-    public override bool? ShouldPlay1(TimingRuleParameters p)
+    public override bool ShouldPlayBeforeTargets(TimingRuleParameters p)
     {
       if (p.Card.Has().Indestructible)
         return false;
