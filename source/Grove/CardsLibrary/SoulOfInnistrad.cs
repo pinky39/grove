@@ -31,6 +31,8 @@
           });
 
           p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
+          
+          p.TimingRule(new OnEndOfOpponentsTurn());
           p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature));
         })
         .ActivatedAbility(p =>
@@ -45,11 +47,15 @@
           {
             trg.MinCount = 0;
             trg.MaxCount = 3;
-            trg.Is.Creature().On.YourGraveyard();
+            trg.Is.Creature(canTargetSelf: false).In.YourGraveyard();            
           });
 
+          p.ActivationZone = Zone.Graveyard;
+
           p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
-          p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature));
+
+          p.TimingRule(new OnEndOfOpponentsTurn());
+          p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature, 3));
         });
     }
   }
