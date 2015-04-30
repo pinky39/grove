@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using AI;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
   using Modifiers;
@@ -40,7 +41,9 @@
               .Is.Card(c => c.Is().Creature && c.HasColor(CardColor.Black), controlledBy: ControlledBy.SpellOwner, canTargetSelf: false)
               .On.Battlefield());
 
-          p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, controlledBy: ControlledBy.SpellOwner));
+          p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));                    
+          p.TargetingRule(new EffectGiveDeathtouch());
+          
         });
     }
   }

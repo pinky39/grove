@@ -406,6 +406,7 @@
     <Compile Include="Cards\Outmaneuver.cs" />
     <Compile Include="Cards\Overwhelm.cs" />
     <Compile Include="Cards\ParagonOfNewDawns.cs" />
+    <Compile Include="Cards\ParagonOfOpenGraves.cs" />
     <Compile Include="Cards\ParasiticBond.cs" />
     <Compile Include="Cards\Parch.cs" />
     <Compile Include="Cards\Pariah.cs" />

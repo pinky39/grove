@@ -673,6 +673,7 @@
     <Compile Include="Core\AI\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectFight.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectFlicker.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectGiveDeathtouch.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectGiveRegenerate.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectLooseEvasion.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectPutOnTopOfLibrary.cs" />

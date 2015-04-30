@@ -24,6 +24,8 @@
           p.Cost = new PayMana(Mana.Black);
           p.Effect = () => new ApplyModifiersToSelf(
             () => new AddStaticAbility(Static.Deathtouch) { UntilEot = true });
+                    
+          p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
           p.TimingRule(new WhenCardHas(c => !c.Has().Deathtouch));
         });
     }

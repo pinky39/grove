@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TimingRules;
   using Costs;
   using Effects;
   using Modifiers;
@@ -27,6 +28,9 @@
             () => new RemoveAbility(Static.Hexproof) {UntilEot = true},
             () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true},
             () => new AddStaticAbility(Static.Deathtouch) { UntilEot = true });
+
+          p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
+          p.TimingRule(new WhenCardHas(c => !c.Has().Deathtouch));
         });
     }
   }
