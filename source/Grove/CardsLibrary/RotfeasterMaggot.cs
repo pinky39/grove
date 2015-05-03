@@ -25,14 +25,12 @@
           p.Effect = () => new CompoundEffect(
               new ExileTargets(),
               new ChangeLife(
-                amount: P(e => e.Target.Card().Toughness.GetValueOrDefault()),
+                amount: P(e => e.Target.Card().Toughness.GetValueOrDefault(), EvaluateAt.AfterTriggeredAbilityTargets),
                 whos: P(e => e.Controller)));                    
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.Graveyard());
 
-          p.TargetingRule(
-            new EffectOrCostRankBy(c => -c.Toughness.GetValueOrDefault(), 
-              controlledBy: ControlledBy.Opponent));
+          p.TargetingRule(new EffectOrCostRankBy(c => -c.Toughness.GetValueOrDefault()));
         });
     }
   }
