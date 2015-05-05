@@ -18,7 +18,7 @@
           .Toughness(2)
           .ContinuousEffect(p =>
           {
-            p.CardFilter = (card, effect) => card.Is("Goblin") && card.Controller == effect.Source.Controller;
+            p.CardFilter = (card, effect) => card.Is("Goblin") && card.Controller == effect.Source.Controller && card != effect.Source;
             p.Modifier = () => new AddStaticAbility(Static.AttacksEachTurnIfAble);
           })
           .TriggeredAbility(p =>
