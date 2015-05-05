@@ -11,14 +11,17 @@
       [Fact]
       public void ReturnForceFromOpponentsGraveyard()
       {
+        var force = C("Verdant Force");
+
         Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp");
         Hand(P1, "Endless Obedience");
         
-        Graveyard(P2, "Verdant Force");
+        Graveyard(P2, force);
 
         RunGame(1);
 
-        Equal(1, P1.Battlefield.Creatures.Count());
+        Equal(Zone.Battlefield, C(force).Zone);
+        Equal(P1, C(force).Controller);
       }
     }
   }

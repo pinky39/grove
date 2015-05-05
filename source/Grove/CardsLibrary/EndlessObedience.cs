@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using AI.TargetingRules;
   using Effects;
+  using Modifiers;
 
   public class EndlessObedience : CardTemplateSource
   {
@@ -19,7 +20,10 @@
         {
           p.Text = "Put target creature card from a graveyard onto the battlefield under your control.";
 
-          p.Effect = () => new PutTargetsToBattlefield();
+          p.Effect = () => new CompoundEffect(
+            new ApplyModifiersToTargets(
+              () => new ChangeController(m => m.SourceCard.Controller)){ ShouldResolve = ctx => ctx.Opponent == ctx.Target.Controller() },
+            new PutTargetsToBattlefield());
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.Graveyard());
 
