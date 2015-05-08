@@ -171,6 +171,9 @@
       {
         RemoveModifier(modifier);
       }
+
+      Source.JoinedBattlefield -= Activate;
+      Source.LeftBattlefield -= Deactivate;
     }
   }
 }

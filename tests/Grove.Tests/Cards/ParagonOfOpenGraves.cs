@@ -21,6 +21,28 @@
 
         Equal(Zone.Graveyard, C(dragon).Zone);        
       }
+
+      [Fact]
+      public void CannotActivateStaticAbilityOfParagonTwice()
+      {
+        var paragon = C("Paragon of Open Graves");
+        var rat = C("Typhoid Rats");
+        var bolt = C("Lightning Bolt");
+
+        Hand(P1, "Endless Obedience");
+        Battlefield(P1, paragon, rat, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp");
+
+        P2.Life = 2;
+        Hand(P2, bolt);
+        Battlefield(P2, "Mountain");
+
+        RunGame(1);
+
+        Equal(1, P2.Life);
+        Equal(Zone.Battlefield, C(paragon).Zone);
+        Equal(Zone.Graveyard, C(bolt).Zone);
+        Equal(2, C(rat).Power);
+      }
     }
   }
 }
