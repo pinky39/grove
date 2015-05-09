@@ -1,5 +1,6 @@
 ﻿namespace Grove
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Events;
@@ -12,7 +13,7 @@
 
   [Copyable]
   public class ContinuousEffect : GameObject, IReceive<ZoneChangedEvent>, IReceive<PermanentModifiedEvent>,
-    ICopyContributor
+    ICopyContributor, IDisposable
   {
     private readonly ShouldApplyToCard _cardFilter;
     private readonly Trackable<IModifier> _doNotUpdate = new Trackable<IModifier>(); // prevent update cycles
@@ -170,8 +171,11 @@
       foreach (var modifier in _modifiers.ToList())
       {
         RemoveModifier(modifier);
-      }
+      }      
+    }
 
+    public void Dispose()
+    {
       Source.JoinedBattlefield -= Activate;
       Source.LeftBattlefield -= Deactivate;
     }

@@ -28,6 +28,7 @@
     protected override void Unapply()
     {
       _continiousEffects.Remove(_continiousEffect);
+      _continiousEffect.Dispose();
     }
   }
 }
