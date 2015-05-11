@@ -19,6 +19,7 @@
         {
           p.CardFilter = (card, effect) => card.Is("Sliver") && card.Controller == effect.Source.Controller;
           p.Modifier = () => new IncreaseMinBlockerCount();
+          p.IsCumulative = false;
         });
     }
   }

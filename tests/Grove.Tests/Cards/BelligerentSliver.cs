@@ -25,10 +25,10 @@
       [Fact]
       public void CanBeBlockedBy2Creatures()
       {
-        Battlefield(P1, "Belligerent Sliver");
+        Battlefield(P1, "Belligerent Sliver", "Belligerent Sliver");
         Battlefield(P2, "Grizzly Bears", "Grizzly Bears");
 
-        P2.Life = 2;
+        P2.Life = 4;
 
         RunGame(1);
 

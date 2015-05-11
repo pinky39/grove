@@ -592,11 +592,16 @@
     {
       _modifiers.Add(modifier);
       ActivateModifier(modifier, p);
-
+      
       if (IsPermanent)
       {
         Publish(new PermanentModifiedEvent(this, modifier));
       }
+    }
+
+    public bool HasModifierFrom(Card source)
+    {
+      return _modifiers.Any(x => x.Owner == source);
     }
 
     public void RemoveModifier(ICardModifier modifier)
