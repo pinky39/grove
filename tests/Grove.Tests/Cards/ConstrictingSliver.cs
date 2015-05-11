@@ -8,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void ExileDragon()
+      public void PlaySliverExileDragon()
       {
         var dragon = C("Shivan Dragon");
 
@@ -21,6 +21,21 @@
         Equal(Zone.Exile, C(dragon).Zone);
       }
 
+      [Fact]
+      public void PlaySelfExileDragon()
+      {
+        var dragon = C("Shivan Dragon");
+        var sliver = C("Constricting Sliver");
+
+        Hand(P1, sliver);
+        Battlefield(P1, "Plains", "Forest", "Forest", "Plains", "Forest", "Forest");
+        Battlefield(P2, dragon);
+
+        RunGame(1);
+
+        Equal(Zone.Battlefield, C(sliver).Zone);
+        Equal(Zone.Exile, C(dragon).Zone);
+      }
 
       [Fact]
       public void ReturnDragonToPlay()
