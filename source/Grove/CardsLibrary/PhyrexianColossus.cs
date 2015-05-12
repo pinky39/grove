@@ -18,7 +18,7 @@
           "Phyrexian Colossus doesn't untap during your untap step.{EOL}Pay 8 life: Untap Phyrexian Colossus.{EOL}Phyrexian Colossus can't be blocked except by three or more creatures.")
         .Power(8)
         .Toughness(8)
-        .StaticAbility(p => p.Modifier(() => new IncreaseMinBlockerCount(2)))
+        .StaticAbility(p => p.Modifier(() => new SetMinBlockerCount(3)))
         .SimpleAbilities(Static.DoesNotUntap)
         .ActivatedAbility(p =>
           {

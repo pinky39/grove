@@ -42,10 +42,7 @@
       return calc.Calculate(_cards);
     }
 
-    public abstract Zone Name { get; }
-
-    public virtual void AfterAdd(Card card) {}
-    public virtual void AfterRemove(Card card) {}
+    public abstract Zone Name { get; }    
 
     void IZone.Remove(Card card)
     {

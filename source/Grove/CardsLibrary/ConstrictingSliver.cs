@@ -32,7 +32,7 @@
             .Is.Card(c => c.Is().Creature, ControlledBy.Opponent)
             .On.Battlefield());
 
-          p.TargetingRule(new EffectExileBattlefield());
+          p.TargetingRule(new EffectExileBattlefield());          
         })
         .ContinuousEffect(p =>
           {
@@ -58,7 +58,7 @@
                 return new AddTriggeredAbility(new TriggeredAbility(tp));
               });
 
-            p.ApplyOnlyToPermaments = false;
+            p.ApplyOnlyToPermaments = false;            
           });
     }
   }

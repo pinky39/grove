@@ -16,7 +16,7 @@
           "It moved this way, an' that way, an' then before I could stick it, it jumped over my head an' was gone.")
         .Power(3)
         .Toughness(2)
-        .StaticAbility(p => p.Modifier(() => new IncreaseMinBlockerCount()));
+        .StaticAbility(p => p.Modifier(() => new SetMinBlockerCount(2)));
     }
   }
 }

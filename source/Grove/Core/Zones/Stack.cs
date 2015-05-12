@@ -40,10 +40,7 @@
     }
 
     public Zone Name { get { return Zone.Stack; } }
-
-    public void Remove(Card card) {}
-    public void AfterAdd(Card card) {}
-    public void AfterRemove(Card card) {}
+    public void Remove(Card card) {}    
 
     public void Initialize(Game game)
     {

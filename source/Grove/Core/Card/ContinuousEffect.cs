@@ -20,8 +20,7 @@
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
     private readonly List<CardModifierFactory> _modifierFactories;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
-    private readonly bool _applyOnlyToPermaments;
-    private readonly bool _isCumulative;
+    private readonly bool _applyOnlyToPermaments;    
 
     private ContinuousEffect() {}
 
@@ -29,8 +28,7 @@
     {
       _modifierFactories = p.Modifiers;
       _cardFilter = p.CardFilter;
-      _applyOnlyToPermaments = p.ApplyOnlyToPermaments;
-      _isCumulative = p.IsCumulative;
+      _applyOnlyToPermaments = p.ApplyOnlyToPermaments;      
     }
 
     public Card Source { get; private set; }
@@ -149,12 +147,7 @@
 
 
     private void AddModifier(Card card)
-    {
-      if (!_isCumulative && card.HasModifierFrom(Source))
-      {
-        return;
-      }
-
+    {      
       foreach (var factory in _modifierFactories)
       {
         var modifier = factory();

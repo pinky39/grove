@@ -32,16 +32,6 @@
           .Where(x => x != CardColor.Colorless && x != CardColor.None)
           .Distinct();
       }
-    }
-
-    public override void AfterAdd(Card card)
-    {
-      card.OnCardJoinedBattlefield();
-    }
-
-    public override void AfterRemove(Card card)
-    {
-      card.OnCardLeftBattlefield();
-    }
+    }   
   }
 }

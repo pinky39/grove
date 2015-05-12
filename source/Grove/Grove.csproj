@@ -776,7 +776,7 @@
     <Compile Include="Core\Modifiers\ChangeCardTemplate.cs" />
     <Compile Include="Core\Modifiers\CardParametersSetter.cs" />
     <Compile Include="Core\Modifiers\IncreaseCombatCost.cs" />
-    <Compile Include="Core\Modifiers\IncreaseMinBlockerCount.cs" />
+    <Compile Include="Core\Modifiers\SetMinBlockerCount.cs" />
     <Compile Include="Core\Modifiers\IncreasePowerToughnessEqualToAttachedCounterCount.cs" />
     <Compile Include="Core\Modifiers\OwnerControlsPermamentsLifetime.cs" />
     <Compile Include="Core\Modifiers\OwnerHasCardsInExile.cs" />

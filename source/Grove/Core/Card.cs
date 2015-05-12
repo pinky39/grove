@@ -544,14 +544,28 @@
       add(this);
 
       if (destination.Name != source.Name)
-      {
-        Publish(new ZoneChangedEvent(this, source.Name, destination.Name));
+      {                        
+        if (destination.Name == Zone.Battlefield)
+        {
+          HasSummoningSickness = true;
+          JoinedBattlefield.Raise();
+        }
+                
+        Publish(new ZoneChangedEvent(this, source.Name, destination.Name));                
+        
+        if (source.Name == Zone.Battlefield)
+        {
+          Combat.Remove(this);
 
-        // triggered abilities which trigger when permanent is in play only 
-        // are removed when AfterRemove is called so
-        // we publish event first and then do the cleanup
-        source.AfterRemove(this);
-        destination.AfterAdd(this);
+          DetachAttachments();
+          Detach();
+          Untap();
+          ClearDamage();
+
+          HasSummoningSickness = false;
+
+          LeftBattlefield.Raise();
+        }
       }
     }
 
@@ -972,20 +986,6 @@
       Owner.PutCardToGraveyard(this);
     }
 
-    public void OnCardLeftBattlefield()
-    {
-      Combat.Remove(this);
-
-      DetachAttachments();
-      Detach();
-      Untap();
-      ClearDamage();
-
-      HasSummoningSickness = false;
-
-      LeftBattlefield.Raise();
-    }
-
     public void Tap()
     {
       IsTapped = true;
@@ -1159,12 +1159,6 @@
     public void PutToBattlefield()
     {
       Controller.PutCardToBattlefield(this);
-    }
-
-    public void OnCardJoinedBattlefield()
-    {
-      HasSummoningSickness = true;
-      JoinedBattlefield.Raise();
     }
 
     public void PutToGraveyard()

@@ -45,11 +45,7 @@
     public virtual int CalculateHash(HashCalculator calc)
     {
       return calc.Calculate(_cards);
-    }
-
-    public virtual void AfterAdd(Card card) {}
-
-    public virtual void AfterRemove(Card card) {}
+    }    
 
     public abstract Zone Name { get; }
 

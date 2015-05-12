@@ -4,8 +4,6 @@
   {
     Zone Name { get; }
 
-    void Remove(Card card);
-    void AfterRemove(Card card);
-    void AfterAdd(Card card);
+    void Remove(Card card);    
   }
 }
