@@ -30,6 +30,15 @@
 
         Equal(2, P2.Life);
       }
+
+      [Fact]
+      public void CannotActivateMailEndless()
+      {
+        Battlefield(P1, "Haunted Plate Mail");
+        Battlefield(P2, "Haunted Plate Mail");
+
+        RunGame(1);
+      }
     }
   }
 }

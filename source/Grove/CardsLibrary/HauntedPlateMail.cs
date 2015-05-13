@@ -49,8 +49,9 @@
                 type: t => t.Change(baseTypes: "artifact creature", subTypes: "spirit"),
                 colors: L(CardColor.Colorless)) {UntilEot = true}
                 );
-
+            
             p.Condition = (card, _) => card.Controller.Battlefield.Creatures.None();
+            p.ActivateOnlyOnceEachTurn = true;
           });
     }
   }
