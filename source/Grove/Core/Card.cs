@@ -613,11 +613,6 @@
       }
     }
 
-    public bool HasModifierFrom(Card source)
-    {
-      return _modifiers.Any(x => x.Owner == source);
-    }
-
     public void RemoveModifier(ICardModifier modifier)
     {
       _modifiers.Remove(modifier);

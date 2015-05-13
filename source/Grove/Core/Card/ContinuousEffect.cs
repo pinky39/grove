@@ -20,7 +20,7 @@
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
     private readonly List<CardModifierFactory> _modifierFactories;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
-    private readonly bool _applyOnlyToPermaments;    
+    private readonly bool _applyOnlyToPermanents;    
 
     private ContinuousEffect() {}
 
@@ -28,7 +28,7 @@
     {
       _modifierFactories = p.Modifiers;
       _cardFilter = p.CardFilter;
-      _applyOnlyToPermaments = p.ApplyOnlyToPermaments;      
+      _applyOnlyToPermanents = p.ApplyOnlyToPermanents;      
     }
 
     public Card Source { get; private set; }
@@ -50,7 +50,7 @@
     public void Receive(ZoneChangedEvent message)
     {
       if (_isActive == false) return;
-      if (_applyOnlyToPermaments == false) return;
+      if (_applyOnlyToPermanents == false) return;
 
       if (message.ToBattlefield && _cardFilter(message.Card, this))
       {
@@ -133,7 +133,7 @@
 
     public void Activate()
     {
-      var cards = _applyOnlyToPermaments
+      var cards = _applyOnlyToPermanents
         ? Players.Permanents()
         : Players.AllCards();
 

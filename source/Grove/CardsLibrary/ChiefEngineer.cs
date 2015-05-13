@@ -17,7 +17,7 @@
         .Toughness(3)
         .ContinuousEffect(p =>
         {
-          p.ApplyOnlyToPermaments = false;
+          p.ApplyOnlyToPermanents = false;
           p.CardFilter = (card, effect) => card.Is().Artifact && card.Owner == effect.Source.Controller;
           p.Modifier = () => new AddStaticAbility(Static.Convoke);
         });
