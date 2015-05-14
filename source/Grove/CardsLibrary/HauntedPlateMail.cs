@@ -38,7 +38,7 @@
         .ActivatedAbility(p =>
           {
             p.Text =
-              "{0}: Until end of turn, Haunted Plate Mail becomes a 4/4 Spirit artifact creature that's no longer an Equipment.";
+              "{0}: Until end of turn, Haunted Plate Mail becomes a 4/4 Spirit artifact creature that's no longer an Equipment. Activate this ability only if you control no creatures.";
 
             p.Cost = new PayMana(Mana.Zero);
 
@@ -49,9 +49,12 @@
                 type: t => t.Change(baseTypes: "artifact creature", subTypes: "spirit"),
                 colors: L(CardColor.Colorless)) {UntilEot = true}
                 );
-            
+
             p.Condition = (card, _) => card.Controller.Battlefield.Creatures.None();
-            p.ActivateOnlyOnceEachTurn = true;
+            
+            p.TimingRule(new WhenCardHas(c => !c.Is().Creature));
+            p.TimingRule(new WhenNoOtherInstanceOfSpellIsOnStack());        
+            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));                                    
           });
     }
   }
