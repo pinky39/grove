@@ -20,6 +20,19 @@
 
         Equal(25, P1.Life);
       }
+
+      [Fact]
+      public void CannotExileDragon()
+      {
+        Hand(P1, "Rotfeaster Maggot");
+        Battlefield(P1, "Swamp", "Swamp", "Swamp", "Swamp", "Swamp");
+        Graveyard(P1, "Shivan Dragon");
+
+        Battlefield(P2, "Tormod's Crypt");
+
+        RunGame(1);
+
+      }
     }
   }
 }
