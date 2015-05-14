@@ -2,7 +2,6 @@
 {
   using System.Collections.Generic;
   using System.Linq;
-  using Events;
 
   public class CompoundEffect : Effect
   {
@@ -24,7 +23,7 @@
     {
       return _childEffects.Sum(x => x.CalculatePlayerDamage(player));
     }
-    
+
     public override Effect Initialize(EffectParameters p, Game game, bool evaluateParameters = true)
     {
       base.Initialize(p, game);
@@ -50,22 +49,24 @@
 
     public override void SetTriggeredAbilityTargets(Targets targets)
     {
+      base.SetTriggeredAbilityTargets(targets);
+      
       foreach (var childEffect in _childEffects)
       {
         childEffect.SetTriggeredAbilityTargets(targets);
       }
-    }
+    }   
 
     public override void FinishResolve()
-    {      
+    {
       // calls after resolve hooks of child
       // effects.
       foreach (var effect in _childEffects)
       {
         effect.AfterResolve(new Context(this, Game));
       }
-      
-      base.FinishResolve();                  
+
+      base.FinishResolve();
     }
 
     protected override void ResolveEffect()

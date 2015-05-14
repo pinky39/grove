@@ -98,15 +98,15 @@
     {
       get
       {
-//        if (Targets.Effect.Count == 1)
-//        {
-//          // if there is only one target it must be valid
-//          // otherwise the spell would not resolve
-//          // so no need to check it again
-//
-//          yield return Target;
-//          yield break;
-//        }
+        if (Targets.Effect.Count == 1)
+        {
+          // if there is only one target it must be valid
+          // otherwise the spell would not resolve
+          // so no need to check it again
+
+          yield return Target;
+          yield break;
+        }
 
         foreach (var valid in Targets.Effect.Where(IsValid))
         {
