@@ -19,6 +19,19 @@
 
         Equal(0, P2.Life);
       }
+
+      [Fact]
+      public void CantTapBearIfNoManaIsAvailable()
+      {
+        Battlefield(P1, "Frenzied Goblin");
+
+        P2.Life = 1;
+        Battlefield(P2, "Grizzly Bears", "Swamp");
+
+        RunGame(1);
+
+        Equal(1, P2.Life);
+      }
     }
   }
 }

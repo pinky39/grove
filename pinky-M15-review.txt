@@ -185,7 +185,7 @@ o Crowd's Favor
 o Crucible of Fire
 o Forge Devil
 o Foundry Street Denizen
-Frenzied Goblin
+o Frenzied Goblin
 Goblin Kaboomist
 Goblin Rabblemaster
 Hammerhand
