@@ -28,7 +28,7 @@
               new DealDamageToPlayer(1, P(e => e.Controller)));
             p.TargetSelector.AddEffect(trg =>
               {
-                trg.Message = "Select a target creature";
+                trg.Message = "Select a creature.";
                 trg.MinCount = 1;
                 trg.MaxCount = 1;
                 trg.Is.Creature().On.Battlefield();

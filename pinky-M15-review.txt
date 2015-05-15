@@ -183,7 +183,7 @@ o Brood Keeper
 o Circle of Flame
 o Crowd's Favor
 o Crucible of Fire
-Forge Devil
+o Forge Devil
 Foundry Street Denizen
 Frenzied Goblin
 Goblin Kaboomist

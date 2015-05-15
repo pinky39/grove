@@ -8,17 +8,19 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void DevilDealsDamagesToYouAndCreature()
+      public void DevilDealsDamagesToYouAndToElf()
       {
-        Battlefield(P1, "Mountain");
-        Hand(P1, "Forge Devil");
+        var devil = C("Forge Devil");
+        var elves = C("Llanowar Elves");
 
-        Battlefield(P2, "Forge Devil");
+        Battlefield(P1, "Mountain");        
+        Hand(P1, devil);        
+        Battlefield(P2, elves);
 
         RunGame(1);
 
-        Equal(0, P1.Hand.Count);
-        Equal(0, P2.Battlefield.Count);
+        Equal(Zone.Battlefield, C(devil).Zone);
+        Equal(Zone.Graveyard, C(elves).Zone);
         Equal(19, P1.Life);
       }
     }
