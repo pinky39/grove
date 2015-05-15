@@ -1,6 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
+  using AI.TimingRules;
+  using Effects;
   using Modifiers;
 
   public class CrucibleOfFire : CardTemplateSource
@@ -13,11 +16,16 @@
         .Type("Enchantment")
         .Text("Dragon creatures you control get +3/+3.")
         .FlavorText("\"The dragon is a perfect marriage of power and the will to use it.\"—Sarkhan Vol")
+        .Cast(p =>
+          {
+            p.TimingRule(new OnFirstMain());
+            p.Effect = () => new CastPermanent().SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+          })
         .ContinuousEffect(p =>
-        {
-          p.CardFilter = (card, effect) => card.Is("Dragon") && card.Controller == effect.Source.Controller;
-          p.Modifier = () => new AddPowerAndToughness(3, 3);
-        });
+          {
+            p.CardFilter = (card, effect) => card.Is("Dragon") && card.Controller == effect.Source.Controller;
+            p.Modifier = () => new AddPowerAndToughness(3, 3);
+          });
     }
   }
 }
