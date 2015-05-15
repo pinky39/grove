@@ -184,7 +184,7 @@ o Circle of Flame
 o Crowd's Favor
 o Crucible of Fire
 o Forge Devil
-Foundry Street Denizen
+o Foundry Street Denizen
 Frenzied Goblin
 Goblin Kaboomist
 Goblin Rabblemaster
