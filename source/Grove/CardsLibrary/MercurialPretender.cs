@@ -7,7 +7,6 @@
   using Effects;
   using Modifiers;
   using Triggers;
-  using ReturnToHand = Effects.ReturnToHand;
 
   public class MercurialPretender : CardTemplateSource
   {
@@ -39,7 +38,7 @@
                     {
                       Text = "{2}{U}{U}: Return this creature to its owner's hand.",
                       Cost = new PayMana("{2}{U}{U}".Parse()),
-                      Effect = () => new ReturnToHand(returnOwningCard: true)
+                      Effect = () => new Effects.ReturnToHand(returnOwningCard: true)
                     };
 
                   ap.TimingRule(new WhenOwningCardWillBeDestroyed());
@@ -49,18 +48,15 @@
                 })
               );
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                // should not be able to target itself because this
+            p.TargetSelector.AddEffect(
+              trg => // should not be able to target itself because this
                 // will cause infinite loop as the trigger of the 
                 // copy will trigger again
                 trg.Is.Creature(ControlledBy.SpellOwner,
-                  canTargetSelf: false).On.Battlefield();
+                  canTargetSelf: false).On.Battlefield(),
+              trg => trg.MustBeTargetable = false);
 
-                trg.MustBeTargetable = false;
-              });
-
-            p.TargetingRule(new EffectOrCostRankBy(x => -x.Score));            
+            p.TargetingRule(new EffectOrCostRankBy(x => -x.Score));
           });
     }
   }

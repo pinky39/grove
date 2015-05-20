@@ -31,7 +31,7 @@
         return SelectTargets2Selectors(p);
       }
 
-      var candidates = GetCandidatesByDescendingDamageScore(_getAmount(p), p).ToList();
+      var candidates = GetCandidatesByDescendingDamageScore(_getAmount(p), p);
       return Group(candidates, p.MinTargetCount());
     }
 
@@ -105,9 +105,9 @@
       Asrt.True(p.EffectTargetTypeCount <= 2, "More than 2 effect selectors currently not supported.");
 
       var amount = _getAmount(p);
-      
-      var candidates1 = GetCandidatesByDescendingDamageScore(amount, p, selectorIndex: 0).ToList();
-      var candidates2 = GetCandidatesByDescendingDamageScore(amount, p, selectorIndex: 1).ToList();
+
+      var candidates1 = GetCandidatesByDescendingDamageScore(amount, p, selectorIndex: 0);
+      var candidates2 = GetCandidatesByDescendingDamageScore(amount, p, selectorIndex: 1);
 
       return Group(candidates1, candidates2);
     }
@@ -121,26 +121,27 @@
       return Group(candidates, p.MinTargetCount());
     }
 
-    private IEnumerable<ITarget> GetCandidatesByDescendingDamageScore(int damageAmount,
+    private IList<ITarget> GetCandidatesByDescendingDamageScore(int damageAmount,
       TargetingRuleParameters p, int selectorIndex = 0)
     {
       var candidates = p.Candidates<Player>(selectorIndex: selectorIndex)
         .Where(x => x == p.Controller.Opponent)
         .Select(x => new
-        {
-          Target = (ITarget)x,
-          Score = ScoreCalculator.CalculateLifelossScore(x.Life, damageAmount)
-        })
+          {
+            Target = (ITarget) x,
+            Score = ScoreCalculator.CalculateLifelossScore(x.Life, damageAmount)
+          })
         .Concat(
           p.Candidates<Card>(ControlledBy.Opponent)
             .Select(x => new
-            {
-              Target = (ITarget)x,
-              Score = x.Life <= damageAmount && x.CanBeDestroyed ? x.Score : 0
-            }))
+              {
+                Target = (ITarget) x,
+                Score = x.Life <= damageAmount && x.CanBeDestroyed ? x.Score : 0
+              }))
         .Where(x => x.Score > 0)
         .OrderByDescending(x => x.Score)
-        .Select(x => x.Target);
+        .Select(x => x.Target)
+        .ToList();
 
       return candidates;
     }

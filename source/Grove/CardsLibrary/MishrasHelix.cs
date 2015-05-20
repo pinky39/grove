@@ -29,11 +29,11 @@
 
             p.Effect = () => new TapTargets();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Land).On.Battlefield(),
+              trg => {
                 trg.MinCount = Value.PlusX;
-                trg.MaxCount = Value.PlusX;
-                trg.Is.Card(c => c.Is().Land).On.Battlefield();
+                trg.MaxCount = Value.PlusX;                
               });
 
             p.TimingRule(new OnOpponentsTurn(Step.Upkeep));

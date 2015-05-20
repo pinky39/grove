@@ -23,9 +23,9 @@
             p.Trigger(new WhenThisAttacks());
             p.Effect = () => new TapTargets();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature().On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature().On.Battlefield(),
+              trg => {                
                 trg.MinCount = 0;
                 trg.MaxCount = 1;
               });

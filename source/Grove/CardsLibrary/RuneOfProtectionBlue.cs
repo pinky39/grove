@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class RuneOfProtectionBlue : CardTemplateSource
   {
@@ -25,11 +25,9 @@
             p.Cost = new PayMana(Mana.White);
             p.Effect = () => new PreventDamageFromSourceToController();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.HasColor(CardColor.Blue)).On.BattlefieldOrStack();
-                trg.Message = "Select damage source.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.HasColor(CardColor.Blue)).On.BattlefieldOrStack(),
+              trg => { trg.Message = "Select damage source."; });
 
             p.TargetingRule(new EffectPreventDamageFromSourceToController());
           });

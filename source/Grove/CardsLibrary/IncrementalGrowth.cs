@@ -20,12 +20,12 @@
           var amounts = new[] { 1, 2, 3 };
           p.Effect = () => new PutDifferentAmountOfCountersOnTargets(1, 1, amounts);
 
-          p.TargetSelector.AddEffect(trg =>
-          {
-            trg.MinCount = 3;
-            trg.MaxCount = 3;
-            trg.Is.Creature().On.Battlefield();
-          });
+          p.TargetSelector.AddEffect(
+            trg => trg.Is.Creature().On.Battlefield(),
+            trg => {
+              trg.MinCount = 3;
+              trg.MaxCount = 3;            
+            });
 
           p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
         });

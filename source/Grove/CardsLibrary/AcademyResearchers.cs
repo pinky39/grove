@@ -23,14 +23,15 @@
               "When Academy Researchers enters the battlefield, you may put an Aura card from your hand onto the battlefield attached to Academy Researchers.";
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
             p.Effect = () => new AttachTargetToOwningCard();
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(p1 => p1.Target.Card().Is().Aura &&
-                  p1.Target.Card().CanTarget(p1.OwningCard)).In.OwnersHand();
-
+            
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(p1 => p1.Target.Card().Is().Aura &&
+                  p1.Target.Card().CanTarget(p1.OwningCard)).In.OwnersHand(),
+              trg => {                
                 trg.MinCount = 0;
                 trg.MaxCount = 1;
               });
+            
             p.TargetingRule(new EffectAttachToOwningCard());
           }
         );

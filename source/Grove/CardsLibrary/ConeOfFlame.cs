@@ -20,9 +20,9 @@
             var amounts = new[] {1, 2, 3};
             p.Effect = () => new DealDifferentDamageToTargets(amounts);
 
-            p.TargetSelector.AddEffect(trg =>
-                {
-                  trg.Is.CreatureOrPlayer().On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.CreatureOrPlayer().On.Battlefield(),
+              trg => {                  
                   trg.MinCount = 3;
                   trg.MaxCount = 3;
                 });

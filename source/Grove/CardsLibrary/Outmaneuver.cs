@@ -23,16 +23,15 @@
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddStaticAbility(Static.AssignsDamageAsThoughItWasntBlocked) {UntilEot = true});
 
-            p.TargetSelector.AddEffect(trg =>
-              {
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.HasBlockers).On.Battlefield(),
+              trg =>{
                 trg.MinCount = Value.PlusX;
-                trg.MaxCount = Value.PlusX;
-                trg.Is.Card(c => c.HasBlockers).On.Battlefield();
+                trg.MaxCount = Value.PlusX;                
               });
 
-
             p.TimingRule(new OnYourTurn(Step.DeclareBlockers));
-            p.TimingRule(new WhenYouHavePermanents(selector: c => c.HasBlockers));
+            p.TimingRule(new WhenYouHavePermanents(c => c.HasBlockers));
 
             p.CostRule(new XIsNumOfBlockedAttackers());
             p.TargetingRule(new EffectBigWithoutEvasions());

@@ -49,17 +49,13 @@
               new PayMana("{1}{W}".Parse()),
               new Sacrifice());
 
-            p.TargetSelector.AddCost(trg =>
-              {
-                trg.Is.Card(c => c.Is("Spirit"), ControlledBy.SpellOwner).On.Battlefield();
-                trg.Message = "Select a Spirit to sacrifice.";
-              });
+            p.TargetSelector.AddCost(
+              trg => trg.Is.Card(c => c.Is("Spirit"), ControlledBy.SpellOwner).On.Battlefield(),
+              trg => trg.Message = "Select a Spirit to sacrifice.");
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Creature && !c.Is("Spirit")).On.Battlefield();
-                trg.Message = "Select a non-Spirit creature to gain indestructible.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Creature && !c.Is("Spirit")).On.Battlefield(),
+              trg => trg.Message = "Select a non-Spirit creature to gain indestructible.");
 
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddStaticAbility(Static.Indestructible) {UntilEot = true})

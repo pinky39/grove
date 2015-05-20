@@ -6,7 +6,7 @@
   using Infrastructure;
   using Modifiers;
   using UserInterface;
-  using UserInterface.SelectTarget;  
+  using UserInterface.SelectTarget;
 
   public class SelectCards : Decision
   {
@@ -108,10 +108,7 @@
 
     private class PlaybackHandler : Handler
     {
-      protected override bool ShouldExecuteQuery
-      {
-        get { return true; }
-      }
+      protected override bool ShouldExecuteQuery { get { return true; } }
 
       public override void SaveDecisionResults() {}
 
@@ -131,10 +128,10 @@
         {
           chosenCards = new ChosenCards();
 
-          var validatorParameters = new TargetValidatorParameters
+          var validatorParameters = new TargetValidatorParameters(
+            isValidTarget: p => D._p.Validator.IsValidCard(p.Target.Card()),
+            isValidZone: p => p.Zone == D._p.Zone && p.ZoneOwner == D.Controller)
             {
-              IsValidTarget = p => D._p.Validator.IsValidCard(p.Target.Card()),
-              IsValidZone = p => p.Zone == D._p.Zone && p.ZoneOwner == D.Controller,
               MinCount = D._p.MinCount,
               MaxCount = D._p.MaxCount == null ? null : (Value) D._p.MaxCount.Value,
               Message = D._p.Text,
@@ -175,10 +172,10 @@
 
       private Card SelectAuraTarget(Card card)
       {
-        var validatorParameters = new TargetValidatorParameters
+        var validatorParameters = new TargetValidatorParameters(
+          isValidTarget: p => card.CanTarget(p.Target),
+          isValidZone: p => p.Zone == Zone.Battlefield)
           {
-            IsValidTarget = p => card.CanTarget(p.Target),
-            IsValidZone = p => p.Zone == Zone.Battlefield,
             Message = "Select aura target.",
           };
 

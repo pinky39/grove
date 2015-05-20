@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class FaithHealer : CardTemplateSource
   {
@@ -27,14 +27,11 @@
             p.Cost = new Sacrifice();
             p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().ConvertedCost), whos: P(e => e.Controller));
 
-            p.TargetSelector.AddCost(trg =>
-              {
-                trg
-                  .Is.Card(x => x.Is().Enchantment, controlledBy: ControlledBy.SpellOwner)
-                  .On.Battlefield();
-
-                trg.Message = "Select an enchantment to sacrifice.";
-              });
+            p.TargetSelector.AddCost(
+              trg => trg
+                .Is.Card(x => x.Is().Enchantment, controlledBy: ControlledBy.SpellOwner)
+                .On.Battlefield(),
+              trg => trg.Message = "Select an enchantment to sacrifice.");
 
             p.TargetingRule(new CostSacrificeToGainLife());
           });

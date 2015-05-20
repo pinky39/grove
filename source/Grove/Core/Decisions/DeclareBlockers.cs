@@ -278,16 +278,19 @@
 
         while (true)
         {
-          var blockerTarget = new TargetValidatorParameters
-            {
-              MinCount = IsValidBlockerDeclaration(result, lureAttackers, availableMana) ? 0 : 1,
-              MaxCount = 1,
-              Message = "Select a blocker."
-            }
+          var blockerSpec = new IsValidTargetBuilder()
             .Is.Card(c => c.CanBlock() && c.Controller == D.Controller && c.CombatCost <= availableMana)
             .On.Battlefield();
 
-          blockerTarget.MustBeTargetable = false;
+          var blockerTarget = new TargetValidatorParameters(
+            isValidTarget: blockerSpec.IsValidTarget,
+            isValidZone: blockerSpec.IsValidZone)
+            {
+              MinCount = IsValidBlockerDeclaration(result, lureAttackers, availableMana) ? 0 : 1,
+              MaxCount = 1,
+              Message = "Select a blocker.",
+              MustBeTargetable = false
+            };
 
           var blockerValidator = new TargetValidator(blockerTarget);
           blockerValidator.Initialize(Game, D.Controller);
@@ -323,13 +326,8 @@
             continue;
           }
 
-          var attackerTarget = new TargetValidatorParameters
-            {
-              MinCount = 1,
-              MaxCount = 1,
-              Message = "Select an attacker to block."
-            }
-            .Is.Card(c =>
+          var attackerSpec = new IsValidTargetBuilder()
+          .Is.Card(c =>
               {
                 // if any attacker has lure, we must block it
                 if (lureAttackers.Any(x => x.CanBeBlockedBy(blocker)) && !c.Has().Lure)
@@ -341,6 +339,15 @@
               })
             .On.Battlefield();
 
+          var attackerTarget = new TargetValidatorParameters(
+            isValidTarget: attackerSpec.IsValidTarget,
+            isValidZone: attackerSpec.IsValidZone)
+            {
+              MinCount = 1,
+              MaxCount = 1,
+              Message = "Select an attacker to block."
+            };
+            
           attackerTarget.MustBeTargetable = false;
 
           var attackerValidator = new TargetValidator(attackerTarget);

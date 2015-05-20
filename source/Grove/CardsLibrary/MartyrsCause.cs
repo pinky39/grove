@@ -28,16 +28,12 @@
               trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield());
 
             p.TargetSelector
-              .AddEffect(trg =>
-                {
-                  trg.Is.Card().On.BattlefieldOrStack();
-                  trg.Message = "Select damage source.";
-                })
-              .AddEffect(trg =>
-                {
-                  trg.Is.CreatureOrPlayer().On.Battlefield();
-                  trg.Message = "Select creature or player.";
-                });
+              .AddEffect(
+                trg => trg.Is.Card().On.BattlefieldOrStack(),
+                trg => trg.Message = "Select damage source.")
+              .AddEffect(
+                trg => trg.Is.CreatureOrPlayer().On.Battlefield(),
+                trg => trg.Message = "Select creature or player.");
 
             p.TargetingRule(new CostSacrificeEffectPreventDamageFromSourceToTarget());
           });

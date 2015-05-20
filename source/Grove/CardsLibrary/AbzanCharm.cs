@@ -33,11 +33,11 @@
         {
           p.Text = "{{W}}{{B}}{{G}}: Distribute two +1/+1 counters among one or two target creatures.";
           p.Effect = () => new DistributeCountersAmongTargets(new AddCounters(() => new PowerToughness(1, 1), 1), 2);
-          p.TargetSelector.AddEffect(trg =>
-          {
-            trg.MinCount = 1;
-            trg.MaxCount = 2;
-            trg.Is.Creature().On.Battlefield();
+          p.TargetSelector.AddEffect(
+            trg => trg.Is.Creature().On.Battlefield(),
+            trg => {
+              trg.MinCount = 1;
+              trg.MaxCount = 2;            
           });
           p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
         });

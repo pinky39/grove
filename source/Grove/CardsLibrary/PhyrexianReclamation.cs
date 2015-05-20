@@ -1,10 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using ReturnToHand = Effects.ReturnToHand;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
 
   public class PhyrexianReclamation : CardTemplateSource
   {
@@ -25,13 +24,11 @@
               new PayMana("{1}{B}".Parse()),
               new PayLife(2));
 
-            p.Effect = () => new ReturnToHand();
+            p.Effect = () => new Effects.ReturnToHand();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature().In.YourGraveyard();
-                trg.Message = "Select a creature from your graveyard.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature().In.YourGraveyard(),
+              trg => trg.Message = "Select a creature from your graveyard.");
 
             p.TimingRule(new OnFirstMain());
             p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));

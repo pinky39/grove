@@ -7,10 +7,10 @@
   {
     private const string DefaultMessageOneTarget = "Select a target.";
     private const string DefaultMessageMultipleTargets = "Select target: {0} of {1}.";
-    private readonly Func<GetTargetCountParam, Value> _getMaxCount;
-    private readonly Func<GetTargetCountParam, Value> _getMinCount;
-    private readonly Func<IsValidTargetParam, bool> _isValidTarget;
-    private readonly Func<IsValidZoneParam, bool> _isValidZone;
+    private readonly Func<GetTargetCountParameters, Value> _getMaxCount;
+    private readonly Func<GetTargetCountParameters, Value> _getMinCount;
+    private readonly Func<IsValidTargetParameters, bool> _isValidTarget;
+    private readonly Func<IsValidZoneParameters, bool> _isValidZone;
     private readonly bool _mustBeTargetable;
     private Player _controller;
     private Card _owningCard;
@@ -33,7 +33,7 @@
     {
       get
       {
-        var p = new GetTargetCountParam
+        var p = new GetTargetCountParameters
           {
             Controller = _controller,
             OwningCard = _owningCard,
@@ -48,7 +48,7 @@
     {
       get
       {
-        var p = new GetTargetCountParam
+        var p = new GetTargetCountParameters
           {
             Controller = _controller,
             OwningCard = _owningCard,
@@ -71,7 +71,7 @@
 
     public bool IsTargetValid(ITarget target, object triggerMessage = null)
     {
-      var parameters = new IsValidTargetParam(_controller,
+      var parameters = new IsValidTargetParameters(_controller,
         Game, _owningCard, target, triggerMessage);        
       
       // Perf: Most targets are not valid and most targets can be targeted.     
@@ -80,7 +80,7 @@
 
     public bool IsZoneValid(Zone zone, Player zoneOwner)
     {
-      return _isValidZone(new IsValidZoneParam(zone, zoneOwner, _controller));
+      return _isValidZone(new IsValidZoneParameters(zone, zoneOwner, _controller));
     }
 
     private bool CanBeTargeted(ITarget target, Card owningCard)
@@ -130,7 +130,7 @@
       if (zone == null)
         return true;
 
-      return _isValidZone(new IsValidZoneParam(zone.Value, target.Controller(), _controller));
+      return _isValidZone(new IsValidZoneParameters(zone.Value, target.Controller(), _controller));
     }
   }
 }

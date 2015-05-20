@@ -1,10 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using ReturnToHand = Effects.ReturnToHand;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
 
   public class TragicPoet : CardTemplateSource
   {
@@ -26,14 +25,12 @@
               new Tap(),
               new Sacrifice());
 
-            p.Effect = () => new ReturnToHand();
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Enchantment().In.YourGraveyard();
-                trg.Message = "Select an enchantment in your graveyard.";
-              });
+            p.Effect = () => new Effects.ReturnToHand();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Enchantment().In.YourGraveyard(),
+              trg => trg.Message = "Select an enchantment in your graveyard.");
 
-            p.TimingRule(new Any(new OnFirstMain(), new OnOpponentsTurn(Step.DeclareBlockers)));            
+            p.TimingRule(new Any(new OnFirstMain(), new OnOpponentsTurn(Step.DeclareBlockers)));
             p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
           });
     }

@@ -38,9 +38,9 @@
 
             p.Effect = () => new DestroyTargetPermanents();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Enchantment || c.Is().Artifact).On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Enchantment || c.Is().Artifact).On.Battlefield(), 
+              trg => {
                 trg.MinCount = 0;
                 trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
               });

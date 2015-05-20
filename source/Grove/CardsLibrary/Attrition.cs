@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class Attrition : CardTemplateSource
   {
@@ -27,17 +27,13 @@
 
             p.Effect = () => new DestroyTargetPermanents();
 
-            p.TargetSelector.AddCost(trg =>
-              {
-                trg.Is.Card(c => c.Is().Creature, ControlledBy.SpellOwner).On.Battlefield();
-                trg.Message = "Select a creature to sacrifice.";
-              });
+            p.TargetSelector.AddCost(
+              trg => trg.Is.Card(c => c.Is().Creature, ControlledBy.SpellOwner).On.Battlefield(),
+              trg => trg.Message = "Select a creature to sacrifice.");
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black)).On.Battlefield();
-                trg.Message = "Select a creature to destroy.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black)).On.Battlefield(),
+              trg => trg.Message = "Select a creature to destroy.");
 
             p.TargetingRule(new CostSacrificeEffectDestroy());
 

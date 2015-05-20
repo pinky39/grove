@@ -28,12 +28,12 @@
             p.Effect =
               () => new ApplyModifiersToTargets(() => new AddCounters(() => new PowerToughness(1, 1), count: 1));
 
-            p.TargetSelector.AddEffect(trg =>
-              {
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature(canTargetSelf: false).On.Battlefield(),
+              trg => {
                 trg.MinCount = 0;
                 trg.MaxCount = 1;
-                trg.Message = "Select another target creature";
-                trg.Is.Creature(canTargetSelf: false).On.Battlefield();
+                trg.Message = "Select another target creature";                
               });
 
             p.TargetingRule(new EffectCombatEnchantment());

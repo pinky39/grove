@@ -29,11 +29,9 @@
               () => new AddCounters(() => new PowerToughness(1, 1), 1));
 
             p.TargetSelector
-              .AddCost(trg =>
-                {
-                  trg.Is.Card(c => c.Is().Artifact, ControlledBy.SpellOwner).On.Battlefield();
-                  trg.Message = "Select an artifact to sacrifice.";
-                })
+              .AddCost(
+                trg => trg.Is.Card(c => c.Is().Artifact, ControlledBy.SpellOwner).On.Battlefield(),
+                trg => trg.Message = "Select an artifact to sacrifice.")
               .AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new Any(new AfterOpponentDeclaresBlockers(), new AfterYouDeclareBlockers()));

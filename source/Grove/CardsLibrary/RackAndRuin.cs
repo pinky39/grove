@@ -20,9 +20,9 @@
         .Cast(p =>
           {
             p.Effect = () => new DestroyTargetPermanents();
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Artifact).On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Artifact).On.Battlefield(),
+              trg => {                
                 trg.MinCount = 2;
                 trg.MaxCount = 2;
               });

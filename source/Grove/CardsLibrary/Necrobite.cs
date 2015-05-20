@@ -21,7 +21,7 @@
             new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Deathtouch){UntilEot = true}),
             new RegenerateTarget());
 
-          p.TargetSelector.AddEffect(s => s.Is.Creature());
+          p.TargetSelector.AddEffect(s => s.Is.Creature().On.Battlefield());
 
           p.TimingRule(new RegenerateTargetTimingRule());
           p.TargetingRule(new EffectGiveRegenerate());

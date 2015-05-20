@@ -39,11 +39,11 @@
                 }),
             });
 
-          p.TargetSelector.AddEffect(trg =>
-          {
-            trg.MinCount = Value.PlusX;
-            trg.MaxCount = Value.PlusX;
-            trg.Is.Creature().On.Battlefield();
+          p.TargetSelector.AddEffect(
+            trg => trg.Is.Creature().On.Battlefield(),
+            trg => {
+              trg.MinCount = Value.PlusX;
+              trg.MaxCount = Value.PlusX;            
           });
 
           p.TimingRule(new OnStep(Step.BeginningOfCombat));

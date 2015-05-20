@@ -19,35 +19,45 @@
     public List<TargetValidator> Effect { get { return _effectValidators; } }
     public List<TargetValidator> Cost { get { return _costValidators; } }
     public Func<ValidateTargetDependenciesParam, bool> ValidateTargetDependencies = delegate { return true; };
-    
 
-    public TargetSelector AddEffect(Action<TargetValidatorParameters> set)
+
+    public TargetSelector AddEffect(
+      Func<IsValidTargetBuilder, IsValidTargetBuilder> isValid, 
+      Action<TargetValidatorParameters> configure = null)
     {
-      var validator = CreateValidator(set);
+      var validatorBuilder = isValid(new IsValidTargetBuilder());
 
-      _effectValidators.Add(validator);
+      var validatorParameters = new TargetValidatorParameters(
+        validatorBuilder.IsValidTarget,
+        validatorBuilder.IsValidZone,
+        validatorBuilder.MustBeTargetable);
+
+      if (configure != null)
+      {
+        configure(validatorParameters);
+      }
+
+      _effectValidators.Add(new TargetValidator(validatorParameters));
+      
       return this;
     }
 
-    private TargetValidator CreateValidator(Action<TargetValidatorParameters> set)
+    public TargetSelector AddCost(Func<IsValidTargetBuilder, IsValidTargetBuilder> isValid, 
+      Action<TargetValidatorParameters> configure = null)
     {
-      var p = new TargetValidatorParameters();
-      set(p);
-      return new TargetValidator(p);
-    }
+      var validatorBuilder = isValid(new IsValidTargetBuilder());
 
-    public TargetSelector AddCost(Action<TargetValidatorParameters> set)
-    {
-      var org = set;
+      var validatorParameters = new TargetValidatorParameters(
+        validatorBuilder.IsValidTarget,
+        validatorBuilder.IsValidZone,
+        false);
 
-      set = p =>
-        {
-          org(p);
-          p.MustBeTargetable = false;
-        };
-
-      var validator = CreateValidator(set);
-      _costValidators.Add(validator);
+      if (configure != null)
+      {
+        configure(validatorParameters);
+      }
+      
+      _costValidators.Add(new TargetValidator(validatorParameters));
       return this;
     }
 

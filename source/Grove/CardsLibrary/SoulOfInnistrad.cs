@@ -23,11 +23,11 @@
           p.Cost = new PayMana("{3}{B}{B}".Parse());
 
           p.Effect = () => new Effects.ReturnToHand();
-          p.TargetSelector.AddEffect(trg =>
-          {
+          p.TargetSelector.AddEffect(
+            trg => trg.Is.Creature().On.YourGraveyard(),
+            trg => {
             trg.MinCount = 0;
-            trg.MaxCount = 3;
-            trg.Is.Creature().On.YourGraveyard();
+            trg.MaxCount = 3;            
           });
 
           p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
@@ -43,11 +43,11 @@
             new Exile(fromGraveyard: true));
 
           p.Effect = () => new Effects.ReturnToHand();
-          p.TargetSelector.AddEffect(trg =>
-          {
-            trg.MinCount = 0;
-            trg.MaxCount = 3;
-            trg.Is.Creature(canTargetSelf: false).In.YourGraveyard();            
+          p.TargetSelector.AddEffect(
+            trg => trg.Is.Creature(canTargetSelf: false).In.YourGraveyard(),
+            trg => {
+              trg.MinCount = 0;
+              trg.MaxCount = 3;                    
           });
 
           p.ActivationZone = Zone.Graveyard;

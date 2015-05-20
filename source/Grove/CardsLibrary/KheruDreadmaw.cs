@@ -13,32 +13,31 @@
         .Named("Kheru Dreadmaw")
         .ManaCost("{4}{B}")
         .Type("Creature — Zombie Crocodile")
-        .Text("{Defender}{EOL}{1}{G}, Sacrifice another creature: You gain life equal to the sacrificed creature's toughness.")
+        .Text(
+          "{Defender}{EOL}{1}{G}, Sacrifice another creature: You gain life equal to the sacrificed creature's toughness.")
         .FlavorText("Its hunting instincts have long since rotted away. Its hunger, however, remains.")
         .Power(4)
         .Toughness(4)
         .SimpleAbilities(Static.Defender)
         .ActivatedAbility(p =>
-        {
-          p.Text = "{1}{G}, Sacrifice another creature: You gain life equal to the sacrificed creature's toughness.";
-
-          p.Cost = new AggregateCost(
-            new PayMana("{1}{G}".Parse()),
-            new Sacrifice());
-
-          p.Effect = () => new ChangeLife(amount: P(e => e.Target.Card().Toughness.GetValueOrDefault()), whos: P(e => e.Controller));
-
-          p.TargetSelector.AddCost(trg =>
           {
-            trg
-              .Is.Creature(ControlledBy.SpellOwner, canTargetSelf: false)
-              .On.Battlefield();
+            p.Text = "{1}{G}, Sacrifice another creature: You gain life equal to the sacrificed creature's toughness.";
 
-            trg.Message = "Select a creature to sacrifice.";
+            p.Cost = new AggregateCost(
+              new PayMana("{1}{G}".Parse()),
+              new Sacrifice());
+
+            p.Effect =
+              () =>
+                new ChangeLife(amount: P(e => e.Target.Card().Toughness.GetValueOrDefault()), whos: P(e => e.Controller));
+
+            p.TargetSelector.AddCost(
+              trg => trg.Is.Creature(ControlledBy.SpellOwner, canTargetSelf: false)
+                .On.Battlefield(),
+              trg => trg.Message = "Select a creature to sacrifice.");
+
+            p.TargetingRule(new CostSacrificeToGainLife());
           });
-
-          p.TargetingRule(new CostSacrificeToGainLife());
-        });
     }
   }
 }

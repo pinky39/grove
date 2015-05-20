@@ -1,13 +1,13 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
+  using Modifiers;
+  using Triggers;
 
   public class VileRequiem : CardTemplateSource
   {
@@ -39,14 +39,15 @@
 
             p.Effect = () => new DestroyTargetPermanents(canRegenerate: false);
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black)).On.Battlefield();
-                trg.MinCount = 0;
-                trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Creature && !c.HasColor(CardColor.Black)).On.Battlefield(),
+              trg =>
+                {
+                  trg.MinCount = 0;
+                  trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
+                });
 
-            p.TimingRule(new WhenCardHasCounters(1, onlyAtEot: false));                        
+            p.TimingRule(new WhenCardHasCounters(1, onlyAtEot: false));
             p.TargetingRule(new EffectDestroy());
             p.TimingRule(new TargetRemovalTimingRule().RemovalTags(EffectTag.Destroy, EffectTag.CreaturesOnly));
           });

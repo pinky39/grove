@@ -39,9 +39,10 @@
                         new PayMana(Mana.Red),
                         new Sacrifice());
                       ap.Effect = () => new DealDamageToTargets(2);
-                      ap.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.IsAttacker && !c.Has().Flying));
-                      ap.TargetingRule(new EffectDealDamage(2));
+                      ap.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.IsAttacker && !c.Has().Flying).On.Battlefield());
+
                       ap.TimingRule(new AfterOpponentDeclaresAttackers());
+                      ap.TargetingRule(new EffectDealDamage(2));                      
                     })),
               new FlipCoinDealDamageToItself(2));
 

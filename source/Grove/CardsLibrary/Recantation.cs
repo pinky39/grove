@@ -40,9 +40,9 @@
 
             p.Effect = () => new ReturnToHand();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card().On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card().On.Battlefield(),
+              trg => {                
                 trg.MinCount = 0;
                 trg.GetMaxCount = cp => cp.OwningCard.CountersCount();
               });

@@ -108,13 +108,13 @@
     {
       protected override void ExecuteQuery()
       {
-        var parameters = new TargetValidatorParameters
+        var parameters = new TargetValidatorParameters(
+          isValidTarget: p => D._p.Filter(p.Target.Card()),
+          isValidZone: p => p.ZoneOwner == CardsOwner && p.Zone == Zone.Hand)
           {
             MinCount = D._p.Count,
             MaxCount = D._p.Count,
-            Message = String.Format("Select {0} card(s) to discard.", D._p.Count),
-            IsValidTarget = p => D._p.Filter(p.Target.Card()),
-            IsValidZone = p => p.ZoneOwner == CardsOwner && p.Zone == Zone.Hand
+            Message = String.Format("Select {0} card(s) to discard.", D._p.Count),            
           };
 
         var targetValidator = new TargetValidator(parameters);

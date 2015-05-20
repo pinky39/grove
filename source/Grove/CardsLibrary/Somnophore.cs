@@ -1,11 +1,11 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.Events;
-  using Grove.AI.TargetingRules;
-  using Grove.Modifiers;
-  using Grove.Triggers;
+  using AI.TargetingRules;
+  using Effects;
+  using Events;
+  using Modifiers;
+  using Triggers;
 
   public class Somnophore : CardTemplateSource
   {
@@ -24,10 +24,10 @@
           {
             p.Text =
               "Whenever Somnophore deals damage to a player, tap target creature that player controls. That creature doesn't untap during its controller's untap step for as long as Somnophore remains on the battlefield.";
-            
-            p.Trigger(new OnDamageDealt(dmg => 
-              dmg.IsDealtByOwningCard && 
-              dmg.IsDealtToPlayer));
+
+            p.Trigger(new OnDamageDealt(dmg =>
+              dmg.IsDealtByOwningCard &&
+                dmg.IsDealtToPlayer));
 
             p.Effect = () => new CompoundEffect(
               new TapTargets(),
@@ -38,15 +38,11 @@
                   return modifier;
                 }));
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg
-                  .Is.Card(tp => tp.Target.Card().Is().Creature &&
-                    tp.TriggerMessage<DamageDealtEvent>().Receiver == tp.Target.Controller())
-                  .On.Battlefield();
-
-                trg.Message = "Select a creature to tap.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(tp => tp.Target.Card().Is().Creature &&
+                tp.TriggerMessage<DamageDealtEvent>().Receiver == tp.Target.Controller())
+                .On.Battlefield(),
+              trg => trg.Message = "Select a creature to tap.");
 
             p.TargetingRule(new EffectGiveDoesNotUntap());
           }

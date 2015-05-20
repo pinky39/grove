@@ -150,17 +150,20 @@
 
     private void ManuallySelectRequiredConvokeTargets()
     {
-      var tp =
-        new TargetValidatorParameters
+      var spec = new IsValidTargetBuilder()
+        .Card(c => c.CanBeTapped && c.Is().Creature && c.Controller == Card.Controller)
+        .On.Battlefield();
+
+      var tp = new TargetValidatorParameters(
+          isValidTarget: spec.IsValidTarget,
+          isValidZone: spec.IsValidZone)
           {
             MinCount = 0,
             MaxCount = null,
             Message = "Select creatures to tap for convoke.",
             MustBeTargetable = false
-          }
-          .Is.Card(c => c.CanBeTapped && c.Is().Creature && c.Controller == Card.Controller)
-          .On.Battlefield();
-
+          };
+          
       var validator = new TargetValidator(tp);
       validator.Initialize(Game, Card.Controller);
 
@@ -177,16 +180,19 @@
 
     private void ManuallySelectRequiredDelveTargets()
     {
-      var tp =
-        new TargetValidatorParameters
-        {
-          MinCount = 0,
-          MaxCount = Card.HasXInCost ? int.MaxValue : Card.GenericCost,
-          Message = "Select cards to exile for delve.",
-          MustBeTargetable = false
-        }
-        .On.YourGraveyard();
+      var spec = new IsValidTargetBuilder().Is.Card().In.YourGraveyard();
 
+      var tp =
+        new TargetValidatorParameters(
+          isValidTarget: spec.IsValidTarget,
+          isValidZone: spec.IsValidZone)
+          {
+            MinCount = 0,
+            MaxCount = Card.HasXInCost ? int.MaxValue : Card.GenericCost,
+            Message = "Select cards to exile for delve.",
+            MustBeTargetable = false
+          };
+        
       var validator = new TargetValidator(tp);
       validator.Initialize(Game, Card.Controller);
 

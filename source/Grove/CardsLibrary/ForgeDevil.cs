@@ -26,12 +26,12 @@
             p.Effect = () => new CompoundEffect(
               new DealDamageToTargets(1),
               new DealDamageToPlayer(1, P(e => e.Controller)));
-            p.TargetSelector.AddEffect(trg =>
-              {
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature().On.Battlefield(),
+              trg => {
                 trg.Message = "Select a creature.";
                 trg.MinCount = 1;
-                trg.MaxCount = 1;
-                trg.Is.Creature().On.Battlefield();
+                trg.MaxCount = 1;                
               });
             p.TargetingRule(new EffectDealDamage(1));
           });

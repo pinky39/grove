@@ -19,11 +19,9 @@
           {
             p.Effect = () => new DistributeDamageToTargets();
             p.DistributeAmount = 3;
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.CreatureOrPlayer().On.Battlefield();
-                trg.MaxCount = 3;
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.CreatureOrPlayer().On.Battlefield(),
+              trg => { trg.MaxCount = 3; });
             p.TargetingRule(new EffectDealDamage());
           });
     }

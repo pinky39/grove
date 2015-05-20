@@ -26,9 +26,9 @@
             p.Effect =
               () => new ApplyModifiersToTargets(() => new AddCounters(() => new SimpleCounter(CounterType.Fungus), 1));
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Creature && !c.Is().Token).On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Creature && !c.Is().Token).On.Battlefield(),
+              trg => {                
                 trg.MinCount = 0;
                 trg.MaxCount = 1;
               });

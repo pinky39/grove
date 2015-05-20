@@ -19,9 +19,9 @@
         .Cast(p =>
           {
             p.Effect = () => new DestroyTargetPermanents();
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Enchantment().On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Enchantment().On.Battlefield(),
+              trg => {                
                 trg.MinCount = 2;
                 trg.MaxCount = 2;
               });

@@ -39,11 +39,9 @@
                   return modifier;
                 }));
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Creature, ControlledBy.Opponent).On.Battlefield();
-                trg.Message = "Select a creature to tap.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Creature, ControlledBy.Opponent).On.Battlefield(),
+              trg => trg.Message = "Select a creature to tap.");
 
             p.TargetingRule(new EffectGiveDoesNotUntap());
           });

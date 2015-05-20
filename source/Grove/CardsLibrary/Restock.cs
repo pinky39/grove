@@ -18,9 +18,9 @@
           {
             p.Effect = () => new ReturnToHand();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card().In.YourGraveyard();                
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card().In.YourGraveyard(),
+              trg => {                              
                 trg.MinCount = 2;
                 trg.MaxCount = 2;
               });

@@ -23,11 +23,9 @@
 
             p.Effect = () => new ExileTargets();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Creature && (c.IsAttacker || c.IsBlocker)).On.Battlefield();
-                trg.Message = "Select target attacking or blocking creature.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Creature && (c.IsAttacker || c.IsBlocker)).On.Battlefield(),
+              trg => { trg.Message = "Select target attacking or blocking creature."; });
 
             p.TimingRule(new Any(new AfterYouDeclareBlockers(), new AfterOpponentDeclaresBlockers()));
             p.TargetingRule(new EffectExileBattlefield());

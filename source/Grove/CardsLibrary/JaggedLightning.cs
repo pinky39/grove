@@ -18,9 +18,9 @@
         .Cast(p =>
           {
             p.Effect = () => new DealDamageToTargets(3);
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature().On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature().On.Battlefield(),
+              trg => {                
                 trg.MinCount = 2;
                 trg.MaxCount = 2;
               });

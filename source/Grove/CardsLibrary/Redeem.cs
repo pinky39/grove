@@ -20,9 +20,9 @@
             p.Text = "Prevent all damage that would be dealt this turn to up to two target creatures.";            
             p.Effect = () => new PreventAllDamageToTargets();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature().On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature().On.Battlefield(),
+              trg => {                
                 trg.MinCount = 1;
                 trg.MaxCount = 2;
               });

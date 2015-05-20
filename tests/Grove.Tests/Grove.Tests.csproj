@@ -273,6 +273,7 @@
     <Compile Include="Cards\GlacialCrasher.cs" />
     <Compile Include="Cards\GoblinCadets.cs" />
     <Compile Include="Cards\GoblinFestival.cs" />
+    <Compile Include="Cards\GoblinKaboomist.cs" />
     <Compile Include="Cards\GoblinLackey.cs" />
     <Compile Include="Cards\GoblinMarshal.cs" />
     <Compile Include="Cards\GoblinMatron.cs" />

@@ -18,9 +18,9 @@
         .Cast(p =>
           {
             p.Effect = () => new PutTargetsOnTopOfLibrary();
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Land).On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Land).On.Battlefield(),
+              trg => {                
                 trg.MinCount = 2;
                 trg.MaxCount = 2;
               });

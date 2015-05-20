@@ -81,10 +81,10 @@
     {
       protected override void ExecuteQuery()
       {
-        var validatorParameters = new TargetValidatorParameters
-          {
-            IsValidZone = p => p.Zone == D._p.Cards[0].Zone && p.ZoneOwner == D.Controller,
-            IsValidTarget = p => D._p.Cards.Contains((Card) p.Target),
+        var validatorParameters = new TargetValidatorParameters(
+          isValidTarget: p => D._p.Cards.Contains((Card) p.Target),
+          isValidZone: p => p.Zone == D._p.Cards[0].Zone && p.ZoneOwner == D.Controller)
+          {            
             MinCount = 0,
             MaxCount = D._p.Cards.Count,
             Message = D._p.SplitText,

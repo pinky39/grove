@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class ClawsOfGix : CardTemplateSource
   {
@@ -29,13 +29,9 @@
               new PayMana(1.Colorless()),
               new Sacrifice());
             p.Effect = () => new ChangeLife(amount: 1, whos: P(e => e.Controller));
-            p.TargetSelector.AddCost(trg =>
-              {
-                trg.Is.Card(controlledBy: ControlledBy.SpellOwner)
-                  .On.Battlefield();
-
-                trg.Message = "Select a permanent to sacrifice.";
-              });
+            p.TargetSelector.AddCost(
+              trg => trg.Is.Card(controlledBy: ControlledBy.SpellOwner).On.Battlefield(),
+              trg => trg.Message = "Select a permanent to sacrifice.");
             p.TargetingRule(new CostSacrificeToGainLife());
           }
         );

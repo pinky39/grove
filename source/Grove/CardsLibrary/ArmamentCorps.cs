@@ -23,11 +23,11 @@
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
           p.Effect = () => new DistributeCountersAmongTargets(new AddCounters(() => new PowerToughness(1, 1), 1), 
             counterAmount: 2);
-          p.TargetSelector.AddEffect(trg =>
-          {
-            trg.MinCount = 1;
-            trg.MaxCount = 2;
-            trg.Is.Creature(controlledBy: ControlledBy.SpellOwner).On.Battlefield();
+          p.TargetSelector.AddEffect(
+            trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield(),
+            trg => {
+              trg.MinCount = 1;
+              trg.MaxCount = 2;            
           });
           p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, ControlledBy.SpellOwner));
         });

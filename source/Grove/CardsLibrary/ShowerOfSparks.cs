@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Effects;
-  using Grove.AI;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Effects;
 
   public class ShowerOfSparks : CardTemplateSource
   {
@@ -20,16 +20,12 @@
           {
             p.Effect = () => new DealDamageToTargets(1);
             p.TargetSelector
-              .AddEffect(trg =>
-                {
-                  trg.Is.Creature().On.Battlefield();
-                  trg.Message = "Select creature.";
-                })
-              .AddEffect(trg =>
-                {
-                  trg.Is.Player();
-                  trg.Message = "Select player.";
-                });
+              .AddEffect(
+                trg => trg.Is.Creature().On.Battlefield(),
+                trg => { trg.Message = "Select creature."; })
+              .AddEffect(
+                trg => trg.Is.Player(),
+                trg => { trg.Message = "Select player."; });
 
             p.TargetingRule(new EffectDealDamage(1));
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));

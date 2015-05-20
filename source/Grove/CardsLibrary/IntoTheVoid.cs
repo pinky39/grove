@@ -20,9 +20,9 @@
             p.Text = "Return up to two target creatures to their owners' hands.";
             p.Effect = () => new ReturnToHand();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature().On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature().On.Battlefield(),
+              trg => {                
                 trg.MinCount = 0;
                 trg.MaxCount = 2;
               });

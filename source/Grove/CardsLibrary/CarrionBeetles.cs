@@ -25,9 +25,9 @@
               new PayMana("{2}{B}".Parse()),
               new Tap());
             p.Effect = () => new ExileTargets();
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card().In.Graveyard();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card().In.Graveyard(),
+              trg => {                
                 trg.MinCount = 0;
                 trg.MaxCount = 3;
               });

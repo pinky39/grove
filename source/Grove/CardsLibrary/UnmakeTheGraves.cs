@@ -20,12 +20,12 @@
         {
           p.Text = "Return up to two target creature cards from your graveyard to your hand.";
           p.Effect = () => new ReturnToHand();
-          p.TargetSelector.AddEffect(trg =>
-          {
-            trg.MinCount = 0;
-            trg.MaxCount = 2;
-            trg.Is.Creature().On.YourGraveyard();
-          });
+          p.TargetSelector.AddEffect(
+            trg => trg.Is.Creature().On.YourGraveyard(),
+            trg => {
+              trg.MinCount = 0;
+              trg.MaxCount = 2;            
+            });
 
           p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
 

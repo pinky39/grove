@@ -1,10 +1,10 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
-  using Grove.AI.TimingRules;
+  using AI.TargetingRules;
+  using AI.TimingRules;
+  using Costs;
+  using Effects;
 
   public class CropRotation : CardTemplateSource
   {
@@ -30,11 +30,9 @@
               validator: (e, c) => c.Is().Land,
               text: "Search your library for a land card.");
 
-            p.TargetSelector.AddCost(trg =>
-              {
-                trg.Is.Card(c => c.Is().Land, ControlledBy.SpellOwner).On.Battlefield();
-                trg.Message = "Select a land to sacrifice.";
-              });
+            p.TargetSelector.AddCost(
+              trg => trg.Is.Card(c => c.Is().Land, ControlledBy.SpellOwner).On.Battlefield(),
+              trg => trg.Message = "Select a land to sacrifice.");
 
             p.TimingRule(new OnFirstMain());
             p.TargetingRule(new CostSacrificeLandToSearchLand());

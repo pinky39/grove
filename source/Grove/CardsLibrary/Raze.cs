@@ -25,17 +25,13 @@
 
             p.Effect = () => new DestroyTargetPermanents();
 
-            p.TargetSelector.AddCost(trg =>
-              {
-                trg.Is.Card(c => c.Is().Land, ControlledBy.SpellOwner).On.Battlefield();
-                trg.Message = "Select a land to sacrifice.";
-              });
+            p.TargetSelector.AddCost(
+              trg => trg.Is.Card(c => c.Is().Land, ControlledBy.SpellOwner).On.Battlefield(),
+              trg => { trg.Message = "Select a land to sacrifice."; });
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(c => c.Is().Land).On.Battlefield();
-                trg.Message = "Select a land to destroy.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(c => c.Is().Land).On.Battlefield(),
+              trg => { trg.Message = "Select a land to destroy."; });
 
             p.TimingRule(new OnFirstMain());
             p.TargetingRule(new CostSacrificeEffectDestroy());

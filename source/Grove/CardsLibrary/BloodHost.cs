@@ -31,16 +31,11 @@
             p.Effect = () => new CompoundEffect(
               new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1))
                 .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness),
-              new ChangeLife(amount: 2, whos: P(e => e.Controller)));            
+              new ChangeLife(amount: 2, whos: P(e => e.Controller)));
 
-            p.TargetSelector.AddCost(trg =>
-              {
-                trg
-                  .Is.Creature(ControlledBy.SpellOwner, canTargetSelf: false)
-                  .On.Battlefield();
-
-                trg.Message = "Select a creature to sacrifice.";
-              });            
+            p.TargetSelector.AddCost(
+              trg => trg.Is.Creature(ControlledBy.SpellOwner, canTargetSelf: false).On.Battlefield(),
+              trg => trg.Message = "Select a creature to sacrifice.");
 
             p.TimingRule(new PumpOwningCardTimingRule(1, 1));
             p.TargetingRule(new EffectOrCostRankBy(c => c.Score) {TargetLimit = 1});

@@ -29,11 +29,9 @@
             p.Effect = () => new DealDamageToTargets(4);
 
             p.TargetSelector
-              .AddCost(trg =>
-                {
-                  trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield();
-                  trg.Message = "Select a creature to sacrifice.";
-                })
+              .AddCost(
+                trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield(),
+                trg => trg.Message = "Select a creature to sacrifice.")
               .AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new WhenStackIsNotEmpty()));

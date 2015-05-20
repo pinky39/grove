@@ -1728,10 +1728,10 @@
     <Compile Include="Core\Effects\SpellCounterReason.cs" />
     <Compile Include="Core\Modifiers\IncreaseLandLimit.cs" />
     <Compile Include="Core\Modifiers\IncreaseManaOutput.cs" />
-    <Compile Include="Core\Targeting\GetTargetCountParam.cs" />
-    <Compile Include="Core\Targeting\TargetSpecs.cs" />
+    <Compile Include="Core\Targeting\GetTargetCountParameters.cs" />
+    <Compile Include="Core\Targeting\IsValidTargetBuilder.cs" />
     <Compile Include="Core\Targeting\TargetValidatorParameters.cs" />
-    <Compile Include="Core\Zones\ZoneSpecs.cs" />
+    <Compile Include="Core\Zones\IsValidZoneBuilder.cs" />
     <Compile Include="Core\Triggers\OnBeingTargetedBySpellOrAbility.cs" />
     <Compile Include="Core\Triggers\OnEffectResolved.cs" />
     <Compile Include="Core\Card\CastRules.cs" />
@@ -1867,11 +1867,11 @@
     <Compile Include="Core\Targeting\TargetsCandidates.cs" />
     <Compile Include="Core\Targeting\TargetValidator.cs" />
     <Compile Include="Core\Targeting\TargetSelector.cs" />
-    <Compile Include="Core\Targeting\IsValidTargetParam.cs" />
+    <Compile Include="Core\Targeting\IsValidTargetParameters.cs" />
     <Compile Include="Core\Triggers\OnCastedSpell.cs" />
     <Compile Include="Core\Triggers\OnLevelChanged.cs" />
     <Compile Include="Core\Zones\Zones.cs" />
-    <Compile Include="Core\Targeting\IsValidZoneParam.cs" />
+    <Compile Include="Core\Targeting\IsValidZoneParameters.cs" />
     <Compile Include="Core\Zones\IGraveyardQuery.cs" />
     <Compile Include="Core\Zones\ILibraryQuery.cs" />
     <Compile Include="Core\Zones\IZoneQuery.cs" />

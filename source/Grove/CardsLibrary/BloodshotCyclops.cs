@@ -31,11 +31,9 @@
             p.Effect = () => new DealDamageToTargets(
               amount: P(e => e.Targets.Cost[0].Card().Power.GetValueOrDefault()));
 
-            p.TargetSelector.AddCost(trg =>
-              {
-                trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield();
-                trg.Message = "Select a creature to sacrifice.";
-              });
+            p.TargetSelector.AddCost(
+              trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield(),
+              trg => trg.Message = "Select a creature to sacrifice.");
 
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 

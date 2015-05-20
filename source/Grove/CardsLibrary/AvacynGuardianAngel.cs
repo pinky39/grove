@@ -26,9 +26,9 @@
 
             p.Effect = () => new PreventAllDamageToTargetsFromChosenColor();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature(canTargetSelf: false).On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature(canTargetSelf: false).On.Battlefield(),
+              trg => {                
                 trg.MinCount = 1;
                 trg.MaxCount = 1;
               });
@@ -43,9 +43,9 @@
 
             p.Effect = () => new PreventAllDamageToTargetsFromChosenColor();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Player();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Player(),
+              trg => {                
                 trg.MinCount = 1;
                 trg.MaxCount = 1;
               });

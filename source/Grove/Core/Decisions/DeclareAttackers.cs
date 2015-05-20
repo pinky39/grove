@@ -223,12 +223,21 @@
       protected override void ExecuteQuery()
       {
         var availableMana = D.Controller.GetAvailableMana();
-
-        var tp = new TargetValidatorParameters {MinCount = 0, MaxCount = null, Message = "Select attackers."}
+        
+        var spec = new IsValidTargetBuilder()
           .Is.Card(c => c.CanAttack && c.Controller == D.Controller && c.CombatCost <= availableMana)
           .On.Battlefield();
 
-        tp.MustBeTargetable = false;
+        var tp = new TargetValidatorParameters(
+          isValidTarget: spec.IsValidTarget,
+          isValidZone: spec.IsValidZone)
+          {
+            MinCount = 0,
+            MaxCount = null,
+            Message = "Select attackers.",
+            MustBeTargetable = false
+          };
+
 
         var validator = new TargetValidator(tp);
         validator.Initialize(Game, D.Controller);

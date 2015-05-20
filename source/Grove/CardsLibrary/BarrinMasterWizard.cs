@@ -27,16 +27,12 @@
               new Sacrifice());
             p.Effect = () => new Effects.ReturnToHand();
             p.TargetSelector
-              .AddCost(trg =>
-                {
-                  trg.Is.Card(controlledBy: ControlledBy.SpellOwner).On.Battlefield();
-                  trg.Message = "Select a permanent to sacrifice.";
-                })
-              .AddEffect(trg =>
-                {
-                  trg.Is.Card(c => c.Is().Creature).On.Battlefield();
-                  trg.Message = "Select a creature to bounce.";
-                });
+              .AddCost(
+                trg => trg.Is.Card(controlledBy: ControlledBy.SpellOwner).On.Battlefield(),
+                trg => trg.Message = "Select a permanent to sacrifice.")
+              .AddEffect(
+                trg => trg.Is.Card(c => c.Is().Creature).On.Battlefield(),
+                trg => trg.Message = "Select a creature to bounce.");
 
             p.TargetingRule(new CostSacrificeEffectBounce());
             p.TimingRule(new TargetRemovalTimingRule().RemovalTags(EffectTag.Bounce, EffectTag.CreaturesOnly));

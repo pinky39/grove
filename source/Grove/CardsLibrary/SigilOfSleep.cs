@@ -32,21 +32,19 @@
 
             p.Trigger(new OnDamageDealt(dmg =>
               dmg.IsDealtByEnchantedCreature &&
-                dmg.IsDealtToPlayer));              
+                dmg.IsDealtToPlayer));
 
             p.Effect = () => new ReturnToHand();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg
-                  .Is.Card(tp => tp.Target.Card().Is().Creature &&
-                    tp.TriggerMessage<DamageDealtEvent>().Receiver == tp.Target.Controller())
-                  .On.Battlefield();
-
-                p.TargetingRule(new EffectBounce());
-
-                p.TriggerOnlyIfOwningCardIsInPlay = true;
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(tp => tp.Target.Card().Is().Creature &&
+                tp.TriggerMessage<DamageDealtEvent>().Receiver == tp.Target.Controller())
+                .On.Battlefield(),
+              trg =>
+                {
+                  p.TargetingRule(new EffectBounce());
+                  p.TriggerOnlyIfOwningCardIsInPlay = true;
+                });
           });
     }
   }

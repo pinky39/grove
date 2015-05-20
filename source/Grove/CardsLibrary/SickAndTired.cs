@@ -22,9 +22,9 @@
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddPowerAndToughness(-1, -1) {UntilEot = true}) {ToughnessReduction = 1};
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature().On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature().On.Battlefield(),
+              trg => {                
                 trg.MinCount = 2;
                 trg.MaxCount = 2;
               });

@@ -36,11 +36,11 @@
               () => new AddStaticAbility(Static.Haste) {UntilEot = true}),
             new UntapTargetPermanents());
 
-          p.TargetSelector.AddEffect(trg =>
-          {
-            trg.MinCount = 1;
-            trg.MaxCount = 1;
-            trg.Is.Creature(controlledBy: ControlledBy.Opponent).On.Battlefield();
+          p.TargetSelector.AddEffect(
+            trg => trg.Is.Creature(controlledBy: ControlledBy.Opponent).On.Battlefield(),
+            trg => {
+              trg.MinCount = 1;
+              trg.MaxCount = 1;            
           });
 
           p.TargetingRule(new EffectGainControl());

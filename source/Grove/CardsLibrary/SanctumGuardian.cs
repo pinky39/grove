@@ -1,9 +1,9 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
-  using Grove.Costs;
-  using Grove.Effects;
-  using Grove.AI.TargetingRules;
+  using AI.TargetingRules;
+  using Costs;
+  using Effects;
 
   public class SanctumGuardian : CardTemplateSource
   {
@@ -25,16 +25,12 @@
             p.Cost = new Sacrifice();
             p.Effect = () => new PreventDamageFromSourceToTarget();
             p.TargetSelector
-              .AddEffect(trg =>
-                {
-                  trg.Is.Card().On.BattlefieldOrStack();
-                  trg.Message = "Select damage source.";
-                })
-              .AddEffect(trg =>
-                {
-                  trg.Is.CreatureOrPlayer().On.Battlefield();
-                  trg.Message = "Select creature or player.";
-                });
+              .AddEffect(
+                trg => trg.Is.Card().On.BattlefieldOrStack(),
+                trg => { trg.Message = "Select damage source."; })
+              .AddEffect(
+                trg => trg.Is.CreatureOrPlayer().On.Battlefield(),
+                trg => { trg.Message = "Select creature or player."; });
             p.TargetingRule(new EffectPreventDamageFromSourceToTarget());
           });
     }

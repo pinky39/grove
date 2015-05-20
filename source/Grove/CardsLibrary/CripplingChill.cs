@@ -17,30 +17,28 @@
         .Text("Tap target creature. It doesn't untap during its controller's next untap step.{EOL}Draw a card.")
         .FlavorText("In the silence of the ice, even dreams become still.")
         .Cast(p =>
-        {
-          p.Effect = () => new CompoundEffect(
+          {
+            p.Effect = () => new CompoundEffect(
               new TapTargets(),
               new ApplyModifiersToTargets(() =>
-              {
-                var modifier = new AddStaticAbility(Static.DoesNotUntap);
+                {
+                  var modifier = new AddStaticAbility(Static.DoesNotUntap);
 
-                modifier.AddLifetime(new EndOfStep(
-                  Step.Untap,
-                  l => l.Modifier.SourceCard.Controller.IsActive));
+                  modifier.AddLifetime(new EndOfStep(
+                    Step.Untap,
+                    l => l.Modifier.SourceCard.Controller.IsActive));
 
-                return modifier;
-              }),
+                  return modifier;
+                }),
               new DrawCards(1));
 
-          p.TargetSelector.AddEffect(trg =>
-          {
-            trg.Is.Creature().On.Battlefield();
-            trg.Message = "Select a creature to tap.";
-          });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature().On.Battlefield(),
+              trg => trg.Message = "Select a creature to tap.");
 
-          p.TargetingRule(new EffectGiveDoesNotUntap());
-          p.TimingRule(new OnStep(Step.BeginningOfCombat));
-        });
+            p.TargetingRule(new EffectGiveDoesNotUntap());
+            p.TimingRule(new OnStep(Step.BeginningOfCombat));
+          });
     }
   }
 }

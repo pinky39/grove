@@ -23,9 +23,9 @@
             p.Text = "{T}: Untap two target lands.";
             p.Cost = new Tap();
             p.Effect = () => new UntapTargetPermanents();
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(card => card.Is().Land).On.Battlefield();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(card => card.Is().Land).On.Battlefield(),
+              trg => {                
                 trg.MinCount = 2;
                 trg.MaxCount = 2;
               });

@@ -26,11 +26,9 @@
 
             p.Effect = () => new DestroyTargetPermanents();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Card(card => card.Is().Artifact || card.Is().Enchantment).On.Battlefield();
-                trg.Message = "Select an artifact or enchantment.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Card(card => card.Is().Artifact || card.Is().Enchantment).On.Battlefield(),
+              trg => { trg.Message = "Select an artifact or enchantment."; });
 
             p.TimingRule(new WhenOpponentControllsPermanents(c => c.Is().Artifact || c.Is().Enchantment));
             p.TargetingRule(new EffectDestroy());

@@ -29,7 +29,7 @@
 
             p.Effect = () => new RegenerateTarget();
             p.TargetSelector.AddEffect(trg =>
-              trg.Is.Card(c => c.Is().Creature));
+              trg.Is.Card(c => c.Is().Creature).On.Battlefield());
 
             p.TimingRule(new RegenerateTargetTimingRule());
             p.TargetingRule(new EffectGiveRegenerate());

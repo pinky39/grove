@@ -19,9 +19,9 @@
         .Cast(p =>
           {
             p.Effect = () => new PutTargetsToBattlefield(mustSacCreatureOnResolve: true, tapped: true);
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature().In.YourGraveyard();
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature().In.YourGraveyard(),
+              trg => {                
                 trg.MinCount = 2;
                 trg.MaxCount = 2;
               });

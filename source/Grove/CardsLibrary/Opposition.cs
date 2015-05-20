@@ -24,16 +24,12 @@
             p.Effect = () => new TapTargets();
 
             p.TargetSelector
-              .AddCost(trg =>
-                {
-                  trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield();
-                  trg.Message = "Select a creature you control.";
-                })
-              .AddEffect(trg =>
-                {
-                  trg.Is.Card(c => c.Is().Creature || c.Is().Artifact || c.Is().Land).On.Battlefield();
-                  trg.Message = "Select an artifact, creature or land.";
-                });
+              .AddCost(
+                trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield(),
+                trg => { trg.Message = "Select a creature you control."; })
+              .AddEffect(
+                trg => trg.Is.Card(c => c.Is().Creature || c.Is().Artifact || c.Is().Land).On.Battlefield(),
+                trg => { trg.Message = "Select an artifact, creature or land."; });
 
             p.TimingRule(new OnOpponentsTurn(Step.Upkeep));
             p.TargetingRule(new CostTapEffectTap());

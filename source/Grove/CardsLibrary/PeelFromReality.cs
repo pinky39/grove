@@ -21,19 +21,15 @@
             p.Text = "Return target creature you control and target creature you don't control to their owners' hands.";
             p.Effect = () => new ReturnToHand();
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield();
-                trg.Message = "Select a target creature you control.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield(),
+              trg => { trg.Message = "Select a target creature you control."; });
 
-            p.TargetSelector.AddEffect(trg =>
-              {
-                trg.Is.Creature(ControlledBy.Opponent).On.Battlefield();
-                trg.Message = "Select a target creature your oppenent controls.";
-              });
+            p.TargetSelector.AddEffect(
+              trg => trg.Is.Creature(ControlledBy.Opponent).On.Battlefield(),
+              trg => { trg.Message = "Select a target creature your oppenent controls."; });
 
-            p.TargetingRule(new EffectBounceOwnAndOpponents());            
+            p.TargetingRule(new EffectBounceOwnAndOpponents());
             p.TimingRule(new TargetRemovalTimingRule().RemovalTags(EffectTag.Bounce, EffectTag.CreaturesOnly));
           });
     }

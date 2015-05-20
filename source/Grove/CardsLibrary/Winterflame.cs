@@ -35,11 +35,11 @@
         {
           p.Text = "{{1}}{{U}}{{R}}: Tap target creature. Winterflame deals 2 damage to target creature.";
           p.Effect = () => new DealDamageToAndTapTargets(2);
-          p.TargetSelector.AddEffect(trg =>
-          {
-            trg.MinCount = 2;
-            trg.MaxCount = 2;
-            trg.Is.Creature().On.Battlefield();
+          p.TargetSelector.AddEffect(
+            trg => trg.Is.Creature().On.Battlefield(),
+            trg => {
+              trg.MinCount = 2;
+              trg.MaxCount = 2;            
           });
           // TODO: Add specific targeting rule
           p.TargetingRule(new EffectDealDamage(2));
