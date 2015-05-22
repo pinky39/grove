@@ -8,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void CreateTokenAndIncreasePowerOnAttack()
+      public void GetTokenWithHasteAndAttackFor4()
       {
         Battlefield(P1, "Goblin Rabblemaster");
 

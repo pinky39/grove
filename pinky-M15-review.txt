@@ -187,7 +187,7 @@ o Forge Devil
 o Foundry Street Denizen
 o Frenzied Goblin
 o Goblin Kaboomist
-Goblin Rabblemaster
+o Goblin Rabblemaster
 Hammerhand
 Inferno Fist
 Kird Chieftain
