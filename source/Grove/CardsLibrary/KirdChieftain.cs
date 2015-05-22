@@ -36,8 +36,8 @@
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
-          p.TimingRule(new BeforeYouDeclareAttackers());
-          p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
+          p.TimingRule(new PumpTargetCardTimingRule());
+          p.TargetingRule(new EffectPumpInstant(4, 4));
           p.RepetitionRule(new RepeatMaxTimes());
         });
     }

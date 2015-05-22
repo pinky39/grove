@@ -336,6 +336,7 @@
     <Compile Include="Cards\KingCrab.cs" />
     <Compile Include="Cards\KinsbaileSkirmisher.cs" />
     <Compile Include="Cards\KinTreeInvocation.cs" />
+    <Compile Include="Cards\KirdChieftain.cs" />
     <Compile Include="Cards\KrenkosEnforcer.cs" />
     <Compile Include="Cards\Landslide.cs" />
     <Compile Include="Cards\LastDitchEffort.cs" />

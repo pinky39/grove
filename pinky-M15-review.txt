@@ -190,7 +190,7 @@ o Goblin Kaboomist
 o Goblin Rabblemaster
 o Hammerhand
 o Inferno Fist
-Kird Chieftain
+o Kird Chieftain
 Might Makes Right
 Miner's Bane
 Paragon of Fierce Defiance
