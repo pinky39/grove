@@ -23,7 +23,7 @@
                 {
                   var pr = new ContinuousEffectParameters
                     {
-                      CardFilter = (card, effect) => card.Is().Creature && !card.Has().Flying,
+                      Selector = (card, effect) => card.Is().Creature && !card.Has().Flying,
                       Modifier = () => new AddStaticAbility(Static.CannotBlock)
                     };
                     

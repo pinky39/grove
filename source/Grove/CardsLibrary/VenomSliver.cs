@@ -17,7 +17,7 @@
         .Toughness(1)
         .ContinuousEffect(p =>
         {
-          p.CardFilter = (card, effect) => card.Is("Sliver") && card.Controller == effect.Source.Controller;
+          p.Selector = (card, ctx) => card.Is("Sliver") && card.Controller == ctx.You;
           p.Modifier = () => new AddStaticAbility(Static.Deathtouch);
         });
     }

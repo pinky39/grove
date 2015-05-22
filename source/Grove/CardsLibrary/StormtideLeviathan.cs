@@ -19,12 +19,12 @@
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new AddStaticAbility(Static.CannotAttack);
-            p.CardFilter = (card, effect) => (card.Is().Creature && !card.Has().Flying && !card.Has().Islandwalk);
+            p.Selector = (card, effect) => (card.Is().Creature && !card.Has().Flying && !card.Has().Islandwalk);
           })
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new ChangeBasicLandSubtype("Island", replace: false);
-            p.CardFilter = (card, effect) => card.Is().Land;
+            p.Selector = (card, ctx) => card.Is().Land;
           });
     }
   }

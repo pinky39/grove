@@ -22,7 +22,7 @@
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new AddStaticAbility(Static.Flying);
-            p.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
+            p.Selector = (card, ctx) => card.Controller == ctx.You && card.Is().Creature;
           });
     }
   }

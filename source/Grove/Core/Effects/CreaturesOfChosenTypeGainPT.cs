@@ -40,7 +40,7 @@
       var cp = new ContinuousEffectParameters
         {
           Modifier = () => new AddPowerAndToughness(_power, _toughness),
-          CardFilter = (card, effect) => card.Is().Creature && card.Is(chosenType) && IsValidController(card)
+          Selector = (card, effect) => card.Is().Creature && card.Is(chosenType) && IsValidController(card)
         };
 
       var modifier = new AddContiniousEffect(

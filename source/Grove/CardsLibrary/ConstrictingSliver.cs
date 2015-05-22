@@ -22,7 +22,7 @@
         .Toughness(3)
         .ContinuousEffect(p =>
           {
-            p.CardFilter = (c, e) => c.Controller == e.Source.Controller && c.Is("sliver");
+            p.Selector = (c, ctx) => c.Controller == ctx.You && c.Is("sliver");
 
             p.Modifiers.Add(() =>
               {

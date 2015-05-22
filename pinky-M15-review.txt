@@ -186,7 +186,7 @@ o Crucible of Fire
 o Forge Devil
 o Foundry Street Denizen
 o Frenzied Goblin
-Goblin Kaboomist
+o Goblin Kaboomist
 Goblin Rabblemaster
 Hammerhand
 Inferno Fist

@@ -18,7 +18,7 @@
         .ContinuousEffect(p =>
         {
           p.Modifier = () => new AddPowerAndToughness(0, 1);
-          p.CardFilter = (c, e) => c.Is("warrior") && c.Controller == e.Source.Controller && c.Is().Creature && c != e.Source;
+          p.Selector = (c, ctx) => c.Is("warrior") && c.Controller == ctx.You && c.Is().Creature && c != ctx.Source;
         });
     }
   }

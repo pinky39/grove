@@ -19,7 +19,7 @@
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new SetColors(CardColor.Black);
-            p.CardFilter = (card, source) => card.Is().Creature;
+            p.Selector = (card, ctx) => card.Is().Creature;
           });
     }
   }

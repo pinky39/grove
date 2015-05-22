@@ -7,28 +7,26 @@
   using Infrastructure;
   using Modifiers;
 
-  public delegate bool ShouldApplyToCard(Card card, ContinuousEffect effect);
-
-  public delegate bool ShouldApplyToPlayer(Player player, ContinuousEffect effect);
-
   [Copyable]
   public class ContinuousEffect : GameObject, IReceive<ZoneChangedEvent>, IReceive<PermanentModifiedEvent>,
     ICopyContributor, IDisposable
   {
-    private readonly ShouldApplyToCard _cardFilter;
+    public delegate bool CardSelector(Card card, Context ctx);
+
+    private readonly CardSelector _selector;
     private readonly Trackable<IModifier> _doNotUpdate = new Trackable<IModifier>(); // prevent update cycles
     private readonly Trackable<bool> _isActive = new Trackable<bool>();
     private readonly List<CardModifierFactory> _modifierFactories;
     private readonly TrackableList<IModifier> _modifiers = new TrackableList<IModifier>();
-    private readonly bool _applyOnlyToPermanents;    
+    private readonly bool _applyOnlyToPermanents;
 
     private ContinuousEffect() {}
 
     public ContinuousEffect(ContinuousEffectParameters p)
     {
       _modifierFactories = p.Modifiers;
-      _cardFilter = p.CardFilter;
-      _applyOnlyToPermanents = p.ApplyOnlyToPermanents;      
+      _selector = p.Selector;
+      _applyOnlyToPermanents = p.ApplyOnlyToPermanents;
     }
 
     public Card Source { get; private set; }
@@ -52,7 +50,7 @@
       if (_isActive == false) return;
       if (_applyOnlyToPermanents == false) return;
 
-      if (message.ToBattlefield && _cardFilter(message.Card, this))
+      if (message.ToBattlefield && _selector(message.Card, Ctx))
       {
         var modifier = FindModifier(message.Card);
 
@@ -89,6 +87,8 @@
       SubscribeToEvents();
     }
 
+    private Context Ctx { get { return new Context(this, Game); } }
+
     private void SubscribeToEvents()
     {
       Source.JoinedBattlefield += Activate;
@@ -103,7 +103,7 @@
     private void UpdatePermanent(Card permanent)
     {
       var modifier = FindModifier(permanent);
-      var shouldEffectBeApliedToPermanent = _cardFilter(permanent, this);
+      var shouldEffectBeApliedToPermanent = _selector(permanent, Ctx);
 
       if (modifier == null && shouldEffectBeApliedToPermanent)
       {
@@ -137,7 +137,7 @@
         ? Players.Permanents()
         : Players.AllCards();
 
-      foreach (var card in cards.Where(x => _cardFilter(x, this)))
+      foreach (var card in cards.Where(x => _selector(x, Ctx)))
       {
         AddModifier(card);
       }
@@ -147,7 +147,7 @@
 
 
     private void AddModifier(Card card)
-    {      
+    {
       foreach (var factory in _modifierFactories)
       {
         var modifier = factory();
@@ -171,13 +171,29 @@
       foreach (var modifier in _modifiers.ToList())
       {
         RemoveModifier(modifier);
-      }      
+      }
     }
 
     public void Dispose()
     {
       Source.JoinedBattlefield -= Activate;
       Source.LeftBattlefield -= Deactivate;
+    }
+
+    public class Context
+    {
+      private readonly ContinuousEffect _effect;
+      private readonly Game _game;
+
+      public Context(ContinuousEffect effect, Game game)
+      {
+        _effect = effect;
+        _game = game;
+      }
+
+      public Player You { get { return _effect.Source.Controller; } }
+      public Card Source { get { return _effect.Source; } }
+      public Player Opponent { get { return You.Opponent; } }
     }
   }
 }

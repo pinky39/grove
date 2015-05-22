@@ -19,7 +19,7 @@
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new AddStaticAbility(Static.DoesNotUntap);
-            p.CardFilter = (card, source) => card.Is().NonBasicLand;
+            p.Selector = (card, ctx) => card.Is().NonBasicLand;
           });
     }
   }

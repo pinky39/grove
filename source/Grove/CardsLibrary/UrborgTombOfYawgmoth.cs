@@ -15,7 +15,7 @@
         .ContinuousEffect(p =>
         {
           p.Modifier = () => new ChangeBasicLandSubtype("Swamp", replace: false);
-          p.CardFilter = (card, effect) => card.Is().Land;
+          p.Selector = (card, ctx) => card.Is().Land;
         });
     }
   }

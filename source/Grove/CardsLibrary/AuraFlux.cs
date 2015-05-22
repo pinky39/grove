@@ -39,7 +39,7 @@
                 return new AddTriggeredAbility(new TriggeredAbility(tp));
               };
 
-            p.CardFilter = (card, effect) => card.Is().Enchantment && card != effect.Source;
+            p.Selector = (card, ctx) => card.Is().Enchantment && card != ctx.Source;
           });
     }
   }

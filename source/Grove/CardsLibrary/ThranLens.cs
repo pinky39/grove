@@ -18,8 +18,7 @@
         .Cast(p => p.TimingRule(new OnFirstMain()))
         .ContinuousEffect(p =>
           {
-            p.Modifier = () => new SetColors(CardColor.Colorless);
-            p.CardFilter = (card, source) => true;
+            p.Modifier = () => new SetColors(CardColor.Colorless);            
           });
     }
   }

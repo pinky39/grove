@@ -23,7 +23,7 @@
           })
         .ContinuousEffect(p =>
           {
-            p.CardFilter = (card, effect) => card.Is("Dragon") && card.Controller == effect.Source.Controller;
+            p.Selector = (card, ctx) => card.Is("Dragon") && card.Controller == ctx.You;
             p.Modifier = () => new AddPowerAndToughness(3, 3);
           });
     }

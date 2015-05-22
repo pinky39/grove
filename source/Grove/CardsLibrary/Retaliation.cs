@@ -35,7 +35,7 @@
                 return new AddTriggeredAbility(new TriggeredAbility(tp));
               };
 
-            p.CardFilter = (card, effect) => card.Controller == effect.Source.Controller && card.Is().Creature;
+            p.Selector = (card, ctx) => card.Controller == ctx.You && card.Is().Creature;
           });
     }
   }

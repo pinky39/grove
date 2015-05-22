@@ -39,7 +39,7 @@
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new AddPowerAndToughness(1, 1);
-            p.CardFilter = (c, e) => c.Is().Creature && c.Is("squirrel");
+            p.Selector = (c, ctx) => c.Is().Creature && c.Is("squirrel");
           });
     }
   }

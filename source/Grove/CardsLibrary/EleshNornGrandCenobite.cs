@@ -29,12 +29,12 @@
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new AddPowerAndToughness(2, 2);
-            p.CardFilter = (c, e) => c.Controller == e.Source.Controller && c.Is().Creature && c != e.Source;
+            p.Selector = (c, e) => c.Controller == e.Source.Controller && c.Is().Creature && c != e.Source;
           })
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new AddPowerAndToughness(-2, -2);
-            p.CardFilter = (c, e) => c.Controller != e.Source.Controller;
+            p.Selector = (c, ctx) => c.Controller != ctx.You;
           });
     }
   }

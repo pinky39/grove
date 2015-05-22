@@ -23,8 +23,8 @@
               modifiers: () =>
                 {
                   var cp = new ContinuousEffectParameters{
-                    CardFilter = (card, effect) =>
-                      card.Controller == effect.SourceEffect.Controller.Opponent &&
+                    Selector = (card, ctx) =>
+                      card.Controller == ctx.Opponent &&
                         (card.Is().Creature || card.Is().Land),
                     Modifier = () => new AddStaticAbility(Static.DoesNotUntap)};                    
 

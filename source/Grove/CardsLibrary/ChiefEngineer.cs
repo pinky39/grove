@@ -18,7 +18,7 @@
         .ContinuousEffect(p =>
         {
           p.ApplyOnlyToPermanents = false;
-          p.CardFilter = (card, effect) => card.Is().Artifact && card.Owner == effect.Source.Controller;
+          p.Selector = (card, ctx) => card.Is().Artifact && card.Owner == ctx.You;
           p.Modifier = () => new AddStaticAbility(Static.Convoke);
         });
     }

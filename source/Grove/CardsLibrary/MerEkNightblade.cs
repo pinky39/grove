@@ -17,10 +17,10 @@
         .Outlast("{B}")
         .ContinuousEffect(p =>
         {
-          p.CardFilter = (card, effect) =>
+          p.Selector = (card, ctx) =>
             card.Is().Creature &&
             card.CountersCount(CounterType.PowerToughness) > 0 &&
-            card.Controller == effect.Source.Controller;
+            card.Controller == ctx.You;
           p.Modifier = () => new AddStaticAbility(Static.Deathtouch);
         });
     }

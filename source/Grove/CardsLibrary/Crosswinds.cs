@@ -19,7 +19,7 @@
         .ContinuousEffect(p =>
           {
             p.Modifier = () => new AddPowerAndToughness(-2, 0);
-            p.CardFilter = (card, source) => card.Is().Creature && card.Has().Flying;
+            p.Selector = (card, ctx) => card.Is().Creature && card.Has().Flying;
           });
     }
   }

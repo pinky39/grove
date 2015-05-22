@@ -22,7 +22,7 @@
               () =>
                 {
                   var cp = new ContinuousEffectParameters{
-                    CardFilter = (c, e) => c.Is("swamp"),
+                    Selector = (c, e) => c.Is("swamp"),
                     Modifier = () => new IncreaseManaOutput(Mana.Black)};
                     
                   return new AddContiniousEffect(new ContinuousEffect(cp)) {UntilEot = true};

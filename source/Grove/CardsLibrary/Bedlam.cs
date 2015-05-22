@@ -17,7 +17,7 @@
         .Cast(p => p.TimingRule(new OnFirstMain()))
         .ContinuousEffect(p =>
           {
-            p.CardFilter = (card, source) => card.Is().Creature;
+            p.Selector = (card, ctx) => card.Is().Creature;
             p.Modifier = () => new AddStaticAbility(Static.CannotBlock);
           });
     }
