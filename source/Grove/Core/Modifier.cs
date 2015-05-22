@@ -6,11 +6,8 @@
   using Modifiers;
 
   public delegate IModifier ModifierFactory();
-
   public delegate ICardModifier CardModifierFactory();
-
   public delegate IGameModifier GameModifierFactory();
-
   public delegate IPlayerModifier PlayerModifierFactory();
 
   [Copyable]

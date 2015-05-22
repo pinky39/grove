@@ -12,13 +12,9 @@
   public abstract class Effect : GameObject, ITarget, IHasColors
   {
     public delegate Effect Factory();
-
     public delegate bool CardSelector(Card card, Context ctx);
-
     public delegate bool EffectPredicate(Context ctx);
-
     public delegate void EffectAction(Context ctx);
-
     public delegate void EffectAction<in T>(T p, Context ctx);
 
     // Holds a list of effect parameters which must be evaluated either 
