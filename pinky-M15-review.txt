@@ -188,8 +188,8 @@ o Foundry Street Denizen
 o Frenzied Goblin
 o Goblin Kaboomist
 o Goblin Rabblemaster
-Hammerhand
-Inferno Fist
+o Hammerhand
+o Inferno Fist
 Kird Chieftain
 Might Makes Right
 Miner's Bane
