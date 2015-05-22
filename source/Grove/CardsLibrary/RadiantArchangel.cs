@@ -21,7 +21,7 @@
             p.Modifier(() => new ModifyPowerToughnessForEachPermanent(
               power: 1,
               toughness: 1,
-              filter: (c, m) => c.Is().Creature && c.Has().Flying && c != m.OwningCard,
+              filter: (c, ctx) => c.Is().Creature && c.Has().Flying && c != ctx.OwningCard,
               modifier: () => new IntegerIncrement(),
               controlledBy: ControlledBy.Any
               ));

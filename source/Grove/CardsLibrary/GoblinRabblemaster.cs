@@ -45,7 +45,7 @@
               () => new ModifyPowerToughnessForEachPermanent(
               power: 1,
               toughness: 0,
-              filter: (c, m) => c.Is("Goblin") && c.IsAttacker && c != m.OwningCard,
+              filter: (c, ctx) => c.Is("Goblin") && c.IsAttacker && c != ctx.OwningCard,
               modifier: () => new IntegerIncrement()
               ));
           });

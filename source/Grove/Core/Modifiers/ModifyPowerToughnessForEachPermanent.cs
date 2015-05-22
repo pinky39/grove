@@ -9,7 +9,7 @@
     IReceive<PermanentModifiedEvent>, ICardModifier
   {
     private readonly ControlledBy _controlledBy;
-    private readonly Func<Card, Modifier, bool> _filter;
+    private readonly CardSelector _filter;
     private readonly int? _modifyPower;
     private readonly int? _modifyToughness;
     private readonly IntegerModifier _powerModifier;
@@ -18,7 +18,7 @@
 
     protected ModifyPowerToughnessForEachPermanent() {}
 
-    public ModifyPowerToughnessForEachPermanent(int? power, int? toughness, Func<Card, Modifier, bool> filter,
+    public ModifyPowerToughnessForEachPermanent(int? power, int? toughness, CardSelector filter,
       Func<IntegerModifier> modifier, ControlledBy controlledBy = ControlledBy.SpellOwner)
     {
       _modifyPower = power;
@@ -59,7 +59,7 @@
 
       else if (message.To == Zone.Battlefield)
       {
-        if (!HasValidController(message.Card) || !_filter(message.Card, this))
+        if (!HasValidController(message.Card) || !_filter(message.Card, Ctx))
           return;
 
         IncreasePowerIfModified(_modifyPower);
@@ -133,17 +133,19 @@
 
     private int GetPermanentCount()
     {
+      var ctx = Ctx;
+
       if (_controlledBy == ControlledBy.SpellOwner)
       {
-        return SourceCard.Controller.Battlefield.Count(c => _filter(c, this));
+        return SourceCard.Controller.Battlefield.Count(c => _filter(c, ctx));
       }
 
       if (_controlledBy == ControlledBy.Opponent)
       {
-        return SourceCard.Controller.Opponent.Battlefield.Count(c => _filter(c, this));
+        return SourceCard.Controller.Opponent.Battlefield.Count(c => _filter(c, ctx));
       }
 
-      return Players.Permanents().Count(c => _filter(c, this));
+      return Players.Permanents().Count(c => _filter(c, ctx));
     }
 
     private void Update()

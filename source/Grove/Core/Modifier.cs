@@ -13,6 +13,8 @@
   [Copyable]
   public abstract class Modifier : GameObject, IModifier, ICopyContributor
   {
+    public delegate bool CardSelector(Card card, Context ctx);
+
     private readonly List<Lifetime> _lifetimes = new List<Lifetime>();
     public bool UntilEot;
     public Card SourceCard { get; private set; }
@@ -135,6 +137,22 @@
       {
         lifetime.Initialize(Game, this);
       }
+    }
+
+    protected Context Ctx { get { return new Context(this, Game); } }
+
+    public class Context
+    {
+      private readonly Modifier _modifier;
+      private readonly Game _game;
+
+      public Context(Modifier modifier, Game game)
+      {
+        _modifier = modifier;
+        _game = game;
+      }
+
+      public Card OwningCard { get { return _modifier.OwningCard; } }
     }
   }
 }

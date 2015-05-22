@@ -20,7 +20,7 @@
             p.Modifier(() => new ModifyPowerToughnessForEachPermanent(
               power: 1,
               toughness: 1,
-              filter: (c, m) => c.Is().Enchantment,
+              filter: (c, ctx) => c.Is().Enchantment,
               modifier: () => new IntegerIncrement(),
               controlledBy: ControlledBy.Any
               ));
