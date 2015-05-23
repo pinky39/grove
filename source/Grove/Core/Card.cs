@@ -722,7 +722,7 @@
 
         attachment.AttachedTo.Detach(attachment);
 
-        if (controller != Controller)
+        if (controller != Controller && !Controller.Battlefield.Contains(attachment))
         {
           Controller.PutCardToBattlefield(attachment);
         }
@@ -860,6 +860,11 @@
     {
       _attachments.Remove(card);
       card.AttachedTo = null;
+
+      if (card.Controller != Controller && card.Is().Equipment)
+      {
+        card.Controller.PutCardToBattlefield(card);
+      }
 
       Publish(new AttachmentDetachedEvent(attachment: card, attachedTo: this));
     }

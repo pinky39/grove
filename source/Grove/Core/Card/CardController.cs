@@ -25,7 +25,9 @@
 
       Combat.Remove(_card);
 
-      if (!_card.IsAttached)
+      // When equipment changes controller it can already be in the correct zone
+      // if it is do not try to change it again (eg Avarice Amulet).
+      if (!_card.IsAttached && !newValue.Battlefield.Contains(_card))
       {
         newValue.PutCardToBattlefield(_card);
 

@@ -7,20 +7,34 @@
   {
     public class Ai : AiScenario
     {
-      [Fact(Skip = "Cannot change zones, when source zone and destination zone are the same.")]
-      public void GetControlOnBear()
+      [Fact]
+      public void GainControlOfBearAndOfBothAmulets()
       {
         P1.Life = 2;
-        Battlefield(P1, C("Runeclaw Bear").IsEquipedWith("Avarice Amulet"), C("Grizzly Bears").IsEquipedWith("Avarice Amulet"));
+        var amulet1 = C("Avarice Amulet");
+        var amulet2 = C("Avarice Amulet");
+
+        Battlefield(P1, C("Runeclaw Bear").IsEquipedWith(amulet1),
+          C("Grizzly Bears").IsEquipedWith(amulet2));
 
         Battlefield(P2, C("Shivan Dragon").IsEnchantedWith("Pacifism"), "Might Makes Right");
-
         RunGame(2);
 
         Equal(2, P1.Life);
-        Equal(1, P1.Battlefield.Count); // Avarice Amulet
-        Equal(4, P2.Battlefield.Count); // Avarice Amulet + 3 P2's permaments
-        Equal(2, P1.Graveyard.Count);   // Both bears
+        Equal(P2, C(amulet1).Controller);
+        Equal(P2, C(amulet2).Controller);
+      }
+
+      [Fact]
+      public void GetControlOfBear()
+      {
+        Battlefield(P1, "Might Makes Right", "Shivan Dragon");
+        Battlefield(P2, C("Grizzly Bears").IsEquipedWith("Sword of Feast and Famine"));
+        P2.Life = 9;
+
+        RunGame(1);
+
+        Equal(0, P2.Life);
       }
     }
   }

@@ -26,7 +26,7 @@
                 var yours = ctx.You.Battlefield.Creatures.Max(x => x.Power);
                 var opponents = ctx.Opponent.Battlefield.Creatures.Max(x => x.Power);
 
-                return yours > opponents || opponents == null;
+                return yours > opponents;
               }
           });
 
@@ -36,15 +36,9 @@
               () => new AddStaticAbility(Static.Haste) {UntilEot = true}),
             new UntapTargetPermanents());
 
-          p.TargetSelector.AddEffect(
-            trg => trg.Is.Creature(controlledBy: ControlledBy.Opponent).On.Battlefield(),
-            trg => {
-              trg.MinCount = 1;
-              trg.MaxCount = 1;            
-          });
+          p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.Opponent).On.Battlefield());
 
           p.TargetingRule(new EffectGainControl());
-
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
     }
