@@ -44,7 +44,7 @@
       Controller.Consume(change.Colorless(), GetManaUsage());
     }
 
-    protected bool CanPayAdditionalCost()
+    protected virtual bool CanPayAdditionalCost()
     {
       var change = Game.GetCostChange(Type, Card);
 

@@ -91,6 +91,29 @@
         Equal(5, P2.Life);
         Equal(0, P2.Battlefield.Creatures.Count());
       }
+
+      [Fact]
+      public void DoNotTryToActivateManaAbilityEndless()
+      {
+        Battlefield(P1, C("Elvish Mystic").IsEnchantedWith("Oppressive Rays"));
+
+        RunGame(1);
+      }
+
+      [Fact]
+      public void EnchantedJuggernautCanSkipAttack()
+      {
+        var juggernaut = C("Juggernaut").IsEnchantedWith("Oppressive Rays");
+
+        P1.Life = 5;
+        Battlefield(P1, "Plains", "Plains", "Plains", juggernaut);
+
+        Battlefield(P2, "Juggernaut");
+
+        RunGame(2);
+
+        Equal(5, P1.Life);
+      }
     }
   }
 }

@@ -56,7 +56,7 @@
       private void AddCreaturesThatMustAttack()
       {
         var creaturesThatMustAttack = D.Controller.Battlefield
-          .CreaturesThatCanAttack.Where(x => x.Has().AttacksEachTurnIfAble);
+          .CreaturesThatCanAttack.Where(x => x.Has().AttacksEachTurnIfAble && x.CombatCost == 0);
 
         foreach (var creature in creaturesThatMustAttack)
         {
