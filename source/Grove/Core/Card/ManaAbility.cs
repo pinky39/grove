@@ -11,8 +11,9 @@
     private readonly TrackableList<ManaUnit> _units = new TrackableList<ManaUnit>();
     private readonly Trackable<bool> _isEnabled = new Trackable<bool>();
     private ManaCache _manaCache;
+    private readonly ReentryGuard _guard = new ReentryGuard();
 
-    private ManaAbility() {}
+    private ManaAbility() {}    
 
     public ManaAbility(ManaAbilityParameters p) : base(p)
     {
@@ -26,7 +27,13 @@
 
     bool IManaSource.CanActivate()
     {
-      return _isEnabled && CanPay().CanPay;
+      if (_guard.IsSet)
+        return false;
+      
+      using (_guard.Set())
+      {
+        return _isEnabled && CanPay().CanPay;  
+      }      
     }
 
     void IManaSource.PayActivationCost()

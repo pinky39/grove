@@ -702,6 +702,7 @@
     <Compile Include="Core\Card\ManaAbilityParameters.cs" />
     <Compile Include="Core\Card\MinimumBlockerCount.cs" />
     <Compile Include="Core\Card\NamedGameModifiers.cs" />
+    <Compile Include="Infrastructure\ReentryGuard.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />
     <Compile Include="Core\Costs\CostType.cs" />
     <Compile Include="Core\Costs\Exile.cs" />
