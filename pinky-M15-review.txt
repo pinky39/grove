@@ -191,9 +191,9 @@ o Goblin Rabblemaster
 o Hammerhand
 o Inferno Fist
 o Kird Chieftain
-Might Makes Right
-Miner's Bane
-Paragon of Fierce Defiance
+o Might Makes Right
+o Miner's Bane
+o Paragon of Fierce Defiance
 Soul of Shandalar
 Stoke the Flames
 Back to Nature
