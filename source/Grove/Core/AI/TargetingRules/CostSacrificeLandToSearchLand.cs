@@ -12,7 +12,7 @@
         .ThenBy(x => x.Score)
         .Take(1);
 
-      return Group(costTargets, p.MinTargetCount(), add: (t, trgs) => trgs.AddCost(t));
+      return Group(costTargets, p.TotalMinTargetCount(), add: (t, trgs) => trgs.AddCost(t));
     }
   }
 }

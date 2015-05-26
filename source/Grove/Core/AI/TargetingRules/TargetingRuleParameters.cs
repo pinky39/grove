@@ -73,14 +73,40 @@
       return candidates.OfType<T>();
     }
 
-    public int MinTargetCount()
+    public int MinTargetCount(int selectorIndex)
     {
-      return _context.Selector.GetMinTargetCount(X);
+      var selector = _context.Selector;
+
+      return selector.Effect.Count > 0
+        ? selector.Effect[selectorIndex].MinCount.GetValue(X)
+        : selector.Cost[selectorIndex].MinCount.GetValue(X);
     }
 
-    public int MaxTargetCount()
+    public int MaxTargetCount(int selectorIndex)
     {
-      return _context.Selector.GetMaxTargetCount(X);
+      var selector = _context.Selector;
+
+      return selector.Effect.Count > 0
+        ? selector.Effect[selectorIndex].MaxCount.GetValue(X)
+        : selector.Cost[selectorIndex].MaxCount.GetValue(X);
+    }
+
+    public int TotalMinTargetCount()
+    {
+      var selector = _context.Selector;
+      
+      return selector.Effect.Count > 0
+        ? selector.Effect.Sum(y => y.MinCount.GetValue(X))
+        : selector.Cost.Sum(y => y.MinCount.GetValue(X));                  
+    }
+
+    public int TotalMaxTargetCount()
+    {
+      var selector = _context.Selector;
+
+      return selector.Effect.Count > 0
+        ? selector.Effect.Sum(y => y.MaxCount.GetValue(X))
+        : selector.Cost.Sum(y => y.MaxCount.GetValue(X));                    
     }
   }
 }

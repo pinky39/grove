@@ -30,7 +30,7 @@
         .OrderByDescending(x => x.Score)
         .Select(x => x.Target);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

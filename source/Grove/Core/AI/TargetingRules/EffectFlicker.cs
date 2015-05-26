@@ -26,7 +26,7 @@
 
       candidates.AddRange(yours);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
 
     private int CalculateOpponentCardRank(Card card, TargetingRuleParameters p)

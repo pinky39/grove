@@ -13,7 +13,7 @@
         .Where(c => c.CanAttack || c.CanBlock())
         .OrderBy(x => x.Power);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

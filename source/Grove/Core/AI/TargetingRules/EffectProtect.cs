@@ -10,7 +10,7 @@
       var candidates = GetCandidatesForProtectionFromTopSpell(p)
         .OrderByDescending(x => x.Score);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

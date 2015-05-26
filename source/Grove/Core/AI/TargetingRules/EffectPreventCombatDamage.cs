@@ -13,7 +13,7 @@
           .Where(x => x.IsAttacker)
           .OrderByDescending(CalculateAttackerScoreForThisTurn);
 
-        return Group(attackerCandidates, p.MinTargetCount(), p.MaxTargetCount());
+        return Group(attackerCandidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount());
       }
 
       if (IsAfterOpponentDeclaresBlockers(p.Controller))
@@ -39,7 +39,7 @@
             }
           );
 
-        return Group(blockerCandidates, p.MinTargetCount(), p.MaxTargetCount());
+        return Group(blockerCandidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount());
       }
 
       return None<Targets>();

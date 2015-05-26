@@ -31,10 +31,21 @@
             p.TargetSelector
               .AddEffect(
                 trg => trg.Is.Player(),
-                trg => { trg.Message = "Select player."; })
+                trg => { trg.Message = "Select a player."; })
               .AddEffect(
                 trg => trg.Is.Creature().On.Battlefield(),
-                trg => { trg.Message = "Select creature."; });
+                trg =>
+                  {
+                    trg.MinCount = 0;
+                    trg.Message = "Select a creature that player controls.";
+                  })
+              .ValidateTargetDependencies = vp =>
+                {
+                  if (vp.Effect.Count == 1)
+                    return true;
+                  
+                  return vp.Effect[0].Player() == vp.Effect[1].Card().Controller;
+                };
 
             p.TargetingRule(new EffectDealDamage(3));
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
@@ -52,10 +63,21 @@
             p.TargetSelector
               .AddEffect(
                 trg => trg.Is.Player(),
-                trg => { trg.Message = "Select player."; })
+                trg => { trg.Message = "Select a player."; })
               .AddEffect(
                 trg => trg.Is.Creature().On.Battlefield(),
-                trg => { trg.Message = "Select creature."; });
+                trg =>
+                  {
+                    trg.MinCount = 0;                    
+                    trg.Message = "Select a creature that player controls.";
+                  })
+              .ValidateTargetDependencies = vp =>
+                {
+                  if (vp.Effect.Count == 1)
+                    return true;
+
+                  return vp.Effect[0].Player() == vp.Effect[1].Card().Controller;
+                };
 
             p.TargetingRule(new EffectDealDamage(3));
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));

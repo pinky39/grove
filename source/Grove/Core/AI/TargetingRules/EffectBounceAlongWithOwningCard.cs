@@ -19,7 +19,7 @@
       }
 
       // otherwise return all except the owner
-      return Group(targetCandidates.Where(x => x != p.Card), p.MinTargetCount());
+      return Group(targetCandidates.Where(x => x != p.Card), p.TotalMinTargetCount());
     }
   }
 }

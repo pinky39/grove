@@ -70,7 +70,7 @@
           .Where(x => Stack.CanBeDealtLeathalDamageByTopSpell(x.Card()));
       }
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

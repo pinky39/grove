@@ -22,7 +22,7 @@
         .Where(c => _filter(c))
         .OrderByDescending(c => c.CalculateCombatDamageAmount(singleDamageStep: false));
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

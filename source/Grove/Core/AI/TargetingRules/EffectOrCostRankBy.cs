@@ -26,9 +26,9 @@
         .OrderBy(x => _rank(x));
 
       if (p.HasEffectCandidates)
-        return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
+        return Group(candidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount());
 
-      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount(), (trg, trgs) => trgs.AddCost(trg));
+      return Group(candidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount(), (trg, trgs) => trgs.AddCost(trg));
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
@@ -38,9 +38,9 @@
 
 
       if (p.HasEffectCandidates)
-        return Group(candidates, p.MinTargetCount());
+        return Group(candidates, p.TotalMinTargetCount());
 
-      return Group(candidates, p.MinTargetCount(), add: (trg, trgs) => trgs.AddCost(trg));
+      return Group(candidates, p.TotalMinTargetCount(), add: (trg, trgs) => trgs.AddCost(trg));
     }
   }
 }

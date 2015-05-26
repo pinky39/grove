@@ -11,7 +11,7 @@
         .Where(x => x.IsTapped && !x.Is().Land)
         .OrderByDescending(x => x.Score);        
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

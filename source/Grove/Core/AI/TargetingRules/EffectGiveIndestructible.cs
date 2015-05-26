@@ -11,7 +11,7 @@
         .Where(x => !x.Has().Indestructible)
         .OrderByDescending(x => x.Card().Score);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

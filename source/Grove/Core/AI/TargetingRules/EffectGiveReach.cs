@@ -12,7 +12,7 @@
         .Where(c => !c.Has().Flying && !c.Has().Reach)
         .OrderByDescending(x => x.Power);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

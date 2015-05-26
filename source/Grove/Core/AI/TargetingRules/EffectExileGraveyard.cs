@@ -12,7 +12,7 @@
         .OrderByDescending(x => x.Score)
         .ToList();
 
-      var pickedCount = Math.Min(p.MaxTargetCount(), candidates.Count);
+      var pickedCount = Math.Min(p.TotalMaxTargetCount(), candidates.Count);
 
       return Group(candidates, pickedCount);
     }

@@ -43,7 +43,7 @@
         .ThenByDescending(x => x.Card.Power*2 + x.Card.Toughness)
         .Select(x => x.Card);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

@@ -12,7 +12,7 @@
         var candidates1 = p.Candidates<Card>()
           .OrderBy(x => x.Score);
 
-        return Group(candidates1, p.MinTargetCount(), add: (target, targets) => targets.Cost.Add(target));
+        return Group(candidates1, p.TotalMinTargetCount(), add: (target, targets) => targets.Cost.Add(target));
       }
 
       var candidates = new List<Card>();
@@ -29,7 +29,7 @@
         p.Candidates<Card>()
           .Where(x => Stack.CanBeDestroyedByTopSpell(x)));
 
-      return Group(candidates, p.MinTargetCount(), add: (target, targets) => targets.Cost.Add(target));
+      return Group(candidates, p.TotalMinTargetCount(), add: (target, targets) => targets.Cost.Add(target));
     }
   }
 }

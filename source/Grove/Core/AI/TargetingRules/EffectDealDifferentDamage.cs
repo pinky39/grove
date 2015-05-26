@@ -70,7 +70,7 @@
         picks.Add(pick.Target);
       }
 
-      return Group(picks, p.MinTargetCount());
+      return Group(picks, p.TotalMinTargetCount());
     }
 
     private class Result

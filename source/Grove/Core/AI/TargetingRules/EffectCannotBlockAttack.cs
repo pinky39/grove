@@ -22,7 +22,7 @@
         .Where(x => (!_blockOnly && x.IsAbleToAttack) || (!_attackOnly && !x.Has().CannotBlock))
         .OrderByDescending(x => 2*x.Power + x.Toughness);
 
-      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
+      return Group(candidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount());
     }
   }
 }

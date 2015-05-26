@@ -88,8 +88,12 @@
     }
 
     protected IList<Targets> Group(IList<ITarget> candidates1, IList<ITarget> candidates2,
-      Action<ITarget, Targets> add1 = null, Action<ITarget, Targets> add2 = null)
+      Action<ITarget, Targets> add1 = null, Action<ITarget, Targets> add2 = null, int minTargetCount1 = 1, 
+      int minTargetCount2 = 1)
     {
+      if (minTargetCount2 == 0 && candidates2.Count == 0)
+        return Group(candidates1, minTargetCount1, add: add1);
+      
       var results = new List<Targets>();
 
       if (candidates1.Count == 0 || candidates2.Count == 0)

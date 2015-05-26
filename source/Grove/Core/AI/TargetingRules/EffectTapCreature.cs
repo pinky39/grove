@@ -19,7 +19,7 @@
         .ThenByDescending(x => x.Card.Score)
         .Select(x => x.Card);
 
-      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
+      return Group(candidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount());
     }
   }
 }

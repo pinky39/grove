@@ -17,13 +17,13 @@
         .Select(x => x.Card)
         .ToList();
 
-      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
+      return Group(candidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount());
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>().OrderBy(x => x.Power);
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

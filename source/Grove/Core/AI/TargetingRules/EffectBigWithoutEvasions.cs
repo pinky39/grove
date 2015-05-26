@@ -21,7 +21,7 @@
         .Where(attacker => _filter(attacker))
         .OrderByDescending(CalculateScore);
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
 
     private int CalculateScore(Card creature)

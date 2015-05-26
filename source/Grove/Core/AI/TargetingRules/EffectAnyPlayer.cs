@@ -6,7 +6,7 @@
   {
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      return Group(p.Candidates<Player>(), p.MinTargetCount(), p.MaxTargetCount());
+      return Group(p.Candidates<Player>(), p.TotalMinTargetCount(), p.TotalMaxTargetCount());
     }
   }
 }

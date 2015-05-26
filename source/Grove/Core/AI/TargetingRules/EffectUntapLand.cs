@@ -12,7 +12,7 @@
         .Select(x => x)
         .ToList();
 
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
   }
 }

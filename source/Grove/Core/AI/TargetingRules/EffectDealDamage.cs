@@ -32,7 +32,7 @@
       }
 
       var candidates = GetCandidatesByDescendingDamageScore(_getAmount(p), p);
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
 
     private IEnumerable<Targets> SelectTargetsDistribute(TargetingRuleParameters p)
@@ -109,7 +109,8 @@
       var candidates1 = GetCandidatesByDescendingDamageScore(amount, p, selectorIndex: 0);
       var candidates2 = GetCandidatesByDescendingDamageScore(amount, p, selectorIndex: 1);
 
-      return Group(candidates1, candidates2);
+      return Group(candidates1, candidates2, minTargetCount1: p.MinTargetCount(selectorIndex: 0), 
+        minTargetCount2: p.MinTargetCount(selectorIndex: 1));
     }
 
     protected override IEnumerable<Targets> ForceSelectTargets(TargetingRuleParameters p)
@@ -118,7 +119,7 @@
       // not favorable e.g Flaming Kavu                      
 
       var candidates = p.Candidates<Card>().OrderByDescending(x => x.Toughness);
-      return Group(candidates, p.MinTargetCount());
+      return Group(candidates, p.TotalMinTargetCount());
     }
 
     private IList<ITarget> GetCandidatesByDescendingDamageScore(int damageAmount,
@@ -132,7 +133,7 @@
             Score = ScoreCalculator.CalculateLifelossScore(x.Life, damageAmount)
           })
         .Concat(
-          p.Candidates<Card>(ControlledBy.Opponent)
+        p.Candidates<Card>(ControlledBy.Opponent, selectorIndex)
             .Select(x => new
               {
                 Target = (ITarget) x,

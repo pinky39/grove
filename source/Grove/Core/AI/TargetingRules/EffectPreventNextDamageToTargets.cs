@@ -15,7 +15,7 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = PreventNextDamage.GetCandidates(_amount, p, Game);      
-      return Group(candidates, p.MinTargetCount(), p.MaxTargetCount());
+      return Group(candidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount());
     }
   }
 }
