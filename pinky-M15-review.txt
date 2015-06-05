@@ -201,7 +201,7 @@ o Chord of Calling
 o Elvish Mystic
 o Hornet Nest
 o Hunter's Ambush
-Kalonian Twingrove
+o Kalonian Twingrove
 Life's Legacy
 Netcaster Spider
 Paragon of Eternal Wilds
