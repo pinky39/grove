@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TimingRules;
   using Effects;
 
   public class BackToNature : CardTemplateSource
@@ -16,6 +17,10 @@
         .Cast(p =>
         {
           p.Effect = () => new DestroyAllPermanents((c, ctx) => c.Is().Enchantment);
+          p.TimingRule(new Any(
+            new AfterOpponentDeclaresAttackers(), 
+            new BeforeYouDeclareAttackers(),
+            new OnEndOfOpponentsTurn()));
         }); 
     }
   }
