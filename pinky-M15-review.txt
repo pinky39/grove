@@ -198,8 +198,8 @@ o Soul of Shandalar
 o Stoke the Flames
 o Back to Nature
 o Chord of Calling
-Elvish Mystic
-Hornet Nest
+o Elvish Mystic
+o Hornet Nest
 Hunter's Ambush
 Kalonian Twingrove
 Life's Legacy

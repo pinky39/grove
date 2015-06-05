@@ -304,6 +304,7 @@
     <Compile Include="Cards\HopeAndGlory.cs" />
     <Compile Include="Cards\HoppingAutomaton.cs" />
     <Compile Include="Cards\HorizonChimera.cs" />
+    <Compile Include="Cards\HornetNest.cs" />
     <Compile Include="Cards\HornetQueen.cs" />
     <Compile Include="Cards\HuntersAmbush.cs" />
     <Compile Include="Cards\HuntingMoa.cs" />
