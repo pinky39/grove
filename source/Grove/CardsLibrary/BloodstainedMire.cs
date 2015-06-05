@@ -27,7 +27,7 @@
               zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => c.Is("swamp") || c.Is("mountain"),
+              validator: (c, ctx) => c.Is("swamp") || c.Is("mountain"),
               text: "Search your library for a Swamp or Mountain card.");
 
           p.TimingRule(new OnFirstMain());

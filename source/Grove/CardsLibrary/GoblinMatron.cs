@@ -28,7 +28,7 @@
               zone: Zone.Hand,
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => c.Is("goblin"),
+              validator: (c, ctx) => c.Is("goblin"),
               text: "Search you library for a goblin card."
               );
           });

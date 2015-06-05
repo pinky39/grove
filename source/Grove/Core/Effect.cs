@@ -326,6 +326,11 @@
       public Card OwningCard { get { return _effect.Source.OwningCard; } }
       public int? X { get { return _effect.X; } }
       public Combat Combat { get { return _game.Combat; } }
+      
+      public T TriggerMessage<T>()
+      {
+        return _effect.TriggerMessage<T>();
+      }
 
       public Context(Effect effect, Game game)
       {

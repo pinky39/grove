@@ -29,7 +29,7 @@
             zone: Zone.Battlefield,
             minCount: 0,
             maxCount: 1,
-            validator: (e, c) => c.Is().Creature && c.ConvertedCost == e.Source.OwningCard.CountersCount(CounterType.Verse),
+            validator: (c, ctx) => c.Is().Creature && c.ConvertedCost == ctx.OwningCard.CountersCount(CounterType.Verse),
             text: "Search you library for a creature card."));
         });
     }

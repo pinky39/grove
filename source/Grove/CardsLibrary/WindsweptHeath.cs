@@ -27,7 +27,7 @@
               zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => c.Is("forest") || c.Is("plains"),
+              validator: (c, ctx) => c.Is("forest") || c.Is("plains"),
               text: "Search your library for a Forest or Plains card.");
 
           p.TimingRule(new OnFirstMain());

@@ -31,7 +31,7 @@
               zone: Zone.Hand,
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => e.TriggerMessage<ZoneChangedEvent>().Card.Name == c.Name);
+              validator: (c, ctx) => ctx.TriggerMessage<ZoneChangedEvent>().Card.Name == c.Name);
           });
     }
   }

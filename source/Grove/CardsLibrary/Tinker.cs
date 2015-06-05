@@ -29,7 +29,7 @@
               zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => c.Is().Artifact,
+              validator: (c, ctx) => c.Is().Artifact,
               text: "Search your library for an artifact.");
 
             p.TargetingRule(new EffectOrCostRankBy(c => c.Score));

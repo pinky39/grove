@@ -10,20 +10,20 @@
   public class SearchLibraryPutToZone : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>, ICardValidator
   {
-    private readonly Action<Card, Effect> _afterPutToZone;
+    private readonly EffectAction<Card> _afterPutToZone;
     private readonly int _maxCount;
     private readonly int _minCount;
     private readonly DynParam<Player> _player;
     private readonly bool _revealCards;
 
     private readonly string _text;
-    private readonly Func<Effect, Card, bool> _validator;
+    private readonly CardSelector _validator;
     private readonly Zone _zone;
 
     private SearchLibraryPutToZone() { }
 
-    public SearchLibraryPutToZone(Zone zone, Action<Card, Effect> afterPutToZone = null,
-      int maxCount = 1, int minCount = 0, Func<Effect, Card, bool> validator = null,
+    public SearchLibraryPutToZone(Zone zone, EffectAction<Card> afterPutToZone = null,
+      int maxCount = 1, int minCount = 0, CardSelector validator = null,
       string text = null, bool revealCards = true, DynParam<Player> player = null,
         DynParam<Card> attachTo = null)
     {
@@ -41,7 +41,7 @@
 
     public bool IsValidCard(Card card)
     {
-      return _validator(this, card);
+      return _validator(card, Ctx);
     }
 
     public ChosenCards ChooseResult(List<Card> candidates)
@@ -121,7 +121,7 @@
           }
       }
 
-      _afterPutToZone(card, this);
+      _afterPutToZone(card, Ctx);
     }
 
     protected override void ResolveEffect()

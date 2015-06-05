@@ -38,7 +38,7 @@
               zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => c.Is().Creature,
+              validator: (c, ctx) => c.Is().Creature,
               text: "Search your library for a creature.",
               player: P(
                 e => e.TriggerMessage<ZoneChangedEvent>().Controller,

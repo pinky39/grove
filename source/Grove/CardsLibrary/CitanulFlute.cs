@@ -29,7 +29,7 @@
               zone: Zone.Hand,
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => c.Is().Creature && c.ConvertedCost <= e.X,
+              validator: (c, ctx) => c.Is().Creature && c.ConvertedCost <= ctx.X,
               text: "Search you library for a creature card.");
 
             p.TimingRule(new OnEndOfOpponentsTurn());

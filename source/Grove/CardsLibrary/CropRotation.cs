@@ -27,7 +27,7 @@
               zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => c.Is().Land,
+              validator: (c, ctx) => c.Is().Land,
               text: "Search your library for a land card.");
 
             p.TargetSelector.AddCost(

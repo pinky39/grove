@@ -31,7 +31,7 @@
                 zone: Zone.Battlefield,
                 minCount: 0,
                 maxCount: 2,
-                validator: (e, c) => c.Is().Creature,
+                validator: (c, ctx) => c.Is().Creature,
                 text: "Search your library for up to two creatures."));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;

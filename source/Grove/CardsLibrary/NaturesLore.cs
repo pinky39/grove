@@ -20,7 +20,7 @@
               zone: Zone.Battlefield,
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => c.Is("forest"),
+              validator: (c, ctx) => c.Is("forest"),
               text: "Search your library for a Forest card.");
           });
     }

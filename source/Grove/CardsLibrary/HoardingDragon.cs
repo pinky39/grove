@@ -28,9 +28,9 @@
                 zone: Zone.Exile,
                 minCount: 0,
                 maxCount: 1,
-                validator: (e, c) => c.Is().Artifact,
+                validator: (c, ctx) => c.Is().Artifact,
                 text: "Search your library for an artifact.",
-                afterPutToZone: (card, effect) => card.Attach(effect.Source.OwningCard));
+                afterPutToZone: (c, ctx) => c.Attach(ctx.OwningCard));
           })
         .TriggeredAbility(p =>
           {

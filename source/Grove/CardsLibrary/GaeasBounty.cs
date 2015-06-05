@@ -21,7 +21,7 @@
               zone: Zone.Hand,
               minCount: 0,
               maxCount: 2,
-              validator: (e, c) => c.Is("forest"),
+              validator: (c, ctx) => c.Is("forest"),
               text: "Search you library for up to 2 forest cards.");
 
             p.TimingRule(new OnFirstMain());

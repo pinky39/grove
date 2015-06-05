@@ -22,7 +22,7 @@
               afterPutToZone: (c, g) => c.Tap(),
               minCount: 0,
               maxCount: 1,
-              validator: (e, c) => c.Is().BasicLand,
+              validator: (c, ctx) => c.Is().BasicLand,
               text: "Search your library for a basic land card.",
               player: P(e => e.Target.Controller())));
 
