@@ -17,7 +17,7 @@
         .Cast(p =>
         {
           p.Effect = () => new PreventAllCombatDamage(filter: card => !card.HasColor(CardColor.Green));
-          p.TimingRule(new OnOpponentsTurn(Step.DeclareBlockers));
+          p.TimingRule(new AfterOpponentDeclaresAttackers());
         });
     }
   }

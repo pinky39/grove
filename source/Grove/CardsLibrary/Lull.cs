@@ -18,7 +18,7 @@
         .Cast(p =>
           {
             p.Effect = () => new PreventAllCombatDamage();
-            p.TimingRule(new OnOpponentsTurn(Step.DeclareBlockers));
+            p.TimingRule(new AfterOpponentDeclaresAttackers());
           });
     }
   }
