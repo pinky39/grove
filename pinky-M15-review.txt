@@ -202,9 +202,9 @@ o Elvish Mystic
 o Hornet Nest
 o Hunter's Ambush
 o Kalonian Twingrove
-Life's Legacy
-Netcaster Spider
-Paragon of Eternal Wilds
+o Life's Legacy
+o Netcaster Spider
+o Paragon of Eternal Wilds
 Ranger's Guile
 Soul of Zendikar
 Venom Sliver

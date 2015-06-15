@@ -42,7 +42,7 @@
               .On.Battlefield());
 
           p.TimingRule(new OnFirstMain());
-          p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, controlledBy: ControlledBy.SpellOwner));
+          p.TargetingRule(new EffectBigWithoutEvasions(x => !x.Has().Trample && x.Power >= 4));          
         });
     }
   }
