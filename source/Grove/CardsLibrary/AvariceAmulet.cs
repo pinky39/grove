@@ -22,7 +22,7 @@
         {
           p.Text = "Equip {2} ({2}: Attach to target creature you control. Equip only as a sorcery.)";
 
-          p.Cost = new PayMana(2.Colorless());
+          p.Cost = new PayMana(2.Colorless());         
 
           p.Effect = () => new Attach(
             () => new AddPowerAndToughness(2, 0),
@@ -52,9 +52,7 @@
           p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard,
             selector: (c, ctx) => c == ctx.OwningCard.AttachedTo));
 
-          p.Effect = () => new SwitchController();
-
-          p.TriggerOnlyIfOwningCardIsInPlay = true;
+          p.Effect = () => new SwitchController();          
         });
     }
   }

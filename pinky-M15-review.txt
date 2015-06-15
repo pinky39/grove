@@ -211,8 +211,8 @@ o Venom Sliver
 o Verdant Haven
 o Vineweft
 o Yisan, the Wanderer Bard
-Sliver Hivelord
-Avarice Amulet
+o Sliver Hivelord
+o Avarice Amulet
 o Grindclock
 Haunted Plate Mail
 Hot Soup
