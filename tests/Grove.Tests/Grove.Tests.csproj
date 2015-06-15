@@ -648,6 +648,7 @@
     <Compile Include="Cards\YavimayaElder.cs" />
     <Compile Include="Cards\YawgmothsBargain.cs" />
     <Compile Include="Cards\YawgmothsEdict.cs" />
+    <Compile Include="Cards\YisanTheWandererBard.cs" />
     <Compile Include="Cards\ZofShade.cs" />
     <Compile Include="DeckBuilderFacts.cs" />
     <Compile Include="DraftFacts.cs" />

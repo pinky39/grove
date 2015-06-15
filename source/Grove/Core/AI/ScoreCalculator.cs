@@ -74,7 +74,7 @@
         return permanent.OverrideScore.Battlefield.Value;
 
       if (permanent.Level > 0)
-        score += 10*permanent.Level.Value;
+        score += 10*permanent.Level.Value;      
 
       if (permanent.ManaCost != null)
       {
@@ -97,6 +97,11 @@
         score += GetLandOnBattlefieldScore(permanent);
         if (!permanent.Is().BasicLand)
           score += 10;
+      }
+
+      if (permanent.CountersCount() > 0)
+      {
+        score += permanent.CountersCount()*10;
       }
 
       return score;
