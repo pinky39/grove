@@ -1,6 +1,8 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.RepetitionRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
 
@@ -19,7 +21,7 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{3}{G}{G}: Put a 3/3 green Beast creature token onto the battlefield.";
-          p.Cost = new PayMana("{3}{G}{G}".Parse());
+          p.Cost = new PayMana("{3}{G}{G}".Parse(), supportsRepetitions: true);
 
           p.Effect = () => new CreateTokens(
               count: 1,
@@ -29,6 +31,13 @@
                 .Toughness(3)
                 .Type("Token Creature - Beast")
                 .Colors(CardColor.Green));
+
+          p.TimingRule(new Any(
+              new AfterOpponentDeclaresAttackers(),
+              new WhenOwningCardWillBeDestroyed(),
+              new OnEndOfOpponentsTurn()));
+
+          p.RepetitionRule(new RepeatMaxTimes());
         })
         .ActivatedAbility(p =>
         {
@@ -45,6 +54,11 @@
                 .Toughness(3)
                 .Type("Token Creature - Beast")
                 .Colors(CardColor.Green));
+
+          p.TimingRule(new Any(
+              new AfterOpponentDeclaresAttackers(),
+              new WhenOwningCardWillBeDestroyed(),
+              new OnEndOfOpponentsTurn()));
         });
     }
   }

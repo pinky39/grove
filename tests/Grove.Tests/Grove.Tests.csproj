@@ -544,6 +544,7 @@
     <Compile Include="Cards\SoulOfRavnica.cs" />
     <Compile Include="Cards\SoulOfShandalar.cs" />
     <Compile Include="Cards\SoulOfTheros.cs" />
+    <Compile Include="Cards\SoulOfZendikar.cs" />
     <Compile Include="Cards\SoulSculptor.cs" />
     <Compile Include="Cards\SpectraWard.cs" />
     <Compile Include="Cards\SpinedFluke.cs" />
