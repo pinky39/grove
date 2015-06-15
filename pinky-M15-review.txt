@@ -214,11 +214,11 @@ o Yisan, the Wanderer Bard
 o Sliver Hivelord
 o Avarice Amulet
 o Grindclock
-Haunted Plate Mail
-Hot Soup
-Obelisk of Urd
-Perilous Vault
-Scuttling Doom Engine
+o Haunted Plate Mail
+o Hot Soup
+o Obelisk of Urd
+o Perilous Vault
+o Scuttling Doom Engine
 Shield of the Avatar
 Soul of New Phyrexia
 Staff of the Wild Magus
