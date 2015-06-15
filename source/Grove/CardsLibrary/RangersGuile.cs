@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using AI;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Effects;
   using Modifiers;
 
@@ -24,8 +25,9 @@
               EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature(controlledBy: ControlledBy.SpellOwner).On.Battlefield());
-
+          
           p.TargetingRule(new EffectPumpInstant(1, 1));
+          p.TimingRule(new PumpTargetCardTimingRule());
         });
     }
   }
