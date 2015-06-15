@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using AI;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
   using Modifiers;
@@ -23,6 +24,7 @@
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
           p.TargetingRule(new EffectCombatEnchantment());
+          p.TimingRule(new OnFirstMain());
         })
         .ActivatedAbility(p =>
         {
@@ -30,8 +32,10 @@
 
           p.Cost = new PayMana("{4}{G}".Parse());
 
-          p.Effect = () => new Effects.ReturnToHand();
+          p.Effect = () => new Effects.ReturnToHand(returnOwningCard: true);
           p.ActivationZone = Zone.Graveyard;
+          
+          p.TimingRule(new OnEndOfOpponentsTurn());
         });
     }
   }

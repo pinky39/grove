@@ -620,6 +620,7 @@
     <Compile Include="Cards\ViashinoRunner.cs" />
     <Compile Include="Cards\ViashinoSandswimmer.cs" />
     <Compile Include="Cards\Victimize.cs" />
+    <Compile Include="Cards\Vineweft.cs" />
     <Compile Include="Cards\VividCreek.cs" />
     <Compile Include="Cards\VoltaicKey.cs" />
     <Compile Include="Cards\WakeofDestruction.cs" />

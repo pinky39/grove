@@ -207,9 +207,9 @@ o Netcaster Spider
 o Paragon of Eternal Wilds
 o Ranger's Guile
 o Soul of Zendikar
-Venom Sliver
-Verdant Haven
-Vineweft
+o Venom Sliver
+o Verdant Haven
+o Vineweft
 Yisan, the Wanderer Bard
 Sliver Hivelord
 Avarice Amulet
