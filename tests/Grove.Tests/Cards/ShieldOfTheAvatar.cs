@@ -6,22 +6,23 @@
 
   public class ShieldOfTheAvatar
   {
-    public class Ai : AiScenario
+    public class Predefined : PredefinedScenario 
     {
       [Fact]
-      public void PreventDamageToEquipped()
+      public void Prevent2Damage()
       {
-        Battlefield(P1, C("Grizzly Bears").IsEnchantedWith("Pacifism"), C("Grizzly Bears").IsEnchantedWith("Pacifism"), C("Juggernaut").IsEquipedWith("Shield Of The Avatar"));
+        var bear = C("Grizzly Bears");
+        var bolt = C("Lightning Bolt");
+        
+        Battlefield(P1, bear.IsEquipedWith("Shield of the Avatar"), "Llanowar Elves");
+        Hand(P2, bolt);
 
-        P2.Life = 3;
-        Battlefield(P2, "Juggernaut", "Forest", "Forest", "Forest", "Forest");
-        Library(P2, "Juggernaut");
+        Exec(
+          At(Step.FirstMain)
+          .Cast(bolt, target: bear),
+          At(Step.SecondMain)
+          .Verify(() => Equal(1, C(bear).Damage)));
 
-        RunGame(3);
-
-        Equal(3, P2.Life);
-        Equal(3, P1.Battlefield.Creatures.Count());
-        Equal(0, P2.Battlefield.Creatures.Count());
       }
     }
   }

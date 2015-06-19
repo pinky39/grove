@@ -703,6 +703,7 @@
     <Compile Include="Core\Card\MinimumBlockerCount.cs" />
     <Compile Include="Core\Card\NamedGameModifiers.cs" />
     <Compile Include="Core\Costs\AddCountersCost.cs" />
+    <Compile Include="Core\Damage\PreventXDamageToEquippedCreature.cs" />
     <Compile Include="Infrastructure\ReentryGuard.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />
     <Compile Include="Core\Costs\CostType.cs" />

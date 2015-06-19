@@ -4,17 +4,13 @@
 
   public class PreventNextDamageToTargets : Effect
   {
-    private readonly DynParam<int> _amount;
-    private readonly bool _useAttachedToAsTarget;
-    private readonly bool _eachTurn;
-
+    private readonly DynParam<int> _amount;    
+    
     private PreventNextDamageToTargets() {}
 
-    public PreventNextDamageToTargets(DynParam<int> amount, bool useAttachedToAsTarget = false, bool eachTurn = false)
+    public PreventNextDamageToTargets(DynParam<int> amount)
     {
       _amount = amount;
-      _useAttachedToAsTarget = useAttachedToAsTarget;
-      _eachTurn = eachTurn;
 
       RegisterDynamicParameters(amount);
     }
@@ -25,16 +21,7 @@
         {
           SourceCard = Source.OwningCard,
           SourceEffect = this,
-        };
-
-      if (_useAttachedToAsTarget && Source.OwningCard.AttachedTo != null)
-      {
-        var prevention = new PreventNextDamageToTarget(_amount.Value, Source.OwningCard.AttachedTo, _eachTurn);
-        var modifier = new AddDamagePrevention(prevention);
-        Game.AddModifier(modifier, mp);
-        
-        return;
-      }
+        };      
 
       foreach (var target in ValidEffectTargets)
       {

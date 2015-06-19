@@ -6,16 +6,14 @@
   public class PreventNextDamageToTarget : DamagePrevention
   {
     private readonly Trackable<int> _amount;
-    private readonly object _creatureOrPlayer;
-    private readonly bool _eachTurn;
+    private readonly object _creatureOrPlayer;    
 
     private PreventNextDamageToTarget() {}
 
-    public PreventNextDamageToTarget(int amount, object creatureOrPlayer, bool eachTurn = false)
+    public PreventNextDamageToTarget(int amount, object creatureOrPlayer)
     {
       _amount = new Trackable<int>(amount);      
-      _creatureOrPlayer = creatureOrPlayer;
-      _eachTurn = eachTurn;
+      _creatureOrPlayer = creatureOrPlayer;      
     }
 
     public override int CalculateHash(HashCalculator calc)
@@ -38,7 +36,7 @@
 
       var prevented = Math.Min(_amount, p.Amount);
 
-      if (!p.QueryOnly && !_eachTurn)
+      if (!p.QueryOnly)
         _amount.Value -= prevented;
 
       return prevented;
