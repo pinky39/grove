@@ -23,7 +23,7 @@
             p.Text =
               "Sacrifice Sanctum Guardian: The next time a source of your choice would deal damage to target creature or player this turn, prevent that damage.";
             p.Cost = new Sacrifice();
-            p.Effect = () => new PreventDamageFromSourceToTarget();
+            p.Effect = () => new PreventFirstDamageFromSourceToTarget();
             p.TargetSelector
               .AddEffect(
                 trg => trg.Is.Card().On.BattlefieldOrStack(),

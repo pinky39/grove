@@ -17,7 +17,7 @@
     public override int CalculateHash(HashCalculator calc)
     {
       return HashCalculator.Combine(
-        GetType().GetHashCode(),
+        base.CalculateHash(calc),
         calc.Calculate(_player));
     }
 

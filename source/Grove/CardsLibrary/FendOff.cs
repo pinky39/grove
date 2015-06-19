@@ -19,7 +19,7 @@
         .Cycling("{2}")
         .Cast(p =>
           {
-            p.Effect = () => new PreventDamageFromSource(preventCombatOnly: true);
+            p.Effect = () => new PreventAllDamageFromSource(preventCombatOnly: true);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new EffectPreventCombatDamage());
             p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new AfterOpponentDeclaresBlockers()));

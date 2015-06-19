@@ -26,7 +26,7 @@
 
             p.Cost = new Tap();
 
-            p.Effect = () => new PreventNextDamageToTargets(1);
+            p.Effect = () => new PreventNextXDamageToTargets(1);
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TargetSelector.AddCost(trg => trg

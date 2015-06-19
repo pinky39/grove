@@ -27,8 +27,8 @@
 
           p.Effect = () => new CompoundEffect(
             new Attach(),
-            new ApplyModifiersToGame(() => new AddDamagePrevention(m => new PreventXDamageToEquippedCreature(
-                amount: ctx => ctx.SourceCard.AttachedTo.Controller.Battlefield.Creatures.Count()))));
+            new PreventDamageToEquipedCreature(amount: creature => 
+              creature.Controller.Battlefield.Creatures.Count()));
            
           p.TargetSelector.AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());
 

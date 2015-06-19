@@ -1,7 +1,6 @@
 ﻿namespace Grove
 {
   using System;
-  using Infrastructure;
 
   public class PreventAllCombatDamage : DamagePrevention
   {
@@ -11,11 +10,6 @@
     public PreventAllCombatDamage(Func<Card, bool> filter = null)
     {
       _filter = filter ?? delegate { return true; };
-    }
-
-    public override int CalculateHash(HashCalculator calc)
-    {
-      return GetType().GetHashCode();
     }
 
     public override int PreventDamage(PreventDamageParameters p)

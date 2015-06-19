@@ -26,7 +26,7 @@
         .Cast(p =>
           {
             p.Text = "Prevent the next 3 damage that would be dealt to target creature or player this turn.";
-            p.Effect = () => new PreventNextDamageToTargets(3);
+            p.Effect = () => new PreventNextXDamageToTargets(3);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             p.TargetingRule(new EffectPreventNextDamageToTargets(3));
           });

@@ -23,7 +23,7 @@
             p.Text =
               "{W}: The next time an artifact source of your choice would deal damage to you this turn, prevent that damage.";
             p.Cost = new PayMana(Mana.White);
-            p.Effect = () => new PreventDamageFromSourceToController();
+            p.Effect = () => new PreventFirstDamageFromSourceToController();
 
             p.TargetSelector.AddEffect(
               trg => trg.Is.Card(c => c.Is().Artifact).On.BattlefieldOrStack(),

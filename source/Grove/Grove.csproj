@@ -703,7 +703,8 @@
     <Compile Include="Core\Card\MinimumBlockerCount.cs" />
     <Compile Include="Core\Card\NamedGameModifiers.cs" />
     <Compile Include="Core\Costs\AddCountersCost.cs" />
-    <Compile Include="Core\Damage\PreventXDamageToEquippedCreature.cs" />
+    <Compile Include="Core\Damage\PreventDamageToCreatureOrPlayer.cs" />
+    <Compile Include="Core\Effects\PreventDamageToEquipedCreature.cs" />
     <Compile Include="Infrastructure\ReentryGuard.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />
     <Compile Include="Core\Costs\CostType.cs" />
@@ -1587,10 +1588,9 @@
     <Compile Include="Core\Counter\CounterType.cs" />
     <Compile Include="Core\Damage\PreventAllCombatDamage.cs" />
     <Compile Include="Core\Damage\PreventAllDamageFromSource.cs" />
-    <Compile Include="Core\Damage\PreventAllDamageToAndFromCreature.cs" />
-    <Compile Include="Core\Damage\PreventSpecificDamageToTarget.cs" />
+    <Compile Include="Core\Damage\PreventAllDamageDealtToAndByCreature.cs" />
     <Compile Include="Core\Damage\PreventDamageParameters.cs" />
-    <Compile Include="Core\Damage\PreventNextDamageToTarget.cs" />
+    <Compile Include="Core\Damage\PreventNextXDamageToCreatureOrPlayer.cs" />
     <Compile Include="Core\Decisions\IPlayable.cs" />
     <Compile Include="Core\Effects\Add11ForEachCounter.cs" />
     <Compile Include="Core\Effects\ApplyModifiersToGame.cs" />
@@ -1604,9 +1604,9 @@
     <Compile Include="Core\Effects\ActivePlayerPaysLifeOrReturnSelectedPermanentToHand.cs" />
     <Compile Include="Core\Effects\FlipACoinReturnToHandOrSacrifice.cs" />
     <Compile Include="Core\Effects\PreventAllCombatDamage.cs" />
-    <Compile Include="Core\Effects\PreventDamageFromSource.cs" />
+    <Compile Include="Core\Effects\PreventAllDamageFromSource.cs" />
     <Compile Include="Core\Effects\PreventAllDamageToTargets.cs" />
-    <Compile Include="Core\Effects\PreventNextDamageToTargets.cs" />
+    <Compile Include="Core\Effects\PreventNextXDamageToTargets.cs" />
     <Compile Include="Core\Effects\TargetGainsProtectionFromChosenColor.cs" />
     <Compile Include="Core\Card\IModifiable.cs" />
     <Compile Include="Core\PlayModes\MatchParameters.cs" />
@@ -1810,8 +1810,8 @@
     <Compile Include="Core\Modifiers\ModifierSourceGetsUntapedLifetime.cs" />
     <Compile Include="Core\Damage\PreventLifelossBelowOneToPlayer.cs" />
     <Compile Include="Core\Player\ControlledBy.cs" />
-    <Compile Include="Core\Effects\PreventDamageFromSourceToController.cs" />
-    <Compile Include="Core\Effects\PreventDamageFromSourceToTarget.cs" />
+    <Compile Include="Core\Effects\PreventFirstDamageFromSourceToController.cs" />
+    <Compile Include="Core\Effects\PreventFirstDamageFromSourceToTarget.cs" />
     <Compile Include="Core\Effects\RemoveModifier.cs" />
     <Compile Include="Core\Effects\SacrificeOwner.cs" />
     <Compile Include="Core\Card\ISimpleAbilities.cs" />
@@ -1821,7 +1821,7 @@
     <Compile Include="Core\Player\PlayerType.cs" />
     <Compile Include="Core\Modifiers\AddDamageRedirection.cs" />
     <Compile Include="Core\Modifiers\DisableAllAbilities.cs" />
-    <Compile Include="Core\Damage\PreventAllDamageFromSourceToTarget.cs" />
+    <Compile Include="Core\Damage\PreventFirstDamageFromSourceToCreatureOrPlayer.cs" />
     <Compile Include="Core\Damage\DamageRedirection.cs" />
     <Compile Include="Core\Damage\DamageRedirections.cs" />
     <Compile Include="Core\Damage\RedirectDamageFromTargetToTarget.cs" />

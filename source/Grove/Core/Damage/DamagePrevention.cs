@@ -31,22 +31,22 @@
       return 0;
     }
 
-    protected Context Ctx { get { return new Context(this, Game); } }
+    protected Context Ctx(PreventDamageParameters p)
+    {
+      return new Context(p, this, Game);
+    }
 
     public class Context
     {
+      private readonly PreventDamageParameters _pdp;
       private readonly DamagePrevention _damagePrevention;
       private readonly Game _game;
 
-      public Context(DamagePrevention damagePrevention, Game game)
+      public Context(PreventDamageParameters pdp, DamagePrevention damagePrevention, Game game)
       {
+        _pdp = pdp;
         _damagePrevention = damagePrevention;
         _game = game;
-      }
-
-      public Card SourceCard
-      {
-        get { return _damagePrevention.Modifier.SourceCard; }
       }            
     }
   }

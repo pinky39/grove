@@ -21,7 +21,7 @@
           {
             p.Text = "{T}: Prevent the next 4 damage that would be dealt to target creature or player this turn.";
             p.Cost = new Tap();
-            p.Effect = () => new PreventNextDamageToTargets(4);
+            p.Effect = () => new PreventNextXDamageToTargets(4);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
             p.TargetingRule(new EffectPreventNextDamageToTargets(4));
           });
