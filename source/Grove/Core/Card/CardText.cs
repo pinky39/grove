@@ -82,7 +82,8 @@
       }
     }
 
-    public int CharacterCount { get { return Original.Count(); } }
+    private int? _characterCount = null;
+    public int CharacterCount { get { return (_characterCount ?? (_characterCount = Original.Count())).GetValueOrDefault(); } }
 
     public string Original { get; private set; }
     public List<Token> Tokens { get; private set; }
