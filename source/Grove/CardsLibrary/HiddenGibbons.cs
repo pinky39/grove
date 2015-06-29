@@ -22,7 +22,7 @@
             p.Text =
               "When an opponent casts an instant spell, if Hidden Gibbons is an enchantment, Hidden Gibbons becomes a 4/4 Ape creature.";
             p.Trigger(new OnCastedSpell((c, ctx) =>
-              ctx.Opponent != c.Controller && ctx.OwningCard.Is().Enchantment && c.Is().Instant));
+              ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment && c.Is().Instant));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(
