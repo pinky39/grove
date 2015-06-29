@@ -338,19 +338,15 @@
 
       public string GetCardImageName(string cardName)
       {
-//        var invalidChars = Path.GetInvalidFileNameChars();
-//
-//        var invalidCharsRemoved = cardName
-//          .Where(x => !invalidChars.Contains(x))
-//          .ToArray();
-//
-//        return new string(invalidCharsRemoved)
-//          .Trim()
-//          .ToLower();
+        var invalidChars = Path.GetInvalidFileNameChars();
 
-        return String.Join(String.Empty, cardName.Split(Path.GetInvalidFileNameChars()))
+        var invalidCharsRemoved = cardName
+          .Where(x => !invalidChars.Contains(x))
+          .ToArray();
+
+        return new string(invalidCharsRemoved)
           .Trim()
-          .ToLower();
+          .ToLower();        
       }
     }
 

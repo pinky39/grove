@@ -12,7 +12,7 @@
   public class CardText : IEnumerable<Token>
   {
     private static readonly Regex Brackets = new Regex("{(.*)}", RegexOptions.Compiled);
-
+    
     private static readonly List<Func<string, Token>> TokenFactoy = new List<Func<string, Token>>
       {
         token => token == "EOL" ? new EolToken() : null,
@@ -45,13 +45,14 @@
       };
 
     private static readonly Regex Tokenizer = new Regex("( )|({[^}]*})", RegexOptions.Compiled);
+    private readonly string _str;
 
     public CardText(string text)
     {
       if (String.IsNullOrEmpty(text))
       {
         Tokens = new List<Token> {};
-        Original = String.Empty;
+        _str = String.Empty;
         return;
       }
 
@@ -65,7 +66,7 @@
             .Where(x => x != " ")
             .Select(CreateToken).ToList());
 
-      Original = text;
+      _str = text;
     }
 
     public IEnumerable<Token> AbilityTokens
@@ -82,10 +83,9 @@
       }
     }
 
-    private int? _characterCount = null;
-    public int CharacterCount { get { return (_characterCount ?? (_characterCount = Original.Count())).GetValueOrDefault(); } }
 
-    public string Original { get; private set; }
+    public int CharacterCount { get { return _str.Length; } }
+
     public List<Token> Tokens { get; private set; }
 
     public IEnumerator<Token> GetEnumerator()
@@ -100,7 +100,7 @@
 
     public override string ToString()
     {
-      return Original;
+      return _str;
     }
 
     public string GetTextOnly()

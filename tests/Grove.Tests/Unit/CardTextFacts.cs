@@ -1,6 +1,5 @@
 ﻿namespace Grove.Tests.Unit
 {
-  using System;
   using System.Linq;
   using Xunit;
 
@@ -11,13 +10,6 @@
     {
       CardText text = "{T}: Add {G}{B} to your mana pool.";
       Assert.Equal(9, text.AbilityTokens.Count());
-    }
-
-    [Fact]
-    public void ParseNull()
-    {
-      CardText cardText = (string) null;
-      Assert.Equal(String.Empty, cardText.Original);
     }
 
     [Fact]
