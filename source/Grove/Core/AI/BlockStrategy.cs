@@ -53,11 +53,11 @@
       // 2. Pass
       // Assign additional blockers to blocked attackers 
       // if such an assignment would improove the gain
-      return ImprooveAssignementsByAddingAditionalBlockers(assignments.Values.Distinct(), unassignedBlockers);
+      return ImprooveAssignementsByAddingAditionalBlockers(assignments.Values.Distinct().ToList(), unassignedBlockers);
     }
 
     private static ChosenBlockers ImprooveAssignementsByAddingAditionalBlockers(
-      IEnumerable<BlockerAssignment> assignments, List<Card> unassignedBlockers)
+      List<BlockerAssignment> assignments, List<Card> unassignedBlockers)
     {
       foreach (var assignment in assignments.Where(x => !x.IsAttackerKilled))
       {
@@ -176,10 +176,13 @@
         // check if additional blocker changes things
 
         if (_canAllInitialBlockersBeKilled == false)
-          return false;
-
+          return false;                
+        
         if (additionalBlocker.Score > Attacker.Score)
           return false;
+
+        if (QuickCombat.CalculateTrampleDamage(Attacker, _blockers) > 0)
+          return true;
 
         return QuickCombat.CanAttackerBeDealtLeathalDamage(
           Attacker,

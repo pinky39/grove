@@ -219,8 +219,8 @@ o Hot Soup
 o Obelisk of Urd
 o Perilous Vault
 o Scuttling Doom Engine
-Shield of the Avatar
-Soul of New Phyrexia
+o Shield of the Avatar
+o Soul of New Phyrexia
 Staff of the Wild Magus
 Tormod's Crypt
 Battlefield Forge

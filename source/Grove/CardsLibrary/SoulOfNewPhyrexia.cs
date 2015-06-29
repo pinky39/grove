@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using AI;
+  using AI.TimingRules;
   using Costs;
   using Effects;
   using Modifiers;
@@ -27,6 +28,11 @@
             selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
             modifier: () => new AddStaticAbility(Static.Indestructible){UntilEot = true}
             ).SetTags(EffectTag.Indestructible);
+
+          p.TimingRule(new Any(
+            new BeforeYouDeclareAttackers(), 
+            new AfterOpponentDeclaresAttackers(), 
+            new WhenOwningCardWillBeDestroyed()));
         })
         .ActivatedAbility(p =>
         {
@@ -41,6 +47,11 @@
             ).SetTags(EffectTag.Indestructible);
 
           p.ActivationZone = Zone.Graveyard;
+
+          p.TimingRule(new Any(
+            new BeforeYouDeclareAttackers(),
+            new AfterOpponentDeclaresAttackers(),
+            new WhenOwningCardWillBeDestroyed()));
         });
     }
   }

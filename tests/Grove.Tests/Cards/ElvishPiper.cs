@@ -16,7 +16,7 @@
 
         RunGame(1);
 
-        Equal(0, P2.Life);
+        Equal(-2, P2.Life);
       }
     }
   }

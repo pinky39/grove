@@ -60,7 +60,7 @@
 
       if (life <= 0)
       {
-        return -1000 + life;
+        return -1000 + 500 * life;
       }
 
       return score + Scores.LifeToScore[life];

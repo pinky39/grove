@@ -542,6 +542,7 @@
     <Compile Include="Cards\SoulFeast.cs" />
     <Compile Include="Cards\Soulmender.cs" />
     <Compile Include="Cards\SoulOfInnistrad.cs" />
+    <Compile Include="Cards\SoulOfNewPhyrexia.cs" />
     <Compile Include="Cards\SoulOfRavnica.cs" />
     <Compile Include="Cards\SoulOfShandalar.cs" />
     <Compile Include="Cards\SoulOfTheros.cs" />
