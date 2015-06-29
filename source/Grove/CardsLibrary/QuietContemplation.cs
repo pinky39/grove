@@ -23,8 +23,8 @@
           {
             p.Text =
               "Whenever you cast a noncreature spell, you may pay {1}. If you do, tap target creature an opponent controls and it doesn't untap during its controller's next untap step.";
-            p.Trigger(new OnCastedSpell((a, c) =>
-              c.Controller == a.OwningCard.Controller && !c.Is().Creature));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              c.Controller == ctx.You && !c.Is().Creature));
 
             p.Effect = () => new PayManaThen(1.Colorless(), new CompoundEffect(
               new TapTargets(),

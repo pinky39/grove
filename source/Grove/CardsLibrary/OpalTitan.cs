@@ -22,10 +22,8 @@
           {
             p.Text =
               "When an opponent casts a creature spell, if Opal Titan is an enchantment, Opal Titan becomes a 4/4 Giant creature with protection from each of that spell's colors.";
-            p.Trigger(new OnCastedSpell(
-              filter: (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
-                  card.Is().Creature));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+                ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment && c.Is().Creature));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

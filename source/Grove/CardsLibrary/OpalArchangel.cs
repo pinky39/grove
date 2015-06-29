@@ -21,10 +21,8 @@
           {
             p.Text =
               "When an opponent casts a creature spell, if Opal Archangel is an enchantment, Opal Archangel becomes a 5/5 Angel creature with flying and vigilance.";
-            p.Trigger(new OnCastedSpell(
-              filter: (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
-                  card.Is().Creature));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment && c.Is().Creature));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

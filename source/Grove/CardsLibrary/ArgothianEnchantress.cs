@@ -20,8 +20,8 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever you cast an enchantment spell, draw a card.";
-            p.Trigger(new OnCastedSpell((ability, card) =>
-              card.Controller == ability.OwningCard.Controller && card.Is().Enchantment));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              c.Controller == ctx.You && c.Is().Enchantment));
             p.Effect = () => new DrawCards(1);
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

@@ -21,9 +21,8 @@
           {
             p.Text = "Whenever an opponent casts a creature spell, Aether Sting deals 1 damage to that player.";
 
-            p.Trigger(new OnCastedSpell(
-              filter: (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && card.Is().Creature));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+                ctx.Opponent == c.Controller && c.Is().Creature));
 
             p.Effect = () => new DealDamageToPlayer(1, P(e => e.Controller.Opponent));
 

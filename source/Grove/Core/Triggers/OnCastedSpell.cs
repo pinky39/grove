@@ -1,23 +1,22 @@
 ﻿namespace Grove.Triggers
 {
-  using System;
-  using Grove.Events;
-  using Grove.Infrastructure;
+  using Events;
+  using Infrastructure;
 
   public class OnCastedSpell : Trigger, IReceive<SpellPutOnStackEvent>
   {
-    private readonly Func<TriggeredAbility, Card, bool> _filter;
+    private readonly CardSelector _filter;
 
     private OnCastedSpell() {}
 
-    public OnCastedSpell(Func<TriggeredAbility, Card, bool> filter = null)
+    public OnCastedSpell(CardSelector selector = null)
     {
-      _filter = filter ?? delegate { return true; };
+      _filter = selector ?? delegate { return true; };
     }
 
     public void Receive(SpellPutOnStackEvent message)
     {
-      if (_filter(Ability, message.Card))
+      if (_filter(message.Card, Ctx))
       {
         Set(message);
       }

@@ -21,10 +21,8 @@
           {
             p.Text =
               "When an opponent casts a spell, if Veiled Apparition is an enchantment, Veiled Apparition becomes a 3/3 Illusion creature with flying and 'At the beginning of your upkeep, sacrifice Veiled Apparition unless you pay {1}{U}.'";
-            p.Trigger(new OnCastedSpell(
-              filter:
-                (ability, card) =>
-                  ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

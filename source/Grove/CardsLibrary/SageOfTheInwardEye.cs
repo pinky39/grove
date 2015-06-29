@@ -21,8 +21,8 @@
         .TriggeredAbility(p =>
         {
           p.Text = "Whenever you cast a noncreature spell, creatures you control gain lifelink until end of turn.";
-          p.Trigger(new OnCastedSpell((a, c) =>
-            c.Controller == a.OwningCard.Controller && !c.Is().Creature));
+          p.Trigger(new OnCastedSpell((c, ctx) =>
+            c.Controller == ctx.You && !c.Is().Creature));
 
           p.Effect = () => new ApplyModifiersToPermanents(
             selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,             

@@ -18,8 +18,8 @@
         {
           p.Text = "Whenever you cast a green spell or a Forest enters the battlefield under your control, you gain 1 life.";
 
-          p.Trigger(new OnCastedSpell((a, c) =>
-            c.HasColor(CardColor.Green) && c.Controller == a.OwningCard.Controller));
+          p.Trigger(new OnCastedSpell((c, ctx) =>
+            c.HasColor(CardColor.Green) && c.Controller == ctx.You));
 
           p.Trigger(new OnZoneChanged(
             to: Zone.Battlefield,

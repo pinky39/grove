@@ -22,7 +22,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a player casts a green spell, put a +1/+1 counter on Titania's Chosen.";
-            p.Trigger(new OnCastedSpell((a, c) => c.HasColor(CardColor.Green)));
+            p.Trigger(new OnCastedSpell((c, ctx) => c.HasColor(CardColor.Green)));
             p.Effect = () => new ApplyModifiersToSelf(
               modifiers: () => new AddCounters(() => new PowerToughness(1, 1), 1));
 

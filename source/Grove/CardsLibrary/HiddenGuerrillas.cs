@@ -21,10 +21,8 @@
           {
             p.Text =
               "When an opponent casts an artifact spell, if Hidden Guerrillas is an enchantment, Hidden Guerrillas becomes a 5/3 Soldier creature with trample.";
-            p.Trigger(new OnCastedSpell(
-              filter: (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
-                  card.Is().Artifact));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment && c.Is().Artifact));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

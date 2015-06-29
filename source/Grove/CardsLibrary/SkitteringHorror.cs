@@ -20,8 +20,8 @@
         .TriggeredAbility(p =>
           {
             p.Text = "When you cast a creature spell, sacrifice Skittering Horror.";
-            p.Trigger(new OnCastedSpell((a, c) =>
-              a.OwningCard.Controller == c.Controller && c.Is().Creature));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              ctx.You == c.Controller && c.Is().Creature));
 
             p.Effect = () => new SacrificeOwner();
             p.TriggerOnlyIfOwningCardIsInPlay = true;

@@ -22,8 +22,8 @@
           {
             p.Text =
               "When an opponent casts a spell, if Veiled Serpent is an enchantment, Veiled Serpent becomes a 4/4 Serpent creature that can't attack unless defending player controls an Island.";
-            p.Trigger(new OnCastedSpell(
-              filter: (ability, card) => ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment));
+            p.Trigger(new OnCastedSpell((c, ctx) => 
+              ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

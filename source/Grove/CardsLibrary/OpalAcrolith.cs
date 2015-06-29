@@ -22,10 +22,8 @@
           {
             p.Text =
               "Whenever an opponent casts a creature spell, if Opal Acrolith is an enchantment, Opal Acrolith becomes a 2/4 Soldier creature.";
-            p.Trigger(new OnCastedSpell(
-              filter: (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
-                  card.Is().Creature));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment && c.Is().Creature));
 
             p.Effect = () => new ApplyModifiersToSelf(() => new ChangeToCreature(
               power: 2,

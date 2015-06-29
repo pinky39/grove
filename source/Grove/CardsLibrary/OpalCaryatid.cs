@@ -21,10 +21,8 @@
           {
             p.Text =
               "When an opponent casts a creature spell, if Opal Caryatid is an enchantment, Opal Caryatid becomes a 2/2 Soldier creature.";
-            p.Trigger(new OnCastedSpell(
-              filter: (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
-                  card.Is().Creature));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment && c.Is().Creature));
             p.Effect = () => new ApplyModifiersToSelf(() => new ChangeToCreature(
               power: 2,
               toughness: 2,

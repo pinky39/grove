@@ -23,11 +23,8 @@
             p.Text =
               "When an opponent casts a creature spell with flying, if Hidden Spider is an enchantment, Hidden Spider becomes a 3/5 Spider creature with reach.";
 
-            p.Trigger(new OnCastedSpell(
-              filter: (ability, card) =>
-                ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment &&
-                  card.Is().Creature &&
-                    card.Has().Flying));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+                ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment && c.Is().Creature && c.Has().Flying));
 
             p.Effect = () => new ApplyModifiersToSelf(() => new ChangeToCreature(
               power: 3,

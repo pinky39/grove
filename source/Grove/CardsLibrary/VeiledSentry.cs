@@ -22,10 +22,8 @@
           {
             p.Text =
               "When an opponent casts a spell, if Veiled Sentry is an enchantment, Veiled Sentry becomes an Illusion creature with power and toughness each equal to that spell's converted mana cost.";
-            p.Trigger(new OnCastedSpell(
-              filter:
-                (ability, card) =>
-                  ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

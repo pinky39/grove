@@ -19,8 +19,8 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever an opponent casts a white spell, that player loses 1 life and you gain 1 life.";
-            p.Trigger(new OnCastedSpell((ability, spell) =>
-              spell.Controller != ability.SourceCard.Controller && spell.HasColor(CardColor.White)));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              c.Controller != ctx.You && c.HasColor(CardColor.White)));
 
             p.Effect = () => new ControllerGainsLifeOpponentLoosesLife(1, 1);
             p.TriggerOnlyIfOwningCardIsInPlay = true;

@@ -22,10 +22,8 @@
           {
             p.Text =
               "When an opponent casts a spell, if Veil of Birds is an enchantment, Veil of Birds becomes a 1/1 Bird creature with flying.";
-            p.Trigger(new OnCastedSpell(
-              filter:
-                (ability, card) =>
-                  ability.OwningCard.Controller != card.Controller && ability.OwningCard.Is().Enchantment));
+            p.Trigger(new OnCastedSpell((c, ctx) =>
+              ctx.Opponent == c.Controller && ctx.OwningCard.Is().Enchantment));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new ChangeToCreature(

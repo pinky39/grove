@@ -20,7 +20,7 @@
         .TriggeredAbility(p =>
           {
             p.Text = "Whenever a player casts an enchantment spell, counter it.";
-            p.Trigger(new OnCastedSpell((_, spell) => spell.Is().Enchantment));
+            p.Trigger(new OnCastedSpell((c, ctx) => c.Is().Enchantment));
             p.Effect = () => new CounterThatSpell(P(e => e.TriggerMessage<SpellPutOnStackEvent>().Effect));
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

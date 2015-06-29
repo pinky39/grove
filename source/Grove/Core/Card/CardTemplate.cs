@@ -306,8 +306,8 @@
       TriggeredAbility(p =>
       {
         p.Text = "Whenever you cast a noncreature spell, this creature gets +1/+1 until end of turn.";
-        p.Trigger(new OnCastedSpell((a, c) =>
-          c.Controller == a.OwningCard.Controller && !c.Is().Creature));
+        p.Trigger(new OnCastedSpell((c, ctx) =>
+          c.Controller == ctx.You && !c.Is().Creature));
 
         p.Effect = () => new ApplyModifiersToSelf(() => new AddPowerAndToughness(1, 1) { UntilEot = true })
           .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
