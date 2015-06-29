@@ -25,7 +25,7 @@
                 trg.MinCount = 0;
                 trg.MaxCount = 3;
               });
-            p.TimingRule(new OnEndOfOpponentsTurn());
+            p.TimingRule(new Any(new WhenTopSpellTargetsCardInGraveyard(), new OnEndOfOpponentsTurn()));
             p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, ControlledBy.Opponent));
           });
     }

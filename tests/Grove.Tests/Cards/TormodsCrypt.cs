@@ -8,14 +8,17 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void Scenario()
+      public void PreventGravediggerFromBringingCreaturesBack()
       {
         Battlefield(P1, "Tormod's Crypt");
-        Graveyard(P2, "Plains", "Shield of the Avatar");
+        
+        Hand(P2, "Gravedigger");
+        Battlefield(P2, "Swamp", "Plains", "Plains", "Plains", "Plains");
+        Graveyard(P2, "Serra Angel", "Shivan Dragon", "Plains", "Plains");
 
-        RunGame(1);
+        RunGame(2);
 
-        Equal(0, P1.Graveyard.Count);
+        Equal(0, P2.Graveyard.Count);
       }
     }
   }

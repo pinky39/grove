@@ -221,8 +221,8 @@ o Perilous Vault
 o Scuttling Doom Engine
 o Shield of the Avatar
 o Soul of New Phyrexia
-Staff of the Wild Magus
-Tormod's Crypt
+o Staff of the Wild Magus
+o Tormod's Crypt
 Battlefield Forge
 Yavimaya Coast
 Shivan Reef

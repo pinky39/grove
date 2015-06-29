@@ -189,7 +189,7 @@
         calc.Calculate(_battlefield),
         calc.Calculate(_graveyard),
         calc.Calculate(_library),
-        calc.Calculate(_hand),
+        calc.Calculate(_hand),        
         _landLimit.Value.GetValueOrDefault(),
         _landsPlayedCount.Value
         );

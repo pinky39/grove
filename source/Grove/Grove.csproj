@@ -694,6 +694,7 @@
     <Compile Include="Core\AI\TimingRules\WhenAttachedToCardWillBeDestroyed.cs" />
     <Compile Include="Core\AI\TimingRules\WhenStackIsNotEmpty.cs" />
     <Compile Include="Core\AI\TimingRules\WhenTopSpellIs.cs" />
+    <Compile Include="Core\AI\TimingRules\WhenTopSpellTargetsCardInGraveyard.cs" />
     <Compile Include="Core\CardParameters.cs" />
     <Compile Include="Core\Card\AbilityParameters.cs" />
     <Compile Include="Core\Card\ActivatedAbilityParameters.cs" />

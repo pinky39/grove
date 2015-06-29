@@ -14,8 +14,8 @@
         .Named("Tormod's Crypt")
         .ManaCost("{0}")
         .Type("Artifact")
-        .Text("{T}, Sacrifice Tormod's Crypt: Exile all cards from target player's graveyard.")
-        .Cast(p => p.TimingRule(new OnFirstMain()))
+        .Text("{T}, Sacrifice Tormod's Crypt: Exile all cards from target player's graveyard.")        
+        .Cast(p => p.TimingRule(new OnFirstMain()))        
         .ActivatedAbility(p =>
         {
           p.Text = "{T}, Sacrifice Tormod's Crypt: Exile all cards from target player's graveyard.";
@@ -27,7 +27,12 @@
             from: Zone.Graveyard);
 
           p.TargetSelector.AddEffect(trg => trg.Is.Player());
-          p.TargetingRule(new EffectOpponent());
+          
+          p.TimingRule(new Any(
+            new OnEndOfOpponentsTurn(), 
+            new WhenTopSpellTargetsCardInGraveyard()));
+          
+          p.TargetingRule(new EffectOpponent());          
         });
     }
   }
