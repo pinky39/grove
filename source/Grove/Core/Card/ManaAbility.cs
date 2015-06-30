@@ -1,5 +1,6 @@
 ﻿namespace Grove
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Effects;
@@ -39,6 +40,21 @@
     void IManaSource.PayActivationCost()
     {
       Pay();
+
+      if (_p.AdditionalEffects.Count > 0)
+      {
+        var effect = new CompoundEffect(
+          _p.AdditionalEffects.Select(factory => factory()).ToArray());
+
+        var effectParameters = new EffectParameters
+        {
+          Source = this,
+        };
+
+        effect.Initialize(effectParameters, Game);
+
+        Resolve(effect, skipStack: true);
+      }
     }
 
     public IEnumerable<ManaUnit> GetUnits()
@@ -55,7 +71,16 @@
 
     protected override Effect CreateEffect()
     {
-      return new AddManaToPool(_p.ManaOutput.GetAmount(), _p.UsageRestriction);
+      var addManaToPool = new AddManaToPool(_p.ManaOutput.GetAmount(), _p.UsageRestriction);
+
+      if (_p.AdditionalEffects.Count == 0)
+        return addManaToPool;
+
+      var effects = addManaToPool
+        .Concat(_p.AdditionalEffects.Select(x => x()))
+        .ToArray();
+            
+      return new CompoundEffect(effects);            
     }
 
     public override void OnEnable()

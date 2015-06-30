@@ -102,6 +102,11 @@
       return minElement;
     }
 
+    public static IEnumerable<T> Concat<T>(this T obj, IEnumerable<T> enumerable)
+    {
+      return obj.ToEnumerable().Concat(enumerable);
+    }
+    
     public static IEnumerable<T> ToEnumerable<T>(this T obj)
     {
       yield return obj;

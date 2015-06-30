@@ -3,7 +3,6 @@
   using System;
   using System.Collections.Generic;
   using Effects;
-  using Modifiers;
 
   public abstract class CardTemplateSource
   {
@@ -16,6 +15,11 @@
     }
 
     protected CardModifierFactory[] L(params CardModifierFactory[] elt)
+    {
+      return elt;
+    }
+
+    protected Effect.Factory[] L(params Effect.Factory[] elt)
     {
       return elt;
     }

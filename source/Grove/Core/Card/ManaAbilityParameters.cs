@@ -18,6 +18,7 @@
 
     public List<int> Colors { get; private set; }
     public ManaOutput ManaOutput { get; private set; }
+    public readonly List<Effect.Factory> AdditionalEffects = new List<Effect.Factory>();
 
     public void ManaAmount(ManaAmount amount)
     {

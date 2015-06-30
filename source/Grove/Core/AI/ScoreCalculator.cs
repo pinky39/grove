@@ -86,7 +86,7 @@
 
           if (permanent.HasSummoningSickness)
             score -= 1;
-        }
+        }        
       }
       else if (permanent.Is().Creature)
       {

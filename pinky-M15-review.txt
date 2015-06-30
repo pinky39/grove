@@ -223,11 +223,11 @@ o Shield of the Avatar
 o Soul of New Phyrexia
 o Staff of the Wild Magus
 o Tormod's Crypt
-Battlefield Forge
-Yavimaya Coast
-Shivan Reef
-Llanowar Wastes
-Caves of Koilos
+o Battlefield Forge
+o Yavimaya Coast
+o Shivan Reef
+o Llanowar Wastes
+o Caves of Koilos
 Evolving Wilds
 Radiant Fountain
 Urborg, Tomb of Yawgmoth
