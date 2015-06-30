@@ -11,7 +11,7 @@
         .Named("Yavimaya Coast")
         .Type("Land")
         .Text(
-          "{T}: Add {1} to your mana pool.{EOL}{T}: Add {G} or {U} to your mana pool. Battlefield Forge deals 1 damage to you.")
+          "{T}: Add {1} to your mana pool.{EOL}{T}: Add {G} or {U} to your mana pool. Yavimaya Coast deals 1 damage to you.")
         .ManaAbility(p =>
           {
             p.Text = "{T}: Add {1} to your mana pool.";
@@ -19,7 +19,7 @@
           })
         .ManaAbility(p =>
           {
-            p.Text = "{T}: Add {G} or {U} to your mana pool. Battlefield Forge deals 1 damage to you.";
+            p.Text = "{T}: Add {G} or {U} to your mana pool. Yavimaya Coast deals 1 damage to you.";
             p.ManaAmount(Mana.Colored(isGreen: true, isBlue: true));
             p.AdditionalEffects.Add(() => new DealDamageToPlayer(1, P(e => e.Controller)));
             p.Priority = ManaSourcePriorities.Restricted;
