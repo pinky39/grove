@@ -242,9 +242,9 @@ o Sengir Vampire
 o Walking Corpse
 o Furnace Whelp
 o Seismic Strike
-Centaur Courser
-Garruk's Packleader
-Terra Stomper
+o Centaur Courser
+o Garruk's Packleader
+o Terra Stomper
 Hunt the Weak
 Undergrowth Scavenger
 

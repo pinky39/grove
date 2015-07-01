@@ -16,10 +16,7 @@
         .Power(8)
         .Toughness(8)
         .SimpleAbilities(Static.Trample)
-        .Cast(p =>
-        {
-          p.Effect = () => new CastPermanent(){CanBeCountered = false};
-        });
+        .Cast(p => p.Effect = () => new CastPermanent {CanBeCountered = false});
     }
   }
 }
