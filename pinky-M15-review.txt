@@ -232,16 +232,16 @@ o Evolving Wilds
 o Radiant Fountain
 o Urborg, Tomb of Yawgmoth
 o Aegis Angel
-Divine Verdict
-Inspired Charge
-Serra Angel
-Cancel
-Mahamoti Djinn
-Nightmare
-Sengir Vampire
-Walking Corpse
-Furnace Whelp
-Seismic Strike
+o Divine Verdict
+o Inspired Charge
+o Serra Angel
+o Cancel
+o Mahamoti Djinn
+o Nightmare
+o Sengir Vampire
+o Walking Corpse
+o Furnace Whelp
+o Seismic Strike
 Centaur Courser
 Garruk's Packleader
 Terra Stomper

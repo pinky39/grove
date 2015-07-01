@@ -2,7 +2,9 @@
 {
   using System.Collections.Generic;
   using System.Linq;
+  using AI;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Effects;
 
   public class SeismicStrike : CardTemplateSource
@@ -24,6 +26,8 @@
 
           cp.TargetingRule(new EffectDealDamage(p =>
             p.Controller.Battlefield.Count(x => x.Is("Mountain"))));
+
+          cp.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
         });
     }
   }
