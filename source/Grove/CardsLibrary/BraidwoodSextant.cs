@@ -37,7 +37,8 @@
               minCount: 0,
               maxCount: 1,
               validator: (c, ctx) => c.Is().BasicLand,
-              text: "Search your library for basic land card.");
+              text: "Search your library for basic land card.",
+              rankingAlgorithm: SearchLibraryPutToZone.ChooseLandToPutToBattlefield);
 
             p.TimingRule(new OnFirstMain());
           });

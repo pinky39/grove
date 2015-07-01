@@ -129,7 +129,7 @@
         if (blockersWithCombatCost.Count == 0)
           return blockerCandidates;
 
-        var availableMana = Controller.GetAvailableMana();
+        var availableMana = Controller.GetAvailableManaCount();
 
         foreach (var card in blockersWithCombatCost)
         {
@@ -269,7 +269,7 @@
       protected override void ExecuteQuery()
       {
         var result = new ChosenBlockers();
-        var availableMana = D.Controller.GetAvailableMana();
+        var availableMana = D.Controller.GetAvailableManaCount();
 
         var lureAttackers = Combat.Attackers
           .Select(x => x.Card)

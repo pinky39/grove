@@ -12,7 +12,7 @@
       {
         Battlefield(P1, "Grizzly Bears", "Grizzly Bears", "Grizzly Bears", "Gaea's Cradle");
 
-        Equal(3, P1.GetAvailableMana());
+        Equal(3, P1.GetAvailableManaCount());
       }
     }
   }

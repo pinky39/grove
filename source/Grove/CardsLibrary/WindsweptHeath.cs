@@ -28,7 +28,8 @@
               minCount: 0,
               maxCount: 1,
               validator: (c, ctx) => c.Is("forest") || c.Is("plains"),
-              text: "Search your library for a Forest or Plains card.");
+              text: "Search your library for a Forest or Plains card.",
+              rankingAlgorithm: SearchLibraryPutToZone.ChooseLandToPutToBattlefield);
 
           p.TimingRule(new OnFirstMain());
         });

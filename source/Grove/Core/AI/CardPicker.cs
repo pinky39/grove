@@ -1,15 +1,19 @@
 ﻿namespace Grove.AI
 {
+  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Decisions;
 
   public static class CardPicker
   {
-    public static ChosenCards ChooseBestCards(Player controller, IEnumerable<Card> candidates, int count, bool aurasNeedTarget)
+    public static ChosenCards ChooseBestCards(Player controller, IEnumerable<Card> candidates, int count, bool aurasNeedTarget, 
+      Func<Card, int> rankingAlgorithm = null)
     {
-       var ordered = candidates
-        .OrderBy(x => -x.Score)        
+      rankingAlgorithm = rankingAlgorithm ?? (c => -c.Score);
+      
+      var ordered = candidates
+        .OrderBy(rankingAlgorithm)        
         .ToList();
 
       var chosenCards = new List<Card>();

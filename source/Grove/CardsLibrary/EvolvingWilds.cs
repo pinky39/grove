@@ -14,6 +14,7 @@
         .Type("Land")
         .Text("{T}, Sacrifice Evolving Wilds: Search your library for a basic land card and put it onto the battlefield tapped. Then shuffle your library.")
         .FlavorText("Without the interfering hands of civilization, nature will always shape itself to its own needs.")
+        .OverrideScore(score => score.Graveyard = 100)
         .ActivatedAbility(p =>
         {
           p.Text = "{T}, Sacrifice Evolving Wilds: Search your library for a basic land card and put it onto the battlefield tapped. Then shuffle your library.";
@@ -28,7 +29,8 @@
               minCount: 0,
               maxCount: 1,
               validator: (c, ctx) => c.Is().BasicLand,
-              text: "Search your library for a basic land card.");
+              text: "Search your library for a basic land card.",
+              rankingAlgorithm: SearchLibraryPutToZone.ChooseLandToPutToBattlefield);
 
           p.TimingRule(new OnFirstMain());
         });

@@ -228,7 +228,7 @@ o Yavimaya Coast
 o Shivan Reef
 o Llanowar Wastes
 o Caves of Koilos
-Evolving Wilds
+o Evolving Wilds
 Radiant Fountain
 Urborg, Tomb of Yawgmoth
 Aegis Angel

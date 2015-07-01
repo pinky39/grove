@@ -28,7 +28,8 @@
               minCount: 0,
               maxCount: 1,
               validator: (c, ctx) => c.Is("swamp") || c.Is("mountain"),
-              text: "Search your library for a Swamp or Mountain card.");
+              text: "Search your library for a Swamp or Mountain card.",
+              rankingAlgorithm: SearchLibraryPutToZone.ChooseLandToPutToBattlefield);
 
           p.TimingRule(new OnFirstMain());
         });

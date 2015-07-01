@@ -236,6 +236,7 @@
     <Compile Include="Cards\Eradicate.cs" />
     <Compile Include="Cards\EternalThirst.cs" />
     <Compile Include="Cards\Evacuation.cs" />
+    <Compile Include="Cards\EvolvingWilds.cs" />
     <Compile Include="Cards\Exhaustion.cs" />
     <Compile Include="Cards\Exhume.cs" />
     <Compile Include="Cards\ExpendableTroops.cs" />

@@ -7,7 +7,7 @@
       if (Stack.IsEmpty || Stack.TopSpellOwner == p.Controller)
         return int.MaxValue;
 
-      return p.Controller.Opponent.GetAvailableMana(
+      return p.Controller.Opponent.GetAvailableManaCount(
         canUseConvoke: p.OwningCard.Has().Convoke,
         canUseDelve: p.OwningCard.Has().Delve) + 1;
     }

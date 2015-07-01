@@ -260,9 +260,15 @@
       _battlefield.Add(card);
     }
 
-    public int GetAvailableMana(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
+    public int GetAvailableManaCount(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
       bool canUseDelve = false)
     {      
+      return GetAvailableMana(usage, canUseConvoke, canUseDelve).Count;
+    }
+
+    public List<ManaColor> GetAvailableMana(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
+      bool canUseDelve = false)
+    {
       return ManaCache.GetAvailableMana(usage, canUseConvoke, canUseDelve);
     }
 

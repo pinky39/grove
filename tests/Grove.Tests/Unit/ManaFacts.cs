@@ -108,7 +108,7 @@
 
     private void AssertHas(int count)
     {
-      var amount = _cache.GetAvailableMana(ManaUsage.Any, false, false);
+      var amount = _cache.GetAvailableMana(ManaUsage.Any, false, false).Count;
       Assert.Equal(count, amount);
     }
 

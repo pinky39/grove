@@ -13,6 +13,7 @@
   {
     public delegate Effect Factory();
     public delegate bool CardSelector(Card card, Context ctx);
+    public delegate int CardOrder(Card card, Context ctx);
     public delegate bool EffectPredicate(Context ctx);
     public delegate void EffectAction(Context ctx);
     public delegate void EffectAction<in T>(T p, Context ctx);

@@ -97,8 +97,8 @@
 
       return additional;
     }
-
-    public int GetAvailableMana(ManaUsage usage, bool canUseConvoke, bool canUseDelve)
+    
+    public List<ManaColor> GetAvailableMana(ManaUsage usage, bool canUseConvoke, bool canUseDelve)
     {
       var restricted = new HashSet<ManaUnit>();
       var allocated = new List<ManaUnit>();
@@ -114,7 +114,7 @@
         }
       }
 
-      return allocated.Count;
+      return allocated.Select(x => x.Color).ToList();
     }
 
     private IEnumerable<ManaUnit> GetConvokeSources()

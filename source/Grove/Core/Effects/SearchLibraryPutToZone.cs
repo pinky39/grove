@@ -6,6 +6,7 @@
   using Decisions;
   using Events;
   using Infrastructure;
+  using System.Linq;
 
   public class SearchLibraryPutToZone : Effect, IProcessDecisionResults<ChosenCards>,
     IChooseDecisionResults<List<Card>, ChosenCards>, ICardValidator
@@ -15,6 +16,7 @@
     private readonly int _minCount;
     private readonly DynParam<Player> _player;
     private readonly bool _revealCards;
+    private readonly CardOrder _rankingAlgorithm;
 
     private readonly string _text;
     private readonly CardSelector _validator;
@@ -25,14 +27,15 @@
     public SearchLibraryPutToZone(Zone zone, EffectAction<Card> afterPutToZone = null,
       int maxCount = 1, int minCount = 0, CardSelector validator = null,
       string text = null, bool revealCards = true, DynParam<Player> player = null,
-        DynParam<Card> attachTo = null)
+      CardOrder rankingAlgorithm = null)
     {
-      _validator = validator ?? delegate { return true; };
+      _validator = validator ?? delegate   { return true; };
       _player = player ?? new DynParam<Player>((e, g) => e.Controller, EvaluateAt.OnResolve);
       _text = text ?? "Search your library for a card.";
       _zone = zone;
       _afterPutToZone = afterPutToZone ?? delegate { };
       _revealCards = revealCards;
+      _rankingAlgorithm = rankingAlgorithm ?? ((c, ctx) => -c.Score);
       _maxCount = maxCount;
       _minCount = minCount;
 
@@ -51,7 +54,8 @@
           controller: _player.Value,
           candidates: candidates,
           count: _maxCount,
-          aurasNeedTarget: _zone == Zone.Battlefield);
+          aurasNeedTarget: _zone == Zone.Battlefield,
+          rankingAlgorithm: c => _rankingAlgorithm(c, Ctx));
     }
 
     public void ProcessResults(ChosenCards results)
@@ -143,5 +147,23 @@
           p.AurasNeedTarget = _zone == Zone.Battlefield;
         }));
     }
+
+    public static int ChooseLandToPutToBattlefield(Card card, Context ctx)
+    {
+      // set the colorless count to a big number so colors
+      // are always considered first
+      var counts = new[] {0, 0, 0, 0, 0, 1000};
+
+      foreach (var color in ctx.You.GetAvailableMana())
+      {
+        foreach (var index in color.Indices)
+        {
+          counts[index]++;
+        }
+      }
+
+      return card.ProducableManaColors.Select(index => counts[index]).Min();
+    }
+    
   }
 }

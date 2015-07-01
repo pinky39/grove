@@ -31,7 +31,7 @@
 
       // one less is available because the land
       // is already counted
-      var available = controller.GetAvailableMana() - 1;
+      var available = controller.GetAvailableManaCount() - 1;
 
       return spellsWithCost.Any(x =>
         x.ManaCost.Converted == available + 1);

@@ -16,7 +16,7 @@
 
         Exec(
           At(Step.FirstMain)
-            .Verify(() => Equal(2, P1.GetAvailableMana()))
+            .Verify(() => Equal(2, P1.GetAvailableManaCount()))
           );
       }
 
@@ -29,7 +29,7 @@
 
         Exec(
           At(Step.FirstMain)
-            .Verify(() => Equal(2, P1.GetAvailableMana()))
+            .Verify(() => Equal(2, P1.GetAvailableManaCount()))
           );
       }
 
@@ -45,7 +45,7 @@
         Exec(
           At(Step.FirstMain)
             .Cast(clear, target: ground)
-            .Verify(() => Equal(1, P1.GetAvailableMana()))
+            .Verify(() => Equal(1, P1.GetAvailableManaCount()))
           );
       }
     }
