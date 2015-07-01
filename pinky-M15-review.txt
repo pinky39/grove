@@ -229,9 +229,9 @@ o Shivan Reef
 o Llanowar Wastes
 o Caves of Koilos
 o Evolving Wilds
-Radiant Fountain
-Urborg, Tomb of Yawgmoth
-Aegis Angel
+o Radiant Fountain
+o Urborg, Tomb of Yawgmoth
+o Aegis Angel
 Divine Verdict
 Inspired Charge
 Serra Angel

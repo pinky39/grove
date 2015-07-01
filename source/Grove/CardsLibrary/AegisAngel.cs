@@ -33,10 +33,10 @@
 
           p.TargetSelector.AddEffect(trg =>
             trg
-              .Is.Creature(canTargetSelf: false)
+              .Is.Card(canTargetSelf: false)
               .On.Battlefield());
 
-          p.TargetingRule(new EffectGiveIndestructible());
+          p.TargetingRule(new EffectOrCostRankBy(c => c.Is().Land ? 0 : -c.Score, forceRank: c => c.Score));
         });
     }
   }

@@ -23,7 +23,8 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>(_controlledBy)
-        .OrderBy(x => _rank(x));
+        .OrderBy(x => _rank(x))
+        .ToList();
 
       if (p.HasEffectCandidates)
         return Group(candidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount());
