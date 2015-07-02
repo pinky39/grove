@@ -21,8 +21,10 @@
         .TriggeredAbility(p =>
         {
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-          p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1),
-            getCount: (game) => game.Players.Player1.Graveyard.Creatures.Count() + game.Players.Player2.Graveyard.Creatures.Count()));
+          p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(
+           counter: () => new PowerToughness(1, 1),
+           count: ctx => ctx.Players.Player1.Graveyard.Creatures.Count() + ctx.Players.Player2.Graveyard.Creatures.Count()));
+          
           p.UsesStack = false;
         });
     }

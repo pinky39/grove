@@ -5,8 +5,10 @@
 
   public class AddCounters : Modifier, ICardModifier
   {
+    public delegate Value GetCount(Context ctx);
+    
     private readonly List<Counter> _addedCounters = new List<Counter>();
-    private readonly Func<Game, Value> _getCount;
+    private readonly GetCount _getCount;
     private readonly Func<Counter> _counterFactory;
 
     private Counters _counters;
@@ -14,20 +16,20 @@
     private AddCounters() {}    
 
     public AddCounters(Func<Counter> counter, Value count)
-      : this(counter, (g) => count ?? 1)
+      : this(counter, (_) => count ?? 1)
     {
     }
 
-    public AddCounters(Func<Counter> counter, Func<Game, Value> getCount)
+    public AddCounters(Func<Counter> counter, GetCount count)
     {
       _counterFactory = counter;
-      _getCount = getCount;
+      _getCount = count;
     }
 
     public override void Apply(Counters counters)
     {
       _counters = counters;
-      var count = _getCount(Game).GetValue(X);
+      var count = _getCount(Ctx).GetValue(X);
 
       for (var i = 0; i < count; i++)
       {

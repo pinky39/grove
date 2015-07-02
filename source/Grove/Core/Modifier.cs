@@ -153,6 +153,7 @@
       }
 
       public Card OwningCard { get { return _modifier.OwningCard; } }
+      public Players Players { get { return _game.Players; } }
     }
   }
 }

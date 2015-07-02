@@ -246,7 +246,7 @@ o Centaur Courser
 o Garruk's Packleader
 o Terra Stomper
 o Hunt the Weak
-Undergrowth Scavenger
+o Undergrowth Scavenger
 
 // M15 not implemented
 
