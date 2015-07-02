@@ -245,7 +245,7 @@ o Seismic Strike
 o Centaur Courser
 o Garruk's Packleader
 o Terra Stomper
-Hunt the Weak
+o Hunt the Weak
 Undergrowth Scavenger
 
 // M15 not implemented

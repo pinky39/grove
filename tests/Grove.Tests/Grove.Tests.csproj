@@ -311,6 +311,7 @@
     <Compile Include="Cards\HotSoup.cs" />
     <Compile Include="Cards\HuntersAmbush.cs" />
     <Compile Include="Cards\HuntingMoa.cs" />
+    <Compile Include="Cards\HuntTheWeek.cs" />
     <Compile Include="Cards\HushwingGryff.cs" />
     <Compile Include="Cards\Hydrosurge.cs" />
     <Compile Include="Cards\IllGottenGains.cs" />

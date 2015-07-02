@@ -3,7 +3,6 @@
   using System.Collections.Generic;
   using AI.TargetingRules;
   using Effects;
-  using Modifiers;
 
   public class HuntTheWeak : CardTemplateSource
   {
@@ -20,18 +19,18 @@
           {
             p.Text =
               "Put a +1/+1 counter on target creature you control. Then that creature fights target creature you don't control.";
-            p.Effect = () => new PutCounterOnTargetAndFightWithCreature(
-              new AddCounters(() => new PowerToughness(1, 1), 1));
+            p.Effect = () => new PutCounterOnYoursAndFightWithOpponentsCreature(
+              () => new PowerToughness(1, 1), 1);
 
             p.TargetSelector.AddEffect(
               trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield(),
-              trg => { trg.Message = "Select a target creature you control."; });
+              trg => { trg.Message = "Select target creature you control."; });
 
             p.TargetSelector.AddEffect(
               trg => trg.Is.Creature(ControlledBy.Opponent).On.Battlefield(),
-              trg => { trg.Message = "Select a target creature your oppenent controls."; });
+              trg => { trg.Message = "Select target creature your opponent controls."; });
 
-            p.TargetingRule(new EffectBounceOwnAndOpponents());
+            p.TargetingRule(new EffectCreaturesDealsDamageEqualToPowerToEachOther(1, 1));
           });
     }
   }

@@ -668,6 +668,7 @@
     <Compile Include="Core\AI\TargetingRules\EffectAttackerWithEvasion.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectBounceOwnAndOpponents.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectCannotBlockAttack.cs" />
+    <Compile Include="Core\AI\TargetingRules\EffectCreaturesDealsDamageEqualToPowerToEachOther.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectDealDifferentDamage.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectDestroyMostCommon.cs" />
     <Compile Include="Core\AI\TargetingRules\EffectExchangeBattlefieldGraveyard.cs" />
@@ -751,7 +752,7 @@
     <Compile Include="Core\Effects\PayThen.cs" />
     <Compile Include="Core\Effects\PreventAllDamageToTargetsFromChosenColor.cs" />
     <Compile Include="Core\Effects\PutCardToBattlefield.cs" />
-    <Compile Include="Core\Effects\PutCounterOnTargetAndFightWithCreature.cs" />
+    <Compile Include="Core\Effects\PutCounterOnYoursAndFightWithOpponentsCreature.cs" />
     <Compile Include="Core\Effects\PutDifferentAmountOfCountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutOwnerToBattlefield.cs" />
     <Compile Include="Core\Effects\PutSelectedCardIntoPlayIfOpponentGuessedWrong.cs" />
