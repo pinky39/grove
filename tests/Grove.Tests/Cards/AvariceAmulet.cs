@@ -21,6 +21,17 @@
 
         Equal(P1, C(amulet).Controller);        
       }
+
+      [Fact]
+      public void Scenario()
+      {
+        var amulet = C("Avarice Amulet");
+        Battlefield(P1, "Grizzly Bears", C("Brood Keeper").IsEquipedWith(amulet));
+
+        Battlefield(P2, "Island", "Island", "Island", "Island", "Grizzly Bears", "Grizzly Bears", "Juggernaut");
+
+        RunGame(2);
+      }
     }
   }
 }
