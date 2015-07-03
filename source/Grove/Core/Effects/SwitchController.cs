@@ -25,8 +25,7 @@
         {
           SourceEffect = this,
           SourceCard = Source.OwningCard,          
-          X = X,
-          IsStatic = true,
+          X = X,          
         };
       
       Source.OwningCard.AddModifier(sourceModifier, p);

@@ -119,6 +119,10 @@
       {
         if (Owner is Card)
         {
+          // if modifier is applied to a card in 
+          // the battlefield it should be removed 
+          // when the card it is aplied to leaves 
+          // the battlefield
           _lifetimes.Add(new OwningCardLifetime());
         }
 
@@ -127,8 +131,13 @@
           _lifetimes.Add(new EndOfTurnLifetime());
         }
 
-        if (SourceCard.Is().Attachment)
-        {
+        if (SourceCard.Is().Attachment &&
+          /* when attachment applies modifier to itself e.g Avarice Amulet this should not apply */
+            SourceCard != Owner)
+        {                              
+          // when modifier is given by an attachment
+          // it should become invalid when attachment
+          // becomes detached
           _lifetimes.Add(new AttachmentLifetime());
         }
       }

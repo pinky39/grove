@@ -23,7 +23,7 @@
       }
 
       [Fact]
-      public void Scenario()
+      public void ChangeControllerModifierShouldNotGetAttachmentLifetimeBug()
       {
         var amulet = C("Avarice Amulet");
         Battlefield(P1, "Grizzly Bears", C("Brood Keeper").IsEquipedWith(amulet));
