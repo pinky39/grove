@@ -26,13 +26,18 @@
           X = X
         };
 
-      var attacker = ValidEffectTargets.ToList()[0].Card();
-      var blocker = ValidEffectTargets.ToList()[1].Card();
-
+      var targets = ValidEffectTargets.ToList();
+      
+      var attacker = targets[0].Card();      
       attacker.AddModifier(new AddCounters(_counter, _count), p);
 
-      attacker.DealDamageTo(attacker.Power.GetValueOrDefault(), blocker, false);
-      blocker.DealDamageTo(blocker.Power.GetValueOrDefault(), attacker, false);
+      if (targets.Count > 1)
+      {
+        var blocker = ValidEffectTargets.ToList()[1].Card();
+
+        attacker.DealDamageTo(attacker.Power.GetValueOrDefault(), blocker, false);
+        blocker.DealDamageTo(blocker.Power.GetValueOrDefault(), attacker, false);
+      }      
     }
   }
 }
