@@ -43,7 +43,7 @@ Centaur Courser;C;2.17
 Chasm Skulker;R;4.00
 Chief Engineer;R;3.56
 Child of Night;C;2.40
-# Chord of Calling;R;3.78
+Chord of Calling;R;3.78
 Chronostutter;C;2.00
 Circle of Flame;U;2.30
 Clear a Path;C;1.75
@@ -97,6 +97,7 @@ Hoarding Dragon;R;3.80
 Hornet Nest;R;3.86
 Hornet Queen;R;3.81
 Hot Soup;U;3.29
+Hunt the Weak;C;3.00
 Hunter's Ambush;C;2.25
 Hushwing Gryff;R;3.81
 Hydrosurge;C;1.50
@@ -125,7 +126,7 @@ Llanowar Wastes;R;4.11
 Mahamoti Djinn;R;3.17
 Marked by Honor;C;2.00
 Mass Calcify;R;3.36
-# Master of Predicaments;R;3.58
+Master of Predicaments;R;3.58
 Meditation Puzzle;C;1.14
 Mercurial Pretender;R;2.58
 Meteorite;U;2.92
@@ -228,6 +229,7 @@ Turn to Frog;U;3.40
 Typhoid Rats;C;3.40
 Tyrant's Machine;C;1.50
 Ulcerate;U;4.17
+Undergrowth Scavenger;C;3.00
 Unmake the Graves;C;2.79
 Urborg, Tomb of Yawgmoth;R;4.46
 Venom Sliver;U;3.78
