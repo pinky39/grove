@@ -3,7 +3,7 @@
   using Infrastructure;
   using Xunit;
 
-  public class HuntTheWeek
+  public class HuntTheWeak
   {
     public  class Ai : AiScenario
     {
@@ -37,7 +37,7 @@
         Hand(P2, "Rescue");
         Battlefield(P2, dragon2, "Island");
 
-        RunGame(2);
+        RunGame(1);
 
         Equal(Zone.Battlefield, C(dragon1).Zone);
         Equal(Zone.Hand, C(dragon2).Zone);
