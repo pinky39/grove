@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using Effects;
 
@@ -20,7 +21,7 @@
             p.Text =
               "Put a +1/+1 counter on target creature you control. Then that creature fights target creature you don't control.";
             p.Effect = () => new PutCounterOnYoursAndFightWithOpponentsCreature(
-              () => new PowerToughness(1, 1), 1);
+              () => new PowerToughness(1, 1), 1).SetTags(EffectTag.Bounce);
 
             p.TargetSelector.AddEffect(
               trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield(),
