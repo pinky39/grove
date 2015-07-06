@@ -25,7 +25,7 @@
       }
 
       [Fact]
-      public void ChangeControllerEquipmentShouldNotGetBattlefieldBug()
+      public void EquipementShouldNotChangeBattlefieldsBug()
       {
         Hand(P1, "Endless Obedience");
         Battlefield(P1, "Brawler's Plate", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp", "Swamp");
