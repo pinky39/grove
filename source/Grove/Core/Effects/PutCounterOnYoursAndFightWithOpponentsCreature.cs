@@ -1,7 +1,6 @@
 ﻿namespace Grove.Effects
 {
   using System;
-  using System.Linq;
   using Modifiers;
 
   public class PutCounterOnYoursAndFightWithOpponentsCreature : Effect
@@ -19,25 +18,26 @@
 
     protected override void ResolveEffect()
     {
-      var p = new ModifierParameters
-        {
-          SourceEffect = this,
-          SourceCard = Source.OwningCard,
-          X = X
-        };
+      var yours = (Card) Targets.Effect[0];
+      var opponents = (Card) Targets.Effect[1];
 
-      var targets = ValidEffectTargets.ToList();
-      
-      var attacker = targets[0].Card();      
-      attacker.AddModifier(new AddCounters(_counter, _count), p);
-
-      if (targets.Count > 1)
+      if (IsValid(yours))
       {
-        var blocker = ValidEffectTargets.ToList()[1].Card();
+        var p = new ModifierParameters
+          {
+            SourceEffect = this,
+            SourceCard = Source.OwningCard,
+            X = X
+          };
 
-        attacker.DealDamageTo(attacker.Power.GetValueOrDefault(), blocker, false);
-        blocker.DealDamageTo(blocker.Power.GetValueOrDefault(), attacker, false);
-      }      
+        yours.AddModifier(new AddCounters(_counter, _count), p);
+
+        if (IsValid(opponents))
+        {
+          yours.DealDamageTo(yours.Power.GetValueOrDefault(), opponents, false);
+          opponents.DealDamageTo(opponents.Power.GetValueOrDefault(), yours, false);
+        }
+      }
     }
   }
 }

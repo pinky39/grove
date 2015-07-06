@@ -26,7 +26,7 @@
       }
 
       [Fact]
-      public void RescueDragonFromFightItShouldNotGetInvalidTargetBug()
+      public void IfOnlyYoursIsValidCreaturesShouldNotFight()
       {
         var dragon1 = C("Shivan Dragon");
         var dragon2 = C("Shivan Dragon");

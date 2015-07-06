@@ -861,7 +861,7 @@
       _attachments.Remove(card);
       card.AttachedTo = null;
 
-      if (card.Controller != Controller && card.Is().Equipment)
+      if (card.Is().Equipment && card.Controller != Controller && !card.Controller.Battlefield.Contains(card))
       {
         card.Controller.PutCardToBattlefield(card);
       }
