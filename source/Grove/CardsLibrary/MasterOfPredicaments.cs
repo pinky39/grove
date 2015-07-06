@@ -23,7 +23,10 @@
           p.Trigger(new OnDamageDealt(dmg =>
               dmg.IsDealtByOwningCard &&
                 dmg.IsCombat &&
-                dmg.IsDealtToPlayer));
+                dmg.IsDealtToPlayer)
+          {
+            Condition = ctx => ctx.You.Hand.Count > 0
+          });
             
           p.Effect = () => new PutSelectedCardIntoPlayIfOpponentGuessedWrong(
             question: "Has opponent selected a card with converted mana cost > 4?",

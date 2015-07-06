@@ -30,6 +30,15 @@
 
         Equal(Zone.Hand, C(bear).Zone);
       }
+
+      [Fact]
+      public void EmptyHandShouldNotGetBug()
+      {
+        Hand(P1);
+        Battlefield(P1, "Master of Predicaments");
+
+        RunGame(1);
+      }
     }
   }
 }
