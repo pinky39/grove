@@ -30,7 +30,10 @@
     }
 
     protected override void ResolveEffect()
-    {            
+    {                        
+      if (Controller.Hand.Count == 0)
+        return;      
+      
       Enqueue(new SelectCards(
         Controller,
         p =>
