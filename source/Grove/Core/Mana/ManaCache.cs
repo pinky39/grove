@@ -103,14 +103,18 @@
       var restricted = new HashSet<ManaUnit>();
       var allocated = new List<ManaUnit>();
 
-      foreach (var manaUnit in _units.Concat(GetAdditionalManaSources(canUseConvoke, canUseDelve)))
+      var units = _units
+        .Concat(GetAdditionalManaSources(canUseConvoke, canUseDelve))
+        .ToList();      
+      
+      foreach (var manaUnit in units)
       {
         if (IsAvailable(manaUnit, restricted, usage))
         {
           restricted.Add(manaUnit);
           allocated.Add(manaUnit);
 
-          RestrictUsingDifferentSourcesFromSameCard(manaUnit, restricted, _units);
+          RestrictUsingDifferentSourcesFromSameCard(manaUnit, restricted, units);
         }
       }
 

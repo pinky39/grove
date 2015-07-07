@@ -26,7 +26,7 @@
       }
 
       [Fact]
-      public void TryToSearchForDragonItShouldNotGetManaNotEnoughBug()
+      public void MysticShouldNotBeCountedForConvokeAndItsManaAbilityBug()
       {
         var dragon = C("Shivan Dragon");
 
