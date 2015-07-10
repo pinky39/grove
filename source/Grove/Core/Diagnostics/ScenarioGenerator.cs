@@ -33,8 +33,10 @@ public void Scenario()
       inner = inner.AppendLine(CreateZone("Hand", game.Players.Player2.Hand, 2));
       inner = inner.AppendLine(CreateBattlefield(game.Players.Player1.Battlefield, 1));
       inner = inner.AppendLine(CreateBattlefield(game.Players.Player2.Battlefield, 2));
+      inner = inner.AppendLine(CreateZone("Graveyard", game.Players.Player1.Graveyard, 1));
+      inner = inner.AppendLine(CreateZone("Graveyard", game.Players.Player2.Graveyard, 2));
       inner = inner.AppendLine(CreateZone("Library", game.Players.Player1.Library, 1));
-      inner = inner.AppendLine(CreateZone("Library", game.Players.Player2.Library, 2));
+      inner = inner.AppendLine(CreateZone("Library", game.Players.Player2.Library, 2));      
       inner = inner.AppendLine(String.Format("P1.Life={0};", game.Players.Player1.Life));
       inner = inner.AppendLine(String.Format("P2.Life={0};", game.Players.Player2.Life));
       inner = inner.AppendLine("RunGame(1);");

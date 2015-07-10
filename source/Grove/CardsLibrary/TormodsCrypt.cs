@@ -28,9 +28,7 @@
 
           p.TargetSelector.AddEffect(trg => trg.Is.Player());
           
-          p.TimingRule(new Any(
-            new OnEndOfOpponentsTurn(), 
-            new WhenTopSpellTargetsCardInGraveyard()));
+          p.TimingRule(new WhenTopSpellTargetsCardInGraveyard());
           
           p.TargetingRule(new EffectOpponent());          
         });
