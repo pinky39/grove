@@ -40,8 +40,8 @@
 
           p.TargetSelector.AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());
 
-          p.TargetingRule(new EffectCombatEquipment());
           p.TimingRule(new OnFirstDetachedOnSecondAttached());
+          p.TargetingRule(new EffectCombatEquipment());          
 
           p.ActivateAsSorcery = true;
         })
