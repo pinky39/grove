@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.RepetitionRules;
   using AI.TargetingRules;
   using AI.TimingRules;
@@ -32,7 +33,7 @@
 
           p.Effect = () => new ApplyModifiersToTargets(
             () => new AddPowerAndToughness(2, 2){UntilEot = true},
-            () => new AddStaticAbility(Static.Trample){UntilEot = true});
+            () => new AddStaticAbility(Static.Trample){UntilEot = true}).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

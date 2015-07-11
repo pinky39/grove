@@ -21,7 +21,7 @@
           p.Effect = () => new Attach(() => new IncreaseManaOutput(Mana.Any));
           p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Land).On.Battlefield());
 
-          p.TimingRule(new OnFirstMain());
+          p.TimingRule(new WhenYouNeedAdditionalMana(1));
           p.TargetingRule(new EffectLandEnchantment(ControlledBy.SpellOwner));
         })
         .TriggeredAbility(p =>

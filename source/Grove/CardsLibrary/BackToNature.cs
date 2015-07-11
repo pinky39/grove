@@ -17,6 +17,7 @@
         .Cast(p =>
         {
           p.Effect = () => new DestroyAllPermanents((c, ctx) => c.Is().Enchantment);
+          p.TimingRule(new WhenOpponentControllsPermanents(c => c.Is().Enchantment));
           p.TimingRule(new Any(
             new AfterOpponentDeclaresAttackers(), 
             new BeforeYouDeclareAttackers(),
