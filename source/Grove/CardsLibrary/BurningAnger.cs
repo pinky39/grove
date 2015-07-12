@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI;
   using AI.TargetingRules;
   using AI.TimingRules;
   using Costs;
@@ -31,6 +32,7 @@
 
                 ap.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
                 ap.TargetingRule(new EffectDealDamage(tp => tp.Card.Power.GetValueOrDefault()));
+                ap.TimingRule(new Any(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage), new OnSecondMain()));
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
               });
@@ -38,7 +40,7 @@
             p.TargetSelector.AddEffect(
               trg => trg.Is.Creature().On.Battlefield());
 
-            p.TimingRule(new OnFirstMain());
+            p.TimingRule(new OnSecondMain());
             p.TargetingRule(new EffectOrCostRankBy(x => -x.Power.GetValueOrDefault(), ControlledBy.SpellOwner));
           });
     }
