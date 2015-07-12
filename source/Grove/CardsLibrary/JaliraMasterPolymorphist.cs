@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
 
@@ -38,6 +39,9 @@
               toZone: Zone.Library,
               filter: c => c.Is().Creature && !c.Is().Legendary);
 
+            p.TimingRule(new Any(
+              new OnEndOfOpponentsTurn(), 
+              new WhenOwningCardWillBeDestroyed()));
             p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
           });
     }
