@@ -43,7 +43,7 @@
 
     private void CounterSpell(Effect spell)
     {
-      if (spell == null)
+      if (spell == null || !Stack.HasSpellWithSource(spell.Source.SourceCard))
         return;
 
       Stack.Counter(spell);

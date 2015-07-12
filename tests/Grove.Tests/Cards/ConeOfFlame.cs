@@ -46,6 +46,18 @@
         Equal(0, P2.Graveyard.Creatures.Count());
         Equal(20, P2.Life);
       }
+
+      [Fact]
+      public void CounteringConeTwiceShouldNotGetBug()
+      {
+        P1.Life = 1;
+        Battlefield(P1, "Mountain", "Plains", "Plains", "Mountain", "Plains");
+        Hand(P1, "Cone of Flame");
+
+        Battlefield(P2, "Venom Sliver", "Diffusion Sliver", "Illusory Angel");
+
+        RunGame(2);
+      }
     }
   }
 }
