@@ -1,6 +1,7 @@
 ﻿namespace Grove.CardsLibrary
 {
   using System.Collections.Generic;
+  using AI.TimingRules;
   using Effects;
   using Triggers;
 
@@ -17,6 +18,7 @@
         .Power(2)
         .Toughness(2)
         .SimpleAbilities(Static.Flash, Static.Flying)
+        .Cast(p => p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new OnEndOfOpponentsTurn())))
         .TriggeredAbility(p =>
           {
             p.Text =

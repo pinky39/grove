@@ -16,7 +16,7 @@
         Hand(P1, quickling);
         Battlefield(P1, "Island", "Island", wizard);
 
-        RunGame(1);
+        RunGame(2);
 
         Battlefield(P2, "Wall of Frost");
 
