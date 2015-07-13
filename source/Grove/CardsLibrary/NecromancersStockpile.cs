@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
 
@@ -41,6 +42,7 @@
 
             p.TargetSelector.AddCost(trg => trg.Is.Creature().In.OwnersHand());
             p.TargetingRule(new CostDiscardCard(c => c.Is("zombie") ? -1 : c.Score));
+            p.TimingRule(new Any(new DefaultCyclingTimingRule(), new OnEndOfOpponentsTurn()));
           });
     }
   }
