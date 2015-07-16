@@ -21,7 +21,7 @@
 
         P2.Life = 2;
 
-        RunGame(1);
+        RunGame(2);
 
         Equal(Zone.Battlefield, C(force).Zone);
         Equal(Zone.Library, C(forest).Zone);
