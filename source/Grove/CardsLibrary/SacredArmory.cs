@@ -18,7 +18,7 @@
         .ManaCost("{2}")
         .Type("Artifact")
         .Text("{2}: Target creature gets +1/+0 until end of turn.")
-        .FlavorText("")
+        .FlavorText("Arrive for worship. Leave for war.")
         .ActivatedAbility(p =>
           {
             p.Text = "{2}: Target creature gets +1/+0 until end of turn.";
@@ -28,10 +28,10 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
+            p.TargetingRule(new EffectPumpInstant(1, 0));
             p.TimingRule(new Any(
               new BeforeYouDeclareAttackers(),
-              new AfterOpponentDeclaresAttackers()));
-            p.TargetingRule(new EffectPumpInstant(1, 0));
+              new AfterOpponentDeclaresAttackers()));            
             p.RepetitionRule(new RepeatMaxTimes());
           });
     }

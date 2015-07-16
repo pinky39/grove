@@ -30,7 +30,7 @@
         Equal(15, P2.Life());
       }
 
-      [Fact(Skip = "To be fixed")]
+      [Fact]
       public void EnchantWithEnsoulArtifact2()
       {
         Hand(P1, "Ensoul Artifact");
@@ -43,6 +43,15 @@
         RunGame(1);
 
         Equal(13, P2.Life());
+      }
+
+      [Fact]
+      public void TryingEquipEnchantedEquipmentShouldNotGetStackOverflow()
+      {
+        Battlefield(P1, "Island", C("Shield of the Avatar").IsEnchantedWith("Ensoul Artifact"), "Island");
+
+        RunGame(1);
+
       }
     }
   }
