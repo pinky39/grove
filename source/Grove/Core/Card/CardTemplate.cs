@@ -488,5 +488,22 @@
 
       return ManaSourcePriorities.Land;
     }
+
+    public CardTemplate Loyality(int loyality)
+    {
+      _init.Add(cp => cp.Loyality = loyality);
+      
+      TriggeredAbility(p =>
+      {
+        p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
+                
+        p.Effect = () => new ApplyModifiersToSelf(() => new AddCounters(
+          () => new SimpleCounter(CounterType.Loyality), loyality));
+        
+        p.UsesStack = false;
+      });
+
+      return this;
+    }
   }
 }

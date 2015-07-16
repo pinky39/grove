@@ -2,14 +2,14 @@
 {
   using Infrastructure;
 
-  public class PreventAllDamageDealtToAndByCreature : DamagePrevention
+  public class PreventDamageDealtToAndByCreature : DamagePrevention
   {
     private readonly Card _creature;
     private readonly bool _combatOnly;
 
-    private PreventAllDamageDealtToAndByCreature() {}
+    private PreventDamageDealtToAndByCreature() {}
 
-    public PreventAllDamageDealtToAndByCreature(Card creature, bool combatOnly)
+    public PreventDamageDealtToAndByCreature(Card creature, bool combatOnly)
     {
       _creature = creature;
       _combatOnly = combatOnly;

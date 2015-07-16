@@ -65,7 +65,7 @@
       _activatedAbilities = new ActivatedAbilities(_base);
       _staticAbilities = new StaticAbilities(_base);
       _castRules = new CastRules(_base);
-      _combatRules = new CombatRules(_base);
+      _combatRules = new CombatRules(_base);      
 
       JoinedBattlefield = new TrackableEvent();
       LeftBattlefield = new TrackableEvent();
@@ -301,6 +301,16 @@
       get { return _strenght.Power; }
     }
 
+    public int? Loyality
+    {
+      get
+      {
+        return Zone == Zone.Battlefield 
+          ? CountersCount(CounterType.Loyality) 
+          : _base.Value.Loyality;
+      }
+    }
+
     public int Score
     {
       get
@@ -412,8 +422,8 @@
     }    
 
     public void ReceiveDamage(Damage damage)
-    {
-      if (!Is().Creature || !IsPermanent)
+    {      
+      if (!(Is().Creature || Is().Planeswalker) || !IsPermanent)
         return;
 
       if (HasProtectionFrom(damage.Source))
@@ -441,13 +451,20 @@
       if (wasRedirected)
         return;
 
-      Damage += damage.Amount;
-
-      if (Damage >= Toughness || damage.IsLeathal)
+      if (Is().Planeswalker)
       {
-        _hasLeathalDamage.Value = true;
+        RemoveCounters(CounterType.Loyality, damage.Amount);
       }
+      else
+      {
+        Damage += damage.Amount;
 
+        if (Damage >= Toughness || damage.IsLeathal)
+        {
+          _hasLeathalDamage.Value = true;
+        }  
+      }
+            
       if (damage.Source.Has().Lifelink)
       {
         var controller = damage.Source.Controller;

@@ -3,17 +3,17 @@
   using System;
   using Infrastructure;
 
-  public class PreventNextXDamageToCreatureOrPlayer : DamagePrevention
+  public class PreventNextXDamageToTarget : DamagePrevention
   {
     private readonly Trackable<int> _amountLeft;
-    private readonly object _creatureOrPlayer;
+    private readonly object _target;
 
-    private PreventNextXDamageToCreatureOrPlayer() {}
+    private PreventNextXDamageToTarget() {}
 
-    public PreventNextXDamageToCreatureOrPlayer(int amount, object creatureOrPlayer)
+    public PreventNextXDamageToTarget(int amount, object target)
     {
       _amountLeft = new Trackable<int>(amount);
-      _creatureOrPlayer = creatureOrPlayer;
+      _target = target;
     }
 
     public override int CalculateHash(HashCalculator calc)
@@ -30,7 +30,7 @@
 
     public override int PreventDamage(PreventDamageParameters p)
     {
-      if (p.Target != _creatureOrPlayer)
+      if (p.Target != _target)
         return 0;
 
       var prevented = Math.Min(_amountLeft, p.Amount);

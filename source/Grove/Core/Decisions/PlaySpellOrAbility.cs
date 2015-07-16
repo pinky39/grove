@@ -20,6 +20,11 @@
       {
         Result.Playable.Play();
       }
+
+      protected override void SetResultNoQuery()
+      {
+        Result = new ChosenPlayable { Playable = new Pass() };
+      }
     }
 
     private class MachineHandler : Handler, ISearchNode, IMachineExecutionPlan
@@ -35,6 +40,11 @@
 
       public override bool HasCompleted { get { return _executor.HasCompleted; } }
       bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
+
+      void IMachineExecutionPlan.SetResultNoQuery()
+      {
+        SetResultNoQuery();
+      }
 
       void IMachineExecutionPlan.ExecuteQuery()
       {

@@ -32,6 +32,7 @@
     public List<StaticAbility> StaticAbilities = new List<StaticAbility>();
     public CardText Text = String.Empty;
     public int? Toughness;
+    public int? Loyality;
     public int CombatCost;
     public CardType Type;
     private CardParameters() { }
@@ -71,7 +72,7 @@
         return Name;
       }
     }
-
+    
     public void Initialize(Card owningCard, Game game)
     {
       foreach (var ability in ActivatedAbilities)

@@ -3,7 +3,8 @@
   public interface IMachineExecutionPlan
   {
     bool ShouldExecuteQuery { get; }
+    void SetResultNoQuery();
     void ExecuteQuery();
-    void ProcessResults();
+    void SaveAndProcessResults();
   }
 }

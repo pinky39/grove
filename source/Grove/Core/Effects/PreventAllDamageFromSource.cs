@@ -26,7 +26,7 @@
           X = X
         };
 
-      var prevention = new Grove.PreventAllDamageFromSource(
+      var prevention = new Grove.PreventDamageFromSource(
         source, _preventCombatOnly);
 
       var modifier = new AddDamagePrevention(prevention) {UntilEot = true};

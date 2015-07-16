@@ -26,7 +26,7 @@
             fromZone: Zone.Hand,
             validator: c => c.Is().Creature && c.Is("soldier"), 
             text: "Select a Soldier creature card in your hand.", 
-            after: (card, game) => game.Combat.AddAttacker(card));
+            after: (card, game) => game.Combat.AddAttacker(card, null)); // TODO select player or planeswalker
         });
     }
   }

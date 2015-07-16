@@ -21,7 +21,7 @@
           SourceEffect = this,        
         };
 
-      var prevention = new Grove.PreventAllCombatDamage(_filter);
+      var prevention = new Grove.PreventCombatDamage(_filter);
       var modifier = new AddDamagePrevention(prevention) {UntilEot = true};      
       Game.AddModifier(modifier, mp);
     }

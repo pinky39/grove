@@ -22,8 +22,8 @@
           SourceEffect = this,
         };
 
-      var prevention = new PreventDamageToCreatureOrPlayer(
-        creatureOrPlayer: Source.OwningCard.AttachedTo,
+      var prevention = new PreventDamageToTarget(
+        target: Source.OwningCard.AttachedTo,
         amount: (creatureOrPlayer, ctx) => _amount((Card) (creatureOrPlayer)));
 
       var modifier = new AddDamagePrevention(prevention);

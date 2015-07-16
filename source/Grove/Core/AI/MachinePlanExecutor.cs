@@ -36,17 +36,14 @@
       {
         DecisionState = State.AfterQuery;
 
-        if (_decision.ShouldExecuteQuery == false)
+        if (_decision.ShouldExecuteQuery)
         {
-          DecisionState = State.Completed;
-          return;
-        }
-
-        _decision.ExecuteQuery();
+          _decision.ExecuteQuery();
+        }        
       }
 
       DecisionState = State.Completed;
-      _decision.ProcessResults();
+      _decision.SaveAndProcessResults();
     }
   }
 }

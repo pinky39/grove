@@ -33,7 +33,7 @@
     {
       var handler = GetHandler(game);
       return handler.Initialize(this, game);
-    }
+    }    
 
     private IDecisionHandler GetHandler(Game game)
     {

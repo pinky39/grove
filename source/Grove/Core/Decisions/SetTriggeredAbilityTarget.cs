@@ -44,8 +44,12 @@
         {
           effect.BeginResolve();
           effect.FinishResolve();
-        }
-        
+        }        
+      }
+
+      protected override void SetResultNoQuery()
+      {
+        Result = new ChosenTargets(null);
       }
     }
 
@@ -65,6 +69,11 @@
       public bool IsMax { get { return Controller.IsMax; } }
 
       bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
+
+      void IMachineExecutionPlan.SetResultNoQuery()
+      {
+        SetResultNoQuery();
+      }
 
       void IMachineExecutionPlan.ExecuteQuery()
       {

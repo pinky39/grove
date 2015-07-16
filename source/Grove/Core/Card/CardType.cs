@@ -20,6 +20,7 @@
     bool Token { get; }
     bool Aura { get; }
     bool NonBasicLand { get; }
+    bool Planeswalker { get; }
   }  
 
   public class CardType : IHashable, ITargetType
@@ -58,6 +59,7 @@
     private bool _isLegendary;
     private bool _isSorcery;
     private bool _isToken;
+    private bool _isPlaneswalker;
 
     private CardType(HashSet<string> superTypes, HashSet<string> baseTypes, HashSet<string> subTypes)
     {
@@ -175,6 +177,8 @@
       get { return Land && !BasicLand; }
     }
 
+    public bool Planeswalker { get { return _isPlaneswalker; } }
+
     private void Init()
     {
       var superAndMain = String.Join(" ", _superTypes
@@ -206,6 +210,7 @@
       _isInstant = Is("instant");
       _isSorcery = Is("sorcery");
       _isToken = Is("token");
+      _isPlaneswalker = Is("planeswalker");
     }
 
     private static string[] ParseTypeString(string typeString)

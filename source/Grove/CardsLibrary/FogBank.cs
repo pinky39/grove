@@ -18,7 +18,7 @@
           Static.Defender,
           Static.Flying)
         .StaticAbility(p => p.Modifier(() => new AddDamagePrevention(
-          modifier => new PreventAllDamageDealtToAndByCreature(modifier.SourceCard, combatOnly: true))));
+          modifier => new PreventDamageDealtToAndByCreature(modifier.SourceCard, combatOnly: true))));
     }
   }
 }

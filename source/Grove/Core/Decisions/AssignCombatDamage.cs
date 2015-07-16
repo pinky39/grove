@@ -31,7 +31,7 @@
 
       public override void ProcessResults()
       {
-        D._attacker.DistributeDamageToBlockers(Result);
+        Combat.AssignDamageToBlockers(D._attacker, Result);
       }
 
       protected override void SetResultNoQuery()

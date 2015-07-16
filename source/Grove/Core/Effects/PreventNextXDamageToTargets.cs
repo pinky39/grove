@@ -25,7 +25,7 @@
 
       foreach (var target in ValidEffectTargets)
       {
-        var prevention = new PreventNextXDamageToCreatureOrPlayer(_amount.Value, target);
+        var prevention = new PreventNextXDamageToTarget(_amount.Value, target);
         var modifier = new AddDamagePrevention(prevention) {UntilEot = true};
         Game.AddModifier(modifier, mp);
       }

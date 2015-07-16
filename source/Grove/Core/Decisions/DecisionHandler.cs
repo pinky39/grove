@@ -8,9 +8,10 @@
     protected TResult Result;
     private bool _hasCompleted;
 
-    protected virtual bool ShouldExecuteQuery { get { return true; } }
+    protected virtual bool ShouldExecuteQuery { get { return true; } }    
     public virtual bool HasCompleted { get { return _hasCompleted; } }
     public virtual bool IsPass { get { return false; } }
+    object IDecisionHandler.Result { get { return Result; } }
 
     public virtual void Execute()
     {
@@ -23,7 +24,7 @@
         SetResultNoQuery();
       }
 
-      ProcessResults();
+      SaveAndProcessResults();            
       _hasCompleted = true;
     }
 
@@ -55,7 +56,13 @@
       return Game.Scenario.GetResult<TResult>(D.Controller);
     }
 
-    public abstract void ProcessResults();
+    public void SaveAndProcessResults()
+    {
+      SaveDecisionResults();
+      ProcessResults();
+    }
+
+    public abstract void ProcessResults();    
 
     private void Initialize(TDecision decision, Game game)
     {

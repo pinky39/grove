@@ -7,7 +7,7 @@
   [Copyable]
   public class TurnEvents : GameObject, IReceive<AttackerJoinedCombatEvent>, IReceive<DamageDealtEvent>,
     IReceive<ZoneChangedEvent>, IReceive<BlockerJoinedCombatEvent>, IReceive<StepStartedEvent>,
-    IReceive<EffectPutOnStackEvent>, IReceive<SpellPutOnStackEvent>, IReceive<LifeChangedEvent>
+    IReceive<EffectPutOnStackEvent>, IReceive<SpellPutOnStackEvent>, IReceive<LifeChangedEvent>, IReceive<AbilityActivatedEvent>
   {
     private readonly TrackableList<Card> _attackers = new TrackableList<Card>();
     private readonly TrackableList<Card> _blockers = new TrackableList<Card>();
@@ -18,6 +18,7 @@
     private readonly Trackable<bool> _hasAnythingBeenPlayedOrActivatedDuringThisStep = new Trackable<bool>();
     private readonly TrackableList<LifeChangedEvent> _lifeChanged = new TrackableList<LifeChangedEvent>();
     private readonly Trackable<bool> _hasActivePlayerAttackedThisTurn = new Trackable<bool>();
+    private readonly TrackableList<Card> _planeswalkerActivations = new TrackableList<Card>();
 
     public bool HasAnythingBeenPlayedOrActivatedDuringThisStep
     {
@@ -82,6 +83,14 @@
       _changedZone.Add(message);
     }
 
+    public void Receive(AbilityActivatedEvent e)
+    {
+      if (e.Ability.OwningCard.Is().Planeswalker)
+      {
+        _planeswalkerActivations.Add(e.Ability.OwningCard);
+      }
+    }
+
     public void Initialize(Game game)
     {
       Game = game;
@@ -96,6 +105,7 @@
       _hasAnythingBeenPlayedOrActivatedDuringThisStep.Initialize(ChangeTracker);
       _hasActivePlayerPlayedAnySpell.Initialize(ChangeTracker);
       _hasActivePlayerAttackedThisTurn.Initialize(ChangeTracker);
+      _planeswalkerActivations.Initialize(ChangeTracker);
     }
 
     public bool HasAttacked(Card card)
@@ -126,6 +136,11 @@
     public bool HasLostLife(Player player)
     {
       return _lifeChanged.Any(x => x.Player == player && x.IsLifeLoss);
+    }   
+
+    public bool HasAnyLoyalityAbilityBeenActivated(Card card)
+    {
+      return _planeswalkerActivations.Contains(card);
     }
   }
 }

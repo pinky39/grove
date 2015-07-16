@@ -39,7 +39,7 @@
 
       foreach (var target in ValidEffectTargets)
       {
-        var prevention = new PreventDamageToCreatureOrPlayer(target, sourceRestriction: (c, ctx) => c.HasColor(color));
+        var prevention = new PreventDamageToTarget(target, sourceSelector: (c, ctx) => c.HasColor(color));
         var modifier = new AddDamagePrevention(prevention) {UntilEot = true};
         Game.AddModifier(modifier, mp);
       }

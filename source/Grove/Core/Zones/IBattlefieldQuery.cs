@@ -13,5 +13,6 @@
     IEnumerable<Card> Lands { get; }
     IEnumerable<Card> Legends { get; }
     IEnumerable<CardColor> PermanentsColors { get; }
+    IEnumerable<Card> Planewalkers { get; }
   }
 }
