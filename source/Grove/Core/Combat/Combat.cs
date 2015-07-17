@@ -12,6 +12,7 @@
   {
     private readonly TrackableList<Attacker> _attackers = new TrackableList<Attacker>();
     private readonly TrackableList<Blocker> _blockers = new TrackableList<Blocker>();
+    private readonly TrackableList<AssignedDamage> _assignedDamage = new TrackableList<AssignedDamage>();
 
     public IEnumerable<Attacker> Attackers { get { return _attackers; } }
     public IEnumerable<Blocker> Blockers { get { return _blockers; } }
@@ -31,28 +32,58 @@
     {
       Game = game;
 
-      _attackers.Initialize(game.ChangeTracker);
-      _blockers.Initialize(game.ChangeTracker);
+      _attackers.Initialize(ChangeTracker);
+      _blockers.Initialize(ChangeTracker);
+      _assignedDamage.Initialize(ChangeTracker);
     }
 
-    public void AssignCombatDamage(bool firstStrike = false)
+    public void DistributeCombatDamage(bool firstStrike = false)
     {
-      var blockers = firstStrike
+      var blockers = (firstStrike
         ? _blockers.Where(x => x.Card.HasFirstStrike)
-        : _blockers.Where(x => x.Card.HasNormalStrike);
+        : _blockers.Where(x => x.Card.HasNormalStrike))
+        .ToList();
 
-      var attackers = firstStrike
+      var attackers = (firstStrike
         ? _attackers.Where(x => x.Card.HasFirstStrike)
-        : _attackers.Where(x => x.Card.HasNormalStrike);
+        : _attackers.Where(x => x.Card.HasNormalStrike))
+        .ToList();
 
       foreach (var blocker in blockers)
       {
-        blocker.DistributeDamageToAttacker();
+        if (blocker.Attacker == null)
+          continue;
+
+        _assignedDamage.Add(new AssignedDamage(
+          blocker.Card.CalculateCombatDamageAmount(), 
+          blocker.Card, 
+          blocker.Attacker.Card));                
       }
 
       foreach (var attacker in attackers)
       {
-        attacker.DistributeDamageToBlockers();
+        Enqueue(new AssignCombatDamage(
+          Players.Attacking,
+            attacker));                
+      }
+    }
+
+    public void AssignDamageToBlockers(Attacker attacker, DamageDistribution distribution)
+    {
+       foreach (var blocker in attacker.Blockers)
+      {
+        _assignedDamage.Add(new AssignedDamage(
+          distribution[blocker], 
+          blocker.Attacker.Card,
+          blocker.Card));
+      }
+      
+      if (attacker.HasTrample || attacker.AssignsDamageAsThoughItWasntBlocked || attacker.IsBlocked == false)
+      {
+        _assignedDamage.Add(new AssignedDamage(
+          amount: attacker.Card.CalculateCombatDamageAmount() - distribution.Total,
+          source: attacker.Card,
+          target: attacker.Planeswalker ?? (IDamageable) Players.Defending));                
       }
     }
 
@@ -68,26 +99,24 @@
       }
 
       return false;
-    }
+    }    
 
     public void DealAssignedDamage()
-    {
-      foreach (var attacker in _attackers)
+    {     
+      foreach (var assignedDamage in _assignedDamage)
       {
-        attacker.DealAssignedDamage();
+        assignedDamage.Source.DealDamageTo(
+          assignedDamage.Amount, 
+          assignedDamage.Target, 
+          isCombat: true);
       }
-
-      foreach (var blocker in _blockers)
-      {
-        blocker.DealAssignedDamage();
-      }
-
-      DefendingPlayer.DealAssignedDamage();
+      
+      _assignedDamage.Clear();
     }
 
-    public void AddAttacker(Card card)
+    public void AddAttacker(Card card, Card planeswalker)
     {
-      var attacker = CreateAttacker(card);
+      var attacker = CreateAttacker(card, planeswalker);
       _attackers.Add(attacker);
 
       if (!card.Has().Vigilance)
@@ -283,9 +312,9 @@
       return false;
     }
 
-    private Attacker CreateAttacker(Card card)
+    private Attacker CreateAttacker(Card card, Card planeswalker)
     {
-      return new Attacker(card, Game);
+      return new Attacker(card, planeswalker, Game);
     }
 
     private Blocker CreateBlocker(Card blocker, Attacker attacker)
@@ -296,6 +325,25 @@
     private Attacker FindAttacker(Card cardAttacker)
     {
       return _attackers.FirstOrDefault(a => a.Card == cardAttacker);
+    }
+
+    [Copyable]
+    public class AssignedDamage
+    {
+      public readonly int Amount;
+      public readonly Card Source;
+      public readonly IDamageable Target;
+
+      private AssignedDamage() { }
+
+      public AssignedDamage(int amount, Card source, IDamageable target)
+      {
+        Amount = amount;
+        Source = source;
+        Target = target;
+      }
+
+      public bool IsLeathal { get { return Source.Has().Deathtouch; } }
     }
   }
 }

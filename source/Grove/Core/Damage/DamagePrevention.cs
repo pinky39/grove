@@ -4,6 +4,8 @@
 
   public abstract class DamagePrevention : GameObject, IHashable
   {
+    protected Player Controller;
+    
     public virtual int CalculateHash(HashCalculator calc)
     {
       return GetType().GetHashCode();
@@ -15,6 +17,7 @@
     {
       Game = game;
       Modifier = modifier;
+      Controller = modifier.SourceCard.Controller;
 
       Initialize();
     }
@@ -41,6 +44,13 @@
       private readonly PreventDamageParameters _pdp;
       private readonly DamagePrevention _damagePrevention;
       private readonly Game _game;
+
+      public int AmountDealt
+      {
+        get { return _pdp.Amount; }
+      }
+
+      public Player You { get { return _damagePrevention.Controller; } }
 
       public Context(PreventDamageParameters pdp, DamagePrevention damagePrevention, Game game)
       {

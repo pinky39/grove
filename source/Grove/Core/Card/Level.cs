@@ -3,7 +3,7 @@
   using Events;
   using Infrastructure;
   using Modifiers;
-
+  
   public class Level : Characteristic<int?>, IAcceptsCardModifier
   {
     private readonly CardBase _cardBase;

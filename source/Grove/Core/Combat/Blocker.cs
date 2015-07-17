@@ -6,8 +6,7 @@
   using Grove.Infrastructure;
 
   public class Blocker : GameObject, IHashable
-  {
-    private readonly TrackableList<DamageFromSource> _assignedDamage = new TrackableList<DamageFromSource>();
+  {    
     private readonly Trackable<Attacker> _attacker;
     private readonly Trackable<int> _damageAssignmentOrder = new Trackable<int>();
 
@@ -20,8 +19,7 @@
 
       _attacker = new Trackable<Attacker>(attacker);
       _attacker.Initialize(ChangeTracker);
-
-      _assignedDamage.Initialize(ChangeTracker);
+      
       _damageAssignmentOrder.Initialize(ChangeTracker);
     }
 
@@ -29,17 +27,7 @@
     public Card Card { get; private set; }
     public Player Controller { get { return Card.Controller; } }
 
-    public int DamageAssignmentOrder { get { return _damageAssignmentOrder.Value; } set { _damageAssignmentOrder.Value = value; } }
-
-    public bool HasAssignedLeathalDamage
-    {
-      get
-      {
-        return Card.HasLeathalDamage ||
-          _assignedDamage.Sum(x => x.Amount) + Card.Damage >= Card.Toughness ||
-            _assignedDamage.Any(x => x.IsLeathal);
-      }
-    }
+    public int DamageAssignmentOrder { get { return _damageAssignmentOrder.Value; } set { _damageAssignmentOrder.Value = value; } }    
 
     private bool HasAttacker { get { return Attacker != null; } }
 
@@ -51,41 +39,8 @@
     {
       return HashCalculator.Combine(
         calc.Calculate(Card),
-        DamageAssignmentOrder,
-        calc.Calculate(_assignedDamage));
-    }
-
-    public void AssignDamage(DamageFromSource damage)
-    {
-      _assignedDamage.Add(damage);
-    }
-
-    public void ClearAssignedDamage()
-    {
-      _assignedDamage.Clear();
-    }
-
-    public void DealAssignedDamage()
-    {
-      foreach (var damage in _assignedDamage)
-      {
-        damage.Source.DealDamageTo(damage.Amount, Card, isCombat: true);
-      }
-
-      ClearAssignedDamage();
-    }
-
-    public void DistributeDamageToAttacker()
-    {
-      if (Attacker != null)
-      {
-        var damage = new DamageFromSource(
-          amount: Card.CalculateCombatDamageAmount(),
-          source: Card);
-
-        Attacker.AssignDamage(damage);
-      }
-    }
+        DamageAssignmentOrder);
+    }                
 
     public void RemoveAttacker()
     {

@@ -200,6 +200,6 @@
     public static bool CanAttackerKillAnyBlocker(Card attacker, IEnumerable<Card> blockers)
     {
       return blockers.Any(blocker => CanBlockerBeDealtLeathalCombatDamage(attacker, blocker));
-    }
+    }    
   }
 }

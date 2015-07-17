@@ -17,18 +17,41 @@
         controller, () => new UiHandler(), () => new MachineHandler(), () => new ScenarioHandler(),
         () => new PlaybackHandler()) {}
 
-    private abstract class Handler : DecisionHandler<DeclareAttackers, ChosenCards>
+    private abstract class Handler : DecisionHandler<DeclareAttackers, ChosenAttackers>
     {
+      private List<Card> _creaturesThatMustAttack;
+      private List<Card> _planeswalkers;
+
+      protected List<Card> CreaturesThatMustAttack
+      {
+        get
+        {
+          return _creaturesThatMustAttack ?? (_creaturesThatMustAttack = 
+            D.Controller.Battlefield.CreaturesThatCanAttack
+              .Where(x => x.Has().AttacksEachTurnIfAble && x.CombatCost == 0)
+              .ToList());
+        }
+      }
+
+      protected List<Card> Planeswalkers
+      {
+        get
+        {
+          return _planeswalkers ?? (_planeswalkers =
+            D.Controller.Opponent.Battlefield.Where(x => x.Is().Planeswalker)
+            .OrderBy(x => -x.Score)
+            .ToList());
+        }
+      }      
+
       protected override bool ShouldExecuteQuery { get { return D.Controller.Battlefield.HasCreaturesThatCanAttack; } }
 
       public override void ProcessResults()
-      {
-        AddCreaturesThatMustAttack();
-        
+      {        
         foreach (var attacker in Result)
         {
-          var combatCost = attacker.CombatCost;
-          if (attacker.CanAttack && (combatCost == 0 || D.Controller.HasMana(combatCost)))
+          var combatCost = attacker.Card.CombatCost;
+          if (attacker.Card.CanAttack && (combatCost == 0 || D.Controller.HasMana(combatCost)))
           {
             // pay for each attacker seperately
             // if there are some attackers which are
@@ -36,13 +59,13 @@
             // to pay combatcost for others, then they will
             // not be added.            
             if (combatCost > 0)
-            {              
+            {
               D.Controller.Consume(combatCost.Colorless(),
                 ManaUsage.Any);
             }
 
-            Combat.AddAttacker(attacker);
-          }          
+            Combat.AddAttacker(attacker.Card, attacker.Planeswalker);
+          }
         }
 
         Publish(new AttackersDeclaredEvent(Combat.Attackers));
@@ -50,32 +73,18 @@
 
       protected override void SetResultNoQuery()
       {
-        Result = new ChosenCards();
-      }
-
-      private void AddCreaturesThatMustAttack()
-      {
-        var creaturesThatMustAttack = D.Controller.Battlefield
-          .CreaturesThatCanAttack.Where(x => x.Has().AttacksEachTurnIfAble && x.CombatCost == 0);
-
-        foreach (var creature in creaturesThatMustAttack)
-        {
-          if (!Result.Contains(creature))
-          {
-            Result.Add(creature);
-          }
-        }
-      }
+        Result = new ChosenAttackers();
+      }     
     }
 
     private class MachineHandler : Handler, ISearchNode, IMachineExecutionPlan
     {
       private readonly MachinePlanExecutor _executor;
-      private List<List<Card>> _declarations;
+      private List<ChosenAttackers> _declarations;
 
       public MachineHandler()
       {
-        Result = new ChosenCards();
+        Result = new ChosenAttackers();
         _executor = new MachinePlanExecutor(this);
       }
 
@@ -84,6 +93,11 @@
       public override bool HasCompleted { get { return _executor.HasCompleted; } }
 
       bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
+
+      void IMachineExecutionPlan.SetResultNoQuery()
+      {
+        SetResultNoQuery();
+      }
 
       void IMachineExecutionPlan.ExecuteQuery()
       {
@@ -120,6 +134,7 @@
       protected override void Initialize()
       {
         _executor.Initialize(ChangeTracker);
+        base.Initialize();
       }
 
       protected override void ExecuteQuery()
@@ -127,43 +142,63 @@
         Ai.SetBestResult(this);
       }
 
-      private List<List<Card>> GetAttackersDeclarations()
-      {
-        var results = new List<List<Card>>();
-        var noAttackers = new List<Card>();
+      private List<ChosenAttackers> GetAttackersDeclarations()
+      {                
+        var results = new List<ChosenAttackers>();
+        
+        // First choice: only attackers that must attack
+        results.Add(SelectAttackTarget(CreaturesThatMustAttack));
 
-        results.Add(noAttackers);
-
-        var allAttackers = RemoveAttackersIfWeCannotAffordToPayCombatCost(
+        var everyCreatureThatCanAttack = RemoveAttackersIfWeCannotAffordToPayCombatCost(
           Controller.Battlefield.CreaturesThatCanAttack.ToList());
 
-        if (allAttackers.Count > 0)
+        if (everyCreatureThatCanAttack.Count > CreaturesThatMustAttack.Count)
         {
           var parameters = new AttackStrategyParameters
             {
-              AttackerCandidates = allAttackers,
+              AttackerCandidates = everyCreatureThatCanAttack,
               BlockerCandidates = Defender.Battlefield.CreaturesThatCanBlock.ToList(),
               DefendingPlayersLife = Defender.Life
             };
 
-          var chosenAttackers = new AttackStrategy(parameters).ChooseAttackers();
+          var greedyAttackers = new AttackStrategy(parameters)
+            .ChooseAttackers()
+            .Concat(CreaturesThatMustAttack)
+            .Distinct()
+            .ToList();          
 
-          if (chosenAttackers.Count > 0)
+          if (greedyAttackers.Count > CreaturesThatMustAttack.Count)
           {
-            results.Add(chosenAttackers);
+            // Second choice: attackers selected by greedy attack strategy
+            results.Add(SelectAttackTarget(greedyAttackers));
           }
 
-          if (chosenAttackers.Count < allAttackers.Count)
-          {
-            results.Add(allAttackers);
+          if (greedyAttackers.Count < everyCreatureThatCanAttack.Count)
+          {            
+            // Third choice: every creature that can attack
+            results.Add(SelectAttackTarget(everyCreatureThatCanAttack));
           }
         }
 
         return results;
       }
 
+      private ChosenAttackers SelectAttackTarget(List<Card> selectedAttackers)
+      {
+        // TODO improve 
+        // Very simple strategy, every attacker attacks the most valuable planeswalker 
+        // if any
+        
+        var planeswalker = Planeswalkers          
+          .FirstOrDefault();
+
+        return planeswalker == null
+          ? new ChosenAttackers(selectedAttackers)
+          : new ChosenAttackers(selectedAttackers, planeswalker);
+      }
+
       private List<Card> RemoveAttackersIfWeCannotAffordToPayCombatCost(List<Card> allAttackers)
-      {        
+      {
         var attackersWithCombatCost = allAttackers
           .Where(x => x.CombatCost > 0)
           .OrderBy(x => -x.Power)
@@ -198,7 +233,18 @@
 
       protected override void ExecuteQuery()
       {
-        Result = (ChosenCards) Game.Recorder.LoadDecisionResult();
+        var chosenAttackers = Game.Recorder.LoadDecisionResult();
+
+        if (chosenAttackers is ChosenAttackers)
+        {
+          Result = (ChosenAttackers) chosenAttackers;
+        }
+        else
+        {
+          // For backward compatibility reasons
+          // so old savegames can be loaded.
+          Result = new ChosenAttackers((ChosenCards) chosenAttackers);
+        }
       }
     }
 
@@ -206,7 +252,7 @@
     {
       public ScenarioHandler()
       {
-        Result = new ChosenCards();
+        Result = new ChosenAttackers();
       }
 
       protected override bool ShouldExecuteQuery { get { return true; } }
@@ -214,66 +260,113 @@
       protected override void ExecuteQuery()
       {
         Result = GetNextScenarioResult()
-          ?? ChosenCards.None;
+          ?? new ChosenAttackers();
       }
     }
 
     private class UiHandler : Handler
     {
+      private bool IsValidAttackerDeclaration(ChosenAttackers attackers)
+      {
+        return CreaturesThatMustAttack.All(creature => attackers.Any(x => x.Card == creature));
+      }
+
       protected override void ExecuteQuery()
       {
+        var result = new ChosenAttackers();
         var availableMana = D.Controller.GetAvailableManaCount();
-        
-        var spec = new IsValidTargetBuilder()
-          .Is.Card(c => c.CanAttack && c.Controller == D.Controller && c.CombatCost <= availableMana)
-          .On.Battlefield();
 
-        var tp = new TargetValidatorParameters(
-          isValidTarget: spec.IsValidTarget,
-          isValidZone: spec.IsValidZone)
+        while (true)
+        {
+          var attackerSpec = new IsValidTargetBuilder()
+            .Is.Card(c => c.CanAttack && c.Controller == D.Controller && c.CombatCost <= availableMana)
+            .On.Battlefield();
+
+          var attackerTarget = new TargetValidatorParameters(
+            isValidTarget: attackerSpec.IsValidTarget,
+            isValidZone: attackerSpec.IsValidZone)
           {
-            MinCount = 0,
-            MaxCount = null,
-            Message = "Select attackers.",
+            MinCount = IsValidAttackerDeclaration(result) ? 0 : 1,
+            MaxCount = 1,
+            Message = "Select an attacker.",
             MustBeTargetable = false
           };
 
+          var validator = new TargetValidator(attackerTarget);
+          validator.Initialize(Game, D.Controller);
 
-        var validator = new TargetValidator(tp);
-        validator.Initialize(Game, D.Controller);
-
-        var selectParameters = new SelectTargetParameters
+          var selectAttacker = Ui.Dialogs.SelectTarget.Create(new SelectTargetParameters
           {
             Validator = validator,
             CanCancel = false,
-            TargetSelected = target =>
+            Instructions = IsValidAttackerDeclaration(result) ? null : "(Additional attackers required.)"
+          });
+
+          Ui.Shell.ShowModalDialog(selectAttacker, DialogType.Small, InteractionState.SelectTarget);
+
+          if (selectAttacker.Selection.Count == 0)
+          {
+            break;
+          }
+
+          var attacker = (Card) selectAttacker.Selection[0];
+
+          if (result.Any(a => a.Card == attacker))
+          {
+            availableMana += attacker.CombatCost;
+
+            Ui.Publisher.Publish(
+              new AttackerUnselected
+                {
+                  Attacker = attacker
+                });
+
+
+            result.Remove(attacker);
+            continue;
+          }
+
+          Card planeswalker = null;
+          if (Planeswalkers.Count > 0)
+          {
+            var planeswalkerSpec = new IsValidTargetBuilder()
+              .Is.Card(c => c.Is().Planeswalker && c.Controller == D.Controller.Opponent)
+              .On.Battlefield();
+
+            var planeswalkerTarget = new TargetValidatorParameters(
+              isValidTarget: planeswalkerSpec.IsValidTarget,
+              isValidZone: planeswalkerSpec.IsValidZone)
               {
-                var attacker = target.Card();
+                MinCount = 0,
+                MaxCount = 1,
+                Message = "Select a planeswalker to attack",
+                MustBeTargetable = false
+              };
 
-                availableMana -= attacker.CombatCost;
+            var planeswalkerValidator = new TargetValidator(planeswalkerTarget);
+            planeswalkerValidator.Initialize(Game, D.Controller);
 
-                Ui.Publisher.Publish(
-                  new AttackerSelected
-                    {
-                      Attacker = attacker
-                    });
-              },
-            TargetUnselected = target =>
+            var selectPlaneswalker = Ui.Dialogs.SelectTarget.Create(new SelectTargetParameters
+            {
+              Validator = planeswalkerValidator,              
+              Instructions = "(or press enter to attack the opponent)."
+            });
+
+            Ui.Shell.ShowModalDialog(selectPlaneswalker, DialogType.Small, InteractionState.SelectTarget);
+            planeswalker = (Card)selectPlaneswalker.Selection[0];
+          }
+
+          availableMana -= attacker.CombatCost;          
+          Ui.Publisher.Publish(
+            new AttackerSelected
               {
-                var attacker = target.Card();
-                availableMana += attacker.CombatCost;
+                Attacker = attacker
+              });
 
-                Ui.Publisher.Publish(
-                  new AttackerUnselected
-                    {
-                      Attacker = attacker
-                    });
-              }
-          };
+          result.Add(attacker, planeswalker);
+        }                                      
 
-        var dialog = Ui.Dialogs.SelectTarget.Create(selectParameters);
-        Ui.Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
-        Result = dialog.Selection.ToList();
+        Result = result;
       }
     }
   }

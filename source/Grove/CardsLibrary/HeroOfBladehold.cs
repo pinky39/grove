@@ -41,7 +41,7 @@
                 .Toughness(1)
                 .Type("Token Creature - Soldier")
                 .Colors(CardColor.White),
-              afterTokenComesToPlay: (token, ctx) => ctx.Combat.AddAttacker(token));
+              afterTokenComesToPlay: (token, ctx) => ctx.Combat.AddAttacker(token, null)); // TODO Select player or planeswalker
           });
     }
   }

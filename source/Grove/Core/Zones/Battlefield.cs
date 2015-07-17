@@ -22,6 +22,7 @@
     public IEnumerable<Card> CreaturesThatCanBlock { get { return Creatures.Where(x => x.CanBlock()); } }
     public bool HasCreaturesThatCanAttack { get { return Creatures.Any(card => card.CanAttack); } }
     public IEnumerable<Card> Legends { get { return this.Where(x => x.Is().Legendary); } }
+    public IEnumerable<Card> Planewalkers { get { return this.Where(x => x.Is().Planeswalker); } }
 
     public IEnumerable<CardColor> PermanentsColors
     {
@@ -32,6 +33,6 @@
           .Where(x => x != CardColor.Colorless && x != CardColor.None)
           .Distinct();
       }
-    }   
+    }    
   }
 }

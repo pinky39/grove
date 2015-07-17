@@ -3,6 +3,7 @@
   using System;
   using System.Collections.Generic;
   using System.Linq;
+  using Decisions;
   using Events;
   using Infrastructure;
   using Modifiers;
@@ -10,8 +11,6 @@
   public class Player : GameObject, ITarget, IDamageable, IHasLife, IModifiable
   {
     public readonly ManaCache ManaCache;
-
-    private readonly AssignedDamage _assignedDamage;
     private readonly Battlefield _battlefield;
     private readonly ContiniousEffects _continiousEffects = new ContiniousEffects();
     private readonly Deck _deck;
@@ -27,6 +26,7 @@
     private readonly Library _library;
     private readonly Life _life = new Life(20);
     private readonly TrackableList<IPlayerModifier> _modifiers = new TrackableList<IPlayerModifier>();
+    private readonly TrackableList<Emblem> _emblems = new TrackableList<Emblem>();
     private readonly SkipSteps _skipSteps = new SkipSteps();
 
     public Player(PlayerParameters p, PlayerType controllerType)
@@ -36,7 +36,6 @@
       Type = controllerType;
 
       ManaCache = new ManaCache(this);
-      _assignedDamage = new AssignedDamage(this);
       _battlefield = new Battlefield(this);
       _hand = new Hand(this);
       _graveyard = new Graveyard(this);
@@ -101,6 +100,8 @@
 
     public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
 
+    public IEnumerable<Emblem> Emblems { get { return _emblems; } } 
+
     public int Score
     {
       get
@@ -108,7 +109,8 @@
         var score = _life.Score +
           _battlefield.Score +
           _hand.Score +
-          _graveyard.Score;
+          _graveyard.Score +
+          _emblems.Sum(x => x.Score);
 
 
         if (HasLost)
@@ -138,7 +140,8 @@
       if (damage.Amount == 0)
         return;
 
-      var wasRedirected = Game.RedirectDamage(damage, this);
+      var wasRedirected = Game.RedirectDamage(damage, this) ||
+        RedirectDamageToPlaneswalker(damage);
 
       if (wasRedirected)
         return;
@@ -185,11 +188,10 @@
         Life,
         HasPriority.GetHashCode(),
         IsActive.GetHashCode(),
-        calc.Calculate(_assignedDamage),
         calc.Calculate(_battlefield),
         calc.Calculate(_graveyard),
         calc.Calculate(_library),
-        calc.Calculate(_hand),        
+        calc.Calculate(_hand),
         _landLimit.Value.GetValueOrDefault(),
         _landsPlayedCount.Value
         );
@@ -242,7 +244,6 @@
       _hasPriority.Initialize(ChangeTracker);
       ManaCache.Initialize(ChangeTracker);
       _modifiers.Initialize(ChangeTracker);
-      _assignedDamage.Initialize(ChangeTracker);
       _continiousEffects.Initialize(null, Game);
       _landLimit.Initialize(Game, null);
       _battlefield.Initialize(Game);
@@ -251,6 +252,7 @@
       _library.Initialize(Game);
       _exile.Initialize(Game);
       _skipSteps.Initialize(ChangeTracker);
+      _emblems.Initialize(ChangeTracker);
 
       LoadLibrary();
     }
@@ -262,7 +264,7 @@
 
     public int GetAvailableManaCount(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
       bool canUseDelve = false)
-    {      
+    {
       return GetAvailableMana(usage, canUseConvoke, canUseDelve).Count;
     }
 
@@ -277,19 +279,9 @@
       ManaCache.AddManaToPool(manaAmount, usageRestriction);
     }
 
-    public void AssignDamage(DamageFromSource damage)
-    {
-      _assignedDamage.Assign(damage);
-    }
-
     public void Consume(ManaAmount amount, ManaUsage usage, bool canUseConvoke = false, bool canUseDelve = false)
-    {      
-      ManaCache.Consume(amount, usage, canUseConvoke, canUseDelve);
-    }
-
-    public void DealAssignedDamage()
     {
-      _assignedDamage.Deal();
+      ManaCache.Consume(amount, usage, canUseConvoke, canUseDelve);
     }
 
     public void DiscardCard(Card card)
@@ -372,27 +364,8 @@
 
     public bool HasMana(ManaAmount amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
       bool canUseDelve = false)
-    {      
-      return ManaCache.Has(amount, usage, canUseConvoke, canUseDelve);
-    }    
-
-    public void MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard()
     {
-      var creatures = _battlefield.Creatures.ToList();
-
-      foreach (var creature in creatures)
-      {
-        if (creature.Toughness <= 0)
-        {
-          creature.Sacrifice();
-          continue;
-        }
-
-        if (creature.HasLeathalDamage || creature.Life <= 0)
-        {
-          creature.Destroy(allowToRegenerate: true);
-        }
-      }
+      return ManaCache.Has(amount, usage, canUseConvoke, canUseDelve);
     }
 
     public void PutCardToGraveyard(Card card)
@@ -586,47 +559,47 @@
       }
     }
 
-    [Copyable]
-    private class AssignedDamage : IHashable
+    private bool RedirectDamageToPlaneswalker(Damage damage)
     {
-      private readonly TrackableList<DamageFromSource> _assigned = new TrackableList<DamageFromSource>();
-      private readonly Player _player;
+      if (damage.IsCombat)
+        return false;
 
-      private AssignedDamage() {}
-
-      public AssignedDamage(Player player)
+      var planeswalkers = Battlefield.Planewalkers.ToList();
+      if (planeswalkers.Count > 0)
       {
-        _player = player;
-      }
+        var chosenCards = Execute<ChosenCards>(new SelectCards(Opponent, sp =>
+          {
+            sp.MinCount = 0;
+            sp.MaxCount = 1;
+            sp.Text = "Select planeswalker to redirect damage to.";
+            sp.Instructions = "(or press enter to deal damage to player)";
+            sp.ValidCards = planeswalkers;
+            sp.SetChooseDecisionResults(_ => new ChosenCards(planeswalkers
+              .OrderBy(x => -x.Score)
+              .First()));
+          }));
 
-      public int CalculateHash(HashCalculator calc)
-      {
-        return calc.Calculate(_assigned);
-      }
-
-      public void Initialize(ChangeTracker changeTracker)
-      {
-        _assigned.Initialize(changeTracker);
-      }
-
-      public void Assign(DamageFromSource damage)
-      {
-        _assigned.Add(damage);
-      }
-
-      public void Deal()
-      {
-        foreach (var damage in _assigned)
+        if (chosenCards.Count == 1)
         {
-          damage.Source.DealDamageTo(damage.Amount, _player, isCombat: true);
+          var chosenPlaneswalker = chosenCards[0];
+          chosenPlaneswalker.ReceiveDamage(damage);
+          return true;
         }
-        _assigned.Clear();
       }
 
-      public override string ToString()
-      {
-        return _assigned.Sum(x => x.Amount).ToString();
-      }
+      return false;
+    }
+
+    public void AddEmblem(Emblem emblem)
+    {
+      _emblems.Add(emblem);
+      Publish(new EmblemAddedEvent(emblem));
+    }
+
+    public void RemoveEmblem(Emblem emblem)
+    {
+      _emblems.Remove(emblem);
+      Publish(new EmblemRemovedEvent(emblem));
     }
   }
 }

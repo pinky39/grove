@@ -126,9 +126,7 @@
     }
 
     private bool ExecutePendingDecisions(Func<bool> shouldContinue)
-    {
-      var resultsToSave = new List<IDecisionHandler>();
-
+    {     
       var should = false;
 
       while (shouldContinue())
@@ -142,20 +140,13 @@
           }
 
           var decision = _decisionQueue.Dequeue();
-          CurrentHandler = decision.CreateHandler(Game);
+          CurrentHandler = decision.CreateHandler(Game);          
         }
 
-        CurrentHandler.Execute();
-        resultsToSave.Add(CurrentHandler);
-      }
-
-      // it's important to save the results only when decision queue is empty
-      // if its not the playback will not work, because the decisions not yet
-      // executed, can not be saved properly
-      foreach (var decision in resultsToSave)
-      {
-        decision.SaveDecisionResults();
-      }
+        // execute is called multiple times, during
+        // search tree generation        
+        CurrentHandler.Execute();        
+      }      
 
       return should;
     }
@@ -274,9 +265,9 @@
       firstStrikeCombatDamage = NewStep(Step.FirstStrikeCombatDamage,
         new Action[]
           {
-            () => Combat.AssignCombatDamage(firstStrike: true),
+            () => Combat.DistributeCombatDamage(firstStrike: true),
             DealAssignedCombatDamage,
-            () => Players.MoveDeadCreaturesToGraveyard()
+            () => CheckAndMovePermanentsToGraveyard()
           },
         next: () => Combat.AnyCreaturesWithNormalStrike()
           ? combatDamage
@@ -286,9 +277,9 @@
       combatDamage = NewStep(Step.CombatDamage,
         new Action[]
           {
-            () => Combat.AssignCombatDamage(),
+            () => Combat.DistributeCombatDamage(),
             DealAssignedCombatDamage,
-            () => Players.MoveDeadCreaturesToGraveyard()
+            () => CheckAndMovePermanentsToGraveyard()
           },
         next: () => endofCombat,
         getsPriority: true);
@@ -356,6 +347,93 @@
     private StepNode NewStep(Step step, bool getsPriority, Func<StepNode> next)
     {
       return new StepNode(step, CreateStates(new Action[] {}, getsPriority), next);
+    }
+
+    private void CheckAndMovePermanentsToGraveyard()
+    {
+      MovePermanentsToGraveyard(Players.Active);
+      MovePermanentsToGraveyard(Players.Passive);
+      
+      CheckLegendaryRule();
+      
+      CheckPlaneswalkerRule(Players.Active);
+      CheckPlaneswalkerRule(Players.Passive);
+    }
+
+    private void CheckPlaneswalkerRule(Player player)
+    {
+      /* This is a simplification of planeswalker rule -
+         the active player - passive player order is 
+         not respected (because decisions are always
+         processed last.
+         
+       * If we want strict ordering we should implement
+         this in 2 phases, first select everything
+         then move to graveyard in active, passive order
+      */
+
+      var duplicatePlaneswalkers = player.Battlefield
+        .Where(x => x.Is().Planeswalker)
+        .GetDuplicates(x => x.Name)
+        .ToArray();
+
+      for (int i = 0; i < duplicatePlaneswalkers.Length; i+=2)
+      {
+        Enqueue(new SelectCards(player, p =>
+          {
+            p.MinCount = 1;
+            p.MaxCount = 1;
+            p.ValidCards = new List<Card> {duplicatePlaneswalkers[i], duplicatePlaneswalkers[i + 1]};
+            p.Text = String.Format("{0}: Choose a planeswalker to sacrifice.", duplicatePlaneswalkers[i].Name);            
+            
+            p.SetChooseDecisionResults(candidates => 
+              new ChosenCards(candidates.OrderBy(x => x.Loyality).First()));
+            
+            p.SetProcessDecisionResults(results => 
+              results[0].Sacrifice());
+          }));
+      }
+    }
+
+    private void CheckLegendaryRule()
+    {
+      var duplicateLegends = Players
+        .SelectMany(x => x.Battlefield.Legends)
+        .GetDuplicates(card => card.Name).ToArray();
+
+      foreach (var legend in duplicateLegends)
+      {
+        legend.Sacrifice();
+      }
+    }
+
+    private void MovePermanentsToGraveyard(Player player)
+    {
+      var permanents = player.Battlefield.ToList();
+
+      foreach (var permanent in permanents)
+      {
+        if (permanent.Is().Creature)
+        {
+          if (permanent.Toughness <= 0)
+          {
+            permanent.Sacrifice();            
+          }
+
+          else if (permanent.HasLeathalDamage || permanent.Life <= 0)
+          {
+            permanent.Destroy(allowToRegenerate: true);
+          }
+        }
+
+        else if (permanent.Is().Planeswalker)
+        {
+          if (permanent.Loyality == 0)
+          {
+            permanent.Sacrifice();
+          }
+        }        
+      }
     }
 
     private void DealAssignedCombatDamage()
@@ -515,8 +593,8 @@
               // this executes after all decisions are processed
               // e.g after creature type for engineered plague has been
               // selected
-              
-              Players.MoveDeadCreaturesToGraveyard();
+
+              CheckAndMovePermanentsToGraveyard();
               return pushTriggeredActive;
             });
 

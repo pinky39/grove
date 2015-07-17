@@ -130,5 +130,24 @@
     {
       Game.Enqueue(decision);
     }
+
+    // Decisions are normally executed seperataly
+    // by the state machine to support generating
+    // multiple branches in a search tree.
+    // For this to work the code must be written 
+    // in a certain way. (It must be broken in 
+    // many small pieces so the statemachine
+    // can resume execution.)
+    // 
+    // For non-branching decisions we can cheat
+    // and execute decisions immediately, this
+    // simplifies the code where branching is
+    // not needed.
+    protected TResult Execute<TResult>(Decision decision)
+    {
+      var handler = decision.CreateHandler(Game);
+      handler.Execute();
+      return (TResult)handler.Result;
+    }
   }
 }

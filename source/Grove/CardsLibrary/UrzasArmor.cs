@@ -17,8 +17,8 @@
           "Tawnos's blueprints were critical to the creation of my armor. As he once sealed himself in steel, I sealed myself in a walking crypt.")
         .Cast(p => p.TimingRule(new OnFirstMain()))
         .StaticAbility(p => p.Modifier(() => new AddDamagePrevention(
-          modifier => new PreventDamageToCreatureOrPlayer(
-           creatureOrPlayer: modifier.SourceCard.Controller, 
+          modifier => new PreventDamageToTarget(
+           target: modifier.SourceCard.Controller, 
            amount: delegate { return 1; }))));
     }
   }

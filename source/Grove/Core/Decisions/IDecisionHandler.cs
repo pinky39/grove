@@ -2,6 +2,8 @@
 {
   public interface IDecisionHandler
   {
+    object Result { get; }
+    
     bool HasCompleted { get; }
     bool IsPass { get; }
     void Execute();

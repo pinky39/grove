@@ -19,7 +19,7 @@
         () => new MachineHandler(), () => new PlaybackHandler())
     {
       setParameters(_p);
-    }
+    }    
 
     private abstract class Handler : DecisionHandler<SelectCards, ChosenCards>
     {
@@ -58,7 +58,10 @@
 
       public override void ProcessResults()
       {
-        D._p.ProcessDecisionResults.ProcessResults(Result);
+        if (D._p.ProcessDecisionResults != null)
+        {
+          D._p.ProcessDecisionResults.ProcessResults(Result);
+        }
       }
 
       private bool IsValidCard(Card card)
@@ -69,6 +72,11 @@
       protected override void SetResultNoQuery()
       {
         Result = new ChosenCards(ValidTargets.Take(D._p.MinCount));
+      }
+
+      protected override void Initialize()
+      {                
+        _validCards = D._p.ValidCards;
       }
     }
 
@@ -99,10 +107,21 @@
       public string Text;
       public ICardValidator Validator;
       public Zone? Zone;
+      public List<Card> ValidCards;
 
       public void SetValidator(Func<Card, bool> validator)
       {
         Validator = new DelegateCardValidator(validator);
+      }      
+
+      public void SetChooseDecisionResults(Func<List<Card>, ChosenCards> chooseResults)
+      {
+        ChooseDecisionResults = new ChooseDecisionResultsHelper<List<Card>, ChosenCards>(chooseResults);
+      }
+
+      public void SetProcessDecisionResults(Action<ChosenCards> processResults)
+      {
+        ProcessDecisionResults = new ProcessDecisionResultsHelper<ChosenCards>(processResults);
       }
     }
 

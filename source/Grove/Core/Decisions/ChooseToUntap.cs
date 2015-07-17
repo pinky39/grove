@@ -59,6 +59,11 @@
         get { return ShouldExecuteQuery; }
       }
 
+      void IMachineExecutionPlan.SetResultNoQuery()
+      {
+        SetResultNoQuery();
+      }
+
       void IMachineExecutionPlan.ExecuteQuery()
       {
         ExecuteQuery();

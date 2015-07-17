@@ -1,6 +1,5 @@
 ﻿namespace Grove.Effects
 {
-  using System;
   using System.Collections.Generic;
 
   public class CreateTokens : Effect

@@ -162,7 +162,7 @@
 
     public ScenarioStep DeclareAttackers(params Card[] attackers)
     {
-      _results.Add(new DecisionResult(new ChosenCards(attackers), null));
+      _results.Add(new DecisionResult(new ChosenAttackers(attackers), null));
       return this;
     }
 

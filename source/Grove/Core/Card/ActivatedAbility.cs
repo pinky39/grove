@@ -144,6 +144,11 @@
         return false;
       }
 
+      if (OwningCard.Is().Planeswalker && Turn.Events.HasAnyLoyalityAbilityBeenActivated(OwningCard))
+      {
+        return false;
+      }
+
       if (_p.ActivateAsSorcery)
       {
         return Turn.Step.IsMain() &&

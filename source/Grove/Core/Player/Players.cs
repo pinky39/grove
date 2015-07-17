@@ -143,14 +143,7 @@
     {
       return this.SelectMany(x => x.Library.Concat(x.Hand).Concat(x.Battlefield).Concat(x.Graveyard).Concat(x.Exile));
     }
-
-    public void MoveDeadCreaturesToGraveyard()
-    {
-      Active.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
-      Passive.MoveCreaturesWithLeathalDamageOrZeroTougnessToGraveyard();
-      RespectLegendaryRule();
-    }
-
+    
     public void RemoveDamageFromPermanents()
     {
       foreach (var player in this)
@@ -165,18 +158,6 @@
       {
         player.RemoveRegenerationFromPermanents();
       }
-    }
-
-    private void RespectLegendaryRule()
-    {
-      var duplicateLegends = this
-        .SelectMany(x => x.Battlefield.Legends)
-        .GetDuplicates(card => card.Name).ToArray();
-
-      foreach (var legend in duplicateLegends)
-      {
-        legend.Sacrifice();
-      }
-    }
+    }   
   }
 }
