@@ -18,7 +18,7 @@
         RunGame(1);
 
         Equal(Zone.Battlefield, C(champion).Zone);
-      }      
+      }
     }
   }
 }

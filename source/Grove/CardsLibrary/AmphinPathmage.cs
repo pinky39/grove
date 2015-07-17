@@ -28,9 +28,9 @@
               () => new AddStaticAbility(Static.Unblockable) { UntilEot = true });
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
-
-          p.TimingRule(new BeforeYouDeclareAttackers());
-          p.TargetingRule(new EffectBigWithoutEvasions());
+          
+          p.TargetingRule(new EffectBigWithoutEvasions(c => !c.Has().Unblockable));
+          p.TimingRule(new BeforeYouDeclareAttackers());      
         });
     }
   }
