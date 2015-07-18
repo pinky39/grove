@@ -43,6 +43,7 @@
     public virtual bool HasSummoningSickness { get; protected set; }
     public string Set { get { return Card.Set; } }
     public Rarity? Rarity { get { return Card.Rarity; } }
+    public virtual int? Loyality { get; protected set; }
 
     public virtual void Dispose()
     {
@@ -70,6 +71,7 @@
       Update(() => Type != Card.Type, () => Type = Card.Type);
       Update(() => Damage != Card.Damage, () => Damage = Card.Damage);
       Update(() => IsTapped != Card.IsTapped, () => IsTapped = Card.IsTapped);
+      Update(() => Loyality != Card.Loyality, () => Loyality = Card.Loyality);
 
       Update(() => HasSummoningSickness != (Card.HasSummoningSickness && Card.Is().Creature && !Card.Has().Haste),
         () => HasSummoningSickness = Card.HasSummoningSickness && Card.Is().Creature && !Card.Has().Haste);

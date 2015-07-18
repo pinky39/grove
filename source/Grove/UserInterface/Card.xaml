@@ -13,7 +13,16 @@
                 </Style.Triggers>
             </Style>
 
-            <Style TargetType="StackPanel" x:Key="DealtDamage">
+      <Style TargetType="Grid" x:Key="Loyality">
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding Path=Loyality}" Value="{x:Null}">
+            <Setter Property="Visibility" Value="Hidden" />
+          </DataTrigger>
+
+        </Style.Triggers>
+      </Style>
+
+      <Style TargetType="StackPanel" x:Key="DealtDamage">
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Path=Damage}" Value="0">
                         <Setter Property="Visibility" Value="Hidden" />
@@ -179,7 +188,16 @@
                             <TextBlock Foreground="White" FontSize="22" FontFamily="Arial" Text="{Binding Path=Power}" />
                             <TextBlock Foreground="White" FontSize="22" FontFamily="Arial" Text="{Binding Path=Toughness, StringFormat=/{0}}" />
                         </StackPanel>
-                    </Grid>
+
+            <Grid Grid.Column="2" Style="{StaticResource Loyality}" Margin="0,0,0,0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+
+<!--              <Image Source="{UserInterface:Media 'loyalty.png'}" Width="67" Height="43"/>-->
+              <TextBlock Foreground="White" FontSize="22" FontFamily="Arial" Text="{Binding Path=Loyality}" HorizontalAlignment="Center" Margin="0,0,20,0" />
+            </Grid>
+          </Grid>
 
                 </StackPanel>
             </Border>
@@ -197,7 +215,16 @@
           </Style.Triggers>
         </Style>
 
-        <Style TargetType="StackPanel" x:Key="DealtDamage">
+      <Style TargetType="Grid" x:Key="Loyality">
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding Path=Loyality}" Value="{x:Null}">
+            <Setter Property="Visibility" Value="Hidden" />
+          </DataTrigger>
+
+        </Style.Triggers>
+      </Style>
+
+      <Style TargetType="StackPanel" x:Key="DealtDamage">
           <Style.Triggers>
             <DataTrigger Binding="{Binding Path=Damage}" Value="0">
               <Setter Property="Visibility" Value="Hidden" />
@@ -375,10 +402,15 @@
               <Image Grid.Column="2" Source="{Binding Path=Colors, Converter={x:Static UserInterface:Converters.CardColorToCardPtBoxImage}}" Margin="0,-18,-2,0"
                                  Visibility="{Binding Path=Type, Converter={x:Static UserInterface:Converters.CardTypeToVisibility}}"/>
               <StackPanel Grid.Column="2" Style="{StaticResource PowerThougness}" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-9,22,0">
-              <TextBlock Foreground="{Binding Path=PowerChange, Converter={x:Static UserInterface:Converters.StrenghtChangeToColor}, ConverterParameter={x:Static Colors.Black}}" FontSize="20" FontFamily="Beleren" Text="{Binding Path=Power}" />
-              <TextBlock Foreground="{Binding Path=ToughnessChange, Converter={x:Static UserInterface:Converters.StrenghtChangeToColor}, ConverterParameter={x:Static Colors.Black}}" FontSize="20" FontFamily="Beleren" Text="{Binding Path=Toughness, StringFormat=/{0}}" />
+                <TextBlock Foreground="{Binding Path=PowerChange, Converter={x:Static UserInterface:Converters.StrenghtChangeToColor}, ConverterParameter={x:Static Colors.Black}}" FontSize="20" FontFamily="Beleren" Text="{Binding Path=Power}" />
+                <TextBlock Foreground="{Binding Path=ToughnessChange, Converter={x:Static UserInterface:Converters.StrenghtChangeToColor}, ConverterParameter={x:Static Colors.Black}}" FontSize="20" FontFamily="Beleren" Text="{Binding Path=Toughness, StringFormat=/{0}}" />
               </StackPanel>
+
+            <Grid Grid.Column="2" Style="{StaticResource Loyality}" Margin="0,-22,0,0">             
+              <Image Source="{UserInterface:Media 'loyalty.png'}" Width="67" Height="43"/>
+              <TextBlock Foreground="White" FontSize="20" FontFamily="Beleren" Text="{Binding Path=Loyality}" HorizontalAlignment="Center" Margin="0,12,0,0" />
             </Grid>
+          </Grid>
 
           </StackPanel>
         </Border>

@@ -185,7 +185,12 @@
 
     public int Counters
     {
-      get { return _counters.Count; }
+      get
+      {
+        return Is().Planeswalker 
+          ? CountersCount(CounterType.Loyality) - _counters.Count
+          : _counters.Count;
+      }
     }
 
     public int Damage
@@ -305,7 +310,7 @@
     {
       get
       {
-        return Zone == Zone.Battlefield 
+        return Zone == Zone.Battlefield && Is().Planeswalker
           ? CountersCount(CounterType.Loyality) 
           : _base.Value.Loyality;
       }
