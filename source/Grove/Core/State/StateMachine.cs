@@ -383,7 +383,9 @@
           {
             p.MinCount = 1;
             p.MaxCount = 1;
+            p.Zone = Zone.Battlefield;
             p.ValidCards = new List<Card> {duplicatePlaneswalkers[i], duplicatePlaneswalkers[i + 1]};
+            p.SetValidator(c => p.ValidCards.Contains(c));
             p.Text = String.Format("{0}: Choose a planeswalker to sacrifice.", duplicatePlaneswalkers[i].Name);            
             
             p.SetChooseDecisionResults(candidates => 
