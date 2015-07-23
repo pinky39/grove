@@ -17,7 +17,7 @@
       _supportsRepetitions = supportsRepetitions;
     }
 
-    public override CanPayResult CanPayPartial()
+    public override CanPayResult CanPayPartial(bool needsToPayManaCost)
     {
       return new CanPayResult(
         canPay: _getAmount(Card) <= Card.Controller.Life,

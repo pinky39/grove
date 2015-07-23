@@ -2,7 +2,7 @@
 {
   public class DiscardThis : Cost
   {
-    public override CanPayResult CanPayPartial()
+    public override CanPayResult CanPayPartial(bool needsToPayManaCost)
     {
       return true;
     }

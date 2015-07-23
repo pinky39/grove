@@ -16,9 +16,9 @@
       return GetType().GetHashCode();
     }
 
-    public virtual CanPayResult CanPay()
+    public virtual CanPayResult CanPay(bool payManaCost)
     {
-      var result = CanPayPartial();
+      var result = CanPayPartial(payManaCost);
 
       if (result.CanPay && CanPayAdditionalCost())
         return result;
@@ -26,7 +26,7 @@
       return false;
     }
 
-    public abstract CanPayResult CanPayPartial();
+    public abstract CanPayResult CanPayPartial(bool needsToPayManaCost);
     public abstract void PayPartial(PayCostParameters p);
 
     public virtual void Pay(PayCostParameters p)

@@ -21,20 +21,11 @@
       _p = p;
     }
 
-    public bool HasXInCost
-    {
-      get { return _p.Cost.HasX; }
-    }
+    public bool HasXInCost { get { return _p.Cost.HasX; } }
 
-    public Card OwningCard
-    {
-      get { return _card; }
-    }
+    public Card OwningCard { get { return _card; } }
 
-    public Card SourceCard
-    {
-      get { return _card; }
-    }
+    public Card SourceCard { get { return _card; } }
 
     public void EffectCountered(SpellCounterReason reason)
     {
@@ -103,46 +94,46 @@
       _p.Cost.Initialize(CostType.Spell, card, game, _p.TargetSelector.Cost.FirstOrDefault());
     }
 
-    private bool CanCastCardType()
+    private bool CanBeCastAtThisTime()
     {
       if (_card.Is().Instant || _card.Has().Flash)
         return true;
 
-      if (!_card.Controller.IsActive || !Turn.Step.IsMain() || !Stack.IsEmpty)
-        return false;
-
-      return !_card.Is().Land || _card.Controller.CanPlayLands;
+      return _card.Controller.IsActive && Turn.Step.IsMain() && Stack.IsEmpty;
     }
 
-    public bool CanCast(out ActivationPrerequisites prerequisites)
+    private bool CanCastCardType()
     {
-      prerequisites = null;
+      return !_card.Is().Land || _card.Controller.CanPlayLands;
+    }    
 
-      if (CanCastCardType() == false)
-      {
-        return false;
-      }
-
-      if (_p.Condition(_card, Game) == false)
-      {
-        return false;
-      }
-
-      var result = _p.Cost.CanPay();
-
-      prerequisites = new ActivationPrerequisites
+    public ActivationPrerequisites GetPrerequisites(bool payManaCost, 
+      bool shouldFullyEvaluateEventIfCannotBePlayed)
+    {
+      var prerequisites = new ActivationPrerequisites
         {
-          CanPay = result.CanPay,
-          Description = _p.Text,
-          Selector = _p.TargetSelector,
-          MaxX = result.MaxX,
-          DistributeAmount = _p.DistributeAmount,
-          Card = _card,
-          Rules = _p.Rules
+          CanBePlayedAtThisTime = CanBeCastAtThisTime(),
+          CanBePlayedRegardlessofTime = CanCastCardType() && _p.Condition(_card, Game),
         };
 
-      return true;
+      // mana check is rather expensive, if 
+      // card cant be cast we can skip it
+      if (!prerequisites.CanBePlayed && !shouldFullyEvaluateEventIfCannotBePlayed)
+        return prerequisites;
+
+      var canPay = _p.Cost.CanPay(payManaCost);
+
+      prerequisites.CanBePayed = canPay.CanPay;
+      prerequisites.Description = _p.Text;
+      prerequisites.Selector = _p.TargetSelector;
+      prerequisites.MaxX = canPay.MaxX;
+      prerequisites.DistributeAmount = _p.DistributeAmount;
+      prerequisites.Card = _card;
+      prerequisites.Rules = _p.Rules;
+
+      return prerequisites;
     }
+
 
     public void Cast(ActivationParameters p)
     {
@@ -155,10 +146,14 @@
 
       var effect = _p.Effect().Initialize(parameters, Game);
 
-      if (p.PayCost)
-      {
-        _p.Cost.Pay(new PayCostParameters {Targets = p.Targets, X = p.X});
-      }
+      
+      _p.Cost.Pay(new PayCostParameters
+        {
+          Targets = p.Targets, 
+          X = p.X, 
+          PayManaCost = p.PayManaCost
+        });
+      
 
       if (p.SkipStack)
       {

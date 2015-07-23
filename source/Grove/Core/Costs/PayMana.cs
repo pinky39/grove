@@ -33,13 +33,13 @@
         : _amount.Remove((-change).Colorless());
     }
 
-    public override CanPayResult CanPay()
+    public override CanPayResult CanPay(bool payManaCost)
     {
-      var actualCost = GetManaCost();
+      var actualCost = payManaCost ? GetManaCost() : Mana.Zero;
 
       int? maxX = null;
       var maxRepetitions = 1;
-
+      
       var canPay = Controller.HasMana(
         actualCost,
         GetManaUsage(),
@@ -78,9 +78,9 @@
       return new CanPayResult(canPay, maxX, maxRepetitions);
     }
 
-    public override CanPayResult CanPayPartial()
+    public override CanPayResult CanPayPartial(bool needsToPayManaCost)
     {
-      return CanPay();
+      return CanPay(needsToPayManaCost);
     }
 
     public override void PayPartial(PayCostParameters p)
@@ -90,7 +90,7 @@
 
     public override void Pay(PayCostParameters p)
     {
-      var amount = GetManaCost();
+      var amount = p.PayManaCost ? GetManaCost() : Mana.Zero;
 
       if (_hasX)
       {

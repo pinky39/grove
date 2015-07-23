@@ -17,7 +17,7 @@
       _counterType = counterType;
     }
 
-    public override CanPayResult CanPayPartial()
+    public override CanPayResult CanPayPartial(bool needsToPayManaCost)
     {
       return true;
     }

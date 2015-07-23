@@ -64,16 +64,7 @@
         _executor = new MachinePlanExecutor(this);
       }
 
-      public override bool HasCompleted { get { return _executor.HasCompleted; } }
-
-      public bool IsMax { get { return Controller.IsMax; } }
-
-      bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
-
-      void IMachineExecutionPlan.SetResultNoQuery()
-      {
-        SetResultNoQuery();
-      }
+      public override bool HasCompleted { get { return _executor.HasCompleted; } }           
 
       void IMachineExecutionPlan.ExecuteQuery()
       {

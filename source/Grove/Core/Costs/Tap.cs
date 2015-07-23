@@ -4,7 +4,7 @@
 
   public class Tap : Cost
   {
-    public override CanPayResult CanPayPartial()
+    public override CanPayResult CanPayPartial(bool needsToPayManaCost)
     {
       if (Validator != null)
       {

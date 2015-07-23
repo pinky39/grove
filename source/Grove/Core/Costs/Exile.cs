@@ -13,7 +13,7 @@
       _fromGraveyard = fromGraveyard;
     }
 
-    public override CanPayResult CanPayPartial()
+    public override CanPayResult CanPayPartial(bool needsToPayManaCost)
     {
       if (Validator != null)
       {

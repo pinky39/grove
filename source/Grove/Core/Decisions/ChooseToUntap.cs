@@ -52,17 +52,7 @@
       public override bool HasCompleted
       {
         get { return _executor.HasCompleted; }
-      }
-
-      bool IMachineExecutionPlan.ShouldExecuteQuery
-      {
-        get { return ShouldExecuteQuery; }
-      }
-
-      void IMachineExecutionPlan.SetResultNoQuery()
-      {
-        SetResultNoQuery();
-      }
+      }    
 
       void IMachineExecutionPlan.ExecuteQuery()
       {

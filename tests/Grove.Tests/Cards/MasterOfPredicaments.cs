@@ -55,6 +55,28 @@
         Equal(Zone.Exile, C(restock).Zone);
         Equal(Zone.Hand, C(bear1).Zone);
         Equal(Zone.Hand, C(bear2).Zone);
+      }      
+    }
+
+    public class PredefineAi : PredefinedAiScenario
+    {
+      [Fact]
+      public void MaxXIs2WhenCastingCostIsNotPayed()
+      {
+        var master = C("Master of Predicaments");
+        var blaze = C("Blaze");
+        
+        Hand(P2, blaze);
+        Battlefield(P2, master, "Mountain", "Forest");
+
+        P1.Life = 6;
+
+        Exec(
+          At(Step.CombatDamage, turn: 2)
+            .Answer(true)); // Set wrong answer, blaze CC is 1. And is not > 4.
+
+        Equal(0, P1.Life);
+        Equal(2, Game.Turn.TurnCount);
       }
     }
   }

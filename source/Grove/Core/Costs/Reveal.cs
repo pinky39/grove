@@ -4,7 +4,7 @@
 
   public class Reveal : Cost
   {
-    public override CanPayResult CanPayPartial()
+    public override CanPayResult CanPayPartial(bool needsToPayManaCost)
     {
       return Card.Controller.Hand.Count > 0;      
     }

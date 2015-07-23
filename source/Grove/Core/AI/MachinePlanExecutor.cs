@@ -34,12 +34,8 @@
     {
       if (DecisionState == State.BeforeQuery)
       {
-        DecisionState = State.AfterQuery;
-
-        if (_decision.ShouldExecuteQuery)
-        {
-          _decision.ExecuteQuery();
-        }        
+        DecisionState = State.AfterQuery;        
+        _decision.ExecuteQuery();                
       }
 
       DecisionState = State.Completed;

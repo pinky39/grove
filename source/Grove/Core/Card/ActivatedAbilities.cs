@@ -88,8 +88,8 @@
           continue;
         }
 
-        ActivationPrerequisites prerequisites;
-        if (ability.CanActivate(out prerequisites))
+        var prerequisites = ability.GetPrerequisites();
+        if (prerequisites.CanBePlayedAndPayed)
         {
           prerequisites.Index = index;
           result.Add(prerequisites);

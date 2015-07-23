@@ -861,9 +861,19 @@
       return _castRules.IsGoodTarget(target, controller);
     }
 
-    public List<ActivationPrerequisites> CanCast()
+    public List<ActivationPrerequisites> CanCast(bool payManaCost = true)
     {
-      return _castRules.CanCast();
+      return _castRules
+        .GetPrerequisites(payManaCost, shouldFullyEvaluateEvenIfCannotBePlayed: false)
+        .Where(x => x.CanBePlayedAndPayed)
+        .ToList();
+    }
+
+    public List<ActivationPrerequisites> GetCastPrerequisites(bool payManaCost = true)
+    {
+      return _castRules
+        .GetPrerequisites(payManaCost, shouldFullyEvaluateEvenIfCannotBePlayed: true)
+        .ToList();
     }
 
     public void Cast(int index, ActivationParameters activationParameters)
@@ -895,7 +905,7 @@
     {
       var activationParameters = new ActivationParameters
         {
-          PayCost = false,
+          PayManaCost = false,
           SkipStack = true
         };
 
@@ -908,7 +918,7 @@
     {
       var activationParameters = new ActivationParameters
         {
-          PayCost = false,
+          PayManaCost = false,
           SkipStack = true
         };
 

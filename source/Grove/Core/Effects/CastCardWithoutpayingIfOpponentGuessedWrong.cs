@@ -6,20 +6,18 @@
   using Decisions;
   using Infrastructure;
 
-  internal class PutSelectedCardIntoPlayIfOpponentGuessedWrong : Effect,
+  internal class CastCardWithoutpayingIfOpponentGuessedWrong : Effect,
     IProcessDecisionResults<ChosenCards>, IChooseDecisionResults<List<Card>, ChosenCards>,
     IProcessDecisionResults<BooleanResult>, IChooseDecisionResults<BooleanResult>
   {
     private readonly string _question;
     private readonly Func<Card, bool, bool> _isCorrectAnswer;
     private readonly Func<Effect, bool> _chooseAnswer;
-    private readonly Trackable<Card> _selected = new Trackable<Card>();
-    private readonly Trackable<Card> _selectedTarget = new Trackable<Card>();
+    private readonly Trackable<Card> _selected = new Trackable<Card>();    
 
+    private CastCardWithoutpayingIfOpponentGuessedWrong() {}
 
-    private PutSelectedCardIntoPlayIfOpponentGuessedWrong() {}
-
-    public PutSelectedCardIntoPlayIfOpponentGuessedWrong(
+    public CastCardWithoutpayingIfOpponentGuessedWrong(
       string question,
       Func<Effect, bool> chooseAnswer,
       Func<Card, bool, bool> isCorrectAnswer)
@@ -45,15 +43,13 @@
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
             p.MinCount = 1;
-            p.MaxCount = 1;
-            p.AurasNeedTarget = true;
+            p.MaxCount = 1;            
           }));
     }
 
     protected override void Initialize()
     {
-      _selected.Initialize(ChangeTracker);
-      _selectedTarget.Initialize(ChangeTracker);
+      _selected.Initialize(ChangeTracker);      
     }
 
     public ChosenCards ChooseResult(List<Card> candidates)
@@ -63,13 +59,12 @@
           controller: Controller,
           candidates: candidates,
           count: 1,
-          aurasNeedTarget: true);
+          aurasNeedTarget: false);
     }
 
     public void ProcessResults(ChosenCards results)
     {
-      _selected.Value = results[0];
-      _selectedTarget.Value = results.Count > 1 ? results[1] : null;
+      _selected.Value = results[0];      
 
       Enqueue(new ChooseTo(Controller.Opponent, p =>
         {
@@ -84,13 +79,11 @@
       if (_isCorrectAnswer(_selected.Value, results.IsTrue))
         return;
 
-      if (_selectedTarget.Value == null)
-      {
-        _selected.Value.PutToBattlefield();
-        return;
-      }
-
-      _selected.Value.EnchantWithoutPayingCost(_selectedTarget.Value);
+      Enqueue(new CastCard(Controller, p =>
+        {
+          p.Card = _selected.Value;
+          p.PayManaCost = false;          
+        }));      
     }
 
     public BooleanResult ChooseResult()

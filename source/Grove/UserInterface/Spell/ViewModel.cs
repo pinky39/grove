@@ -47,8 +47,8 @@
             return;
           }
 
-          IsPlayable = Card.CanCast().Count(x => x.CanPay) > 0 ||
-            Card.CanActivateAbilities().Count(x => x.CanPay) > 0;
+          IsPlayable = Card.CanCast().Count > 0 ||
+            Card.CanActivateAbilities().Count > 0;
           break;
 
         case (InteractionState.SelectTarget):
@@ -77,8 +77,7 @@
 
     private PlayableActivator SelectActivation()
     {
-      var activations = Card.CanCast()
-        .Where(x => x.CanPay)
+      var activations = Card.CanCast()        
         .Select(prerequisites => new PlayableActivator
           {
             Prerequisites = prerequisites,
@@ -89,8 +88,7 @@
                 Index = prerequisites.Index
               }
           })
-        .Concat(Card.CanActivateAbilities()
-          .Where(x => x.CanPay)
+        .Concat(Card.CanActivateAbilities()          
           .Select(prerequisites => new PlayableActivator
             {
               Prerequisites = prerequisites,

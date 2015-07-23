@@ -77,29 +77,30 @@
         calc.Calculate(_p.Cost));
     }
 
-    public virtual bool CanActivate(out ActivationPrerequisites activationPrerequisites)
+    public ActivationPrerequisites GetPrerequisites()
     {
-      activationPrerequisites = null;
-
-      if (CanBeActivatedAtThisTime())
+      var prerequisites = new ActivationPrerequisites
       {
-        var result = CanPay();
+        CanBePlayedAtThisTime = CanBeActivatedAtThisTime(),                  
+      };
 
-        activationPrerequisites = new ActivationPrerequisites
-          {
-            CanPay = result.CanPay,
-            Card = OwningCard,
-            Description = Text,
-            Selector = _p.TargetSelector,
-            DistributeAmount = _p.DistributeAmount,
-            MaxX = result.MaxX,
-            Rules = _p.Rules,
-            MaxRepetitions = result.MaxRepetitions,
-          };
+      // mana check is rather expensive, if 
+      // card cant be cast we can skip it
+      if (!prerequisites.CanBePlayed)
+        return prerequisites;
 
-        return true;
-      }
-      return false;
+      var canPay = CanPay();
+
+      prerequisites.CanBePayed = canPay.CanPay;
+      prerequisites.Description = _p.Text;
+      prerequisites.Selector = _p.TargetSelector;
+      prerequisites.MaxX = canPay.MaxX;
+      prerequisites.DistributeAmount = _p.DistributeAmount;
+      prerequisites.Card = OwningCard;
+      prerequisites.Rules = _p.Rules;
+      prerequisites.MaxRepetitions = canPay.MaxRepetitions;
+
+      return prerequisites;
     }
 
     public override void Initialize(Card owningCard, Game game)
@@ -117,16 +118,19 @@
     protected void Pay(ActivationParameters p = null)
     {
       p = p ?? new ActivationParameters();
-
-      if (p.PayCost)
-      {
-        _p.Cost.Pay(new PayCostParameters{Targets =  p.Targets, X = p.X, Repeat = p.Repeat});
-      }
+      
+      _p.Cost.Pay(new PayCostParameters
+        {
+          Targets =  p.Targets, 
+          X = p.X, 
+          Repeat = p.Repeat, 
+          PayManaCost = p.PayManaCost
+        });      
     }
 
     protected CanPayResult CanPay()
     {
-      return _p.Cost.CanPay();
+      return _p.Cost.CanPay(payManaCost: true);
     }
 
     private bool CanBeActivatedAtThisTime()

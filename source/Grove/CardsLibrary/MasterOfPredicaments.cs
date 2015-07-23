@@ -25,7 +25,7 @@
               dmg.IsCombat &&
               dmg.IsDealtToPlayer));          
             
-          p.Effect = () => new PutSelectedCardIntoPlayIfOpponentGuessedWrong(
+          p.Effect = () => new CastCardWithoutpayingIfOpponentGuessedWrong(
             question: "Has opponent selected a card with converted mana cost > 4?",
             chooseAnswer: e => false,
             isCorrectAnswer: (card, answer) => card.ConvertedCost > 4 == answer);

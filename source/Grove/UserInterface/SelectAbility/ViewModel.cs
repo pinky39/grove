@@ -4,17 +4,19 @@
   using Infrastructure;
 
   public class ViewModel
-  {
+  {    
     private readonly List<CardText> _descriptions = new List<CardText>();
     private int _selectedIndex;
 
-    public ViewModel(IEnumerable<CardText> descriptions)
-    {
+    public ViewModel(IEnumerable<CardText> descriptions, bool canCancel = true)
+    {      
       _descriptions.AddRange(descriptions);
       _selectedIndex = -1;
+      CanCancel = canCancel;
     }
 
     public IEnumerable<CardText> Descriptions { get { return _descriptions; } }
+    public bool CanCancel { get; private set; }
 
     public bool WasCanceled { get; private set; }
 
@@ -29,14 +31,14 @@
     }
 
     public void Cancel()
-    {
+    {      
       WasCanceled = true;
       this.Close();
     }
 
     public interface IFactory
     {
-      ViewModel Create(IEnumerable<CardText> descriptions);
+      ViewModel Create(IEnumerable<CardText> descriptions, bool canCancel = true);
     }
   }
 }

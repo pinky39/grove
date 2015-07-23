@@ -26,7 +26,7 @@
 
         var abilitiesPrerequisites = card.CanActivateAbilities(ignoreManaAbilities: true);
 
-        foreach (var prerequisites in abilitiesPrerequisites.Where(x => x.CanPay))
+        foreach (var prerequisites in abilitiesPrerequisites)
         {                                        
           var playables = GeneratePlayables(
             prerequisites,
@@ -47,9 +47,9 @@
         if (card.IsVisibleToSearchingPlayer == false)
           continue;
 
-        var spellsPrerequisites = card.CanCast();
+        var spellsPrerequisites = card.CanCast();          
 
-        foreach (var prerequisites in spellsPrerequisites.Where(x => x.CanPay))
+        foreach (var prerequisites in spellsPrerequisites)
         {                    
           var playables = GeneratePlayables(
             prerequisites,
@@ -144,6 +144,34 @@
       FindPlayableAbilities(
         searchSpace: _player.Hand,
         result: result);
+
+      return result;
+    }
+
+    public List<IPlayable> GetPlayablesForSpell(Card card, 
+      bool respectTimingRules,
+      bool payManaCost)
+    {
+      var result = new List<IPlayable>();
+
+      IEnumerable<ActivationPrerequisites> spellsPrerequisites = 
+        card.GetCastPrerequisites(payManaCost).Where(x => x.CanBePlayedRegardlessofTime);
+
+      if (respectTimingRules)
+      {
+        spellsPrerequisites = spellsPrerequisites.Where(x => x.CanBePlayedAtThisTime);
+      }         
+
+      foreach (var prerequisites in spellsPrerequisites)
+      {                
+        var playables = GeneratePlayables(prerequisites,
+          () => new PlayableSpell
+            {
+              ActivationParameters = {PayManaCost = payManaCost}
+            });     
+                    
+        result.AddRange(playables);        
+      }
 
       return result;
     }

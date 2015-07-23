@@ -41,12 +41,12 @@
       throw new NotSupportedException("Aggregate cost cannot be child of another one.");
     }
 
-    public override CanPayResult CanPayPartial()
+    public override CanPayResult CanPayPartial(bool needsToPayManaCost)
     {
       throw new NotSupportedException("Aggregate cost cannot be child of another one.");
     }
 
-    public override CanPayResult CanPay()
+    public override CanPayResult CanPay(bool payManaCost)
     {
       var hasPayMana = HasPayMana();
 
@@ -56,7 +56,7 @@
       }
       
       var childResults = _costs
-        .Select(cost => cost.CanPayPartial())
+        .Select(cost => cost.CanPayPartial(payManaCost))
         .ToList();
 
       return new CanPayResult(

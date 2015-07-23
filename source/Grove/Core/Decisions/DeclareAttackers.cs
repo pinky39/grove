@@ -90,14 +90,7 @@
 
       private Player Defender { get { return Controller.Opponent; } }
 
-      public override bool HasCompleted { get { return _executor.HasCompleted; } }
-
-      bool IMachineExecutionPlan.ShouldExecuteQuery { get { return ShouldExecuteQuery; } }
-
-      void IMachineExecutionPlan.SetResultNoQuery()
-      {
-        SetResultNoQuery();
-      }
+      public override bool HasCompleted { get { return _executor.HasCompleted; } }      
 
       void IMachineExecutionPlan.ExecuteQuery()
       {

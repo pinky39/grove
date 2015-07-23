@@ -708,6 +708,7 @@
     <Compile Include="Core\Costs\AddCountersCost.cs" />
     <Compile Include="Core\Damage\PreventDamageToTarget.cs" />
     <Compile Include="Core\Damage\PreventDamageToTargets.cs" />
+    <Compile Include="Core\Decisions\CastCard.cs" />
     <Compile Include="Core\Decisions\ChosenAttackers.cs" />
     <Compile Include="Core\Effects\CreateEmblem.cs" />
     <Compile Include="Core\Emblem.cs" />
@@ -763,7 +764,7 @@
     <Compile Include="Core\Effects\PutCounterOnYoursAndFightWithOpponentsCreature.cs" />
     <Compile Include="Core\Effects\PutDifferentAmountOfCountersOnTargets.cs" />
     <Compile Include="Core\Effects\PutOwnerToBattlefield.cs" />
-    <Compile Include="Core\Effects\PutSelectedCardIntoPlayIfOpponentGuessedWrong.cs" />
+    <Compile Include="Core\Effects\CastCardWithoutpayingIfOpponentGuessedWrong.cs" />
     <Compile Include="Core\Effects\PutSelectedAttackersOnTopRestOnBottom.cs" />
     <Compile Include="Core\Effects\RevealTopCardsPutOneInHandOthersIntoGraveyard.cs" />
     <Compile Include="Core\Effects\OpponentRevealsHand.cs" />
@@ -2132,6 +2133,7 @@
     </Compile>
     <Compile Include="UserInterface\TurnNumber\ViewModel.cs" />
     <Compile Include="UserInterface\Ui.cs" />
+    <Compile Include="UserInterface\UiHelpers.cs" />
     <Compile Include="UserInterface\ViewModelBase.cs" />
     <Compile Include="UserInterface\Messages\UiInteractionChanged.cs" />
     <Compile Include="UserInterface\Spell\View.xaml.cs">

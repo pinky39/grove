@@ -1,6 +1,5 @@
 ﻿namespace Grove
 {
-  using System;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -14,7 +13,7 @@
 
     public CastRules(CardBase cardBase)
     {
-      _cardBase = cardBase;      
+      _cardBase = cardBase;
 
       _castRules = new Characteristic<List<CastRule>>(cardBase.Value.CastInstructions);
     }
@@ -27,23 +26,23 @@
       _cardBase.Changed += OnCardBaseChanged;
     }
 
-    public List<ActivationPrerequisites> CanCast()
+    public List<ActivationPrerequisites> GetPrerequisites(
+      bool payManaCost,
+      bool shouldFullyEvaluateEvenIfCannotBePlayed)
     {
-      var allPrerequisites = new List<ActivationPrerequisites>();
+      var result = new List<ActivationPrerequisites>();
 
       for (var index = 0; index < _castRules.Value.Count; index++)
       {
-        var instruction = _castRules.Value[index];
-        ActivationPrerequisites prerequisites;
-
-        if (instruction.CanCast(out prerequisites))
-        {
-          prerequisites.Index = index;
-          allPrerequisites.Add(prerequisites);
-        }
+        var castRule = _castRules.Value[index];
+        var prerequisites = castRule.GetPrerequisites(payManaCost, 
+          shouldFullyEvaluateEvenIfCannotBePlayed);        
+        
+        prerequisites.Index = index;
+        result.Add(prerequisites);        
       }
 
-      return allPrerequisites;
+      return result;
     }
 
     public void Initialize(Card card, Game game)
@@ -51,7 +50,7 @@
       Game = game;
 
       _castRules.Initialize(game, card);
-      _cardBase.Changed += OnCardBaseChanged;     
+      _cardBase.Changed += OnCardBaseChanged;
     }
 
     public void Cast(int index, ActivationParameters activationParameters)

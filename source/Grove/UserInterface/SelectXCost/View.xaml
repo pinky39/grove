@@ -17,7 +17,7 @@
 			<Image Margin="0,0,10,0" Style="{StaticResource DialogIcon}" />
 			<TextBlock Foreground="#FFD700" Text="Please choose X: " Margin="0,0,2,0" />
 			<ComboBox FontSize="16" VerticalAlignment="Center" ItemsSource="{Binding ValidXChoices}" SelectedItem="{Binding ChosenX}" />
-			<TextBlock Margin="10,0,0,0" FontStyle="Italic" Text="(Press Escape, to cancel) " />
+      <TextBlock Margin="10,0,0,0" FontStyle="Italic" Text="(Press Escape, to cancel)" Visibility="{Binding CanCancel, Converter={x:Static grove:Converters.BooleanToVisibility}}" />
 		</StackPanel>
 	</Border>
 </UserControl>

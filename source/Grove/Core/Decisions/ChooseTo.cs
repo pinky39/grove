@@ -11,7 +11,7 @@
     private ChooseTo() {}
 
     public ChooseTo(Player controller, Action<Params> setParameters)
-      : base(controller, () => new UiHandler(), () => new MachineHandler(), () => new MachineHandler(), () => new PlaybackHandler())
+      : base(controller, () => new UiHandler(), () => new MachineHandler(), () => new ScenarioHandler(), () => new PlaybackHandler())
     {
       setParameters(_p);
     }
@@ -34,6 +34,15 @@
       protected override void ExecuteQuery()
       {
         Result = D._p.ChooseDecisionResults.ChooseResult();
+      }
+    }
+
+    private class ScenarioHandler : Handler
+    {            
+      protected override void ExecuteQuery()
+      {
+        ExecuteAssertions();
+        Result = GetNextScenarioResult() ?? D._p.ChooseDecisionResults.ChooseResult();
       }
     }
 

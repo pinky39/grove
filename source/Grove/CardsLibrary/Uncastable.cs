@@ -16,6 +16,7 @@
             p.Graveyard = 0;
             p.Exile = 0;
             p.Library = 0;            
+            p.Hand = 10;
           });
     }
   }

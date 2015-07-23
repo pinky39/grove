@@ -166,6 +166,12 @@
       return this;
     }
 
+    public ScenarioStep Answer(bool answer)
+    {
+      _results.Add(new DecisionResult(new BooleanResult(answer)));
+      return this;
+    }
+
     public ScenarioStep DeclareBlockers(params Card[] pairs)
     {
       Debug.Assert(pairs.Length%2 == 0, "Pairs lenght must be even number, did you forget to match a blocker?");

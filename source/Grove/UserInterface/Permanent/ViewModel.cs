@@ -121,7 +121,7 @@
         case (InteractionState.PlaySpellsOrAbilities):
           {
             _select = Activate;
-            IsPlayable = Card.Controller.IsHuman ? Card.CanActivateAbilities().Count(x => x.CanPay) > 0 : false;
+            IsPlayable = Card.Controller.IsHuman && Card.CanActivateAbilities().Count > 0;
             break;
           }
         case (InteractionState.SelectTarget):
@@ -193,11 +193,19 @@
       if (playableActivator == null)
         return;
 
-      var proceed =
-        SelectX(playableActivator, activationParameters) &&
-          SelectTargets(playableActivator, activationParameters);
+      var wasCanceled =
+        
+        UiHelpers.SelectX(
+          playableActivator.Prerequisites, 
+          activationParameters, 
+          canCancel: true) &&
 
-      if (!proceed)
+        UiHelpers.SelectTargets(
+          playableActivator.Prerequisites, 
+          activationParameters, 
+          canCancel: true);
+
+      if (!wasCanceled)
         return;
 
       var ability = playableActivator.GetPlayable(activationParameters);
@@ -210,8 +218,7 @@
 
     private PlayableActivator SelectAbility()
     {
-      var playableActivators = Card.CanActivateAbilities()
-        .Where(x => x.CanPay)
+      var playableActivators = Card.CanActivateAbilities()        
         .Select(prerequisites => new PlayableActivator
           {
             Prerequisites = prerequisites,
@@ -234,79 +241,7 @@
         return null;
 
       return playableActivators[dialog.SelectedIndex];
-    }
-
-    private SelectTarget.ViewModel ShowSelectorDialog(TargetValidator validator, int? x)
-    {
-      var selectTargetParameters = new SelectTargetParameters
-        {
-          Validator = validator,
-          CanCancel = true,          
-          X = x
-        };
-
-      var dialog = ViewModels.SelectTarget.Create(selectTargetParameters);
-      Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.SelectTarget);
-      return dialog;
-    }
-
-    private bool SelectTargets(PlayableActivator activator, ActivationParameters parameters)
-    {
-      if (activator.Prerequisites.Selector.RequiresCostTargets)
-      {
-        var dialog = ShowSelectorDialog(
-          activator.Prerequisites.Selector.Cost.FirstOrDefault(),
-          parameters.X);
-
-        if (dialog.WasCanceled)
-          return false;
-
-        foreach (var target in dialog.Selection)
-        {
-          parameters.Targets.AddCost(target);
-        }
-      }
-
-      if (activator.Prerequisites.Selector.RequiresEffectTargets)
-      {
-        foreach (var selector in activator.Prerequisites.Selector.Effect)
-        {
-          var dialog = ShowSelectorDialog(selector, parameters.X);
-
-          if (dialog.WasCanceled)
-            return false;
-
-          foreach (var target in dialog.Selection)
-          {
-            parameters.Targets.AddEffect(target);
-          }
-        }
-      }
-
-      return activator.Prerequisites.Selector.ValidateTargetDependencies(
-        new ValidateTargetDependenciesParam
-          {
-            Cost = parameters.Targets.Cost,
-            Effect = parameters.Targets.Effect
-          }
-        );
-    }
-
-    private bool SelectX(PlayableActivator playableActivator, ActivationParameters activationParameters)
-    {
-      if (playableActivator.Prerequisites.HasXInCost)
-      {
-        var dialog = ViewModels.SelectXCost.Create(playableActivator.Prerequisites.MaxX.Value);
-        Shell.ShowModalDialog(dialog, DialogType.Small, InteractionState.Disabled);
-
-        if (dialog.WasCanceled)
-          return false;
-
-        activationParameters.X = dialog.ChosenX;
-      }
-
-      return true;
-    }
+    }            
 
     private void ChangeSelection()
     {
