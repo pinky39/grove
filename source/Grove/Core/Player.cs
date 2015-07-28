@@ -100,7 +100,7 @@
 
     public int NumberOfCardsAboveMaximumHandSize { get { return Math.Max(0, _hand.Count - 7); } }
 
-    public IEnumerable<Emblem> Emblems { get { return _emblems; } } 
+    public IEnumerable<Emblem> Emblems { get { return _emblems; } }    
 
     public int Score
     {

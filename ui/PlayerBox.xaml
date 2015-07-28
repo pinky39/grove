@@ -35,15 +35,43 @@
             <Button>
                <StackPanel Orientation="Horizontal">
                   <Image Margin="0,0,20,0" Source="..\media\avatars\a1.png"/>
-                  <TextBlock Margin="0,0,15,0" FontSize="17" Text="You"/>
+                  <TextBlock Margin="0,0,10,0" FontSize="17" Text="You">                                      
+                  </TextBlock>
                   <TextBlock Text="Life:"/>
                   <TextBlock Style="{StaticResource Life}" Text="20"/>
-                  <TextBlock Margin="15,0,0,0" Text="Hand:"/>
+                  <TextBlock Margin="15,0,0,0" Text="H:"/>
                   <TextBlock Text="5"/>
-                  <TextBlock Text="Library:"/>
+                  <TextBlock Text="L:"/>
                   <TextBlock Text="45"/>
-                  <TextBlock Text="Graveyard:"/>
+                  <TextBlock Text="G:"/>
                   <TextBlock Text="5"/>
+                  <StackPanel Orientation="Horizontal" Cursor="Hand">
+                  <TextBlock Text="Emblems:">                    
+                  </TextBlock>
+                  <TextBlock Text="2"/>
+                  <StackPanel.ToolTip>                                  
+                        <ToolTip>
+                        <Grid Width="250">
+                          <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*" />
+                          </Grid.RowDefinitions>
+                        
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#55ffffff" Margin="0,3,0,5">
+                          <TextBlock Text="Emblems" FontSize="13" Foreground="#FFFFD700" Margin="5,0,0,2"/>
+                        </Border>
+                        
+                        
+                          <StackPanel Grid.Row="1">
+                            <TextBlock Foreground="#ffffff" FontSize="13" TextWrapping="Wrap">Creatures you control get +1/+1.</TextBlock>
+                            <TextBlock Foreground="#ffffff" FontSize="13" TextWrapping="Wrap">Creatures you control get trample.</TextBlock>
+                          </StackPanel>                                                                    
+                        </Grid>
+                        </ToolTip>
+                    </StackPanel.ToolTip>                  
+                  </StackPanel>
+                  
+                  
                </StackPanel>
             </Button>
          </Border>
@@ -53,11 +81,11 @@
                <TextBlock Margin="0,0,15,0" FontSize="17" Text="Opponent"/>
                <TextBlock Text="Life:"/>
                <TextBlock Text="20"/>
-               <TextBlock Margin="15,0,0,0" Text="Hand:"/>
+               <TextBlock Margin="15,0,0,0" Text="H:"/>
                <TextBlock Text="5"/>
-               <TextBlock Text="Library:"/>
+               <TextBlock Text="L:"/>
                <TextBlock Text="45"/>
-               <TextBlock Text="Graveyard:"/>
+               <TextBlock Text="G:"/>
                <TextBlock Text="5"/>
             </StackPanel>
          </Button>

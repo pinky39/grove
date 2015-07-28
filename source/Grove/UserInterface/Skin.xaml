@@ -627,4 +627,32 @@
 		</Setter>
 	</Style>
 
+  <Style x:Key="ToolTip" TargetType="{x:Type ToolTip}">
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="ToolTipService.Placement" Value="Top" />         
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToolTip">
+
+          <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" >
+            <Rectangle Fill="#aa000000">
+              <Rectangle.BitmapEffect>
+                <BlurBitmapEffect KernelType="Box" Radius="8"/>
+              </Rectangle.BitmapEffect>
+            </Rectangle>
+            <Border
+                       Background="#000"
+                       BorderBrush="#000"
+                       BorderThickness="2"
+                       Margin="2">
+              <ContentPresenter/>
+            </Border>
+          </Grid>
+
+
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
 </ResourceDictionary>
