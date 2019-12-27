@@ -60,6 +60,14 @@ task DoRelease -depends Compile {
   $zip = "$tools_dir\\7za.exe"
 
   cp "$build_dir\grove.exe" $release_dir
+  cp "$build_dir\Lucene.Net.dll" $release_dir
+  cp "$build_dir\log4net.dll" $release_dir
+  cp "$build_dir\Castle.Core.dll" $release_dir
+  cp "$build_dir\Castle.Windsor.dll" $release_dir
+  cp "$build_dir\System.Windows.Interactivity.dll" $release_dir
+  cp "$build_dir\Caliburn.Micro.dll" $release_dir
+  cp "$build_dir\Ionic.Zip.dll" $release_dir
+  
   cp "$base_dir\readme.md" "$release_dir\readme.txt"
   cp "$base_dir\license" $release_dir
 	cp "$base_dir\history.md" "$release_dir\history.txt"

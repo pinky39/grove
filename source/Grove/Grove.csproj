@@ -2525,10 +2525,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <UsingTask TaskName="Costura.EmbedTask" AssemblyFile="$(SolutionDir)lib\costura\Costura.dll" />
-  <Target Name="AfterBuild">
-    <Costura.EmbedTask IncludeDebugSymbols="False" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />  
+  <Target Name="AfterBuild">    
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
