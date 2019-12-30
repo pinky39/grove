@@ -24,18 +24,16 @@
       public static readonly ResourceFolder Clipart = "images";
       public static readonly ResourceFolder Cards = "cards";
       public static readonly ResourceFolder Sets = "sets";
-      public static readonly ResourceFolder Avatars = "avatars";
-      public static readonly ResourceFolder M15 = "m15";
+      public static readonly ResourceFolder Avatars = "avatars";      
 
       public static long GetSize()
       {
-        return Clipart.GetSize() + Cards.GetSize() + Sets.GetSize() + Avatars.GetSize() + M15.GetSize();
+        return Clipart.GetSize() + Cards.GetSize() + Sets.GetSize() + Avatars.GetSize();
       }
     }
 
     private static readonly Dictionary<string, ImageSource> Clipart = new Dictionary<string, ImageSource>();
-    private static readonly Dictionary<string, ImageSource> CardImages = new Dictionary<string, ImageSource>();
-    private static readonly Dictionary<string, ImageSource> M15 = new Dictionary<string, ImageSource>();
+    private static readonly Dictionary<string, ImageSource> CardImages = new Dictionary<string, ImageSource>();    
     private static readonly Dictionary<string, MagicSet> Sets = new Dictionary<string, MagicSet>();
     private static readonly List<ImageSource> Avatars = new List<ImageSource>();
     private static readonly List<string> PlayerNames = new List<string>();
@@ -55,8 +53,7 @@
       LoadClipart(updateProgress);
       LoadCardImages(updateProgress);
       LoadSets(updateProgress);
-      LoadAvatars(updateProgress);
-      LoadM15(updateProgress);
+      LoadAvatars(updateProgress);      
     }
 
     private static Action<long> Progress(ProgressIndicator showProgress, long totalBytes)
@@ -118,16 +115,7 @@
           Avatars.Add(CreateBitmap(r.Content));
           showProgress(r.Content.Length);
         });
-    }
-
-    private static void LoadM15(Action<long> showProgress)
-    {
-      LoadResources(Folders.M15, r =>
-        {
-          M15.Add(r.Name.ToLowerInvariant(), CreateBitmap(r.Content));
-          showProgress(r.Content.Length);
-        });
-    }
+    }   
 
     private static void LoadClipart(Action<long> showProgress)
     {
@@ -200,10 +188,7 @@
 
     public static ImageSource GetImage(string filename)
     {
-      filename = filename.ToLowerInvariant();
-
-      if (M15.ContainsKey(filename))
-        return M15[filename];
+      filename = filename.ToLowerInvariant();      
 
       if (Clipart.ContainsKey(filename))
         return Clipart[filename];
