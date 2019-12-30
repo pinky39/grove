@@ -5,15 +5,15 @@ Framework "4.0"
 
 properties {
   $base_dir  = resolve-path .
-  $source_dir = "$base_dir\source"
-  $lib_dir = "$base_dir\lib"
+  $source_dir = "$base_dir\source"  
   $tests_dir = "$base_dir\tests"
   $build_dir = "$base_dir\build"
   $buildartifacts_dir = "$build_dir\"
   $sln_file = "$base_dir\Grove.sln"
   $product = "Magicgrove"
   $humanReadableversion = "3.0"
-  $tools_dir = "$base_dir\lib"
+  $tools_dir = "$base_dir\tools"
+  $packages_dir = "$base_dir\packages"
   $release_dir = "$base_dir\release"
   $media_dir = "$base_dir\media"
 }
@@ -30,7 +30,7 @@ task Init -depends Clean {
 	new-item $release_dir -itemType directory
 	new-item $buildartifacts_dir -itemType directory
 
-	cp $tools_dir\xunit\*.* $build_dir
+	cp $packages_dir\xunit.runner.console.2.4.1\tools\net472\*.* $build_dir
 }
 
 task Compile -depends Init {
@@ -45,7 +45,7 @@ task Test -depends DoRelease {
   cp -recurse $media_dir $build_dir
   $old = pwd
   cd $build_dir
-  &.\xunit.console.clr4.x86.exe "$build_dir\Grove.Tests.dll"
+  ./xunit.console.exe Grove.Tests.dll -verbose
   if ($lastExitCode -ne 0) {
         throw "Error: Failed to execute tests"
     }
