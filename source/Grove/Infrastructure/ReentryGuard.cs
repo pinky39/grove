@@ -2,6 +2,7 @@
 {
   using System;
   
+  [Copyable]
   public class ReentryGuard : IDisposable
   {
     private bool _set;
