@@ -66,7 +66,7 @@
               text: "If a source would deal damage to you or a planeswalker you control, prevent all but 1 of that damage.",
               score: 400,
               controller: P(e => e.Controller),
-              modifiers: () => new AddDamagePrevention(new PreventDamageToTargets(
+              modifiers: () => new AddDamagePrevention(new PreventDamageToPermanentsOrPlayers(
                 (player, ctx) => ctx.You == player, 
                 (c, ctx) => c.Controller == ctx.You && c.Is().Planeswalker,
                 (target, ctx) => ctx.AmountDealt - 1)));

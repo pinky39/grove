@@ -2,16 +2,16 @@
 {
   using System;
 
-  public class PreventDamageToTargets : DamagePrevention
+  public class PreventDamageToPermanentsOrPlayers : DamagePrevention
   {
     private readonly Func<Player, Context, bool> _playerSelector;
     private readonly Func<Card, Context, bool> _permanentSelector;
     private readonly Func<object, Context, int> _amount;    
     private readonly Func<Card, Context, bool> _sourceSelector;
 
-    private PreventDamageToTargets() {}
+    private PreventDamageToPermanentsOrPlayers() {}
 
-    public PreventDamageToTargets(
+    public PreventDamageToPermanentsOrPlayers(
       Func<Player, Context, bool> playerSelector = null,
       Func<Card, Context, bool> _permanentSelector = null,
       Func<object, Context, int> amount = null, 
