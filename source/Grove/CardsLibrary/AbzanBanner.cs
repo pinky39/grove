@@ -3,6 +3,8 @@
   using System.Collections.Generic;
   using Costs;
   using Effects;
+  using AI.TimingRules;
+  using AI;
 
   public class AbzanBanner : CardTemplateSource
   {
@@ -26,8 +28,15 @@
             new PayMana("{W}{B}{G}".Parse()),
             new Tap(),
             new Sacrifice());
+
           p.Effect = () => new DrawCards(1);
-        });
+
+          p.TimingRule(new Any(
+              new WhenOwningCardWillBeDestroyed(),
+              new OnEndOfOpponentsTurn()));
+        })
+        // TODO scoring should depend on number of lands on battlefield
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2]);
     }
   }
 }
