@@ -12,18 +12,21 @@ Commons: 11
 
 !Cards
 Accursed Spirit;C;3.07
-Aegis Angel;R;3.21
+# Act on Impulse;U;3.00
+Aegis Angel;R;4.00
 Aeronaut Tinkerer;C;3.08
 AEtherspouts;R;3.50
 Aggressive Mining;R;2.64
+Ajani Steadfast;R;4.00
 Ajani's Pridemate;U;3.67
 Altac Bloodseeker;U;3.20
 Amphin Pathmage;C;3.07
+Ancient Silverback;U;3.5
 Avacyn, Guardian Angel;R;3.83
 Avarice Amulet;R;3.00
 Back to Nature;U;3.85
-Battlefield Forge;R;4.10
 Battle Mastery;U;2.60
+Battlefield Forge;R;4.10
 Belligerent Sliver;U;3.40
 Black Cat;C;3.13
 Blastfire Bolt;C;2.07
@@ -60,11 +63,12 @@ Dauntless River Marshal;U;3.67
 Devouring Light;U;3.88
 Diffusion Sliver;U;3.17
 Dissipate;U;4.00
+Divination;C;3.5
 Divine Favor;C;2.17
 Divine Verdict;C;2.40
 Elvish Mystic;C;3.88
-Endless Obedience;U;3.17
 Encrust;C;2.70
+Endless Obedience;U;3.17
 Ensoul Artifact;U;3.70
 Ephemeral Shields;C;2.86
 Eternal Thirst;C;2.75
@@ -81,9 +85,12 @@ Frost Lynx;C;3.29
 Fugitive Wizard;C;0.60
 Furnace Whelp;U;2.70
 Gargoyle Sentinel;U;2.80
+#Garruk, Apex Predator;R;4.00
 Garruk's Packleader;U;3.40
 Gather Courage;U;3.50
 Geist of the Moors;U;2.92
+#Generator Servant;C;3.00
+#Genesis Hydra;R;3.50
 Glacial Crasher;C;2.43
 Goblin Kaboomist;R;2.86
 Goblin Rabblemaster;R;4.14
@@ -92,6 +99,7 @@ Gravedigger;U;3.20
 Grindclock;R;2.50
 Hammerhand;C;2.75
 Haunted Plate Mail;R;3.40
+Heat Ray;U;3.50
 Heliod's Pilgrim;C;3.58
 Hoarding Dragon;R;3.80
 Hornet Nest;R;3.86
@@ -102,13 +110,14 @@ Hunter's Ambush;C;2.25
 Hushwing Gryff;R;3.81
 Hydrosurge;C;1.50
 Illusory Angel;U;3.89
+In Garruk's Wake;R;3.07
 Indulgent Tormentor;R;4.00
 Inferno Fist;C;3.30
-In Garruk's Wake;R;3.07
 Inspired Charge;C;1.75
 Into the Void;U;3.10
 Invasive Species;C;2.75
 Invisibility;C;3.00
+#Jace, the Living Guildpact;R;3.50
 Jace's Ingenuity;U;3.08
 Jalira, Master Polymorphist;R;3.56
 Jorubai Murk Lurker;U;3.33
@@ -118,9 +127,12 @@ Kapsho Kitefins;U;2.92
 Kinsbaile Skirmisher;C;3.08
 Kird Chieftain;U;3.00
 Krenko's Enforcer;C;3.25
+#Kurkesh, Onakke Ancient;R;3.50
+Lava Axe;C;2.50
 Leeching Sliver;U;2.50
 Life's Legacy;R;2.75
 Lightning Strike;C;3.75
+#Liliana Vess;R;4.00
 Living Totem;C;2.43
 Llanowar Wastes;R;4.11
 Mahamoti Djinn;R;3.17
@@ -146,9 +158,10 @@ Netcaster Spider;C;3.25
 Nightfire Giant;U;3.50
 Nightmare;R;3.00
 Nimbus of the Isles;C;1.71
+#Nissa, Worldwaker;R;4.00
 Nissa's Expedition;U;3.17
-Obelisk of Urd;R;3.17
 Ob Nixilis, Unshackled;R;3.60
+Obelisk of Urd;R;3.17
 Oppressive Rays;C;2.71
 Oreskos Swiftclaw;C;2.50
 Ornithopter;C;3.44
@@ -160,6 +173,7 @@ Paragon of New Dawns;U;3.50
 Paragon of Open Graves;U;3.40
 Peel from Reality;C;3.00
 Perilous Vault;R;3.29
+#Phyrexian Revoker;R;2.50
 Phytotitan;R;3.44
 Pillar of Light;C;2.90
 Plummet;C;2.40
@@ -193,19 +207,21 @@ Serra Angel;U;3.00
 Shadowcloak Vampire;C;2.14
 Shaman of Spring;C;3.08
 Shield of the Avatar;R;3.21
+Shivan Dragon;R;4.00
 Shivan Reef;R;3.95
 Shrapnel Blast;U;3.67
 Siege Dragon;R;2.92
 Siege Wurm;C;3.33
+Sign in Blood;C;3.50
 Sliver Hivelord;R;3.81
 Solemn Offering;C;2.83
-Soulmender;C;2.20
 Soul of Innistrad;R;3.69
 Soul of New Phyrexia;R;4.00
 Soul of Ravnica;R;3.46
 Soul of Shandalar;R;3.71
 Soul of Theros;R;4.00
 Soul of Zendikar;R;3.79
+Soulmender;C;2.20
 Spectra Ward;R;3.50
 Spirit Bonds;R;3.50
 Stab Wound;U;3.60
@@ -214,12 +230,15 @@ Staff of the Flame Magus;U;1.42
 Staff of the Mind Magus;U;1.40
 Staff of the Sun Magus;U;1.33
 Staff of the Wild Magus;U;0.93
+#Stain the Mind;R;2.00
 Statute of Denial;C;1.71
 Stoke the Flames;U;3.63
 Stormtide Leviathan;R;3.88
 Sunblade Elf;U;3.95
 Sungrace Pegasus;C;3.08
 Terra Stomper;R;3.31
+#The Chain Veil;R;2.50
+Thundering Giant;C;3.00
 Tireless Missionaries;C;0.57
 Titanic Growth;C;2.30
 Torch Fiend;C;3.61
@@ -248,6 +267,6 @@ Welkin Tern;C;3.08
 Will-Forged Golem;C;2.50
 Witch's Familiar;C;1.93
 Xathrid Slyblade;U;3.08
-Yavimaya Coast;R;4.11
+Yavimaya Coast;R;3.00
 Yisan, the Wanderer Bard;R;3.50
 Zof Shade;C;2.08
