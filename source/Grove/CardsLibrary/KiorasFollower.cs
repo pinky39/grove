@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Costs;
   using Effects;
 
@@ -20,12 +21,15 @@
           .ActivatedAbility(p =>
           {
             p.Text = "{T}: Untap another target permanent.";
-
             p.Cost = new Tap();
 
             p.Effect = () => new UntapTargetPermanents();
 
-            p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.IsTapped, canTargetSelf: false).On.Battlefield());
+            p.TargetSelector.AddEffect(trg => trg.Is.Card(canTargetSelf: false).On.Battlefield());
+            
+            p.TimingRule(new Any(
+                new OnFirstMain(),
+                new AfterOpponentDeclaresAttackers()));
 
             p.TargetingRule(new EffectUntapPermanent());
           });
