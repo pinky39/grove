@@ -290,12 +290,13 @@
           string.Format("Outlast {0}({0}, {{T}}: Put a +1/+1 counter on this creature. Outlast only as a sorcery.)",
             cost);
         p.Cost = new AggregateCost(new PayMana(cost.Parse()), new Tap());
-        p.Effect =
-          () =>
+        
+        p.Effect = () =>
             new ApplyModifiersToSelf(() => new AddCounters(() => new PowerToughness(1, 1), count: 1)).SetTags(
               EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+        
         p.ActivateAsSorcery = true;
-        p.TimingRule(new PumpOwningCardTimingRule(1, 1));
+        p.TimingRule(new OnMainStepsOfYourTurn());
       });
 
       return this;

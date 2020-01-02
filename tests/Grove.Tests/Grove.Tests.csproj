@@ -212,6 +212,7 @@
     <Compile Include="Cards\DiseaseCarriers.cs" />
     <Compile Include="Cards\Dismember.cs" />
     <Compile Include="Cards\Disorder.cs" />
+    <Compile Include="Cards\DisownedAncestor.cs" />
     <Compile Include="Cards\Dissipate.cs" />
     <Compile Include="Cards\DivineFavor.cs" />
     <Compile Include="Cards\Donate.cs" />
@@ -345,6 +346,7 @@
     <Compile Include="Cards\KingCrab.cs" />
     <Compile Include="Cards\KinsbaileSkirmisher.cs" />
     <Compile Include="Cards\KinTreeInvocation.cs" />
+    <Compile Include="Cards\KiorasFollower.cs" />
     <Compile Include="Cards\KirdChieftain.cs" />
     <Compile Include="Cards\KrenkosEnforcer.cs" />
     <Compile Include="Cards\Landslide.cs" />
