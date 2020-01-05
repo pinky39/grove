@@ -22,8 +22,12 @@
         {
           p.Text = "{2}{W}: Leaping Master gains flying until end of turn.";
           p.Cost = new PayMana("{2}{W}".Parse());
-          p.Effect = () => new ApplyModifiersToSelf(() => new AddStaticAbility(Static.Flying){ UntilEot = true });
+          
+          p.Effect = () => new ApplyModifiersToSelf(
+            () => new AddStaticAbility(Static.Flying){ UntilEot = true });
+          
           p.TimingRule(new WhenCardHas(c => !c.Has().Flying));
+          p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
         });
     }
   }
