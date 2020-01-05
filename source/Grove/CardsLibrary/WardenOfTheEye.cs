@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using AI.TargetingRules;
+  using AI.TimingRules;
   using Effects;
   using Triggers;
 
@@ -20,12 +21,16 @@
         .TriggeredAbility(p =>
         {
           p.Text = "When Warden of the Eye enters the battlefield, return target noncreature, nonland card from your graveyard to your hand.";
+
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
 
           p.Effect = () => new ReturnToHand();
 
-          p.TargetSelector.AddEffect(trg => trg.Is.Card(c => !c.Is().Creature && !c.Is().Land).On.YourGraveyard());
+          p.TargetSelector.AddEffect(trg => trg.Is.Card(c => !c.Is().Creature && !c.Is().Land)
+            .In.YourGraveyard());
+          
           p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
+          p.TimingRule(new WhenYourGraveyardCountIs(c => !c.Is().Creature && !c.Is().Land, minCount: 1));
         });
     }
   }
