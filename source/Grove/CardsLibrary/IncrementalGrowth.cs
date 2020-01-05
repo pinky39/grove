@@ -18,7 +18,7 @@
         .Cast(p =>
         {
           var amounts = new[] { 1, 2, 3 };
-          p.Effect = () => new PutDifferentAmountOfCountersOnTargets(1, 1, amounts);
+          p.Effect = () => new PutDifferentAmountOf11ContersOnTargets(amounts);
 
           p.TargetSelector.AddEffect(
             trg => trg.Is.Creature().On.Battlefield(),
@@ -27,7 +27,8 @@
               trg.MaxCount = 3;            
             });
 
-          p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
+          p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
+          p.TimingRule(new OnFirstMain());
         });
     }
   }

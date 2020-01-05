@@ -4,18 +4,14 @@
   using AI;
   using Modifiers;
 
-  public class PutDifferentAmountOfCountersOnTargets : Effect
-  {
-    private readonly int _power;
-    private readonly int _toughness;
+  public class PutDifferentAmountOf11ContersOnTargets : Effect
+  {    
     private readonly List<int> _amounts = new List<int>();
 
-    private PutDifferentAmountOfCountersOnTargets() {}
+    private PutDifferentAmountOf11ContersOnTargets() {}
 
-    public PutDifferentAmountOfCountersOnTargets(int power, int toughness, IEnumerable<int> amounts)
-    {
-      _power = power;
-      _toughness = toughness;
+    public PutDifferentAmountOf11ContersOnTargets(IEnumerable<int> amounts)
+    {      
       _amounts.AddRange(amounts);
 
       SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
@@ -36,7 +32,7 @@
 
         if (IsValid(target))
         {
-          target.Card().AddModifier(new AddCounters(() => new PowerToughness(_power, _toughness), _amounts[i]), p);
+          target.Card().AddModifier(new AddCounters(() => new PowerToughness(1, 1), _amounts[i]), p);
         }
       }    
     }

@@ -15,15 +15,12 @@
         var bear3 = C("Grizzly Bears");
 
         Hand(P1, "Incremental Growth");
-        Battlefield(P1, "Mountain", "Mountain", "Mountain", "Forest", "Forest", bear1, bear2, bear3, "Fugitive Wizard");
+        Battlefield(P1, "Mountain", "Mountain", "Mountain", "Forest", "Forest", bear1, bear2, bear3);
 
-        P2.Life = 13;
+        P2.Life = 12;
         RunGame(1);
 
         Equal(0, P2.Life);
-        Equal(3, C(bear1).Power);
-        Equal(4, C(bear2).Power);
-        Equal(5, C(bear3).Power);
       }
     }
   }
