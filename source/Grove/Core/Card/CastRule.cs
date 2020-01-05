@@ -185,7 +185,8 @@
     {
       return TargetingHelper.IsGoodTargetForSpell(
         target, OwningCard, controller, _p.TargetSelector,
-        _p.Rules.Where(r => r is TargetingRule).Cast<TargetingRule>());
+        _p.Rules.Where(r => r is TargetingRule).Cast<TargetingRule>(), 
+        _p.DistributeAmount);
     }
 
     public ManaAmount GetManaCost()

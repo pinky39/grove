@@ -11,7 +11,7 @@
     public CardOrder.ViewModel.IFactory CardOrder { get; set; }
     public CombatDamage.ViewModel.IFactory CombatDamage { get; set; }
     public DraftScreen.ViewModel.IFactory DraftScreen { get; set; }
-    public DistributeDamage.ViewModel.IFactory DistributeDamage { get; set; }
+    public DistributeAmount.ViewModel.IFactory DistributeAmount { get; set; }
     public SelectAbility.ViewModel.IFactory SelectAbility { get; set; }
     public SelectTarget.ViewModel.IFactory SelectTarget { get; set; }
     public SelectXCost.ViewModel.IFactory SelectXCost { get; set; }

@@ -113,6 +113,7 @@
           D._p.Effect.Source.OwningCard,
           D._p.TargetSelector,
           D._p.MachineRules.Where(x => x is TargetingRule).Cast<TargetingRule>(),
+          D._p.DistributeAmount,
           force: true,
           triggerMessage: D._p.Effect.TriggerMessage<object>());
 
@@ -127,6 +128,7 @@
       public List<MachinePlayRule> MachineRules;
       public TargetSelector TargetSelector;
       public bool UsesStack;
+      public int DistributeAmount;
     }
 
     private class PlaybackHandler : Handler
@@ -176,7 +178,25 @@
           }
         }
 
+        if (D._p.DistributeAmount > 0)
+        {
+          targets.Distribution = DistributeAmount(targets.Effect, D._p.DistributeAmount);
+        }
+
         Result = new ChosenTargets(targets);
+      }
+
+      private List<int> DistributeAmount(IList<ITarget> targets, int amount)
+      {
+        if (targets.Count == 1)
+        {
+          return new List<int> { amount };
+        }
+
+        var dialog = Ui.Dialogs.DistributeAmount.Create(targets, amount);
+        Ui.Shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
+
+        return dialog.Distribution;
       }
 
       private bool NoValidTargets(TargetValidator validator)

@@ -10,9 +10,10 @@
       Card spell, 
       Player controller,
       TargetSelector selector, 
-      IEnumerable<TargetingRule> rules)
+      IEnumerable<TargetingRule> rules,
+      int distributeAmount)
     {      
-      var activation = new ActivationContext(controller, spell, selector);
+      var activation = new ActivationContext(controller, spell, selector, distributeAmount);
       
       foreach (var rule in rules)
       {
@@ -29,10 +30,12 @@
     }
 
     public static IEnumerable<Targets> GenerateTargets(Card owningCard, 
-      TargetSelector selector, IEnumerable<TargetingRule> rules, bool force = false, 
+      TargetSelector selector, IEnumerable<TargetingRule> rules, 
+      int distributeAmount,
+      bool force = false, 
       object triggerMessage = null)
     {
-      var activation = new ActivationContext(owningCard.Controller, owningCard, selector);
+      var activation = new ActivationContext(owningCard.Controller, owningCard, selector, distributeAmount);
       activation.CanCancel = !force;
       activation.TriggerMessage = triggerMessage;
 

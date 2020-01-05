@@ -22,24 +22,33 @@
           p.Effect = () => new ExileTargets();
           p.TargetSelector.AddEffect(trg => trg.Is.Card(c => c.Is().Creature && c.Power >= 3).On.Battlefield());
           p.TargetingRule(new EffectExileBattlefield());
-          p.TimingRule(new TargetRemovalTimingRule().RemovalTags(EffectTag.Exile, EffectTag.CreaturesOnly));
+          p.TimingRule(new TargetRemovalTimingRule(EffectTag.Exile));
         })
         .Cast(p =>
         {
           p.Text = "{{W}}{{B}}{{G}}: You draw two cards and you lose 2 life.";
           p.Effect = () => new DrawCards(2, lifeloss: 2);
+          p.TimingRule(new OnEndOfOpponentsTurn());
         })
         .Cast(p =>
         {
           p.Text = "{{W}}{{B}}{{G}}: Distribute two +1/+1 counters among one or two target creatures.";
-          p.Effect = () => new DistributeCountersAmongTargets(new AddCounters(() => new PowerToughness(1, 1), 1), 2);
+          
+          p.DistributeAmount = 2;
+          p.Effect = () => new DistributeCountersAmongTargets(() => new PowerToughness(1, 1));
+          
           p.TargetSelector.AddEffect(
             trg => trg.Is.Creature().On.Battlefield(),
             trg => {
               trg.MinCount = 1;
               trg.MaxCount = 2;            
           });
-          p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
+
+          p.TargetingRule(new EffectOrCostRankBy(c => 
+            -c.Score, 
+            controlledBy: ControlledBy.SpellOwner));
+
+          p.TimingRule(new OnFirstMain());
         });
     }
   }

@@ -13,11 +13,13 @@
     public object TriggerMessage;
     public int? X;
 
-    public ActivationContext(Player controller, Card card, TargetSelector selector)
+    public ActivationContext(Player controller, Card card, TargetSelector selector, 
+      int distributeAmount)
     {
       Controller =controller;
       Card = card;
       Selector = selector;
+      DistributeAmount = distributeAmount;
     }
 
     public ActivationContext(Player controller, ActivationPrerequisites prerequisites)

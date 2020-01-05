@@ -2061,10 +2061,10 @@
     <Compile Include="UserInterface\Messages\AttackerSelected.cs" />
     <Compile Include="UserInterface\Messages\AttackerUnselected.cs" />
     <Compile Include="UserInterface\BackgroundExtension.cs" />
-    <Compile Include="UserInterface\DistributeDamage\View.xaml.cs">
+    <Compile Include="UserInterface\DistributeAmount\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\DistributeDamage\ViewModel.cs" />
+    <Compile Include="UserInterface\DistributeAmount\ViewModel.cs" />
     <Compile Include="UserInterface\FocusBehavior.cs" />
     <Compile Include="UserInterface\Graveyard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
@@ -2363,7 +2363,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserInterface\DistributeDamage\View.xaml">
+    <Page Include="UserInterface\DistributeAmount\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

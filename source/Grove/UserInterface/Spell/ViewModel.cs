@@ -243,11 +243,11 @@
 
       if (prerequisites.DistributeAmount > 0)
       {
-        parameters.Targets.Distribution = DistributeDamage(parameters.Targets.Effect, prerequisites.DistributeAmount);
+        parameters.Targets.Distribution = DistributeAmount(parameters.Targets.Effect, prerequisites.DistributeAmount);
       }
 
       return prerequisites.Selector.ValidateTargetDependencies(
-        new ValidateTargetDependenciesParam
+        new ValidateTargetDependenciesParam 
           {
             Cost = parameters.Targets.Cost,
             Effect = parameters.Targets.Effect
@@ -255,14 +255,14 @@
         );
     }
 
-    public List<int> DistributeDamage(IList<ITarget> targets, int damage)
+    private List<int> DistributeAmount(IList<ITarget> targets, int amount)
     {
       if (targets.Count == 1)
       {
-        return new List<int> {damage};
+        return new List<int> {amount};
       }
 
-      var dialog = ViewModels.DistributeDamage.Create(targets, damage);
+      var dialog = ViewModels.DistributeAmount.Create(targets, amount);
       Shell.ShowModalDialog(dialog, DialogType.Large, InteractionState.Disabled);
 
       return dialog.Distribution;

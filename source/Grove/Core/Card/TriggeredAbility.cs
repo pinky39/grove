@@ -127,9 +127,10 @@
           p =>
             {
               p.Effect = effect;              
-              p.TargetSelector = _p.TargetSelector;
+              p.TargetSelector = _p.TargetSelector;              
               p.MachineRules = _p.Rules;
               p.UsesStack = _p.UsesStack;
+              p.DistributeAmount = _p.DistributeAmount;
             }));
 
         return;
