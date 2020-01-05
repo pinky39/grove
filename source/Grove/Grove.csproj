@@ -627,7 +627,6 @@
     <Compile Include="CardsLibrary\WindScarredCrag.cs" />
     <Compile Include="CardsLibrary\Windstorm.cs" />
     <Compile Include="CardsLibrary\WindsweptHeath.cs" />
-    <Compile Include="CardsLibrary\Winterflame.cs" />
     <Compile Include="CardsLibrary\WitchsFamiliar.cs" />
     <Compile Include="CardsLibrary\XathridSlyblade.cs" />
     <Compile Include="CardsLibrary\YavimayaCoast.cs" />
