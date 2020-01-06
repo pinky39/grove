@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Effects;
   using Modifiers;
+  using AI.TimingRules;
 
   public class FlyingCraneTechnique : CardTemplateSource
   {
@@ -25,6 +26,8 @@
                 () => new AddStaticAbility(Static.Flying){UntilEot = true}, 
                 () => new AddStaticAbility(Static.DoubleStrike){UntilEot = true}, 
               }));
+
+          p.TimingRule(new OnStep(Step.DeclareAttackers));          
         });
     }
   }
