@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Effects;
+  using AI.TimingRules;
 
   public class WeaveFate : CardTemplateSource
   {
@@ -16,6 +17,7 @@
         .Cast(p =>
         {
           p.Effect = () => new DrawCards(2);
+          p.TimingRule(new OnEndOfOpponentsTurn());
         });
     }
   }
