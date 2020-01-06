@@ -339,6 +339,7 @@
     <Compile Include="Cards\JaggedLightning.cs" />
     <Compile Include="Cards\JaliraMasterPolymorphist.cs" />
     <Compile Include="Cards\JasmineSeer.cs" />
+    <Compile Include="Cards\JeskaiCharm.cs" />
     <Compile Include="Cards\JhoirasToolbox.cs" />
     <Compile Include="Cards\JorubaiMurkLurker.cs" />
     <Compile Include="Cards\Juggernaut.cs" />

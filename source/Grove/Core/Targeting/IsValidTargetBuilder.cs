@@ -20,6 +20,12 @@
       return this;
     }
 
+    public IsValidTargetBuilder Opponent()
+    {
+      IsValidTarget = p => p.Target == p.OwningCard.Controller.Opponent;
+      return this;
+    }
+
     public IsValidZoneBuilder CreatureOrPlayer()
     {
       IsValidTarget = p => p.Target.IsPlayer() || (p.Target.IsCard() && p.Target.Card().Is().Creature);
