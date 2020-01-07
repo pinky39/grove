@@ -27,7 +27,7 @@
                 () => new AddStaticAbility(Static.DoubleStrike){UntilEot = true}, 
               }));
 
-          p.TimingRule(new OnStep(Step.DeclareAttackers));          
+          p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
         });
     }
   }
