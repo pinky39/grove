@@ -42,7 +42,8 @@
               () => new AddStaticAbility(Static.Lifelink){UntilEot = true}
             ));
 
-          p.TimingRule(new OnStep(Step.DeclareBlockers));
+          p.TimingRule(new Any(new AfterOpponentDeclaresBlockers(), 
+            new AfterOpponentDeclaresAttackers()));          
         });
     }
   }
