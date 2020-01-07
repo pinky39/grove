@@ -5,6 +5,7 @@
   using Effects;
   using Modifiers;
   using Triggers;
+  using AI.TimingRules;
 
   public class WarNameAspirant : CardTemplateSource
   {
@@ -18,7 +19,8 @@
         .FlavorText("No battle means more to a Mardu warrior than the one that earns her war name.")
         .Power(2)
         .Toughness(1)
-        .MinBlockerPower(2)
+        .Cast(p => p.TimingRule(new OnSecondMain()))
+        .MinBlockerPower(2)        
         .TriggeredAbility(p =>
         {
           p.Text = "War-Name Aspirant enters the battlefield with a +1/+1 counter on it if you attacked with a creature this turn.";
