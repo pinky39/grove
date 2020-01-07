@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Effects;
   using Triggers;
+  using AI.TimingRules;
 
   public class MarduSkullhunter : CardTemplateSource
   {
@@ -15,7 +16,10 @@
         .Text("Mardu Skullhunter enters the battlefield tapped.{EOL}{I}Raid{/I} — When Mardu Skullhunter enters the battlefield, if you attacked with a creature this turn, target opponent discards a card.")
         .Power(2)
         .Toughness(1)
-        .Cast(p => { p.Effect = () => new CastPermanent(tap: true); })
+        .Cast(p => { 
+          p.Effect = () => new CastPermanent(tap: true);
+          p.TimingRule(new OnSecondMain());
+        })
         .TriggeredAbility(p =>
         {
           p.Text = "When Mardu Skullhunter enters the battlefield, if you attacked with a creature this turn, target opponent discards a card.";
