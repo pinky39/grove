@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Effects;
   using Triggers;
+  using AI.TimingRules;
 
   public class MarduHordechief : CardTemplateSource
   {
@@ -16,6 +17,9 @@
         .FlavorText("The horde grows with each assault.")
         .Power(2)
         .Toughness(3)
+        .Cast(p => {          
+          p.TimingRule(new OnSecondMain());
+        })
         .TriggeredAbility(p =>
         {
           p.Text = "When Mardu Hordechief enters the battlefield, if you attacked with a creature this turn, put a 1/1 white Warrior creature token onto the battlefield.";
