@@ -42,6 +42,8 @@
                 tp.Effect = () => new ApplyModifiersToSelf(() => new AddStaticAbility(Static.FirstStrike){UntilEot = true});
                 tp.UsesStack = false;
               }));
+          
+          p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new OnEndOfOpponentsTurn()));
         })
         .Cast(p =>
         {
