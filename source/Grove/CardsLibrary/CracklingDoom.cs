@@ -26,7 +26,7 @@
               text: "Sacrifice a creature."));
 
 
-          p.TimingRule(new Any(new NonTargetRemovalTimingRule(1), new OnSecondMain()));
+          p.TimingRule(new Any(new NonTargetRemovalTimingRule(1), new OnMainStepsOfYourTurn()));
         });
     }
   }

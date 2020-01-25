@@ -150,6 +150,7 @@
     <Compile Include="Cards\BrawlersPlate.cs" />
     <Compile Include="Cards\Breach.cs" />
     <Compile Include="Cards\BrineSeer.cs" />
+    <Compile Include="Cards\BringLow.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />
     <Compile Include="Cards\BroodKeeper.cs" />
     <Compile Include="Cards\BubblingMuck.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Cards\CopperGnomes.cs" />
     <Compile Include="Cards\CoralBarrier.cs" />
     <Compile Include="Cards\CovetousDragon.cs" />
+    <Compile Include="Cards\CracklingDoom.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\CripplingBlight.cs" />
     <Compile Include="Cards\CropRotation.cs" />
