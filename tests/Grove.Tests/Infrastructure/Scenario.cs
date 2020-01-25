@@ -138,8 +138,15 @@
             SourceCard = card,
           };
 
-        var counters = new AddCounters(() => new SimpleCounter(scenarioCard.Counters.Type),
-          scenarioCard.Counters.Count);
+        var counters = new AddCounters(() =>
+        {
+          if (scenarioCard.Counters.Type == CounterType.PowerToughness)
+          {
+            return new PowerToughness(1, 1);
+          }
+        
+          return new SimpleCounter(scenarioCard.Counters.Type);
+        }, scenarioCard.Counters.Count);
 
         card.AddModifier(counters, p);
       }
