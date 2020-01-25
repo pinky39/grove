@@ -19,8 +19,7 @@
           p.Effect = () => new DealDamageToTargets(P((e, g) => g.Turn.Events.HasActivePlayerAttackedThisTurn ? 5 : 4),
             canBePrevented: P((e, g) => !g.Turn.Events.HasActivePlayerAttackedThisTurn));
           p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
-          p.TargetingRule(new EffectDealDamage(tp => tp.Controller.HasAttackedThisTurn ? 5 : 4));
-          p.TimingRule(new OnSecondMain());
+          p.TargetingRule(new EffectDealDamage(tp => tp.Controller.HasAttackedThisTurn ? 5 : 4));          
         });
     }
   }

@@ -14,7 +14,7 @@
         Hand(P1, "Arrow Storm");
 
         P2.Life = 7;
-
+      
         RunGame(1);
 
         Equal(0, P2.Life);
