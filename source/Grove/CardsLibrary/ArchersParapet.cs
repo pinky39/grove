@@ -29,7 +29,9 @@
 
           p.Effect = () => new ChangeLife(-1, P(e => e.Controller.Opponent));
 
-          p.TimingRule(new OnEndOfOpponentsTurn());
+          p.TimingRule(new Any(
+                  new OnEndOfOpponentsTurn(),
+                  new WhenOwningCardWillBeDestroyed()));
         });
     }
   }
