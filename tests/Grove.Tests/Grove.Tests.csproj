@@ -94,6 +94,7 @@
     <Compile Include="Cards\AcademyRector.cs" />
     <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\Acridian.cs" />
+    <Compile Include="Cards\ActOfTreason.cs" />
     <Compile Include="Cards\AegisAngel.cs" />
     <Compile Include="Cards\AeronautTinkerer.cs" />
     <Compile Include="Cards\Aetherspouts.cs" />
