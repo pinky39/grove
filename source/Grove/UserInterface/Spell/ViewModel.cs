@@ -125,29 +125,24 @@
 
       var activationParameters = new ActivationParameters();
 
-      var proceed = SelectX(activation.Prerequisites, activationParameters) &&
-        SelectTargets(activation.Prerequisites, activationParameters);
-
+    var proceed = SelectX(activation.Prerequisites, activationParameters) &&
+      SelectTargets(activation.Prerequisites, activationParameters) &&
+      ManuallySelectRequiredConvokeTargets() &&
+      ManuallySelectRequiredDelveTargets();
+    
       if (!proceed)
         return;
-
-      if (Card.Has().Convoke)
-      {
-        ManuallySelectRequiredConvokeTargets();
-      }
-
-      if (Card.Has().Delve)
-      {
-        ManuallySelectRequiredDelveTargets();
-      }
 
       var playable = activation.GetPlayable(activationParameters);
 
       Publisher.Publish(new PlayableSelected {Playable = playable});
     }
 
-    private void ManuallySelectRequiredConvokeTargets()
+    private bool ManuallySelectRequiredConvokeTargets()
     {
+      if (!Card.Has().Convoke)
+        return true;
+
       var spec = new IsValidTargetBuilder()
         .Card(c => c.CanBeTapped && c.Is().Creature && c.Controller == Card.Controller)
         .On.Battlefield();
@@ -166,6 +161,10 @@
       validator.Initialize(Game, Card.Controller);
 
       var dialog = ShowSelectorDialog(validator, null);
+      if (dialog.WasCanceled)
+      {
+        return false;
+      }
 
       foreach (var target in dialog.Selection)
       {
@@ -174,10 +173,15 @@
 
         Card.Controller.AddManaToManaPool(new SingleColorManaAmount(manaColor, 1));
       }
+
+      return true;
     }
 
-    private void ManuallySelectRequiredDelveTargets()
+    private bool ManuallySelectRequiredDelveTargets()
     {
+      if (!Card.Has().Delve)
+        return true;
+
       var spec = new IsValidTargetBuilder().Is.Card().In.YourGraveyard();
 
       var tp =
@@ -195,6 +199,10 @@
       validator.Initialize(Game, Card.Controller);
 
       var dialog = ShowSelectorDialog(validator, null);
+      if (dialog.WasCanceled)
+      {
+        return false;
+      }
 
       foreach (var target in dialog.Selection)
       {
@@ -202,6 +210,8 @@
 
         Card.Controller.AddManaToManaPool(new SingleColorManaAmount(ManaColor.Colorless, 1));
       }
+      
+      return true;
     }
 
     private bool SelectTargets(ActivationPrerequisites prerequisites, ActivationParameters parameters)
