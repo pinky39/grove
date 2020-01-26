@@ -69,7 +69,7 @@
             p.Cards = cards;
             p.ProcessDecisionResults = this;
             p.ChooseDecisionResults = this;
-            p.Title = "Order cards (first card goes to your hand)";
+            p.Title = _title;
           }));
     }
   }

@@ -20,7 +20,7 @@
         RunGame(1);
 
         Equal(Zone.Hand, C(force).Zone);
-        Equal(new[] { "Forest", "Forest", "Forest" }, P1.Graveyard.Take(3).Select(x => x.Name).ToArray());
+        Equal(3, P1.Graveyard.Count);
       }
     }
   }
