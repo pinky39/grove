@@ -90,6 +90,7 @@
     <Compile Include="Cards\AbzanBeastmaster.cs" />
     <Compile Include="Cards\AbzanCharm.cs" />
     <Compile Include="Cards\AbzanFalconer.cs" />
+    <Compile Include="Cards\AbzanSkycaptain.cs" />
     <Compile Include="Cards\AcademyRector.cs" />
     <Compile Include="Cards\AcademyResearchers.cs" />
     <Compile Include="Cards\Acridian.cs" />
