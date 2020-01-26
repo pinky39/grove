@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using AI.TargetingRules;
   using Effects;
+  using AI.TimingRules;
 
   public class SetAdrift : CardTemplateSource
   {
@@ -21,6 +22,7 @@
           p.Effect = () => new PutTargetsOnTopOfLibrary();
           p.TargetSelector.AddEffect(trg => trg.Is.Card(c => !c.Is().Land).On.Battlefield());
 
+          p.TimingRule(new OnFirstMain());
           p.TargetingRule(new EffectPutOnTopOfLibrary());
         });
     }
