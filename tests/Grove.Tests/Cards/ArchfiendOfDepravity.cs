@@ -17,7 +17,7 @@
 
         RunGame(2);
 
-        Equal(1, P1.Graveyard.Creatures.Count());
+        Equal(0, P1.Graveyard.Creatures.Count());
         Equal(1, P2.Graveyard.Creatures.Count());
       }
     }
