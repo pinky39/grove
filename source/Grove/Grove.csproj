@@ -156,7 +156,6 @@
     <Compile Include="CardsLibrary\AvacynGuardianAngel.cs" />
     <Compile Include="CardsLibrary\AvariceAmulet.cs" />
     <Compile Include="CardsLibrary\AvenSkirmisher.cs" />
-    <Compile Include="CardsLibrary\AvenSurveyor.cs" />
     <Compile Include="CardsLibrary\AwakenTheBear.cs" />
     <Compile Include="CardsLibrary\BackToNature.cs" />
     <Compile Include="CardsLibrary\BarrageOfBoulders.cs" />
@@ -316,7 +315,6 @@
     <Compile Include="CardsLibrary\HighspireMantis.cs" />
     <Compile Include="CardsLibrary\HoardingDragon.cs" />
     <Compile Include="CardsLibrary\HonorsReward.cs" />
-    <Compile Include="CardsLibrary\HoodedAssassin.cs" />
     <Compile Include="CardsLibrary\HootingMandrills.cs" />
     <Compile Include="CardsLibrary\HordelingOutburst.cs" />
     <Compile Include="CardsLibrary\HorizonChimera.cs" />
@@ -497,7 +495,7 @@
     <Compile Include="CardsLibrary\Sanctimony.cs" />
     <Compile Include="CardsLibrary\Sandblast.cs" />
     <Compile Include="CardsLibrary\SandsteppeCitadel.cs" />
-    <Compile Include="CardsLibrary\SandsteppeOutcast.cs" />
+    <Compile Include="CardsLibrary\AttendedKnight.cs" />
     <Compile Include="CardsLibrary\SatyrWayfinder.cs" />
     <Compile Include="CardsLibrary\ScentOfBrine.cs" />
     <Compile Include="CardsLibrary\ScentOfCinder.cs" />
@@ -732,7 +730,6 @@
     <Compile Include="Core\Effects\BooleanEffectChoice.cs" />
     <Compile Include="Core\Effects\ChangeLife.cs" />
     <Compile Include="Core\Effects\ChangeLifeOfEnchantedPermanentsController.cs" />
-    <Compile Include="Core\Effects\ChooseOneEffectFromGiven.cs" />
     <Compile Include="Core\Effects\DiscardCardToDrawCard.cs" />
     <Compile Include="Core\Effects\EachPlayerDiscardsHandAndDrawsThatManyCardsMinusOne.cs" />
     <Compile Include="Core\Effects\ExileTargetsUntilOwnerLeavesBattlefield.cs" />
