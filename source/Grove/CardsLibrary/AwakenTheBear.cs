@@ -26,7 +26,7 @@
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
           p.TimingRule(new PumpTargetCardTimingRule());
-          p.TargetingRule(new EffectPumpInstant(7, 7));
+          p.TargetingRule(new EffectPumpInstant(3, 3));
         });
     }
   }
