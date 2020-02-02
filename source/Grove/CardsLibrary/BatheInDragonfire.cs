@@ -21,7 +21,6 @@
           p.Effect = () => new DealDamageToTargets(4);
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
           p.TargetingRule(new EffectDealDamage(4));
-          p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
         });
     }
   }
