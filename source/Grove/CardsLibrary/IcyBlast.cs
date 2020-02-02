@@ -20,30 +20,23 @@
         .Cast(p =>
         {
           p.Effect = () => new FerociousEffect(
-            normal: new Effect[]
+            L(new TapTargets()),
+            L(new ApplyModifiersToTargets(() =>
             {
-              new TapTargets(), 
-            },
-            ferocious: new Effect[]
-            {
-              new TapTargets(),
-              new ApplyModifiersToTargets(() =>
-                {
-                  var modifier = new AddStaticAbility(Static.DoesNotUntap);
+              var modifier = new AddStaticAbility(Static.DoesNotUntap);
 
-                  modifier.AddLifetime(new EndOfStep(
-                    Step.Untap,
-                    l => l.Modifier.SourceCard.Controller.IsActive));
+              modifier.AddLifetime(new EndOfStep(
+                Step.Untap,
+                l => l.Modifier.SourceCard.Controller.IsActive));
 
-                  return modifier;
-                }),
-            });
+              return modifier;
+            })));
 
           p.TargetSelector.AddEffect(
             trg => trg.Is.Creature().On.Battlefield(),
             trg => {
               trg.MinCount = Value.PlusX;
-              trg.MaxCount = Value.PlusX;            
+              trg.MaxCount = Value.PlusX;       
           });
 
           p.TimingRule(new OnStep(Step.BeginningOfCombat));

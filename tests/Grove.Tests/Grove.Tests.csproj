@@ -327,6 +327,7 @@
     <Compile Include="Cards\HuntTheWeak.cs" />
     <Compile Include="Cards\HushwingGryff.cs" />
     <Compile Include="Cards\Hydrosurge.cs" />
+    <Compile Include="Cards\IcyBlast.cs" />
     <Compile Include="Cards\IllGottenGains.cs" />
     <Compile Include="Cards\IllusoryAngel.cs" />
     <Compile Include="Cards\Impatience.cs" />
