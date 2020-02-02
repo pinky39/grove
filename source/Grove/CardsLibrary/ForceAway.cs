@@ -20,11 +20,11 @@
         .Cast(p =>
         {
           p.Effect = () => new FerociousEffect(
-            normalEffects: new Effect[]
+            normal: new Effect[]
             {
               new ReturnToHand(),
             },
-            ferociousEffects: new Effect[]
+            ferocious: new Effect[]
             {
               new ReturnToHand(),
               new DrawCards(1, discardCount: 1),

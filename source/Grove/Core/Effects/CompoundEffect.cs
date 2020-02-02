@@ -5,23 +5,23 @@
 
   public class CompoundEffect : Effect
   {
-    private readonly List<Effect> _childEffects = new List<Effect>();
+    protected readonly List<Effect> ChildEffects = new List<Effect>();
 
     private CompoundEffect() {}
 
     public CompoundEffect(params Effect[] effects)
     {
-      _childEffects.AddRange(effects);
+      ChildEffects.AddRange(effects);
     }
 
     public override int CalculateCreatureDamage(Card creature)
     {
-      return _childEffects.Sum(x => x.CalculateCreatureDamage(creature));
+      return ChildEffects.Sum(x => x.CalculateCreatureDamage(creature));
     }
 
     public override int CalculatePlayerDamage(Player player)
     {
-      return _childEffects.Sum(x => x.CalculatePlayerDamage(player));
+      return ChildEffects.Sum(x => x.CalculatePlayerDamage(player));
     }
 
     public override Effect Initialize(EffectParameters p, Game game, bool evaluateParameters = true)
@@ -30,7 +30,7 @@
 
       var toughnessReduction = 0;
 
-      foreach (var effect in _childEffects)
+      foreach (var effect in ChildEffects)
       {
         effect.Initialize(p, game, evaluateParameters);
 
@@ -51,27 +51,32 @@
     {
       base.SetTriggeredAbilityTargets(targets);
       
-      foreach (var childEffect in _childEffects)
+      foreach (var childEffect in ChildEffects)
       {
         childEffect.SetTriggeredAbilityTargets(targets);
       }
-    }   
+    }
 
     public override void FinishResolve()
     {
       // calls after resolve hooks of child
       // effects.
-      foreach (var effect in _childEffects)
+      foreach (var effect in ChildEffects)
       {
         effect.AfterResolve(new Context(this, Game));
       }
 
+      EffectFinishResolve();
+    }
+
+    protected void EffectFinishResolve()
+    {
       base.FinishResolve();
     }
 
     protected override void ResolveEffect()
     {
-      foreach (var effect in _childEffects)
+      foreach (var effect in ChildEffects)
       {
         effect.BeginResolve();
       }

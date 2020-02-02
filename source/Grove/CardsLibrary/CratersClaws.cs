@@ -19,11 +19,11 @@
         {
           p.Effect = () => new DealDamageToTargets(Value.PlusX);
           p.Effect = () => new FerociousEffect(
-            normalEffects: new Effect[]
+            normal: new Effect[]
             {
               new DealDamageToTargets(Value.PlusX),
             },
-            ferociousEffects: new Effect[]
+            ferocious: new Effect[]
             {
               new DealDamageToTargets(P(e => e.X.GetValueOrDefault(0) + 2)),
             });

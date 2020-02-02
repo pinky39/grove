@@ -18,28 +18,26 @@
         .FlavorText("Crude tactics can be effective nonetheless.")
         .Cast(p =>
         {
-          p.Effect = () => new DealDamageToCreaturesAndPlayers(
-            amountCreature: (e, creature) => e.X.GetValueOrDefault(),
-            filterCreature: (effect, card) => card.Has().Flying);
           p.Effect = () => new FerociousEffect(
-            normalEffects: new Effect[]
-            {
-              new DealDamageToCreaturesAndPlayers(
+            L(new DealDamageToCreaturesAndPlayers(
                 amountCreature: 1,
-                filterCreature: (effect, card) => card.Controller != effect.Source.OwningCard.Controller),
-            },
-            ferociousEffects: new Effect[]
-            {
-              new DealDamageToCreaturesAndPlayers(
-                amountCreature: 1,
-                filterCreature: (effect, card) => card.Controller != effect.Source.OwningCard.Controller),
-              new ApplyModifiersToPermanents(
-                selector: (c, ctx) => c.Is().Creature && ctx.Opponent == c.Controller,                
-                modifier: () => new AddStaticAbility(Static.CannotBlock){UntilEot = true}), 
-            });
+                filterCreature: (effect, card) => card.Controller != effect.Source.OwningCard.Controller)),
 
+            L(new ApplyModifiersToPlayer(
+              selector: e => e.Controller,
+              modifiers: () =>
+              {
+                var pr = new ContinuousEffectParameters
+                {
+                  Selector = (card, effect) => card.Is().Creature,
+                  Modifier = () => new AddStaticAbility(Static.CannotBlock)
+                };
 
-          p.TimingRule(new MassRemovalTimingRule(removalTag: EffectTag.DealDamage));
+                return new AddContiniousEffect(new ContinuousEffect(pr)) { UntilEot = true };
+            
+              })));
+
+          p.TimingRule(new OnMainStepsOfYourTurn());
         });
     }
   }

@@ -20,11 +20,11 @@
         .Cast(p =>
         {
           p.Effect = () => new FerociousEffect(
-            normalEffects: new Effect[]
+            normal: new Effect[]
             {
               new TapTargets(), 
             },
-            ferociousEffects: new Effect[]
+            ferocious: new Effect[]
             {
               new TapTargets(),
               new ApplyModifiersToTargets(() =>

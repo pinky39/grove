@@ -21,12 +21,12 @@
         .Cast(p =>
         {
           p.Effect = () => new FerociousEffect(
-            normalEffects: new Effect[]
+            normal: new Effect[]
             {
               new ApplyModifiersToTargets(
                 () => new AddStaticAbility(Static.Lure) {UntilEot = true}),
             },
-            ferociousEffects:new Effect[]
+            ferocious:new Effect[]
             {
               new ApplyModifiersToTargets(
                 () => new AddStaticAbility(Static.Lure) {UntilEot = true},

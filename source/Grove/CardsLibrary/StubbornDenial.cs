@@ -18,11 +18,11 @@
         .Cast(p =>
         {
           p.Effect = () => new FerociousEffect(
-            normalEffects: new Effect[]
+            normal: new Effect[]
             {
               new CounterTargetSpell(ep => ep.DoNotCounterCost = 1),
             },
-            ferociousEffects: new Effect[]
+            ferocious: new Effect[]
             {
               new CounterTargetSpell(),
             });

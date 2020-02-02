@@ -127,6 +127,7 @@
     <Compile Include="Cards\AvalancheRiders.cs" />
     <Compile Include="Cards\AvariceAmulet.cs" />
     <Compile Include="Cards\BaneslayerAngel.cs" />
+    <Compile Include="Cards\BarrageOfBoulders.cs" />
     <Compile Include="Cards\BarrinMasterWizard.cs" />
     <Compile Include="Cards\BarrinsCodex.cs" />
     <Compile Include="Cards\BeastOfBurden.cs" />
