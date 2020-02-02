@@ -18,20 +18,15 @@
         .Cast(p =>
         {
           p.Effect = () => new FerociousEffect(
-            normal: new Effect[]
-            {
-              new CounterTargetSpell(ep => ep.DoNotCounterCost = 1),
-            },
-            ferocious: new Effect[]
-            {
-              new CounterTargetSpell(),
-            });
+            L(new CounterTargetSpell(ep => ep.DoNotCounterCost = 1)),
+            L(new CounterTargetSpell()),
+            instead: true);
 
           p.TargetSelector.AddEffect(trg => trg
             .Is.CounterableSpell(e => !e.Source.OwningCard.Is().Creature)
             .On.Stack());
 
-          p.TimingRule(new WhenTopSpellIsCounterable(1));
+          p.TimingRule(new WhenTopSpellIsCounterable());
           p.TargetingRule(new EffectCounterspell());
         });
     }
