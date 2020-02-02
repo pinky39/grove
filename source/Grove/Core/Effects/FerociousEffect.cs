@@ -1,27 +1,42 @@
 ﻿namespace Grove.Effects
-{  
+{
   using System.Linq;
 
   public class FerociousEffect : CompoundEffect
   {
     private int _feroucionIndex;
+    private readonly bool _instead;
 
     private FerociousEffect() {}
 
-    public FerociousEffect(Effect[] normal, Effect[] ferocious)
+    public FerociousEffect(Effect[] normal, Effect[] ferocious, bool instead = false)
       : base(normal.Concat(ferocious).ToArray())
     {
       _feroucionIndex = normal.Length;
+      _instead = instead;
     }
 
     public override void FinishResolve()
     {
       if (IsFerocious())
       {
-        base.FinishResolve();
+        
+        if (!_instead)
+        {
+          base.FinishResolve();
+        }
+        else
+        {
+          foreach (var effect in ChildEffects.Skip(_feroucionIndex))
+          {
+            effect.AfterResolve(new Context(this, Game));
+          }
+
+          EffectFinishResolve();
+        }
         return;
       }
-            
+      
       foreach (var effect in ChildEffects.Take(_feroucionIndex))
       {
         effect.AfterResolve(new Context(this, Game));
@@ -34,7 +49,18 @@
     {
       if (IsFerocious())
       {
-        base.ResolveEffect();
+        if (!_instead)
+        {
+          base.ResolveEffect();
+        }
+        else
+        {
+          foreach (var effect in ChildEffects.Skip(_feroucionIndex))
+          {
+            effect.BeginResolve();
+          }
+        }
+        
         return;
       }
 

@@ -191,6 +191,7 @@
     <Compile Include="Cards\CoralBarrier.cs" />
     <Compile Include="Cards\CovetousDragon.cs" />
     <Compile Include="Cards\CracklingDoom.cs" />
+    <Compile Include="Cards\CratersClaws.cs" />
     <Compile Include="Cards\CreepingTarPit.cs" />
     <Compile Include="Cards\CripplingBlight.cs" />
     <Compile Include="Cards\CropRotation.cs" />

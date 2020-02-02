@@ -19,14 +19,10 @@
         {
           p.Effect = () => new DealDamageToTargets(Value.PlusX);
           p.Effect = () => new FerociousEffect(
-            normal: new Effect[]
-            {
-              new DealDamageToTargets(Value.PlusX),
-            },
-            ferocious: new Effect[]
-            {
-              new DealDamageToTargets(P(e => e.X.GetValueOrDefault(0) + 2)),
-            });
+            L(new DealDamageToTargets(Value.PlusX)),
+            L(new DealDamageToTargets(P(e => (e.X ?? 0) + 2))),
+            instead: true
+            );
 
           p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 
