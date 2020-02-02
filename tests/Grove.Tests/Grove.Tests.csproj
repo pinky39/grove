@@ -130,6 +130,7 @@
     <Compile Include="Cards\BarrageOfBoulders.cs" />
     <Compile Include="Cards\BarrinMasterWizard.cs" />
     <Compile Include="Cards\BarrinsCodex.cs" />
+    <Compile Include="Cards\BattleBrawler.cs" />
     <Compile Include="Cards\BeastOfBurden.cs" />
     <Compile Include="Cards\Befoul.cs" />
     <Compile Include="Cards\BelligerentSliver.cs" />
