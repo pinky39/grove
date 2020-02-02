@@ -21,17 +21,11 @@
         .Cast(p =>
         {
           p.Effect = () => new FerociousEffect(
-            normal: new Effect[]
-            {
-              new ApplyModifiersToTargets(
-                () => new AddStaticAbility(Static.Lure) {UntilEot = true}),
-            },
-            ferocious:new Effect[]
-            {
-              new ApplyModifiersToTargets(
-                () => new AddStaticAbility(Static.Lure) {UntilEot = true},
-                () => new AddStaticAbility(Static.Indestructible) { UntilEot = true }).SetTags(EffectTag.Indestructible),
-            });
+            L(new ApplyModifiersToTargets(
+                () => new AddStaticAbility(Static.Lure) { UntilEot = true })),
+            L(new ApplyModifiersToTargets(
+                () => new AddStaticAbility(Static.Indestructible) { UntilEot = true })
+              .SetTags(EffectTag.Indestructible)));
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
