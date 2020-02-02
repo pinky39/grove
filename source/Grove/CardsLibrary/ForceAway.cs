@@ -20,15 +20,8 @@
         .Cast(p =>
         {
           p.Effect = () => new FerociousEffect(
-            normal: new Effect[]
-            {
-              new ReturnToHand(),
-            },
-            ferocious: new Effect[]
-            {
-              new ReturnToHand(),
-              new DrawCards(1, discardCount: 1),
-            });
+            L(new ReturnToHand()),
+            L(new DrawCards(1, discardCount: 1)));
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
