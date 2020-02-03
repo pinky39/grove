@@ -2,6 +2,7 @@
 {
   using System.Collections.Generic;
   using Effects;
+  using Grove.AI.TimingRules;
 
   public class BitterRevelation : CardTemplateSource
   {
@@ -18,6 +19,8 @@
           p.Effect = () => new CompoundEffect(
             new LookAtTopCardsPutPartInHandRestIntoGraveyard(4, toHandAmount: 2),
             new ChangeLife(-2, P(e => e.Controller)));
+
+          p.TimingRule(new OnFirstMain());
         });
     }
   }
