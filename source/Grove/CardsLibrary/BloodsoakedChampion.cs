@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using Costs;
   using Effects;
+  using AI.TimingRules;
 
   public class BloodsoakedChampion : CardTemplateSource
   {
@@ -24,6 +25,8 @@
           p.Condition = (card, game) => game.Turn.Events.HasActivePlayerAttackedThisTurn;
           p.Effect = () => new PutOwnerToBattlefield(from: Zone.Graveyard);
           p.ActivationZone = Zone.Graveyard;
+
+          p.TimingRule(new OnSecondMain());
         });
     }
   }
