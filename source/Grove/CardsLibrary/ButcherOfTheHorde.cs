@@ -23,56 +23,15 @@
         .ActivatedAbility(p =>
           {
             p.Text = "Sacrifice another creature: Butcher of the Horde gains vigilance until end of turn.";
-
             p.Cost = new Sacrifice();
-
-            p.Effect = () => new ApplyModifiersToSelf(
-              () => new AddStaticAbility(Static.Vigilance) {UntilEot = true});
-
-            p.TargetSelector.AddCost(
-              trg => trg.Is.Creature(ControlledBy.SpellOwner, canTargetSelf: false).On.Battlefield(),
-              trg => { trg.Message = "Select a creature to sacrifice."; });
-
-            p.TimingRule(new BeforeYouDeclareAttackers());
-            p.TimingRule(new WhenCardHas(c => !c.Has().Vigilance && !c.IsTapped));
-
-            p.TargetingRule(new EffectOrCostRankBy(c => c.Score) {TargetLimit = 1});
-          })
-        .ActivatedAbility(p =>
-          {
-            p.Text = "Sacrifice another creature: Butcher of the Horde gains lifelink until end of turn.";
-
-            p.Cost = new Sacrifice();
-
-            p.Effect = () => new ApplyModifiersToSelf(
-              () => new AddStaticAbility(Static.Lifelink) {UntilEot = true});
+            p.Effect = () => new OwnerGainsVigilanceLifelinkOrHaste();
 
             p.TargetSelector.AddCost(
               trg => trg.Is.Creature(ControlledBy.SpellOwner, canTargetSelf: false).On.Battlefield(),
               trg => trg.Message = "Select a creature to sacrifice.");
 
-            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
-            p.TimingRule(new WhenCardHas(c => !c.Has().Lifelink && !c.IsTapped));
-
-            p.TargetingRule(new EffectOrCostRankBy(c => c.Score) {TargetLimit = 1});
-          })
-        .ActivatedAbility(p =>
-          {
-            p.Text = "Sacrifice another creature: Butcher of the Horde gains haste until end of turn.";
-
-            p.Cost = new Sacrifice();
-
-            p.Effect = () => new ApplyModifiersToSelf(
-              () => new AddStaticAbility(Static.Haste) {UntilEot = true});
-
-            p.TargetSelector.AddCost(
-              trg => trg.Is.Creature(ControlledBy.SpellOwner, canTargetSelf: false)
-                .On.Battlefield(),
-              trg => trg.Message = "Select a creature to sacrifice.");
-
-            p.TimingRule(new WhenCardHas(c => c.HasSummoningSickness));
-
-            p.TargetingRule(new EffectOrCostRankBy(c => c.Score) {TargetLimit = 1});
+            p.TimingRule(new OnFirstMain());
+            p.TargetingRule(new EffectOrCostRankBy(c => c.Score) { TargetLimit = 1 });
           });
     }
   }

@@ -17,6 +17,9 @@
     Hand,
     SacrificeACreature,
     PayLife,
-    OpponentDrawsACard
+    OpponentDrawsACard,
+    Vigilance,
+    Lifelink,
+    Haste
   }
 }

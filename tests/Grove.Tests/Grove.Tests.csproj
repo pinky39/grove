@@ -161,6 +161,7 @@
     <Compile Include="Cards\BubblingMuck.cs" />
     <Compile Include="Cards\BurningAnger.cs" />
     <Compile Include="Cards\BurstOfEnergy.cs" />
+    <Compile Include="Cards\ButcherOfTheHorde.cs" />
     <Compile Include="Cards\Caltrops.cs" />
     <Compile Include="Cards\CapashenKnight.cs" />
     <Compile Include="Cards\CapashenStandard.cs" />
