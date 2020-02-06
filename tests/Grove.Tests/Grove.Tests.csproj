@@ -153,6 +153,7 @@
     <Compile Include="Cards\Bravado.cs" />
     <Compile Include="Cards\BrawlersPlate.cs" />
     <Compile Include="Cards\Breach.cs" />
+    <Compile Include="Cards\BribersPurse.cs" />
     <Compile Include="Cards\BrineSeer.cs" />
     <Compile Include="Cards\BringLow.cs" />
     <Compile Include="Cards\BrinkOfMadness.cs" />

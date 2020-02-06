@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2F3D4912-CF22-4390-A423-CB96206AD24D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		pinky-M15-review.txt = pinky-M15-review.txt
 	EndProjectSection
 EndProject
 Global

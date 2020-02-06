@@ -2,9 +2,21 @@
 {
   public class XIsAvailableMana : CostRule
   {
-    public override int CalculateX(CostRuleParameters p)
+    private readonly int _modifier;
+
+    public XIsAvailableMana()
     {
-      return p.MaxX;
+    }
+
+    public XIsAvailableMana(int modifier)
+    {
+      _modifier = modifier;
+    }
+    
+    public override int CalculateX(CostRuleParameters p)
+    {                  
+      var x = p.MaxX + _modifier;
+      return x > 0 ? x : 0;
     }
   }
 }

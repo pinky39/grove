@@ -16,7 +16,7 @@
           "Exile Time Spiral. Each player shuffles his or her graveyard and hand into his or her library, then draws seven cards. You untap up to six lands.")
         .Cast(p =>
           {
-            p.AfterResolve = c => c.Exile();
+            p.AfterResolve = (c, _) => c.Exile();
             p.Effect = () => new CompoundEffect(
               new EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards(7),
               new UntapSelectedPermanents(0, 6, c => c.Is().Land));

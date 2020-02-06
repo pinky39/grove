@@ -215,8 +215,11 @@
     {
       if (WasResolved)
       {
-        AfterResolve(new Context(this, Game));
-        Source.EffectResolved();
+        var ctx = new Context(this, Game);
+        
+        AfterResolve(ctx);
+        Source.EffectResolved(ctx);
+
         Publish(new EffectResolvedEvent(this));
         return;
       }
@@ -327,6 +330,7 @@
       public Card OwningCard { get { return _effect.Source.OwningCard; } }
       public int? X { get { return _effect.X; } }
       public Combat Combat { get { return _game.Combat; } }
+      public Effect Effect { get { return _effect; } }
       
       public T TriggerMessage<T>()
       {

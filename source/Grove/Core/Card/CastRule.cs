@@ -41,10 +41,10 @@
         add: delegate { });
     }
 
-    public void EffectResolved()
+    public void EffectResolved(Effect.Context ctx)
     {
       var putToZone = _p.AfterResolve ?? PutToZoneAfterResolve;
-      putToZone(_card);
+      putToZone(ctx.OwningCard, ctx);
     }
 
     public bool IsTargetStillValid(ITarget target, object triggerMessage)
@@ -61,8 +61,8 @@
         });
     }
 
-    private void PutToZoneAfterResolve(Card card)
-    {
+    private void PutToZoneAfterResolve(Card card, Effect.Context ctx)
+    {      
       if (card.Is().Sorcery || card.Is().Instant)
       {
         card.PutToGraveyard();
@@ -203,8 +203,8 @@
     {
       public Cost Cost;
       public string KickerDescription = "Cast {0} with kicker.";
-      public Action<Card> AfterResolve;
-      public Func<Card, Game, bool> Condition = delegate { return true; };
+      public Action<Card, Effect.Context> AfterResolve;
+      public Func<Card, Game, bool> Condition = delegate { return true; };      
     }
   }
 }

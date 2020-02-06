@@ -30,7 +30,7 @@
 
     public void EffectCountered(SpellCounterReason reason) {}
     void IEffectSource.EffectPushedOnStack() {}
-    void IEffectSource.EffectResolved() {}
+    void IEffectSource.EffectResolved(Effect.Context ctx) {}
 
     bool IEffectSource.IsTargetStillValid(ITarget target, object triggerMessage)
     {

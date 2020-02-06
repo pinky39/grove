@@ -9,7 +9,7 @@
 
     void EffectCountered(SpellCounterReason reason);
     void EffectPushedOnStack();
-    void EffectResolved();
+    void EffectResolved(Effect.Context ctx);
 
     bool IsTargetStillValid(ITarget target, object triggerMessage = null);
     bool ValidateTargetDependencies(List<ITarget> costTargets, List<ITarget> effectTargets);
