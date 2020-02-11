@@ -185,6 +185,7 @@
     <Compile Include="Cards\CitanulHierophants.cs" />
     <Compile Include="Cards\ClawsOfGix.cs" />
     <Compile Include="Cards\ClearAPath.cs" />
+    <Compile Include="Cards\CleverImpersonator.cs" />
     <Compile Include="Cards\ClousOfFaeries.cs" />
     <Compile Include="Cards\Compost.cs" />
     <Compile Include="Cards\ConeOfFlame.cs" />

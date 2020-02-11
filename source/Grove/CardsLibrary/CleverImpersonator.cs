@@ -31,7 +31,7 @@
             p.Effect = () => new BecomeCopyOfTargetCard();
 
             p.TargetSelector.AddEffect(
-              trg => trg.Is.Card(c => !c.Is().Land, canTargetSelf: false).On.Battlefield(),
+              trg => trg.Is.Card(c => !c.Is().Land, controlledBy: ControlledBy.Any).On.Battlefield(),
               trg => trg.MustBeTargetable = false);
 
             p.TargetingRule(new EffectOrCostRankBy(x => -x.Score));
