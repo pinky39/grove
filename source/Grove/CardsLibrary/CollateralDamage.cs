@@ -26,14 +26,14 @@
 
             p.TargetSelector.AddCost(
               trg => trg.Is.Card(c => c.Is().Creature, ControlledBy.SpellOwner).On.Battlefield(),
-              trg => { trg.Message = "Select a creature to sacrifice."; });
+              trg => trg.Message = "Select a creature to sacrifice.");
 
             p.Text = "Collateral Damage deals 3 damage to target creature or player.";
             p.Effect = () => new DealDamageToTargets(3);
             p.TargetSelector.AddEffect(trg => trg.Is.CreatureOrPlayer().On.Battlefield());
 
             p.TargetingRule(new CostSacrificeEffectDealDamage(3));
-            p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
+            p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new WhenStackIsNotEmpty()));
           });
     }
   }
