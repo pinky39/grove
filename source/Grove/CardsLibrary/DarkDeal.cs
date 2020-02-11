@@ -17,8 +17,9 @@
         .Cast(p =>
         {
           p.Effect = () => new EachPlayerDiscardsHandAndDrawsThatManyCardsMinusOne();
-          p.TimingRule(new OnSecondMain());
-          p.TimingRule(new WhenYouHaveBiggerHand(-2));
+          p.TimingRule(new OnFirstMain());
+          p.TimingRule(new WhenYourHandCountIs(minCount: 3, selector: c => c.Type.Land));
+          p.TimingRule(new WhenOpponentsHandCountIs(maxCount: 1));
         });
     }
   }
