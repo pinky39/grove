@@ -710,6 +710,7 @@
     <Compile Include="Core\Decisions\CastCard.cs" />
     <Compile Include="Core\Decisions\ChosenAttackers.cs" />
     <Compile Include="Core\Effects\CreateEmblem.cs" />
+    <Compile Include="Core\Effects\OwnerGainsVigilanceLifelinkOrHaste.cs" />
     <Compile Include="Core\Emblem.cs" />
     <Compile Include="Core\Effects\PreventDamageToEquipedCreature.cs" />
     <Compile Include="Core\Events\EmblemAddedEvent.cs" />
