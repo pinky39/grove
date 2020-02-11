@@ -11,7 +11,7 @@
         .Named("Chief of the Scale")
         .ManaCost("{W}{B}")
         .Type("Creature - Human Warrior")
-        .Text("Other Warrior creatures you control get +1/+0.")
+        .Text("Other Warrior creatures you control get +0/+1.")
         .FlavorText("\"We are the shield unbroken. If we fall today, we will die well, and our trees will bear our names in honor.\"")
         .Power(2)
         .Toughness(3)
