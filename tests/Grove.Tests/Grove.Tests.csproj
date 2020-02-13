@@ -231,6 +231,7 @@
     <Compile Include="Cards\Donate.cs" />
     <Compile Include="Cards\Douse.cs" />
     <Compile Include="Cards\DragonBlood.cs" />
+    <Compile Include="Cards\Dragonrage.cs" />
     <Compile Include="Cards\DragonscaleGeneral.cs" />
     <Compile Include="Cards\DragonStyleTwins.cs" />
     <Compile Include="Cards\Dread.cs" />

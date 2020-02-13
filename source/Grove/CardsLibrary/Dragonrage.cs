@@ -36,7 +36,7 @@
                     () => new AddPowerAndToughness(1, 0) {UntilEot = true}).SetTags(EffectTag.IncreasePower),
                 };
 
-                ap.TimingRule(new Any(new PumpOwningCardTimingRule(1, 0), new OnEndOfOpponentsTurn()));
+                ap.TimingRule(new AfterYouDeclareAttackers());
                 ap.RepetitionRule(new RepeatMaxTimes());
 
                 return new AddActivatedAbility(new ActivatedAbility(ap));
