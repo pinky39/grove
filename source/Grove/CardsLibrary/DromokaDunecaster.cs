@@ -20,12 +20,17 @@
         .Toughness(2)
         .ActivatedAbility(p =>
         {
-          p.Text = "{1}{W},{T}: Tap target creature.";
+          p.Text = "{1}{W},{T}: Tap target creature without flying.";
           p.Cost = new AggregateCost(
             new PayMana("{1}{W}".Parse()),
             new Tap());
+          
           p.Effect = () => new TapTargets();
-          p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
+
+          p.TargetSelector.AddEffect(trg => trg
+            .Is.Card(c => c.Is().Creature && !c.Has().Flying)
+            .On.Battlefield());
+       
           p.TimingRule(new OnStep(Step.BeginningOfCombat));
           p.TargetingRule(new EffectTapCreature());
         });
