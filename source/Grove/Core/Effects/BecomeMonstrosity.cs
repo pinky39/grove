@@ -3,13 +3,13 @@
   using AI;
   using Modifiers;
 
-  public class BecomeMonstrosity : Effect
+  public class BecomeMonstrous : Effect
   {
     private readonly int _counterCount;
 
-    private BecomeMonstrosity() {}
+    private BecomeMonstrous() {}
 
-    public BecomeMonstrosity(int counterCount)
+    public BecomeMonstrous(int counterCount)
     {
       _counterCount = counterCount;
 

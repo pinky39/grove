@@ -274,6 +274,7 @@
     <Compile Include="Cards\FieryMantle.cs" />
     <Compile Include="Cards\FirstResponse.cs" />
     <Compile Include="Cards\FledglingOsprey.cs" />
+    <Compile Include="Cards\FleecemaneLion.cs" />
     <Compile Include="Cards\FleshToDust.cs" />
     <Compile Include="Cards\Flicker.cs" />
     <Compile Include="Cards\FodderCannon.cs" />
