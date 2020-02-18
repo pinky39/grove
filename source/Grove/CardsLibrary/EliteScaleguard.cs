@@ -5,6 +5,7 @@
   using AI;
   using AI.TargetingRules;
   using Effects;
+  using Grove.AI.TimingRules;
   using Modifiers;
   using Triggers;
 
@@ -18,7 +19,7 @@
         .Type("Creature - Human Soldier")
         .Text("When Elite Scaleguard enters the battlefield, bolster 2.{I}(Choose a creature with the least toughness among creatures you control and put two +1/+1 counters on it.){/I}{EOL}Whenever a creature you control with a +1/+1 counter on it attacks, tap target creature defending player controls.")
         .Power(2)
-        .Toughness(3)
+        .Toughness(3)        
         .TriggeredAbility(p =>
         {
           p.Text = "When Elite Scaleguard enters the battlefield, bolster 2";
@@ -35,6 +36,7 @@
           p.Trigger(new WhenACreatureAttacks(t => t.Opponent && t.AttackerHas(c => c.CountersCount(CounterType.PowerToughness) > 0)));
           p.Effect = () => new TapTargets();
           p.TargetSelector.AddEffect(trg => trg.Is.Creature(controlledBy: ControlledBy.Opponent).On.Battlefield());
+          p.TargetingRule(new EffectTapCreature());
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
     }

@@ -241,6 +241,7 @@
     <Compile Include="Cards\Electryte.cs" />
     <Compile Include="Cards\EleshNornGrandCenobite.cs" />
     <Compile Include="Cards\EliteArchers.cs" />
+    <Compile Include="Cards\EliteScaleguard.cs" />
     <Compile Include="Cards\ElvishHerder.cs" />
     <Compile Include="Cards\ElvishLyrist.cs" />
     <Compile Include="Cards\ElvishPiper.cs" />
