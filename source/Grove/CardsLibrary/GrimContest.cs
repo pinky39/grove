@@ -3,8 +3,9 @@
   using System.Collections.Generic;
   using AI.TargetingRules;
   using Effects;
+    using Grove.AI.TimingRules;
 
-  public class GrimContest : CardTemplateSource
+    public class GrimContest : CardTemplateSource
   {
     public override IEnumerable<CardTemplate> GetCards()
     {
@@ -17,7 +18,7 @@
         .FlavorText("The invader hoped he could survive the beast's jaws and emerge through its rotting skin.")
         .Cast(p =>
           {
-            p.Effect = () => new EachTargetDealsDamageEqualToItsToughnessToOther();
+            p.Effect = () => new Fight(c => c.Toughness ?? 0);
 
             p.TargetSelector.AddEffect(
               trg => trg.Is.Creature(ControlledBy.SpellOwner).On.Battlefield(),
@@ -27,7 +28,8 @@
               trg => trg.Is.Creature(ControlledBy.Opponent).On.Battlefield(),
               trg => { trg.Message = "Select a target creature your oppenent controls."; });
 
-            p.TargetingRule(new EffectFight());
+            p.TargetingRule(new EffectFight(c => c.Toughness ?? 0));
+            p.TimingRule(new Any(new OnMainStepsOfYourTurn(), new AfterOpponentDeclaresAttackers()));
           });
     }
   }
