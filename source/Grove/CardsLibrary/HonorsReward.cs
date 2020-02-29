@@ -24,12 +24,18 @@
             new ChangeLife(amount: 4, whos: P(e => e.Controller)),
             new ApplyModifiersToTargets(() => new AddCounters(
             () => new PowerToughness(1, 1), count: 2))).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+          
           p.TargetSelector.AddEffect(
-            trg => trg.Is.Card(c => c.Is().Creature && c.Controller.Battlefield.Creatures.All(x => x.Toughness >= c.Toughness), ControlledBy.SpellOwner).On.Battlefield());
-          p.TargetingRule(new EffectOrCostRankBy(rank: c => -c.Score, controlledBy: ControlledBy.SpellOwner));  
+            trg => trg
+            .Is.Card(c => c.Is().Creature && 
+              c.Controller.Battlefield.Creatures.All(x => x.Toughness >= c.Toughness), ControlledBy.SpellOwner)
+            .On.Battlefield(),
+            trg => trg.MustBeTargetable = false);
+          
+          p.TargetingRule(new EffectOrCostRankBy(rank: c => -c.Score, controlledBy: ControlledBy.SpellOwner));
+          
           p.TimingRule(new Any(
             new OnEndOfOpponentsTurn(),
-            new AfterYouDeclareBlockers(),
             new WhenYourLifeCanBecomeZero()));
         });
     }
