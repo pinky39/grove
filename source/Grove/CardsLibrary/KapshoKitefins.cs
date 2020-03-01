@@ -31,8 +31,8 @@
                 if (ctx.OwningCard == card)
                   return true;
 
-                return ctx.OwningCard.Zone == Zone.Battlefield &&
-                  card.Is().Creature && ctx.OwningCard.Controller == card.Controller;
+                return card.Is().Creature && 
+                  ctx.OwningCard.Controller == card.Controller;
               }));
 
             p.Effect = () => new TapTargets();
