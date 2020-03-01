@@ -64,6 +64,36 @@
       return this;
     }
 
+    public CardTemplate Dash(string cost)
+    {
+      return Cast(p => p.Effect = () => new CastPermanent())
+        .Cast(p =>
+      {
+        p.Cost = new PayMana(cost.Parse());
+        p.Text = "Cast {0} with dash.";
+        
+        p.Effect = () => new CompoundEffect(
+           new CastPermanent(),
+           new ApplyModifiersToSelf(
+             () => new AddStaticAbility(Static.Haste),
+             () => new AddStaticAbility(Static.Dash),
+             () =>
+             {
+               var tp = new TriggeredAbility.Parameters
+               {
+                 Text = "You may cast this spell for its dash cost. If you do, it gains haste, and it's returned from the battlefield to its owner's hand at the beginning of the next end step.",
+                 Effect = () => new Effects.ReturnToHand(returnOwningCard: true)
+               };
+
+               tp.Trigger(new OnStepStart(step: Step.EndOfTurn));
+               return new AddTriggeredAbility(new TriggeredAbility(tp));
+             }
+             ));
+
+        p.TimingRule(new OnFirstMain());
+      });
+    }
+
     public CardTemplate Cast(Action<CastRule.Parameters> set)
     {
       _init.Add(cp =>
