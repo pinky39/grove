@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using AI.TargetingRules;
   using Effects;
+  using Grove.AI.TimingRules;
 
   public class IntoTheVoid : CardTemplateSource
   {
@@ -27,6 +28,7 @@
                 trg.MaxCount = 2;
               });
 
+            p.TimingRule(new OnFirstMain());
             p.TargetingRule(new EffectBounce());
           });
     }
