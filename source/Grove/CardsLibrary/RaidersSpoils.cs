@@ -37,8 +37,7 @@
             dmg.Source.Is("warrior")));
 
           p.Effect = () => new PayLifeThen(1,
-            effect: new DrawCards(1),
-            parameters: new PayThen.Parameters() { AiPaysIf = (e) => e.Controller.Hand.Count < 4 });
+            effect: new DrawCards(1));
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
