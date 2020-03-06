@@ -489,6 +489,7 @@
     <Compile Include="Cards\Pyromancy.cs" />
     <Compile Include="Cards\Quickling.cs" />
     <Compile Include="Cards\QuicksilverAmulet.cs" />
+    <Compile Include="Cards\QuietContemplation.cs" />
     <Compile Include="Cards\RadiantArchangel.cs" />
     <Compile Include="Cards\RadiantsJudgment.cs" />
     <Compile Include="Cards\RaidersSpoils.cs" />
