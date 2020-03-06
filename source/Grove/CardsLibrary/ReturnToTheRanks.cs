@@ -4,6 +4,7 @@
   using AI.CostRules;
   using AI.TimingRules;
   using Effects;
+  using Grove.AI.TargetingRules;
   using Modifiers;
 
   public class ReturnToTheRanks : CardTemplateSource
@@ -19,15 +20,19 @@
         .SimpleAbilities(Static.Convoke)
         .Cast(p =>
           {
-            p.Effect = () => new PutSelectedCardsToBattlefield(
-              text: "Select X creature cards in your graveyard.",
-              validator: c => c.Is().Creature && c.ConvertedCost <= 2,
-              fromZone: Zone.Graveyard,
-              count: Value.PlusX);
+            p.Effect = () => new PutTargetsToBattlefield();
 
-            p.TimingRule(new WhenYourGraveyardCountIs(minCount: 1,
-              selector: c => c.Is().Creature && c.ConvertedCost <= 2));
+            p.TargetSelector.AddEffect(
+             trg => trg.Is.Card(c => c.Is().Creature && c.ConvertedCost <= 2).In.YourGraveyard(),
+             trg => {
+               trg.MinCount = Value.PlusX;
+               trg.MaxCount = Value.PlusX;
+             });
+            
             p.CostRule(new XIsAvailableMana());
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
+            p.TimingRule(new WhenYourGraveyardCountIs(minCount: 1,
+              selector: c => c.Is().Creature && c.ConvertedCost <= 2));                        
           });
     }
   }
