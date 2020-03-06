@@ -59,9 +59,15 @@
         .Select(cost => cost.CanPayPartial(payManaCost))
         .ToList();
 
+      var childrenWithXInCost = childResults
+        .Where(x => x.MaxX.HasValue)
+        .ToArray();
+
       return new CanPayResult(
         canPay: childResults.All(x => x.CanPay),
-        maxX: (childResults.FirstOrDefault(x => x.MaxX.HasValue) ?? childResults.First()).MaxX);
+        maxX: childrenWithXInCost.Length > 0 
+          ? (int?) childrenWithXInCost.Min(x => x.MaxX.Value) 
+          : null);
     }
 
     private bool HasPayMana()
