@@ -4,7 +4,7 @@
 
   public abstract class CostRule : MachinePlayRule
   {    
-    public void Process(ActivationContext c)
+    private void Process(ActivationContext c)
     {
       if (c.HasTargets == false)
       {

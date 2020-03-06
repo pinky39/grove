@@ -719,7 +719,7 @@
     <Compile Include="Infrastructure\ReentryGuard.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />
     <Compile Include="Core\Costs\CostType.cs" />
-    <Compile Include="Core\Costs\Exile.cs" />
+    <Compile Include="Core\Costs\ExileOwnerCost.cs" />
     <Compile Include="Core\Costs\PayCostParameters.cs" />
     <Compile Include="Core\Decisions\Split.cs" />
     <Compile Include="Core\Decisions\SplitCards.cs" />

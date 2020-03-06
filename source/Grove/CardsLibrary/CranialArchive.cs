@@ -21,7 +21,7 @@
           p.Text = "{2},Exile Cranial Archive: Target player shuffles his or her graveyard into his or her library. Draw a card.";
           p.Cost = new AggregateCost(
             new PayMana(2.Colorless()),
-            new Costs.Exile());
+            new ExileOwnerCost());
 
           p.Effect = () => new CompoundEffect(
             new ShuffleTargetGraveyardIntoLibrary(c => true),

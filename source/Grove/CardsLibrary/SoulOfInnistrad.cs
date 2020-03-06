@@ -40,7 +40,7 @@
           p.Text = "{3}{B}{B}, Exile Soul of Innistrad from your graveyard: Return up to three target creature cards from your graveyard to your hand.";
           p.Cost = new AggregateCost(
             new PayMana("{3}{B}{B}".Parse()),
-            new Exile(fromGraveyard: true));
+            new ExileOwnerCost());
 
           p.Effect = () => new Effects.ReturnToHand();
           p.TargetSelector.AddEffect(

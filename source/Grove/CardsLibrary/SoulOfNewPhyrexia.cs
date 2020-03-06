@@ -39,7 +39,7 @@
           p.Text = "{5}, Exile Soul of New Phyrexia from your graveyard: Permanents you control gain indestructible until end of turn.";
           p.Cost = new AggregateCost(
             new PayMana("{5}".Parse()),
-            new Exile(fromGraveyard: true));
+            new ExileOwnerCost());
 
           p.Effect = () => new ApplyModifiersToPermanents(
             selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            

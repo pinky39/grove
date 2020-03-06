@@ -39,7 +39,7 @@
           p.Text = "{4}{W}{W}, Exile Soul of Theros from your graveyard: Creatures you control get +2/+2 and gain first strike and lifelink until end of turn.";
           p.Cost = new AggregateCost(
             new PayMana("{4}{W}{W}".Parse()),
-            new Exile(fromGraveyard: true));
+            new ExileOwnerCost());
 
           p.Effect = () => new ApplyModifiersToPermanents(
             selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            

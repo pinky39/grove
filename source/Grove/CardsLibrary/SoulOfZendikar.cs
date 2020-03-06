@@ -44,7 +44,7 @@
           p.Text = "{3}{G}{G}, Exile Soul of Zendikar from your graveyard: Put a 3/3 green Beast creature token onto the battlefield.";
           p.Cost = new AggregateCost(
             new PayMana("{3}{G}{G}".Parse()),
-            new Exile(fromGraveyard: true));
+            new ExileOwnerCost());
 
           p.Effect = () => new CreateTokens(
               count: 1,

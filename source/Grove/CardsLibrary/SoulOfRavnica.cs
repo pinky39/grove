@@ -31,7 +31,7 @@
           
           p.Cost = new AggregateCost(
             new PayMana("{5}{U}{U}".Parse()),
-            new Exile(fromGraveyard: true));
+            new ExileOwnerCost());
 
           p.Effect = () => new DrawCards(P(e => e.Controller.Battlefield.PermanentsColors.Count()));
         });

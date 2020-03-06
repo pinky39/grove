@@ -57,7 +57,7 @@
               "{3}{R}{R}, Exile Soul of Shandalar from your graveyard: Soul of Shandalar deals 3 damage to target player and 3 damage to up to one target creature that player controls.";
             p.Cost = new AggregateCost(
               new PayMana("{3}{R}{R}".Parse()),
-              new Exile(fromGraveyard: true));
+              new ExileOwnerCost());
 
             p.Effect = () => new DealDamageToTargets(3);
             p.TargetSelector

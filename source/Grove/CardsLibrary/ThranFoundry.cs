@@ -23,7 +23,7 @@
             p.Cost = new AggregateCost(
               new PayMana(1.Colorless()),
               new Tap(),
-              new Exile());
+              new ExileOwnerCost());
 
             p.Effect = () => new ShuffleTargetGraveyardIntoLibrary(c => true);
 

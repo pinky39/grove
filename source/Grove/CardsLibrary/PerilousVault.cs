@@ -20,7 +20,7 @@
           p.Cost = new AggregateCost(
             new PayMana("{5}".Parse()),
             new Tap(),
-            new Exile());
+            new ExileOwnerCost());
 
           p.Effect = () => new ExileAllCards(filter: (effect, card) => !card.Is().Land);
 
