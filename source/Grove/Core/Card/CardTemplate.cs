@@ -2,12 +2,14 @@
 {
   using System;
   using System.Collections.Generic;
+  using System.Linq;
   using AI;
   using AI.CombatRules;
   using AI.RepetitionRules;
   using AI.TimingRules;
   using Costs;
   using Effects;
+  using Grove.Events;
   using Modifiers;
   using Triggers;
 
@@ -297,6 +299,23 @@
       _init.Add(p => { p.Name = name; });
       return this;
     }
+
+    public CardTemplate Exalted()
+    {
+       TriggeredAbility(p =>
+        {
+          p.Text = "Exalted{I}(Whenever a creature you control attacks alone, that creature gets +1/+1 until end of turn.){/I}";
+          p.Trigger(new AfterAttackersAreDeclared(ctx => ctx.You.IsActive && ctx.Combat.Attackers.Count() == 1));
+          
+          p.Effect = () => new ApplyModifiersToCard(
+            new DynParam<Card>((e, _) => e.TriggerMessage<AttackersDeclaredEvent>().Attackers.Single().Card),
+            () => new AddPowerAndToughness(1, 1) { UntilEot = true });
+          
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
+        });
+
+      return this;
+    }    
 
     public CardTemplate Cycling(string cost)
     {
