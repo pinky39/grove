@@ -530,6 +530,7 @@
     <Compile Include="Cards\RuneOfProtectionBlack.cs" />
     <Compile Include="Cards\RuptureSpire.cs" />
     <Compile Include="Cards\SacredArmory.cs" />
+    <Compile Include="Cards\SageEyeAvengers.cs" />
     <Compile Include="Cards\SanctifiedCharge.cs" />
     <Compile Include="Cards\Sanctimony.cs" />
     <Compile Include="Cards\SanctumCustodian.cs" />

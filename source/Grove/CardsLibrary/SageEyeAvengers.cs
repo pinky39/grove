@@ -22,8 +22,11 @@
           p.Text = "Whenever Sage-Eye Avengers attacks, you may return target creature to its owner's hand if its power is less than Sage-Eye Avengers's power.";
           p.Trigger(new WhenThisAttacks());
           p.Effect = () => new ReturnToHand();
-          p.TargetSelector.AddEffect(trg => trg.Is.Card(x => x.Power < P(e => e.Source.OwningCard.Power)).On.Battlefield());
-          p.TargetingRule(new EffectOrCostRankBy(c => -c.Score * c.Power.GetValueOrDefault(1)));
+          
+          p.TargetSelector.AddEffect(trg => trg.Is.Card(p1 =>
+            p1.Target.Card().Is().Creature && p1.Target.Card().Power < p1.OwningCard.Power).On.Battlefield());
+          
+          p.TargetingRule(new EffectBounce());
         });
     }
   }
