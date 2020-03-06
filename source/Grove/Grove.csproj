@@ -417,7 +417,6 @@
     <Compile Include="CardsLibrary\NecrogenScudder.cs" />
     <Compile Include="CardsLibrary\NecromancersAssistant.cs" />
     <Compile Include="CardsLibrary\NecromancersStockpile.cs" />
-    <Compile Include="CardsLibrary\NecropolisFiend.cs" />
     <Compile Include="CardsLibrary\Negate.cs" />
     <Compile Include="CardsLibrary\NetcasterSpider.cs" />
     <Compile Include="CardsLibrary\NightfireGiant.cs" />
