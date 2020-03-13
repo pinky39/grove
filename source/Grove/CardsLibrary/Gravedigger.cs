@@ -19,6 +19,7 @@
         .FlavorText("A grave is not always for burial.")
         .Power(2)
         .Toughness(2)
+        .Cast(p => p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature)))
         .TriggeredAbility(p =>
           {
             p.Text =
@@ -30,8 +31,7 @@
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().In.YourGraveyard());
 
-            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));
-            p.TimingRule(new WhenYourGraveyardCountIs(c => c.Is().Creature));
+            p.TargetingRule(new EffectOrCostRankBy(c => -c.Score));            
           });
     }
   }
