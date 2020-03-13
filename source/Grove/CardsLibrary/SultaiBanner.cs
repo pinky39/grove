@@ -3,6 +3,8 @@
   using System.Collections.Generic;
   using Costs;
   using Effects;
+  using Grove.AI;
+  using Grove.AI.TimingRules;
 
   public class SultaiBanner : CardTemplateSource
   {
@@ -22,12 +24,21 @@
         .ActivatedAbility(p =>
         {
           p.Text = "{B}{G}{U}, {T}, Sacrifice Sultai Banner: Draw a card.";
+          
           p.Cost = new AggregateCost(
             new PayMana("{B}{G}{U}".Parse()),
             new Tap(),
             new Sacrifice());
+          
           p.Effect = () => new DrawCards(1);
-        });
+          
+          p.TimingRule(new Any(
+              new WhenOwningCardWillBeDestroyed(),
+              new OnEndOfOpponentsTurn()));
+        })
+        // TODO scoring should depend on number of lands on battlefield
+        .OverrideScore(p => p.Battlefield = Scores.ManaCostToScore[2]);
+      
     }
   }
 }
