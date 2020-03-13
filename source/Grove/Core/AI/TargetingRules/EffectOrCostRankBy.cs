@@ -1,5 +1,6 @@
 ﻿namespace Grove.AI.TargetingRules
 {
+  using Grove.Infrastructure;
   using System;
   using System.Collections.Generic;
   using System.Linq;
@@ -22,9 +23,12 @@
 
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
-      var candidates = p.Candidates<Card>(_controlledBy)
-        .OrderBy(x => _rank(x))
-        .ToList();
+      if (p.EffectTargetTypeCount > 1)
+      {
+        return SelectTargets2Selectors(p);
+      }
+
+      var candidates = GetCandidates(p).ToList();
 
       if (p.DistributeAmount > 0)
       {
@@ -35,6 +39,23 @@
         return Group(candidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount());
 
       return Group(candidates, p.TotalMinTargetCount(), p.TotalMaxTargetCount(), (trg, trgs) => trgs.AddCost(trg));
+    }
+
+    private IEnumerable<Card> GetCandidates(TargetingRuleParameters p, int selectorIndex = 0)
+    {
+      return p.Candidates<Card>(_controlledBy, selectorIndex: selectorIndex)
+        .OrderBy(x => _rank(x));
+    }
+
+    private IEnumerable<Targets> SelectTargets2Selectors(TargetingRuleParameters p)
+    {
+      Asrt.True(p.EffectTargetTypeCount <= 2, "More than 2 effect selectors currently not supported.");
+
+      var candidates1 = GetCandidates(p, 0).Cast<ITarget>().ToList();
+      var candidates2 = GetCandidates(p, 1).Cast<ITarget>().ToList();
+
+      return Group(candidates1, candidates2, minTargetCount1: p.MinTargetCount(selectorIndex: 0),
+        minTargetCount2: p.MinTargetCount(selectorIndex: 1));
     }
 
     private IEnumerable<Targets> SelectTargetsDistribute(TargetingRuleParameters p, List<Card> candidates)
