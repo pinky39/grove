@@ -674,6 +674,7 @@
     <Compile Include="Cards\WeatherseedElf.cs" />
     <Compile Include="Cards\WelkinTern.cs" />
     <Compile Include="Cards\Whetstone.cs" />
+    <Compile Include="Cards\WhiskAway.cs" />
     <Compile Include="Cards\WildDogs.cs" />
     <Compile Include="Cards\WillForgedGolem.cs" />
     <Compile Include="Cards\Windfall.cs" />
