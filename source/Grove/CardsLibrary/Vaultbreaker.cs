@@ -22,8 +22,7 @@
         .TriggeredAbility(p =>
         {
           p.Text = "Whenever Vaultbreaker attacks, you may discard a card. If you do, draw a card.";
-          p.Trigger(new OnDamageDealt(dmg =>
-              dmg.IsCombat && dmg.IsDealtByOwningCard && dmg.IsDealtToPlayer));
+          p.Trigger(new WhenThisAttacks());
 
           p.Effect = () => new DiscardCardToDrawCard();
           p.TriggerOnlyIfOwningCardIsInPlay = true;
