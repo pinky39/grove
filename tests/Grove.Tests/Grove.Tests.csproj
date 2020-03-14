@@ -425,7 +425,6 @@
     <Compile Include="Cards\MultanisPresence.cs" />
     <Compile Include="Cards\NecromancersAssistant.cs" />
     <Compile Include="Cards\NecromancersStockpile.cs" />
-    <Compile Include="Cards\NecropolisFiend.cs" />
     <Compile Include="Cards\Negate.cs" />
     <Compile Include="Cards\NetcasterSpider.cs" />
     <Compile Include="Cards\NightfireGiant.cs" />
