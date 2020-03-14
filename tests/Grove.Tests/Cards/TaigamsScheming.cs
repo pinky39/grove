@@ -8,7 +8,7 @@
   {
     public class Ai : AiScenario
     {
-      [Fact(Skip = "AI does not play the sorcery")]
+      [Fact()]
       public void PutMountainOnTop()
       {
         Hand(P1, "Taigam's Scheming", "Shivan Raptor");

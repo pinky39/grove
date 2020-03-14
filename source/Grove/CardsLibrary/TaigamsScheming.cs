@@ -3,6 +3,7 @@
   using System.Collections.Generic;
   using AI.TimingRules;
   using Effects;
+  using Grove.AI;
 
   public class TaigamsScheming : CardTemplateSource
   {
@@ -18,6 +19,12 @@
         {
           p.Effect = () => new PutSelectedCardsIntoGraveyardOthersOnTop(5);
           p.TimingRule(new OnSecondMain());
+        })
+        .OverrideScore(p =>
+        {
+          // override the score so ai will play it
+          p.Hand = 0;
+          p.Graveyard = 100;
         });
     }
   }
