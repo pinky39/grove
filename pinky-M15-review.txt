@@ -54,7 +54,6 @@ o Tyrant's Machine
 o Ulcerate
 o Witch's Familiar
 o Zof Shade
-
 o Caustic Tar
 o Darksteel Citadel
 o Fugitive Wizard
@@ -72,19 +71,15 @@ o Titanic Growth
 o Turn to Frog
 o Wall of Fire
 o Wall of Mulch
-
 o Accursed Spirit
 o Krenko's Enforcer
 o Juggernaut
 o Welkin Tern
-
 o Ajani's Pridemate
 o Resolute Archangel
 o Wall of Essence
-
 o Wall of Limbs
 o First Response
-
 o Illusory Angel
 o Stormtide Leviathan
 o Encrust
@@ -112,8 +107,6 @@ o Meditation Puzzle
 o Nissa's Expedition
 o Overwhelm
 o Triplicate Spirits
-
-
 o Avacyn, Guardian Angel
 o Battle Mastery
 o Boonweaver Giant
@@ -132,7 +125,6 @@ o Soul of Theros
 o Spectra Ward
 o Spirit Bonds
 o Warden of the Beyond
-
 o Aetherspouts
 o Amphin Pathmage
 o Chasm Skulker
@@ -247,106 +239,194 @@ o Garruk's Packleader
 o Terra Stomper
 o Hunt the Weak
 o Undergrowth Scavenger
+o Ajani Steadfast
+o Vaporkin
+o Kiora's Follower
+o Horizon Chimera
+o Disowned Ancestor
+o Salt Road Patrol
+o Kill Shot
+o Dragonscale Boon
+o Blossoming Sands
+o Jungle Hollow
+o Sandsteppe Citadel
+o Scoured Barrens
+o Abzan Banner
+o Ainok Bond-Kin
+o Abzan Falconer
+o Tuskguard Captain
+o Abzan Battle Priest
+o High Sentinels of Arashin
+o Mer-Ek Nightblade
+o Longshot Squad
+o Ivorytusk Fortress
+o Armament Corps
+o Abzan Charm
+o Incremental Growth
+o Suspension Field
+o Monastery Swiftspear
+o Jeskai Elder
+o Leaping Master
+o Jeskai Student
+o Seeker of the Way
+o Jeskai Windscout
+o Bloodfire Expert
+o Bloodfire Mentor
+o Alabaster Kirin
+o Highspire Mantis
+o Whirlwind Adept
+o Sage of the Inward Eye
+o Warden of the Eye
+o Riverwheel Aerialists
+o Jeskai Banner
+o Mystic Monastery
+o Swiftwater Cliffs
+o Tranquil Cove
+o Wind-Scarred Crag
+o Crippling Chill
+o Jeskai Charm
+o Weave Fate
+o Smite the Monstrous
+o Flying Crane Technique
+o War-Name Aspirant
+o Firehoof Cavalry
+o Mardu Hateblade
+o Valley Dasher
+o Gurmag Swiftwing
+o Mardu Skullhunter
+o Mardu Hordechief
+o Mardu Warshrieker
+o Timely Hordemate
+o Ankle Shanker
+o Mardu Roughrider
+o Hordeling Outburst
+o Arrow Storm
+o Mardu Banner
+o Nomad Outpost
+o Bloodfell Caves
+o Mardu Charm
+o Bring Low
+o Crackling Doom
+o Rakshasa Vizier
+o Sultai Scavenger
+o Sultai Soothsayer
+o Hooting Mandrills
+o Shambling Attendants
+o Rakshasa's Secret
+o Set Adrift
 
-// M15 not implemented
-
-Stain the Mind
-Act on Impulse
-Generator Servant
-Kurkesh, Onakke Ancient
-Charging Rhino 		// add maxCount to DeclareBlockers and BlockStrategy
-Genesis Hydra 		// modify SelectCards? take x cards, then pick x targets, then rest put to zone
-The Chain Veil		// support planeswalkers
-Phyrexian Revoker	// new effect as ChooseType of creature?
-Sliver Hive
-
-Ajani Steadfast
-Chandra, Pyromaster
-Garruk, Apex Predator
-Jace, the Living Guildpact
-Liliana Vess
-Nissa, Worldwaker
-
-
-// Theros block
-
-Vaporkin
-Kiora's Follower
-Horizon Chimera
-
-// Khans of Tarkir block
-
-Disowned Ancestor
-Salt Road Patrol
-Kill Shot
-Dragonscale Boon
-Blossoming Sands
-Jungle Hollow
-Sandsteppe Citadel
-Scoured Barrens
-Abzan Banner
-Ainok Bond-Kin
-Abzan Falconer
-Tuskguard Captain
-Abzan Battle Priest
-High Sentinels of Arashin
-Mer-Ek Nightblade
-Longshot Squad
-Ivorytusk Fortress
-Armament Corps
-Abzan Charm
-Incremental Growth
-Suspension Field
-Monastery Swiftspear
-Jeskai Elder
-Leaping Master
-Jeskai Student
-Seeker of the Way
-Jeskai Windscout
-Bloodfire Expert
-Bloodfire Mentor
-Alabaster Kirin
-Highspire Mantis
-Whirlwind Adept
-Sage of the Inward Eye
-Warden of the Eye
-Riverwheel Aerialists
-Jeskai Banner
-Mystic Monastery
-Swiftwater Cliffs
-Tranquil Cove
-Wind-Scarred Crag
-Crippling Chill
-Winterflame
-Jeskai Charm
-Weave Fate
-Smite the Monstrous
-Flying Crane Technique
-
-War-Name Aspirant
-Firehoof Cavalry
-Mardu Hateblade
-Valley Dasher
-Gurmag Swiftwing
-Mardu Skullhunter
-Mardu Hordechief
-Mardu Warshrieker
-Timely Hordemate
-Ankle Shanker
-
-Mardu Roughrider
-Hordeling Outburst
-Arrow Storm
-Mardu Banner
-Nomad Outpost
-Bloodfell Caves
-Mardu Charm
-Bring Low
-Crackling Doom
-Rakshasa Vizier
-Sultai Scavenger
-Sultai Soothsayer
-Hooting Mandrills
-Shambling Attendants
-Rakshasa's Secret
-Set Adrift
+o Abrupt Decay
+o Abzan Ascendancy
+o Abzan Beastmaster
+o Abzan Skycaptain
+o Act of Treason
+o Alpine Grizzly
+o Altar of the Brood
+o Anafenza, the Foremost
+o Archers' Parapet
+o Archfiend of Depravity
+o Aven Skirmisher
+o Attended Knight
+o Awaken the Bear
+o Back to Nature
+o Barrage of Boulders
+o Bathe in Dragonfire
+o Battle Brawler
+o Bear's Companion
+o Become Immense
+o Bellowing Saddlebrute
+o Bile Blight
+o Bitter Revelation
+o Blinding Spray
+o Bloodsoaked Champion
+o Bloodstained Mire
+o Briber's Purse
+o Butcher of the Horde
+o Chief of the Edge
+o Chief of the Scale
+o Clever Impersonator
+o Collateral Damage
+o Cranial Archive
+o Crater's Claws
+o Cunning Strike
+o Dark Deal
+o Dazzling Ramparts
+o Dead Drop
+o Debilitating Injury
+o Diplomacy of the Wastes
+o Dismal Backwater
+o Dismember
+o Dragon-Style Twins
+o Dragonrage
+o Dragonscale General
+o Dromoka Dunecaster
+o Elite Scaleguard
+o Fleecemane Lion
+o Flesh to Dust
+o Force Away
+o Frontier Bivouac
+o Goblin Heelcutter
+o Goblinslide
+o Grim Contest
+o Gurmag Angler
+o Harsh Sustenance
+o Heir of the Wilds
+o Hero's Downfall
+o Highland Game
+o Honor's Reward
+o Icy Blast
+o Inferno Fist
+o Into the Void
+o Jeskai Sage
+o Kapsho Kitefins
+o Kheru Bloodsucker
+o Kheru Dreadmaw
+o Kin-Tree Invocation
+o Lotus Path Djinn
+o Magma Jet
+o Mardu Scout
+o Marked by Honor
+o Merciless Executioner
+o Mistfire Adept
+o Murderous Cut
+o Noble Hierarch
+o Opulent Palace
+o Path to Exile
+o Pyrotechnics
+o Quiet Contemplation
+o Raiders' Spoils
+o Rakshasa Deathdealer
+o Refocus
+o Return to the Ranks
+o Roar of Challenge
+o Rotting Mastodon
+o Rugged Highlands
+o Rush of Battle
+o Sage-Eye Avengers
+o Sandblast
+o Scout the Borders
+o Sibsig Host
+o Siege Rhino
+o Stubborn Denial
+o Sultai Banner
+o Sultai Charm
+o Sultai Flayer
+o Summit Prowler
+o Taigam's Scheming
+o Take Up Arms
+o Temple of Malady
+o Temple of Silence
+o Temur Banner
+o Thornwood Falls
+o Thoughtseize
+o Throttle
+o Treasure Cruise
+o Turn to Frog
+o Tusked Colossodon
+o Unyielding Krumar
+o Vaultbreaker
+o Wandering Champion
+o War Flare
+o Whisk Away
+o Windstorm
+o Windswept Heath
