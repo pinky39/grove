@@ -37,7 +37,13 @@
         Exec(
           At(Step.FirstMain)
           .Cast(spell, target: juggernaut)
-          .Verify(() => True(C(juggernaut).Is().Artifact))
+          .Verify(() =>
+          {
+            True(C(juggernaut).Is().Artifact);
+            True(C(juggernaut).Power == 1);
+            True(C(juggernaut).Toughness == 1);
+            True(C(juggernaut).HasColor(CardColor.Blue));
+          })
           );      
       }
     }
