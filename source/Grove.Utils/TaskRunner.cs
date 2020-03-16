@@ -15,8 +15,7 @@
           {"list", () => Container.Resolve<WriteCardList>()},
           {"rate", () => Container.Resolve<WriteCardRatings>()},
           {"gen", () => Container.Resolve<GenerateDecks>()},
-          {"debug", () => Container.Resolve<ReproduceError>()},
-          {"images", () => Container.Resolve<DownloadImages>()},
+          {"debug", () => Container.Resolve<ReproduceError>()}          
         };
     }
 

@@ -77,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments.cs" />
-    <Compile Include="DownloadImages.cs" />
     <Compile Include="GenerateDecks.cs" />
     <Compile Include="IoC.cs" />
     <Compile Include="Program.cs" />
