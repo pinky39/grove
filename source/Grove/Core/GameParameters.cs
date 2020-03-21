@@ -21,14 +21,16 @@
     
     public static GameParameters Default(PlayerParameters player1, PlayerParameters player2)
     {
+      var settings = Settings.Load();
+      
       return new GameParameters
-        {
+      {
           Player1 = player1,
           Player2 = player2,
-          SearchParameters = SearchParameters.Default,
+          SearchParameters = settings.GetSearchParameters(),
           Player1Controller = PlayerType.Human,
           Player2Controller = PlayerType.Machine,
-          Settings = Settings.Load()
+          Settings = settings
       };
     }
 
@@ -62,17 +64,19 @@
     public static GameParameters Load(PlayerType player1Controller, PlayerType player2Controller,
       SavedGame savedGame, int? looser = null, int rollback = 0, SearchParameters searchParameters = null)
     {
+      var settings = Settings.Load();
+
       return new GameParameters
         {
           Player1 = savedGame.Player1,
           Player2 = savedGame.Player2,
           Player1Controller = player1Controller,
           Player2Controller = player2Controller,
-          SearchParameters = searchParameters ?? SearchParameters.Default,
+          SearchParameters = searchParameters ?? settings.GetSearchParameters(),
           SavedGame = savedGame,
           RollBack = rollback,
           Looser = looser,
-          Settings = Settings.Load()
+          Settings = settings
       };
     }
   }

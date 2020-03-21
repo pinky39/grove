@@ -17,9 +17,11 @@
     protected Scenario(bool player1ControlledByScript = true, bool player2ControlledByScript = true,
       SearchParameters searchParameters = null)
     {
+      var settings = Settings.Load();
+
       var player1Controller = player1ControlledByScript ? PlayerType.Scenario : PlayerType.Machine;
       var player2Controller = player2ControlledByScript ? PlayerType.Scenario : PlayerType.Machine;
-      searchParameters = searchParameters ?? SearchParameters.Default;
+      searchParameters = searchParameters ?? settings.GetSearchParameters();
 
       var p = GameParameters.Scenario(player1Controller, player2Controller, searchParameters);
       Game = new Game(p);

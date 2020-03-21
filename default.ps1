@@ -60,6 +60,7 @@ task DoRelease -depends Compile {
   $zip = "$tools_dir\\7za.exe"
 
   cp "$build_dir\grove.exe" $release_dir
+  cp "$build_dir\settings.json" $release_dir
   cp "$build_dir\Lucene.Net.dll" $release_dir
   cp "$build_dir\log4net.dll" $release_dir
   cp "$build_dir\Castle.Core.dll" $release_dir
@@ -70,8 +71,8 @@ task DoRelease -depends Compile {
   
   cp "$base_dir\readme.md" "$release_dir\readme.txt"
   cp "$base_dir\license" $release_dir
-	cp "$base_dir\history.md" "$release_dir\history.txt"
-	cp "$base_dir\cards.txt" $release_dir
+  cp "$base_dir\history.md" "$release_dir\history.txt"
+  cp "$base_dir\cards.txt" $release_dir
 
   cp -recurse "$media_dir\decks" "$release_dir\media\decks"
   new-item "$release_dir\media\logs" -itemType directory

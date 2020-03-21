@@ -717,7 +717,6 @@
     <Compile Include="Core\Events\EmblemAddedEvent.cs" />
     <Compile Include="Core\Events\EmblemRemovedEvent.cs" />
     <Compile Include="Core\Modifiers\EmblemLifetime.cs" />
-    <Compile Include="Global.cs" />
     <Compile Include="Infrastructure\ReentryGuard.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />
     <Compile Include="Core\Costs\CostType.cs" />

@@ -1,3 +1,21 @@
 {
+  // Num of different illustrations used for Basic lands
+  
   "BasicLandVersions": 30
+
+  // Ai configuration
+
+  // Search Depth - how many tree levels the search will traverse
+  // TargetCount  - max num of target combinations that will be tried on each spell with targets
+  // Strategy     - strategy to use when deciding if the search should be done in parallel. Possible options:
+  //
+  //                SingleThreaded -- no parallel work 
+  //                MultiThreaded1 -- max 4 workers, branch if depth < 10 && possible branches > 3
+  //                MultiThreaded2 -- max 6 workers, branch if depth < 2 && we are not on last branch
+
+  //"Ai": {
+  //  "SearchDepth": 60,
+  //  "TargetCount": 2,
+  //  "Strategy":  "MultiThreaded2"
+  //}
 }
