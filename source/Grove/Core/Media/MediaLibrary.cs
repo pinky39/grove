@@ -19,7 +19,7 @@
     public static readonly string BasePath = Path.GetFullPath(@".\media");
 #endif
 
-    private static class Folders
+    public static class Folders
     {
       public static readonly ResourceFolder Clipart = "images";
       public static readonly ResourceFolder Cards = "cards";

@@ -15,6 +15,8 @@
 
       var count = int.Parse(arguments["count"]);
 
+      MediaLibrary.LoadSets();
+
       MagicSet starterSet;
       MagicSet boosterSet1;
       MagicSet boosterSet2;

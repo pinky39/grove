@@ -15,7 +15,8 @@
           {"list", () => Container.Resolve<WriteCardList>()},
           {"rate", () => Container.Resolve<WriteCardRatings>()},
           {"gen", () => Container.Resolve<GenerateDecks>()},
-          {"debug", () => Container.Resolve<ReproduceError>()}          
+          {"debug", () => Container.Resolve<ReproduceError>()},
+          {"image", () => Container.Resolve<PrepareImages>()}
         };
     }
 
@@ -26,10 +27,7 @@
     }
 
     public bool Run(string[] args)
-    {
-      if (args.Length < 1)
-        return false;
-
+    {     
       if (args[0].Equals("help", StringComparison.InvariantCultureIgnoreCase))
       {
         return ShowCommandUsage(args);

@@ -8,23 +8,31 @@
 
   internal class Program
   {
-    private static void Main(string[] args)
-    {
-      MediaLibrary.LoadAll();
+    private static int Main(string[] args)
+    {      
       var runner = new TaskRunner();
 
       try
       {
-        if (!runner.Run(args))
+        if (args.Length < 1)
         {
           Usage();
-          return;
+          return 1;
+        }
+          
+
+        if (!runner.Run(args))
+        {          
+          return 1;
         }
       }
       catch (Exception ex)
       {
         LogFile.Error(ex.ToString());
+        return 1;
       }
+
+      return 0;
     }
 
     private static void Usage()
