@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace Grove.Utils
 {
-  public class PrepareImages : Task
+  public class CreateMissingCardImages : Task
   {
     private HashSet<string> OldStyle = new HashSet<string>(new []
     {
@@ -20,7 +20,12 @@ namespace Grove.Utils
       "all", "mir", "vis", "5ed", "por", "wth", "tmp", "sth", "exo", "p02", "ugl", "usg", "ath", 
       "ulg", "6ed", "ptk", "uds", "s99", "mmq", "brb", "nem", "s00", "pcy", "inv", "btd", "pls",
       "7ed", "apc","ody", "dkm", "tor", "jud", "ons", "lgn", "scg"
-    });    
+    });
+
+    private HashSet<string> BasicLands = new HashSet<string>(new[]
+    {
+      "mountain", "forest", "island", "swamp", "plains"
+    });
 
     private readonly Regex CardNameRegex = new Regex(@"^([^\\//\.]+)[\\\/]([^\\//\.]+).*\.jpg");
 
@@ -36,6 +41,12 @@ namespace Grove.Utils
     {
       var sourceFolder = arguments["s"];
       var outputFolder = arguments["o"];
+      
+      var bv = arguments.TryGet("bv");
+      var basicLandVersions = bv == null
+        ? 0
+        : int.Parse(bv);
+
       var outputFolderExtract = Path.Combine(outputFolder, @"extract");
 
       if (!Directory.Exists(outputFolderExtract))
@@ -47,11 +58,11 @@ namespace Grove.Utils
         MediaLibrary.Folders.Cards
         .ReadAll()
         .Select(x => x.Name.Substring(0, x.Name.Length - 4).ToLowerInvariant())
-        .ToArray());
+        .ToArray());     
 
       var missingImages = Cards.All
         .Where(x => !x.Is().BasicLand)
-        .Select(x => x.Name.Replace(":", "").ToLowerInvariant())
+        .Select(x => RemoveInvalidCharacters(x.Name).ToLowerInvariant())
         .Where(x => !existingImages.Contains(x))
         .ToArray();
       
@@ -63,29 +74,22 @@ namespace Grove.Utils
 
       try
       {
-        foreach (var name in missingImages)
+        PrepareMissingImages(
+          outputFolder, 
+          outputFolderExtract, 
+          missingImages, 
+          index);
+
+        if (basicLandVersions > 0)
         {
-          if (index.TryGetValue(name, out var entry))
+          foreach (var name in BasicLands)
           {
-            Console.WriteLine($"Processing {name}");
-
-            ExtractFileFromZip(entry, outputFolderExtract);
-
-            var infile = Path.Combine(outputFolderExtract, entry.Path);
-            var outFile = Path.Combine(outputFolder, $"{entry.CardName}.jpg");
-
-            if (OldStyle.Contains(entry.Edition))
-            {
-              PrepareImageOldFormat(infile, outFile);
-            }
-            else
-            {
-              PrepareImageNewFormat(infile, outFile);
-            }
-          }
-          else
-          {
-            Console.Error.WriteLine($"{name} not found");
+            PrepareBasicLandImages(
+              name,
+              outputFolder,
+              outputFolderExtract,
+              index,
+              basicLandVersions);
           }
         }
       }
@@ -100,17 +104,100 @@ namespace Grove.Utils
       return true;
     }
 
-    private static Dictionary<string, IndexEntry> LoadIndex(string indexPath)
+    private string RemoveInvalidCharacters(string str)
+    {
+      var invalidChars = Path.GetInvalidFileNameChars();
+      return new string(str
+        .Where(x => !invalidChars.Contains(x))
+        .ToArray());
+    }
+
+    private void PrepareMissingImages(
+      string outputFolder, 
+      string outputFolderExtract, 
+      string[] missingImages, 
+      Dictionary<string, List<IndexEntry>> index)
+    {
+      foreach (var name in missingImages)
+      {
+        if (index.TryGetValue(name, out var entries))
+        {
+          Console.WriteLine($"Processing {name}");
+
+          var entry = entries.First();
+
+          ExtractFileFromZip(entry, outputFolderExtract);
+
+          var infile = Path.Combine(outputFolderExtract, entry.Path);
+          var outFile = Path.Combine(outputFolder, $"{entry.CardName}.jpg");
+
+          if (OldStyle.Contains(entry.Edition))
+          {
+            PrepareImageOldFormat(infile, outFile);
+          }
+          else
+          {
+            PrepareImageNewFormat(infile, outFile);
+          }
+        }
+        else
+        {
+          Console.Error.WriteLine($"{name} not found");
+        }
+      }
+    }
+
+    private void PrepareBasicLandImages(
+      string landName,
+      string outputFolder,
+      string outputFolderExtract,
+      Dictionary<string, List<IndexEntry>> index,
+      int basicLandVersions)
+    {      
+      var rnd = new Random();
+      Console.WriteLine($"Processing {landName}");
+
+      var i = 1;
+      for (int j = 1; j <= 4; j++)
+      {
+        var versionName = $"{landName}{j}";
+
+        if (index.TryGetValue(versionName, out var entries))
+        {
+          foreach (var entry in entries.OrderBy(x => rnd.Next(entries.Count)))
+          {
+            ExtractFileFromZip(entry, outputFolderExtract);
+
+            var infile = Path.Combine(outputFolderExtract, entry.Path);
+            var outFile = Path.Combine(outputFolder, $"{landName}{i}.jpg");
+
+            if (OldStyle.Contains(entry.Edition))
+            {
+              PrepareImageOldFormat(infile, outFile);
+            }
+            else
+            {
+              PrepareImageNewFormat(infile, outFile);
+            }
+            i++;
+            if (i > basicLandVersions)
+              return;
+          }
+        }
+      }
+    }
+
+    private static Dictionary<string,  List<IndexEntry>> LoadIndex(string indexPath)
     {      
       Console.WriteLine("Loading index of available images...");
       
       return JsonConvert
         .DeserializeObject<List<IndexEntry>>(File.ReadAllText(indexPath))
         .GroupBy(x => x.CardName)
-        .ToDictionary(x => x.Key, x => x.First());
+        .ToDictionary(x => x.Key, x => x.ToList());
     }
 
-    private Dictionary<string, IndexEntry> BuildIndex(string sourceFolder, string indexPath)
+    private Dictionary<string, List<IndexEntry>> BuildIndex(string sourceFolder, string indexPath)
     {
       var sourceFiles = Directory.EnumerateFiles(
               sourceFolder,
@@ -161,7 +248,7 @@ namespace Grove.Utils
 
       return entries
         .GroupBy(x => x.CardName)
-        .ToDictionary(x => x.Key, x => x.First());      
+        .ToDictionary(x => x.Key, x => x.ToList());      
     }
 
     private static void ExtractFileFromZip(IndexEntry entry, string outputFolder)
@@ -198,7 +285,7 @@ namespace Grove.Utils
 
     public override void Usage()
     {
-      Console.WriteLine("usage: ugrove image s=<source_folder> o=<output_folder>\n\n" +
+      Console.WriteLine("usage: ugrove image s=<source_folder> o=<output_folder> [bv=<basic_land_versions>]\n\n" +
         "Searches source folder for missing card images, crops them and writes them to output folder.");
     }
   }

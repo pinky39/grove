@@ -85,7 +85,7 @@
     <Compile Include="Arguments.cs" />
     <Compile Include="GenerateDecks.cs" />
     <Compile Include="IoC.cs" />
-    <Compile Include="PrepareImages.cs" />
+    <Compile Include="CreateMissingCardImages.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatedCard.cs" />
@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Scripts\Create-Missing-Card-Images.bat" />
     <None Include="Scripts\Gen-M15-Urza%27s-Destiny.bat" />
     <None Include="Scripts\Gen-M15-Urza%27s-Legacy.bat" />
     <None Include="Scripts\Gen-M15.bat" />
