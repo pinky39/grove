@@ -35,6 +35,7 @@
     public int? Loyality;
     public int CombatCost;
     public CardType Type;
+
     private CardParameters() { }
 
     public CardParameters(CardTemplate template)
@@ -56,17 +57,10 @@
     public string Illustration
     {
       get
-      {
-        int basicLandVersions;
-        var count = ConfigurationManager.AppSettings["BasicLandVersionCount"];
-        if (!int.TryParse(count, out basicLandVersions))
-        {
-          basicLandVersions = 15;
-        }
-
+      {        
         if (Type.BasicLand)
         {
-          return Name + RandomEx.Next(1, basicLandVersions + 1);
+          return Name + RandomEx.Next(1, Settings.Readonly.BasicLandVersions + 1);
         }
 
         return Name;

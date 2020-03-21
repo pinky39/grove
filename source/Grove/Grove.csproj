@@ -104,6 +104,9 @@
       <HintPath>..\..\packages\Lucene.Net.Contrib.3.0.3\lib\net40\Lucene.Net.Contrib.Snowball.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
@@ -714,6 +717,7 @@
     <Compile Include="Core\Events\EmblemAddedEvent.cs" />
     <Compile Include="Core\Events\EmblemRemovedEvent.cs" />
     <Compile Include="Core\Modifiers\EmblemLifetime.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="Infrastructure\ReentryGuard.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />
     <Compile Include="Core\Costs\CostType.cs" />
@@ -1488,6 +1492,7 @@
     <Compile Include="Infrastructure\TrackableEvent.cs" />
     <Compile Include="Infrastructure\TrackableList.cs" />
     <Compile Include="Infrastructure\TrackableSet.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="UserInterface\CardActivation\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -2277,9 +2282,11 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="app.config" />
     <AppDesigner Include="Properties\" />
     <None Include="packages.config" />
+    <None Include="settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="UserInterface\Ability.xaml">

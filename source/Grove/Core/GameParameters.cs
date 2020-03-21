@@ -13,10 +13,12 @@
     public PlayerType Player1Controller { get; private set; }
     public PlayerType Player2Controller { get; private set; }
     public int RollBack { get; private set; }
-    public int? Looser { get; private set; }
+    public int? Looser { get; private set; }    
 
     public bool IsSavedGame { get { return SavedGame != null; } }
 
+    public Settings Settings { get; private set; }
+    
     public static GameParameters Default(PlayerParameters player1, PlayerParameters player2)
     {
       return new GameParameters
@@ -25,8 +27,9 @@
           Player2 = player2,
           SearchParameters = SearchParameters.Default,
           Player1Controller = PlayerType.Human,
-          Player2Controller = PlayerType.Machine
-        };
+          Player2Controller = PlayerType.Machine,
+          Settings = Settings.Load()
+      };
     }
 
     public static GameParameters Scenario(PlayerType player1Controller, PlayerType player2Controller,
@@ -38,8 +41,9 @@
           Player2 = new PlayerParameters {Name = "Player2", Deck = Deck.CreateUncastable()},
           Player1Controller = player1Controller,
           Player2Controller = player2Controller,
-          SearchParameters = searchParameters
-        };
+          SearchParameters = searchParameters,
+          Settings = Settings.Load()
+      };
     }
 
     public static GameParameters Simulation(Deck player1Deck, Deck player2Deck, SearchParameters searchParameters)
@@ -50,8 +54,9 @@
           Player2 = new PlayerParameters {Name = "Player2", Deck = player2Deck},
           Player1Controller = PlayerType.Machine,
           Player2Controller = PlayerType.Machine,
-          SearchParameters = searchParameters
-        };
+          SearchParameters = searchParameters,
+          Settings = Settings.Load()
+      };
     }
 
     public static GameParameters Load(PlayerType player1Controller, PlayerType player2Controller,
@@ -66,8 +71,9 @@
           SearchParameters = searchParameters ?? SearchParameters.Default,
           SavedGame = savedGame,
           RollBack = rollback,
-          Looser = looser
-        };
+          Looser = looser,
+          Settings = Settings.Load()
+      };
     }
   }
 }

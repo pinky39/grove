@@ -11,7 +11,7 @@
 
   [Copyable]
   public class Game : IModifiable
-  {
+  {    
     private readonly CostModifiers _costModifiers;
     private readonly DamagePreventions _damagePreventions;
     private readonly DamageRedirections _damageRedirections;
@@ -34,6 +34,7 @@
       Turn = new TurnInfo();
       Ai = new SearchRunner(p.SearchParameters, this);
       Combat = new Combat();
+      Settings = p.Settings;
 
       _decisionQueue = new DecisionQueue();
       _publisher = new Publisher(changeTracker: ChangeTracker);
@@ -103,7 +104,7 @@
     public Scenario Scenario { get { return _scenario; } }
     public ChangeTracker ChangeTracker { get; private set; }
     public bool WasStopped { get { return _wasStopped.Value; } }
-    public Combat Combat { get; private set; }
+    public Combat Combat { get; private set; }   
     public bool IsFinished { get { return Players.AnyHasLost() || _turnLimit < Turn.TurnCount; } }
     public Players Players { get; private set; }
     public int Score { get { return Players.Score; } }
@@ -111,7 +112,8 @@
     public TurnInfo Turn { get; private set; }
     public SearchRunner Ai { get; private set; }
     public RandomGenerator Random { get; private set; }
-    public GameRecorder Recorder { get; private set; }
+    public GameRecorder Recorder { get; private set; }    
+    public Settings Settings { get; private set; }
 
     public void RemoveModifier(IModifier modifier)
     {
