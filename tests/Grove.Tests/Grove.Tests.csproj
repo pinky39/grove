@@ -184,6 +184,7 @@
     <Compile Include="Cards\CausticTar.cs" />
     <Compile Include="Cards\CaveTiger.cs" />
     <Compile Include="Cards\CelestialPrism.cs" />
+    <Compile Include="Cards\ChargingRhino.cs" />
     <Compile Include="Cards\ChasmSkulker.cs" />
     <Compile Include="Cards\ChiefEngineer.cs" />
     <Compile Include="Cards\ChimeOfNight.cs" />

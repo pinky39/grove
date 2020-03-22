@@ -42,6 +42,7 @@
     bool Forestwalk { get; }
     bool Lure { get; }
     bool Echo { get; }
+    bool CannotBeBlockedByMoreThanOne { get; }
     bool Has(Static ability);
   }
 }

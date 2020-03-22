@@ -103,6 +103,9 @@
         if (Attacker.Has().Deathtouch)
           return;
 
+        if (Attacker.Has().CannotBeBlockedByMoreThanOne)
+          return;
+
         var unassignedCopy = unassignedBlockers.ToList();
 
         foreach (var blocker in unassignedCopy)

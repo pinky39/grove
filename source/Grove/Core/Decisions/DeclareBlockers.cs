@@ -243,7 +243,7 @@
           });
       }
 
-      private bool IsMinimumBlockerCountSatisfied(ChosenBlockers chosen)
+      private bool IsBlockerCountSatisfied(ChosenBlockers chosen)
       {
         var attackers = chosen
           .GroupBy(x => x.Attacker)
@@ -254,13 +254,14 @@
             })
           .ToList();
 
-        return attackers.All(attacker => attacker.Card.MinimalBlockerCount <= attacker.BlockerCount);
-      }
+        return attackers.All(attacker => attacker.Card.MinimalBlockerCount <= attacker.BlockerCount && 
+          (!attacker.Card.Has().CannotBeBlockedByMoreThanOne || attacker.BlockerCount <= 1));
+      }   
 
       private bool IsValidBlockerDeclaration(ChosenBlockers chosen,
         List<Card> lureAttackers, int availableMana)
       {
-        return IsMinimumBlockerCountSatisfied(chosen) &&
+        return IsBlockerCountSatisfied(chosen) &&          
           IsLureAbilitySatisfied(chosen, lureAttackers, availableMana);
       }
 

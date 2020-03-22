@@ -41,6 +41,7 @@
     Intimidate,
     CanBlockOnlyCreaturesWithFlying,
     CannotBeBlockedByWalls,
-    CreaturesEnteringBattlefieldDontTriggerAbilities
+    CreaturesEnteringBattlefieldDontTriggerAbilities,
+    CannotBeBlockedByMoreThanOne
   }
 }
