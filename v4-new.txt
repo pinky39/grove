@@ -68,6 +68,7 @@ Carrion Crow
 Caustic Tar
 Caves of Koilos
 Centaur Courser
+Charging Rhino
 Chasm Skulker
 Chief Engineer
 Chief of the Edge

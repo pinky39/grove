@@ -11,124 +11,126 @@ Uncommons: 3
 Commons: 11
 
 !Cards
-Accursed Spirit;C;3.07
-# Act on Impulse;U;3.00
-Aegis Angel;R;4.00
-Aeronaut Tinkerer;C;3.08
-AEtherspouts;R;3.50
-Aggressive Mining;R;2.64
-Ajani Steadfast;R;4.00
-Ajani's Pridemate;U;3.67
-Altac Bloodseeker;U;3.20
-Amphin Pathmage;C;3.07
+Accursed Spirit;C;2.5
+# Act on Impulse;U;3.0
+Aegis Angel;R;4.5
+Aeronaut Tinkerer;C;2.0
+AEtherspouts;R;3.00
+Aggressive Mining;R;0.5
+Ajani Steadfast;R;4.5
+Ajani's Pridemate;U;3.0
+Altac Bloodseeker;U;1.5
+Amphin Pathmage;C;1.5
 Ancient Silverback;U;3.5
-Avacyn, Guardian Angel;R;3.83
-Avarice Amulet;R;3.00
-Back to Nature;U;3.85
-Battle Mastery;U;2.60
-Battlefield Forge;R;4.10
-Belligerent Sliver;U;3.40
-Black Cat;C;3.13
-Blastfire Bolt;C;2.07
-Blood Host;U;3.00
-Boonweaver Giant;U;3.00
-Borderland Marauder;C;3.83
-Brawler's Plate;U;1.86
-Bronze Sable;C;1.57
-Brood Keeper;U;3.30
-Burning Anger;R;3.36
-Cancel;C;2.63
-Carnivorous Moss-Beast;C;2.14
-Carrion Crow;C;2.07
-Caustic Tar;U;2.50
-Caves of Koilos;R;4.06
-Centaur Courser;C;2.17
-Chasm Skulker;R;4.00
-Chief Engineer;R;3.56
-Child of Night;C;2.40
-Chord of Calling;R;3.78
+Avacyn, Guardian Angel;R;4.5
+Avarice Amulet;R;2
+Back to Nature;U;0.5
+Battle Mastery;U;1.5
+Battlefield Forge;R;2
+Belligerent Sliver;U;2.5
+Black Cat;C;2.5
+Blastfire Bolt;C;2.5
+Blood Host;U;2
+Boonweaver Giant;U;2
+Borderland Marauder;C;1.5
+Brawler's Plate;U;3
+Bronze Sable;C;1.5
+Brood Keeper;U;3.5
+Burning Anger;R;3.5
+Cancel;C;1.5
+Carnivorous Moss-Beast;C;2
+Carrion Crow;C;3
+Caustic Tar;U;2
+Caves of Koilos;R;2
+Centaur Courser;C;3
+Charging Rhino;C;2.5
+Chasm Skulker;R;3.50
+Chief Engineer;R;1.5
+Child of Night;C;2.5
+Chord of Calling;R;1.5
 Chronostutter;C;2.00
-Circle of Flame;U;2.30
-Clear a Path;C;1.75
-Cone of Flame;U;3.43
-Constricting Sliver;U;3.69
-Coral Barrier;C;2.60
-Covenant of Blood;C;2.79
-Crippling Blight;C;2.33
-Crowd's Favor;C;2.92
-Crucible of Fire;R;2.70
-Cruel Sadist;R;3.33
-Darksteel Citadel;U;4.06
-Dauntless River Marshal;U;3.67
-Devouring Light;U;3.88
-Diffusion Sliver;U;3.17
-Dissipate;U;4.00
-Divination;C;3.5
-Divine Favor;C;2.17
-Divine Verdict;C;2.40
-Elvish Mystic;C;3.88
-Encrust;C;2.70
-Endless Obedience;U;3.17
-Ensoul Artifact;U;3.70
-Ephemeral Shields;C;2.86
-Eternal Thirst;C;2.75
-Evolving Wilds;C;3.00
-Feast on the Fallen;U;2.43
-Feral Incarnation;U;3.50
-Festergloom;C;2.30
-First Response;U;2.58
-Flesh to Dust;C;2.81
-Forge Devil;C;2.60
-Foundry Street Denizen;C;3.25
-Frenzied Goblin;U;3.00
-Frost Lynx;C;3.29
-Fugitive Wizard;C;0.60
-Furnace Whelp;U;2.70
-Gargoyle Sentinel;U;2.80
+Circle of Flame;U;2.00
+Clear a Path;C;1
+Cone of Flame;U;3.5
+Congregate;U;1.5
+Constricting Sliver;U;3.5
+Coral Barrier;C;2
+Covenant of Blood;C;2
+Crippling Blight;C;1.5
+Crowd's Favor;C;1
+Crucible of Fire;R;1
+Cruel Sadist;R;3
+Darksteel Citadel;U;1
+Dauntless River Marshal;U;2
+Devouring Light;U;3
+Diffusion Sliver;U;1
+Dissipate;U;2
+Divination;C;2.5
+Divine Favor;C;1.5
+Divine Verdict;C;3
+Elvish Mystic;C;3
+Encrust;C;2.5
+Endless Obedience;U;2
+Ensoul Artifact;U;2
+Ephemeral Shields;C;1.5
+Eternal Thirst;C;2
+Evolving Wilds;C;3
+Feast on the Fallen;U;3
+Feral Incarnation;U;3.00
+Festergloom;C;2
+First Response;U;1.5
+Flesh to Dust;C;3
+Forge Devil;C;2
+Foundry Street Denizen;C;1
+Frenzied Goblin;U;1.5
+Frost Lynx;C;3
+Fugitive Wizard;C;1
+Furnace Whelp;U;2.5
+Gargoyle Sentinel;U;2
 #Garruk, Apex Predator;R;4.00
-Garruk's Packleader;U;3.40
-Gather Courage;U;3.50
-Geist of the Moors;U;2.92
+Garruk's Packleader;U;3.5
+Gather Courage;U;1.5
+Geist of the Moors;U;3
 #Generator Servant;C;3.00
 #Genesis Hydra;R;3.50
-Glacial Crasher;C;2.43
-Goblin Kaboomist;R;2.86
-Goblin Rabblemaster;R;4.14
-Goblin Roughrider;C;2.00
-Gravedigger;U;3.20
-Grindclock;R;2.50
-Hammerhand;C;2.75
-Haunted Plate Mail;R;3.40
+Glacial Crasher;C;1
+Goblin Kaboomist;R;2
+Goblin Rabblemaster;R;3
+Goblin Roughrider;C;1.5
+Gravedigger;U;3.5
+Grindclock;R;1
+Hammerhand;C;1.5
+Haunted Plate Mail;R;4
 Heat Ray;U;3.50
-Heliod's Pilgrim;C;3.58
-Hoarding Dragon;R;3.80
-Hornet Nest;R;3.86
-Hornet Queen;R;3.81
-Hot Soup;U;3.29
+Heliod's Pilgrim;C;2.5
+Hoarding Dragon;R;4
+Hornet Nest;R;3.5
+Hornet Queen;R;3.5
+Hot Soup;U;3
 Hunt the Weak;C;3.00
-Hunter's Ambush;C;2.25
-Hushwing Gryff;R;3.81
+Hunter's Ambush;C;2
+Hushwing Gryff;R;3
 Hydrosurge;C;1.50
-Illusory Angel;U;3.89
-In Garruk's Wake;R;3.07
-Indulgent Tormentor;R;4.00
-Inferno Fist;C;3.30
-Inspired Charge;C;1.75
-Into the Void;U;3.10
-Invasive Species;C;2.75
-Invisibility;C;3.00
+Illusory Angel;U;3.5
+In Garruk's Wake;R;1.5
+Indulgent Tormentor;R;4.5
+Inferno Fist;C;2.5
+Inspired Charge;C;2
+Into the Void;U;2
+Invasive Species;C;2.5
+Invisibility;C;1.5
 #Jace, the Living Guildpact;R;3.50
-Jace's Ingenuity;U;3.08
-Jalira, Master Polymorphist;R;3.56
-Jorubai Murk Lurker;U;3.33
-Juggernaut;U;3.00
-Kalonian Twingrove;R;3.08
-Kapsho Kitefins;U;2.92
-Kinsbaile Skirmisher;C;3.08
-Kird Chieftain;U;3.00
-Krenko's Enforcer;C;3.25
+Jace's Ingenuity;U;3.5
+Jalira, Master Polymorphist;R;2.5
+Jorubai Murk Lurker;U;2
+Juggernaut;U;3
+Kalonian Twingrove;R;4
+Kapsho Kitefins;U;3.5
+Kinsbaile Skirmisher;C;2
+Kird Chieftain;U;2.5
+Krenko's Enforcer;C;2
 #Kurkesh, Onakke Ancient;R;3.50
-Lava Axe;C;2.50
+Lava Axe;C;1.50
 Leeching Sliver;U;2.50
 Life's Legacy;R;2.75
 Lightning Strike;C;3.75
