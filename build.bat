@@ -1,1 +1,1 @@
-%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -noexit -executionpolicy ByPass -command "&.\psake.ps1 default.ps1"
+%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe -executionpolicy ByPass -command "&.\build.ps1"
