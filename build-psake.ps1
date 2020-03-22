@@ -57,6 +57,7 @@ task DoRelease -depends Compile {
   $zip = "$tools_dir\\7za.exe"
 
   cp "$build_dir\grove.exe" $release_dir
+  cp "$build_dir\ugrove.exe" $release_dir
   cp "$build_dir\settings.json" $release_dir
   cp "$build_dir\Lucene.Net.dll" $release_dir
   cp "$build_dir\log4net.dll" $release_dir
