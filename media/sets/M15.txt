@@ -131,144 +131,145 @@ Kird Chieftain;U;2.5
 Krenko's Enforcer;C;2
 #Kurkesh, Onakke Ancient;R;3.50
 Lava Axe;C;1.50
-Leeching Sliver;U;2.50
-Life's Legacy;R;2.75
-Lightning Strike;C;3.75
+Leeching Sliver;U;2
+Life's Legacy;R;3
+Lightning Strike;C;3.5
 #Liliana Vess;R;4.00
-Living Totem;C;2.43
-Llanowar Wastes;R;4.11
-Mahamoti Djinn;R;3.17
-Marked by Honor;C;2.00
-Mass Calcify;R;3.36
-Master of Predicaments;R;3.58
-Meditation Puzzle;C;1.14
-Mercurial Pretender;R;2.58
-Meteorite;U;2.92
-Midnight Guard;C;2.75
-Might Makes Right;U;2.08
-Military Intelligence;U;3.40
-Mind Rot;C;2.50
-Mind Sculpt;C;3.00
-Miner's Bane;C;2.07
-Naturalize;C;3.75
-Necrobite;C;2.60
+Living Totem;C;2
+Llanowar Wastes;R;2
+Mahamoti Djinn;R;4
+Marked by Honor;C;1.5
+Mass Calcify;R;2.5
+Master of Predicaments;R;4
+Meditation Puzzle;C;1.5
+Mercurial Pretender;R;2.5
+Meteorite;U;2
+Midnight Guard;C;2
+Might Makes Right;U;2
+Military Intelligence;U;3.5
+Mind Rot;C;2
+Mind Sculpt;C;1
+Miner's Bane;C;2
+Naturalize;C;1.5
+Necrobite;C;2
 Necrogen Scudder;U;3.50
-Necromancer's Assistant;C;1.57
-Necromancer's Stockpile;R;2.81
-Negate;C;4.25
-Netcaster Spider;C;3.25
-Nightfire Giant;U;3.50
-Nightmare;R;3.00
-Nimbus of the Isles;C;1.71
+Necromancer's Assistant;C;1.5
+Necromancer's Stockpile;R;1
+Negate;C;1
+Netcaster Spider;C;2.5
+Nightfire Giant;U;2.5
+Nightmare;R;2
+Nimbus of the Isles;C;2
 #Nissa, Worldwaker;R;4.00
-Nissa's Expedition;U;3.17
-Ob Nixilis, Unshackled;R;3.60
-Obelisk of Urd;R;3.17
-Oppressive Rays;C;2.71
-Oreskos Swiftclaw;C;2.50
-Ornithopter;C;3.44
-Overwhelm;U;3.00
-Paragon of Eternal Wilds;U;3.33
-Paragon of Fierce Defiance;U;3.38
-Paragon of Gathering Mists;U;3.17
-Paragon of New Dawns;U;3.50
-Paragon of Open Graves;U;3.40
-Peel from Reality;C;3.00
-Perilous Vault;R;3.29
+Nissa's Expedition;U;2.5
+Ob Nixilis, Unshackled;R;4.5
+Obelisk of Urd;R;1.5
+Oppressive Rays;C;1.5
+Oreskos Swiftclaw;C;2
+Ornithopter;C;1
+Overwhelm;U;2
+Paragon of Eternal Wilds;U;3
+Paragon of Fierce Defiance;U;3
+Paragon of Gathering Mists;U;3.5
+Paragon of New Dawns;U;3
+Paragon of Open Graves;U;3.5
+Peel from Reality;C;2
+Perilous Vault;R;4
 #Phyrexian Revoker;R;2.50
-Phytotitan;R;3.44
-Pillar of Light;C;2.90
-Plummet;C;2.40
-Polymorphist's Jest;R;3.77
-Preeminent Captain;R;3.60
-Profane Memento;U;2.67
-Quickling;U;3.63
-Radiant Fountain;C;3.45
-Raise the Alarm;C;3.92
-Ranger's Guile;C;2.70
-Razorfoot Griffin;C;2.25
-Research Assistant;C;2.07
+Phytotitan;R;3.5
+Pillar of Light;C;3
+Plummet;C;1.5
+Polymorphist's Jest;R;3
+Preeminent Captain;R;3
+Profane Memento;U;1
+Quickling;U;3
+Radiant Fountain;C;1.5
+Raise the Alarm;C;2
+Ranger's Guile;C;2
+Razorfoot Griffin;C;2
+Reclamation Sage;U;2
+Research Assistant;C;2
 Resolute Archangel;R;3.50
-Restock;U;3.20
-Return to the Ranks;R;3.36
-Roaring Primadox;U;3.38
-Rogue's Gloves;U;2.58
-Rotfeaster Maggot;C;3.00
-Rummaging Goblin;C;2.07
-Runeclaw Bear;C;1.92
-Sacred Armory;U;2.83
-Sanctified Charge;C;2.57
-Satyr Wayfinder;C;3.08
-Scrapyard Mongrel;C;3.17
-Scuttling Doom Engine;R;4.00
-Seismic Strike;C;2.40
-Selfless Cathar;C;2.83
-Sengir Vampire;U;3.21
-Seraph of the Masses;U;3.20
-Serra Angel;U;3.00
-Shadowcloak Vampire;C;2.14
-Shaman of Spring;C;3.08
-Shield of the Avatar;R;3.21
+Restock;U;2
+Return to the Ranks;R;2
+Roaring Primadox;U;2
+Rogue's Gloves;U;3.5
+Rotfeaster Maggot;C;2
+Rummaging Goblin;C;2
+Runeclaw Bear;C;1.5
+Sacred Armory;U;1.5
+Sanctified Charge;C;2.5
+Satyr Wayfinder;C;2
+Scrapyard Mongrel;C;2
+Scuttling Doom Engine;R;3.5
+Seismic Strike;C;3
+Selfless Cathar;C;1.5
+Sengir Vampire;U;4
+Seraph of the Masses;U;3
+Serra Angel;U;3.5
+Shadowcloak Vampire;C;3
+Shaman of Spring;C;3
+Shield of the Avatar;R;2.5
 Shivan Dragon;R;4.00
-Shivan Reef;R;3.95
-Shrapnel Blast;U;3.67
-Siege Dragon;R;2.92
-Siege Wurm;C;3.33
-Sign in Blood;C;3.50
-Sliver Hivelord;R;3.81
-Solemn Offering;C;2.83
-Soul of Innistrad;R;3.69
-Soul of New Phyrexia;R;4.00
-Soul of Ravnica;R;3.46
-Soul of Shandalar;R;3.71
+Shivan Reef;R;2
+Shrapnel Blast;U;1.5
+Siege Dragon;R;3.5
+Siege Wurm;C;3
+Sign in Blood;C;2.5
+Sliver Hivelord;R;1
+Solemn Offering;C;1.5
+Soul of Innistrad;R;4
+Soul of New Phyrexia;R;4
+Soul of Ravnica;R;4
+Soul of Shandalar;R;4
 Soul of Theros;R;4.00
-Soul of Zendikar;R;3.79
-Soulmender;C;2.20
-Spectra Ward;R;3.50
-Spirit Bonds;R;3.50
-Stab Wound;U;3.60
-Staff of the Death Magus;U;1.70
-Staff of the Flame Magus;U;1.42
-Staff of the Mind Magus;U;1.40
-Staff of the Sun Magus;U;1.33
-Staff of the Wild Magus;U;0.93
+Soul of Zendikar;R;4
+Soulmender;C;1.5
+Spectra Ward;R;2
+Spirit Bonds;R;3.5
+Stab Wound;U;3
+Staff of the Death Magus;U;1
+Staff of the Flame Magus;U;1
+Staff of the Mind Magus;U;1
+Staff of the Sun Magus;U;1
+Staff of the Wild Magus;U;1
 #Stain the Mind;R;2.00
-Statute of Denial;C;1.71
-Stoke the Flames;U;3.63
-Stormtide Leviathan;R;3.88
-Sunblade Elf;U;3.95
-Sungrace Pegasus;C;3.08
-Terra Stomper;R;3.31
+Statute of Denial;C;1.5
+Stoke the Flames;U;3
+Stormtide Leviathan;R;2
+Sunblade Elf;U;2
+Sungrace Pegasus;C;2
+Terra Stomper;R;3.5
 #The Chain Veil;R;2.50
-Thundering Giant;C;3.00
-Tireless Missionaries;C;0.57
-Titanic Growth;C;2.30
-Torch Fiend;C;3.61
-Tormod's Crypt;U;3.85
-Triplicate Spirits;C;3.75
-Turn to Frog;U;3.40
-Typhoid Rats;C;3.40
-Tyrant's Machine;C;1.50
-Ulcerate;U;4.17
-Undergrowth Scavenger;C;3.00
-Unmake the Graves;C;2.79
-Urborg, Tomb of Yawgmoth;R;4.46
-Venom Sliver;U;3.78
-Verdant Haven;C;2.60
-Vineweft;C;1.92
-Void Snare;C;3.72
-Walking Corpse;C;2.00
-Wall of Essence;U;3.00
-Wall of Fire;C;1.90
-Wall of Frost;U;3.21
-Wall of Limbs;U;2.58
-Wall of Mulch;U;3.00
-Warden of the Beyond;U;3.07
-Waste Not;R;3.82
-Welkin Tern;C;3.08
+Thundering Giant;C;2.5
+Tireless Missionaries;C;1.5
+Titanic Growth;C;2
+Torch Fiend;C;2
+Tormod's Crypt;U;1
+Triplicate Spirits;C;2.5
+Turn to Frog;U;2
+Typhoid Rats;C;2
+Tyrant's Machine;C;2
+Ulcerate;U;3.5
+Undergrowth Scavenger;C;2
+Unmake the Graves;C;2
+Urborg, Tomb of Yawgmoth;R;2
+Venom Sliver;U;2.5
+Verdant Haven;C;2.5
+Vineweft;C;2
+Void Snare;C;2
+Walking Corpse;C;2
+Wall of Essence;U;2
+Wall of Fire;C;1.5
+Wall of Frost;U;2
+Wall of Limbs;U;1.5
+Wall of Mulch;U;2
+Warden of the Beyond;U;1.5
+Waste Not;R;1
+Welkin Tern;C;2.5
 Will-Forged Golem;C;2.50
-Witch's Familiar;C;1.93
-Xathrid Slyblade;U;3.08
-Yavimaya Coast;R;3.00
+Witch's Familiar;C;2
+Xathrid Slyblade;U;2
+Yavimaya Coast;R;2
 Yisan, the Wanderer Bard;R;3.50
-Zof Shade;C;2.08
+Zof Shade;C;2
