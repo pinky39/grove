@@ -9,7 +9,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void AddCounters()
+      public void AddCountersInAIScenario()
       {
         var sun = C("Black Sun's Zenith");
 
@@ -27,7 +27,7 @@
     public class Predefined : PredefinedScenario
     {
       [Fact]
-      public void AddCounters()
+      public void AddCountersElvishWarrior()
       {
         var warrior1 = C("Elvish Warrior");
         var warrior2 = C("Elvish Warrior");

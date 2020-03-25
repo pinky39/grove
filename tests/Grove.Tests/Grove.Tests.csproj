@@ -1,565 +1,70 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FF001FE3-F4E8-4768-BE96-CD6FCCCA52D1}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Grove.Tests</RootNamespace>
-    <AssemblyName>Grove.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Caliburn.Micro, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\caliburn.micro\Caliburn.Micro.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\castle.windsor\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Windsor, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\castle.windsor\Castle.Windsor.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\lib\log4net\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="xunit">
-      <HintPath>..\..\lib\xunit\xunit.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.extensions">
-      <HintPath>..\..\lib\xunit\xunit.extensions.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Cards\AboutFace.cs" />
-    <Compile Include="Cards\AbyssalHorror.cs" />
-    <Compile Include="Cards\AcademyRector.cs" />
-    <Compile Include="Cards\AcademyResearchers.cs" />
-    <Compile Include="Cards\Acridian.cs" />
-    <Compile Include="Cards\AetherSting.cs" />
-    <Compile Include="Cards\Anaconda.cs" />
-    <Compile Include="Cards\AngelicChorus.cs" />
-    <Compile Include="Cards\AngelsTrumpet.cs" />
-    <Compile Include="Cards\Antagonism.cs" />
-    <Compile Include="Cards\Anthroplasm.cs" />
-    <Compile Include="Cards\ApprenticeNecromancer.cs" />
-    <Compile Include="Cards\ArcheryTraining.cs" />
-    <Compile Include="Cards\Archivist.cs" />
-    <Compile Include="Cards\ArcLightning.cs" />
-    <Compile Include="Cards\ArgothianElder.cs" />
-    <Compile Include="Cards\ArgothianEnchantress.cs" />
-    <Compile Include="Cards\ArgothianWurm.cs" />
-    <Compile Include="Cards\Attrition.cs" />
-    <Compile Include="Cards\AuraFlux.cs" />
-    <Compile Include="Cards\AuraThief.cs" />
-    <Compile Include="Cards\AvalancheRiders.cs" />
-    <Compile Include="Cards\BaneslayerAngel.cs" />
-    <Compile Include="Cards\BarrinMasterWizard.cs" />
-    <Compile Include="Cards\BarrinsCodex.cs" />
-    <Compile Include="Cards\BeastOfBurden.cs" />
-    <Compile Include="Cards\Befoul.cs" />
-    <Compile Include="Cards\BlacksSunZenith.cs" />
-    <Compile Include="Cards\Blaze.cs" />
-    <Compile Include="Cards\BlessedReversal.cs" />
-    <Compile Include="Cards\BloodVassal.cs" />
-    <Compile Include="Cards\BlooshotCyclops.cs" />
-    <Compile Include="Cards\BodySnatcher.cs" />
-    <Compile Include="Cards\BouncingBeebles.cs" />
-    <Compile Include="Cards\BraidwoodSextant.cs" />
-    <Compile Include="Cards\Brand.cs" />
-    <Compile Include="Cards\Bravado.cs" />
-    <Compile Include="Cards\Breach.cs" />
-    <Compile Include="Cards\BrineSeer.cs" />
-    <Compile Include="Cards\BrinkOfMadness.cs" />
-    <Compile Include="Cards\BubblingMuck.cs" />
-    <Compile Include="Cards\BurstOfEnergy.cs" />
-    <Compile Include="Cards\Caltrops.cs" />
-    <Compile Include="Cards\CapashenKnight.cs" />
-    <Compile Include="Cards\CapashenStandard.cs" />
-    <Compile Include="Cards\CarnivalOfSouls.cs" />
-    <Compile Include="Cards\CarrionBeetles.cs" />
-    <Compile Include="Cards\Catastrophe.cs" />
-    <Compile Include="Cards\Cathodion.cs" />
-    <Compile Include="Cards\CaveTiger.cs" />
-    <Compile Include="Cards\CelestialPrism.cs" />
-    <Compile Include="Cards\ChimeOfNight.cs" />
-    <Compile Include="Cards\CinderSeer.cs" />
-    <Compile Include="Cards\CitanulFlute.cs" />
-    <Compile Include="Cards\CitanulHierophants.cs" />
-    <Compile Include="Cards\ClawsOfGix.cs" />
-    <Compile Include="Cards\ClousOfFaeries.cs" />
-    <Compile Include="Cards\Compost.cs" />
-    <Compile Include="Cards\Confiscate.cs" />
-    <Compile Include="Cards\CopperGnomes.cs" />
-    <Compile Include="Cards\CovetousDragon.cs" />
-    <Compile Include="Cards\CreepingTarPit.cs" />
-    <Compile Include="Cards\CropRotation.cs" />
-    <Compile Include="Cards\Crosswinds.cs" />
-    <Compile Include="Cards\Curfew.cs" />
-    <Compile Include="Cards\DarkestHour.cs" />
-    <Compile Include="Cards\DarkHatchling.cs" />
-    <Compile Include="Cards\DarkRitual.cs" />
-    <Compile Include="Cards\DarkstyleGargoyle.cs" />
-    <Compile Include="Cards\DayOfJudgment.cs" />
-    <Compile Include="Cards\DeathlessAngel.cs" />
-    <Compile Include="Cards\DefenseOfTheHeart.cs" />
-    <Compile Include="Cards\DelusionsOfMediocrity.cs" />
-    <Compile Include="Cards\DerangedHermit.cs" />
-    <Compile Include="Cards\DestructiveUrge.cs" />
-    <Compile Include="Cards\DevoutHarpist.cs" />
-    <Compile Include="Cards\DiabolicServitude.cs" />
-    <Compile Include="Cards\Disappear.cs" />
-    <Compile Include="Cards\DiscipleOfGrace.cs" />
-    <Compile Include="Cards\DiscordantDirge.cs" />
-    <Compile Include="Cards\DiseaseCarriers.cs" />
-    <Compile Include="Cards\Disorder.cs" />
-    <Compile Include="Cards\Donate.cs" />
-    <Compile Include="Cards\Douse.cs" />
-    <Compile Include="Cards\DragonBlood.cs" />
-    <Compile Include="Cards\Dread.cs" />
-    <Compile Include="Cards\Duress.cs" />
-    <Compile Include="Cards\DyingWail.cs" />
-    <Compile Include="Cards\EasternPaladin.cs" />
-    <Compile Include="Cards\Electryte.cs" />
-    <Compile Include="Cards\EleshNornGrandCenobite.cs" />
-    <Compile Include="Cards\EliteArchers.cs" />
-    <Compile Include="Cards\ElvishHerder.cs" />
-    <Compile Include="Cards\ElvishLyrist.cs" />
-    <Compile Include="Cards\ElvishPiper.cs" />
-    <Compile Include="Cards\EndlessWurm.cs" />
-    <Compile Include="Cards\Endoskeleton.cs" />
-    <Compile Include="Cards\EnergyField.cs" />
-    <Compile Include="Cards\EngineeredPlague.cs" />
-    <Compile Include="Cards\Eradicate.cs" />
-    <Compile Include="Cards\Evacuation.cs" />
-    <Compile Include="Cards\Exhaustion.cs" />
-    <Compile Include="Cards\Exhume.cs" />
-    <Compile Include="Cards\ExpendableTroops.cs" />
-    <Compile Include="Cards\Exploration.cs" />
-    <Compile Include="Cards\Extruder.cs" />
-    <Compile Include="Cards\Falter.cs" />
-    <Compile Include="Cards\Fatigue.cs" />
-    <Compile Include="Cards\Fecundity.cs" />
-    <Compile Include="Cards\FendOff.cs" />
-    <Compile Include="Cards\FertileGround.cs" />
-    <Compile Include="Cards\FesteringWound.cs" />
-    <Compile Include="Cards\FieldSurgeon.cs" />
-    <Compile Include="Cards\FieryMantle.cs" />
-    <Compile Include="Cards\FledglingOsprey.cs" />
-    <Compile Include="Cards\Flicker.cs" />
-    <Compile Include="Cards\FodderCannon.cs" />
-    <Compile Include="Cards\FogBank.cs" />
-    <Compile Include="Cards\Fortitude.cs" />
-    <Compile Include="Cards\FranticSearch.cs" />
-    <Compile Include="Cards\GaeasBounty.cs" />
-    <Compile Include="Cards\GaeasCradle.cs" />
-    <Compile Include="Cards\Gamble.cs" />
-    <Compile Include="Cards\Gamekeeper.cs" />
-    <Compile Include="Cards\GhituFireEater.cs" />
-    <Compile Include="Cards\GhituWarCry.cs" />
-    <Compile Include="Cards\GildedDrake.cs" />
-    <Compile Include="Cards\GoblinCadets.cs" />
-    <Compile Include="Cards\GoblinFestival.cs" />
-    <Compile Include="Cards\GoblinLackey.cs" />
-    <Compile Include="Cards\GoblinMarshal.cs" />
-    <Compile Include="Cards\GoblinMatron.cs" />
-    <Compile Include="Cards\GoblinMedics.cs" />
-    <Compile Include="Cards\GoblinOffensive.cs" />
-    <Compile Include="Cards\GoblinWelder.cs" />
-    <Compile Include="Cards\GraveTitan.cs" />
-    <Compile Include="Cards\GreaterGood.cs" />
-    <Compile Include="Cards\GreatWhale.cs" />
-    <Compile Include="Cards\GreenerPastures.cs" />
-    <Compile Include="Cards\GrimMonolith.cs" />
-    <Compile Include="Cards\HarmonicConvergence.cs" />
-    <Compile Include="Cards\HeadlongRush.cs" />
-    <Compile Include="Cards\HealingSalve.cs" />
-    <Compile Include="Cards\HeroOfBladeHold.cs" />
-    <Compile Include="Cards\HiddenHerd.cs" />
-    <Compile Include="Cards\HiddenPredators.cs" />
-    <Compile Include="Cards\HopeAndGlory.cs" />
-    <Compile Include="Cards\HoppingAutomaton.cs" />
-    <Compile Include="Cards\HuntingMoa.cs" />
-    <Compile Include="Cards\IllGottenGains.cs" />
-    <Compile Include="Cards\Impatience.cs" />
-    <Compile Include="Cards\ImpendingDisaster.cs" />
-    <Compile Include="Cards\Incendiary.cs" />
-    <Compile Include="Cards\IridescentDrake.cs" />
-    <Compile Include="Cards\IronMaiden.cs" />
-    <Compile Include="Cards\IvySeer.cs" />
-    <Compile Include="Cards\JaggedLightning.cs" />
-    <Compile Include="Cards\JasmineSeer.cs" />
-    <Compile Include="Cards\JhoirasToolbox.cs" />
-    <Compile Include="Cards\KarmicGuide.cs" />
-    <Compile Include="Cards\KarnSilverGolem.cs" />
-    <Compile Include="Cards\KingCrab.cs" />
-    <Compile Include="Cards\Landslide.cs" />
-    <Compile Include="Cards\LastDitchEffort.cs" />
-    <Compile Include="Cards\LayWaste.cs" />
-    <Compile Include="Cards\LiltingRefrain.cs" />
-    <Compile Include="Cards\LingeringMirage.cs" />
-    <Compile Include="Cards\LivingDestiny.cs" />
-    <Compile Include="Cards\LoomingShade.cs" />
-    <Compile Include="Cards\LotusBlossom.cs" />
-    <Compile Include="Cards\Lull.cs" />
-    <Compile Include="Cards\LurkingEvil.cs" />
-    <Compile Include="Cards\Magnify.cs" />
-    <Compile Include="Cards\ManaLeak.cs" />
-    <Compile Include="Cards\ManaLeech.cs" />
-    <Compile Include="Cards\ManOWar.cs" />
-    <Compile Include="Cards\MantisEngine.cs" />
-    <Compile Include="Cards\MarkerBeetles.cs" />
-    <Compile Include="Cards\MartialCoup.cs" />
-    <Compile Include="Cards\MartyrsCause.cs" />
-    <Compile Include="Cards\Masticore.cs" />
-    <Compile Include="Cards\Meltdown.cs" />
-    <Compile Include="Cards\MemoryJar.cs" />
-    <Compile Include="Cards\MentalDiscipline.cs" />
-    <Compile Include="Cards\Metalworker.cs" />
-    <Compile Include="Cards\MidsummerRevel.cs" />
-    <Compile Include="Cards\MirranCrusader.cs" />
-    <Compile Include="Cards\MishrasHelix.cs" />
-    <Compile Include="Cards\MobileFort.cs" />
-    <Compile Include="Cards\MoltenHydra.cs" />
-    <Compile Include="Cards\Momentum.cs" />
-    <Compile Include="Cards\MonkIdealist.cs" />
-    <Compile Include="Cards\MonkRealist.cs" />
-    <Compile Include="Cards\Morphling.cs" />
-    <Compile Include="Cards\MotherOfRunes.cs" />
-    <Compile Include="Cards\MultaniMaroSorcerer.cs" />
-    <Compile Include="Cards\MultanisDecree.cs" />
-    <Compile Include="Cards\MultanisPresence.cs" />
-    <Compile Include="Cards\NightshadeSeer.cs" />
-    <Compile Include="Cards\NoeticScales.cs" />
-    <Compile Include="Cards\NoRestForTheWicked.cs" />
-    <Compile Include="Cards\OpalAvenger.cs" />
-    <Compile Include="Cards\OpalCaryatid.cs" />
-    <Compile Include="Cards\Opalescence.cs" />
-    <Compile Include="Cards\Opposition.cs" />
-    <Compile Include="Cards\Oppression.cs" />
-    <Compile Include="Cards\Outmaneuver.cs" />
-    <Compile Include="Cards\ParasiticBond.cs" />
-    <Compile Include="Cards\Parch.cs" />
-    <Compile Include="Cards\Pariah.cs" />
-    <Compile Include="Cards\PathOfPeace.cs" />
-    <Compile Include="Cards\PatternOfRebirth.cs" />
-    <Compile Include="Cards\PeaceAndQuiet.cs" />
-    <Compile Include="Cards\PendrellFlux.cs" />
-    <Compile Include="Cards\Persecute.cs" />
-    <Compile Include="Cards\Pestilence.cs" />
-    <Compile Include="Cards\PhyrexianArena.cs" />
-    <Compile Include="Cards\PhyrexianBroodlings.cs" />
-    <Compile Include="Cards\PhyrexianColossus.cs" />
-    <Compile Include="Cards\PhyrexianDebaser.cs" />
-    <Compile Include="Cards\PhyrexianGhoul.cs" />
-    <Compile Include="Cards\PhyrexianNegator.cs" />
-    <Compile Include="Cards\PhyrexianPlaguelord.cs" />
-    <Compile Include="Cards\PhyrexianProcessor.cs" />
-    <Compile Include="Cards\PhyrexianReclamation.cs" />
-    <Compile Include="Cards\PhyrexianTower.cs" />
-    <Compile Include="Cards\PitTrap.cs" />
-    <Compile Include="Cards\PlagueDogs.cs" />
-    <Compile Include="Cards\PlanarBirth.cs" />
-    <Compile Include="Cards\PlanarCollapse.cs" />
-    <Compile Include="Cards\PlanarVoid.cs" />
-    <Compile Include="Cards\PlowUnder.cs" />
-    <Compile Include="Cards\PowderKeg.cs" />
-    <Compile Include="Cards\PowerSink.cs" />
-    <Compile Include="Cards\PowerTaint.cs" />
-    <Compile Include="Cards\PresenceOfTheMaster.cs" />
-    <Compile Include="Cards\PriestOfGix.cs" />
-    <Compile Include="Cards\PriestOfTitania.cs" />
-    <Compile Include="Cards\PrivateResearch.cs" />
-    <Compile Include="Cards\PurgingScythe.cs" />
-    <Compile Include="Cards\Pyromancy.cs" />
-    <Compile Include="Cards\QuicksilverAmulet.cs" />
-    <Compile Include="Cards\RadiantArchangel.cs" />
-    <Compile Include="Cards\RadiantsJudgment.cs" />
-    <Compile Include="Cards\RainOfFilth.cs" />
-    <Compile Include="Cards\RainOfSalt.cs" />
-    <Compile Include="Cards\RampantGrowth.cs" />
-    <Compile Include="Cards\Rancor.cs" />
-    <Compile Include="Cards\RankAndFile.cs" />
-    <Compile Include="Cards\RavenFamiliar.cs" />
-    <Compile Include="Cards\RayneAcademyChancellor.cs" />
-    <Compile Include="Cards\Raze.cs" />
-    <Compile Include="Cards\Recantation.cs" />
-    <Compile Include="Cards\RecklessAbandon.cs" />
-    <Compile Include="Cards\ReclusiveWight.cs" />
-    <Compile Include="Cards\Recoil.cs" />
-    <Compile Include="Cards\Redeem.cs" />
-    <Compile Include="Cards\Remembrance.cs" />
-    <Compile Include="Cards\Repercussion.cs" />
-    <Compile Include="Cards\Replenish.cs" />
-    <Compile Include="Cards\Repopulate.cs" />
-    <Compile Include="Cards\Reprocess.cs" />
-    <Compile Include="Cards\Retaliation.cs" />
-    <Compile Include="Cards\Retromancer.cs" />
-    <Compile Include="Cards\Rewind.cs" />
-    <Compile Include="Cards\RofellossGift.cs" />
-    <Compile Include="Cards\RumblingCrescendo.cs" />
-    <Compile Include="Cards\RuneOfProtectionBlack.cs" />
-    <Compile Include="Cards\RuptureSpire.cs" />
-    <Compile Include="Cards\Sanctimony.cs" />
-    <Compile Include="Cards\SanctumCustodian.cs" />
-    <Compile Include="Cards\SanctumGuardian.cs" />
-    <Compile Include="Cards\Scald.cs" />
-    <Compile Include="Cards\ScentOfNightshade.cs" />
-    <Compile Include="Cards\Scrapheap.cs" />
-    <Compile Include="Cards\SealOfFire.cs" />
-    <Compile Include="Cards\SeasonedMarshal.cs" />
-    <Compile Include="Cards\SerraAvatar.cs" />
-    <Compile Include="Cards\ShivanGorge.cs" />
-    <Compile Include="Cards\ShivanHellkite.cs" />
-    <Compile Include="Cards\ShowAndTell.cs" />
-    <Compile Include="Cards\ShowerOfSparks.cs" />
-    <Compile Include="Cards\SickAndTired.cs" />
-    <Compile Include="Cards\Sicken.cs" />
-    <Compile Include="Cards\SigilOfSleep.cs" />
-    <Compile Include="Cards\SilentAttendant.cs" />
-    <Compile Include="Cards\SilkNet.cs" />
-    <Compile Include="Cards\SimianGrunts.cs" />
-    <Compile Include="Cards\SkirgeFamiliar.cs" />
-    <Compile Include="Cards\SkitteringSkirge.cs" />
-    <Compile Include="Cards\SleeperAgent.cs" />
-    <Compile Include="Cards\Smokestack.cs" />
-    <Compile Include="Cards\SneakAttack.cs" />
-    <Compile Include="Cards\Solidarity.cs" />
-    <Compile Include="Cards\Somnophore.cs" />
-    <Compile Include="Cards\Songstitcher.cs" />
-    <Compile Include="Cards\SoulFeast.cs" />
-    <Compile Include="Cards\SoulSculptor.cs" />
-    <Compile Include="Cards\SpinedFluke.cs" />
-    <Compile Include="Cards\SpireOwl.cs" />
-    <Compile Include="Cards\Sporogenesis.cs" />
-    <Compile Include="Cards\SpreadingAlgae.cs" />
-    <Compile Include="Cards\SteamVents.cs" />
-    <Compile Include="Cards\StrokeOfGenius.cs" />
-    <Compile Include="Cards\StudentOfWarfare.cs" />
-    <Compile Include="Cards\Subversion.cs" />
-    <Compile Include="Cards\Sunder.cs" />
-    <Compile Include="Cards\SwordOfBodyAndMind.cs" />
-    <Compile Include="Cards\SwordsToPlowshares.cs" />
-    <Compile Include="Cards\Symbiosis.cs" />
-    <Compile Include="Cards\TaintedAether.cs" />
-    <Compile Include="Cards\TauntingElf.cs" />
-    <Compile Include="Cards\ThievingMagpie.cs" />
-    <Compile Include="Cards\ThornwindFaeries.cs" />
-    <Compile Include="Cards\ThranGolem.cs" />
-    <Compile Include="Cards\ThranTurbine.cs" />
-    <Compile Include="Cards\ThranWarMachine.cs" />
-    <Compile Include="Cards\ThranWeaponry.cs" />
-    <Compile Include="Cards\TickingGnomes.cs" />
-    <Compile Include="Cards\TimeSpiral.cs" />
-    <Compile Include="Cards\TimeWarp.cs" />
-    <Compile Include="Cards\Tinker.cs" />
-    <Compile Include="Cards\TitaniasBoon.cs" />
-    <Compile Include="Cards\TitaniasChosen.cs" />
-    <Compile Include="Cards\TolarianWinds.cs" />
-    <Compile Include="Cards\TragicPoet.cs" />
-    <Compile Include="Cards\TreacherousLink.cs" />
-    <Compile Include="Cards\TreefolkMystic.cs" />
-    <Compile Include="Cards\TreefolkSeedlings.cs" />
-    <Compile Include="Cards\TreetopRangers.cs" />
-    <Compile Include="Cards\TreetopVillage.cs" />
-    <Compile Include="Cards\TripNoose.cs" />
-    <Compile Include="Cards\TrumpetBlast.cs" />
-    <Compile Include="Cards\Turnabout.cs" />
-    <Compile Include="Cards\Umbilicus.cs" />
-    <Compile Include="Cards\UnworthyDead.cs" />
-    <Compile Include="Cards\UrzasArmor.cs" />
-    <Compile Include="Cards\UrzasIncubator.cs" />
-    <Compile Include="Cards\VampiricEmbrace.cs" />
-    <Compile Include="Cards\Vebulid.cs" />
-    <Compile Include="Cards\VeiledCrocodile.cs" />
-    <Compile Include="Cards\VeiledSentry.cs" />
-    <Compile Include="Cards\VeiledSerpent.cs" />
-    <Compile Include="Cards\VernalBloom.cs" />
-    <Compile Include="Cards\ViashinoCutthroat.cs" />
-    <Compile Include="Cards\ViashinoHeretic.cs" />
-    <Compile Include="Cards\ViashinoRunner.cs" />
-    <Compile Include="Cards\ViashinoSandswimmer.cs" />
-    <Compile Include="Cards\Victimize.cs" />
-    <Compile Include="Cards\VividCreek.cs" />
-    <Compile Include="Cards\VoltaicKey.cs" />
-    <Compile Include="Cards\WakeofDestruction.cs" />
-    <Compile Include="Cards\WalkingSponge.cs" />
-    <Compile Include="Cards\WallOfDenial.cs" />
-    <Compile Include="Cards\WallOfJunk.cs" />
-    <Compile Include="Cards\WallOfReverence.cs" />
-    <Compile Include="Cards\WarDance.cs" />
-    <Compile Include="Cards\WayLay.cs" />
-    <Compile Include="Cards\WeatherseedElf.cs" />
-    <Compile Include="Cards\Whetstone.cs" />
-    <Compile Include="Cards\WildDogs.cs" />
-    <Compile Include="Cards\Windfall.cs" />
-    <Compile Include="Cards\WizardMentor.cs" />
-    <Compile Include="Cards\Worship.cs" />
-    <Compile Include="Cards\YavimayaElder.cs" />
-    <Compile Include="Cards\YawgmothsBargain.cs" />
-    <Compile Include="Cards\YawgmothsEdict.cs" />
-    <Compile Include="DeckBuilderFacts.cs" />
-    <Compile Include="DraftFacts.cs" />
-    <Compile Include="Infrastructure\Counters.cs" />
-    <Compile Include="MatchSimulatorFacts.cs" />
-    <Compile Include="Performance\Benchmark.cs" />
-    <Compile Include="Performance\BenchmarkResult.cs" />
-    <Compile Include="Performance\ScenarioRunResult.cs" />
-    <Compile Include="Performance\Scenarios.cs" />
-    <Compile Include="Performance\BenchmarkRunConfiguration.cs" />
-    <Compile Include="SaveGameFacts.cs" />
-    <Compile Include="Unit\PublisherFacts.cs" />
-    <Compile Include="Unit\ActivationFacts.cs" />
-    <Compile Include="Unit\ClosedFacts.cs" />
-    <Compile Include="Scenarios\GameFacts.cs" />
-    <Compile Include="Unit\HashCalculatorFacts.cs" />
-    <Compile Include="Infrastructure\PredefinedAiScenario.cs" />
-    <Compile Include="Unit\KnapsackFacts.cs" />
-    <Compile Include="Unit\ClousureFacts.cs" />
-    <Compile Include="Cards\NantukoShade.cs" />
-    <Compile Include="Cards\VampireNightHawk.cs" />
-    <Compile Include="Scenarios\Bugs.cs" />
-    <Compile Include="Performance\BenchmarkRunResult.cs" />
-    <Compile Include="Unit\CardTypeFacts.cs" />
-    <Compile Include="Cards\AcidicSlime.cs" />
-    <Compile Include="Cards\BirdsOfParadise.cs" />
-    <Compile Include="Cards\BurstLightning.cs" />
-    <Compile Include="Scenarios\Combat.cs" />
-    <Compile Include="Cards\CopperlineGorge.cs" />
-    <Compile Include="Cards\CruelEdict.cs" />
-    <Compile Include="Cards\DoomBlade.cs" />
-    <Compile Include="Cards\DranaKalastriaBloodchief.cs" />
-    <Compile Include="Cards\FiresOfYavimaya.cs" />
-    <Compile Include="Cards\FlametongueKavu.cs" />
-    <Compile Include="Cards\GraspOfDarkness.cs" />
-    <Compile Include="Cards\HypnoticSpecter.cs" />
-    <Compile Include="Infrastructure\ScenarioCard.cs" />
-    <Compile Include="Cards\LilianasSpecter.cs" />
-    <Compile Include="Cards\MarshCasualties.cs" />
-    <Compile Include="Cards\RagingRavine.cs" />
-    <Compile Include="Cards\RavenousBaloth.cs" />
-    <Compile Include="Cards\RootboundCrag.cs" />
-    <Compile Include="Cards\RumblingSlum.cs" />
-    <Compile Include="Cards\SignInBlood.cs" />
-    <Compile Include="Cards\Stupor.cs" />
-    <Compile Include="Cards\SwordOfFeastAndFamine.cs" />
-    <Compile Include="Cards\SwordOfFireAndIce.cs" />
-    <Compile Include="Cards\ThrunTheLastTroll.cs" />
-    <Compile Include="Cards\Vigor.cs" />
-    <Compile Include="Cards\VinesOfVastwood.cs" />
-    <Compile Include="Cards\VolcanicFallout.cs" />
-    <Compile Include="Cards\WurmcoilEngine.cs" />
-    <Compile Include="Infrastructure\AiScenario.cs" />
-    <Compile Include="Infrastructure\PredefinedScenario.cs" />
-    <Compile Include="Cards\BlanchwoodArmor.cs" />
-    <Compile Include="Cards\LlanowarBehemoth.cs" />
-    <Compile Include="Cards\LlanowarElves.cs" />
-    <Compile Include="Unit\CardTextFacts.cs" />
-    <Compile Include="Unit\ManaFacts.cs" />
-    <Compile Include="Unit\RatingDownloaderFacts.cs" />
-    <Compile Include="Unit\ScenarioGeneratorFacts.cs" />
-    <Compile Include="Unit\CopyServiceFacts.cs" />
-    <Compile Include="Unit\DataBindingFacts.cs" />
-    <Compile Include="Unit\ReflectionFacts.cs" />
-    <Compile Include="Unit\SetExFacts.cs" />
-    <Compile Include="Unit\StringExFacts.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Infrastructure\Scenario.cs" />
-    <Compile Include="Cards\ShivanDragon.cs" />
-    <Compile Include="Cards\Shock.cs" />
-    <Compile Include="Cards\VerdantForce.cs" />
-    <Compile Include="Unit\TrackableEventFacts.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\source\Grove.Utils\Grove.Utils.csproj">
-      <Project>{38A405B5-227C-4DF2-8807-BADCDB035530}</Project>
-      <Name>Grove.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\source\Grove\Grove.csproj">
-      <Project>{08EAEA6C-8725-470C-9346-27AC0320DAFF}</Project>
-      <Name>Grove</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Infrastructure\Logger.Debug.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="deck1.dec">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="deck2.dec">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Sandbox\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Infrastructure\Logger.Info.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <ProductVersion>8.0.30703</ProductVersion>
+        <TargetFramework>net48</TargetFramework>
+        <AssemblyTitle>Magicgrove Tests</AssemblyTitle>
+        <Product>Magicgrove</Product>
+        <Copyright>Licensed under GPL-3 Licence.</Copyright>
+        <Version>1.9</Version>
+        <AssemblyVersion>1.9</AssemblyVersion>
+        <FileVersion>1.9</FileVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <DebugType>full</DebugType>
+        <OutputPath>bin\$(Configuration)\</OutputPath>
+        <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <DebugType>pdbonly</DebugType>
+        <OutputPath>bin\$(Configuration)\</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+        <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+        <DebugType>full</DebugType>
+        <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+        <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+        <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+        <DebugType>pdbonly</DebugType>
+        <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+        <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="PresentationFramework" />
+        <Reference Include="System.Data.DataSetExtensions" />
+        <Reference Include="WindowsBase" />
+        <Reference Include="WindowsBase" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\source\Grove.Utils\Grove.Utils.csproj" />
+        <ProjectReference Include="..\..\source\Grove\Grove.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Infrastructure\Logger.Debug.xml">
+            <SubType>Designer</SubType>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="deck1.dec">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Include="deck2.dec">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Infrastructure\Logger.Info.xml">
+            <SubType>Designer</SubType>
+        </EmbeddedResource>
+        <PackageReference Include="Caliburn.Micro" Version="4.0.105-alpha" />
+        <PackageReference Include="Castle.Windsor" Version="3.4.0" />
+        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <Reference Include="PresentationFramework" />
+    </ItemGroup>
 </Project>
