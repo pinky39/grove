@@ -14,7 +14,7 @@
     public delegate void ProgressIndicator(long current, long total);
 
 #if DEBUG
-    public static readonly string BasePath = Path.GetFullPath(@"..\..\..\..\media");
+    public static readonly string BasePath = Path.GetFullPath(@"..\..\..\..\..\media");
 #else 
     public static readonly string BasePath = Path.GetFullPath(@".\media");
 #endif
