@@ -2,22 +2,86 @@
 {
   using System;
   using System.Linq;
-  using AI;
-  using Infrastructure;
-  using Media;
+  using Grove.AI;
+  using Grove.Tests.Infrastructure;
+  using Grove.Media;
+  using Xunit;
+  using Grove;
+  using System.Collections.Generic;
 
   public class DraftFacts : Scenario
   {
-    //[Fact]
-
     public DraftFacts()
     {
       MediaLibrary.LoadSets();
     }
 
+    //[Fact]
+    public void BuildDeck1()
+    {
+      var library = new List<string> {
+        "Void Snare",
+"Void Snare",
+"Void Snare",
+"Chief Engineer",
+"Welkin Tern",
+"Mind Sculpt",
+"Military Intelligence",
+"Coral Barrier",
+"Dissipate",
+"Frost Lynx",
+"Illusory Angel",
+"Wall of Frost",
+"Frost Lynx",
+"Cancel",
+"Coral Barrier",
+"Encrust",
+"Amphin Pathmage",
+"Glacial Crasher",
+"Chronostutter",
+"Dauntless River Marshal",
+"Kinsbaile Skirmisher",
+"Kinsbaile Skirmisher",
+"Kinsbaile Skirmisher",
+"Raise the Alarm",
+"Raise the Alarm",
+"Ephemeral Shields",
+"Solemn Offering",
+"Geist of the Moors",
+"Heliod's Pilgrim",
+"Midnight Guard",
+"Divine Verdict",
+"Marked by Honor",
+"Tireless Missionaries",
+"Sanctified Charge",
+"Boonweaver Giant",
+"Boonweaver Giant",
+"Foundry Street Denizen",
+"Crowd's Favor",
+"Crowd's Favor",
+"Hammerhand",
+"Torch Fiend",
+"Soul of Shandalar",
+"Reclamation Sage",
+"Shaman of Spring",
+"Typhoid Rats"
+      };
+
+
+      var deck = DeckBuilder.BuildDeck(
+         library.Select(x => new CardInfo(x)),
+         MediaLibrary.GetSet("M15").Ratings, decks => decks.First());
+    }
+
+    //[Fact]
     public void DraftLibraries()
     {
-      var sets = new[] {"Urza's Saga", "Urza's Saga", "Urza's Saga"};
+      Deck DeckEvaluator(List<Deck> candidates)
+      {
+        return candidates.First();
+      }
+
+      var sets = new[] { "M15", "M15", "M15" };
       var ratings = MediaLibrary.GetSet(sets[0]).Ratings;
 
       var runner = new DraftRunner();
@@ -30,32 +94,75 @@
       Equal(8, results.Libraries.Count);
       True(results.Libraries.All(x => x.Count == 45));
 
-      for (var i = 0; i < 8; i++)
+      PrintLibraries(results.Libraries);
+
+      var decks = new List<Deck>();
+      foreach (var library in results.Libraries)
       {
-        Console.WriteLine("Player {0}", i + 1);
-        Console.WriteLine("-------------------");
+        var deck = DeckBuilder.BuildDeck(library, ratings, DeckEvaluator);
+        decks.Add(deck);
+      }
+                  
+      PrintDecks(decks);     
+    }
 
-        var library = results.Libraries[i];
+    private void PrintDecks(List<Deck> decks)
+    {
+      var i = 0;
+      foreach (var deck in decks)
+      {
+        PrintDeckOrLibrary($"Deck {i++}", deck);
+      }
+    }
 
-        Console.WriteLine("White cards: {0}", library.Count(x => Grove.Cards.All[x.Name].HasColor(CardColor.White)));
-        Console.WriteLine("Blue cards: {0}", library.Count(x => Grove.Cards.All[x.Name].HasColor(CardColor.Blue)));
-        Console.WriteLine("Black cards: {0}", library.Count(x => Grove.Cards.All[x.Name].HasColor(CardColor.Black)));
-        Console.WriteLine("Red cards: {0}", library.Count(x => Grove.Cards.All[x.Name].HasColor(CardColor.Red)));
-        Console.WriteLine("Green cards: {0}", library.Count(x => Grove.Cards.All[x.Name].HasColor(CardColor.Green)));
-        Console.WriteLine("Colorless cards: {0}",
-          library.Count(x => Grove.Cards.All[x.Name].HasColor(CardColor.Colorless)));
+    private static void PrintLibraries(List<List<CardInfo>> libraries)
+    {
+      var i = 0;
+      foreach (var library in libraries)
+      {
+        PrintDeckOrLibrary($"Library {i++}", library);
+      }
+    }
 
-        var deck = DeckBuilder.BuildDeck(library, ratings);
-        Console.WriteLine();
+    private static void PrintDeckOrLibrary(string title, IEnumerable<CardInfo> cards)
+    {
+      var grouped = cards.Select(x => Grove.Cards.All[x.Name])
+          .GroupBy(c =>
+          {
+            if (c.IsColorless())
+              return "colorless";
 
-        Console.WriteLine("Creatures: {0}, Spells {1}",
-          deck.Count(x => Grove.Cards.All[x.Name].Is().Creature),
-          deck.Count(x => !Grove.Cards.All[x.Name].Is().Creature && !Grove.Cards.All[x.Name].Is().Land));
+            return String.Join(" ", c.Colors.Select(x => x.ToString()));
+          })
+          .Select(x => new { Color = x.Key, Cards = x.ToList() })
+          .OrderByDescending(x => x.Cards.Count)
+          .Select(x =>
+          {
+            return new
+            {
+              Color = x.Color,
+              CreatureCount = x.Cards.Count(c => c.Type.Creature),
+              SpellCount = x.Cards.Count(c => !c.Type.Creature),
+              Cards = x.Cards.Select(y => new
+              {
+                Color = x.Color,
+                Name = y.Name,
+                Type = y.Type,
+                Cost = y.ConvertedCost
+              }).OrderBy(y => y.Cost).ToArray()
+            };
+          }).ToArray();
 
-        Console.WriteLine("-------------------");
-        Console.WriteLine(deck);
+      Console.WriteLine($"\n\n{title}\n\n");
+      foreach (var group in grouped)
+      {
+        Console.WriteLine($"\n{group.Color} -- Creatures: '{group.CreatureCount}' " +
+          $"Spells: {group.SpellCount}\n");
 
-        Console.WriteLine();
+        foreach (var card in group.Cards)
+        {
+          Console.WriteLine($"'{card.Name}' '{card.Type}' {card.Cost} {card.Color}");
+        }
       }
     }
   }

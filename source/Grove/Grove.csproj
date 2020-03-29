@@ -1524,6 +1524,7 @@
     <Compile Include="Infrastructure\IReceive.cs" />
     <Compile Include="Infrastructure\ITrackableCollection.cs" />
     <Compile Include="Infrastructure\ITrackableValue.cs" />
+    <Compile Include="Infrastructure\Sha1.cs" />
     <Compile Include="Infrastructure\Trackable.cs" />
     <Compile Include="Infrastructure\TrackableEvent.cs" />
     <Compile Include="Infrastructure\TrackableList.cs" />

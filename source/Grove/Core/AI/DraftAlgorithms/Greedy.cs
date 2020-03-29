@@ -15,7 +15,7 @@
       {
         if (booster.Count > 8)
         {
-          return GetBestCardOfSingleColorOrColorless(booster);
+          return GetBestCardOfSingleColorOrColorless(booster, round);
         }
 
         if (booster.Count == 8)
@@ -24,7 +24,7 @@
         }
       }
 
-      return PickBestPrimarySecondaryOrColorless(booster);
+      return PickBestPrimarySecondaryOrColorless(booster, round);
     }
 
     private void ChoosePrimaryAndSecondaryColors()
