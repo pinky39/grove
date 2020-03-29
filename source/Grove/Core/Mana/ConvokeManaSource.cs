@@ -17,7 +17,7 @@
 
     public bool CanActivate()
     {
-      return OwningCard.CanTap;
+      return !OwningCard.IsTapped;
     }
 
     public void PayActivationCost()
