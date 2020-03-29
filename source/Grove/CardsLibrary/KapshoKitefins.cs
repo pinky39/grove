@@ -34,6 +34,8 @@
                 return card.Is().Creature && 
                   ctx.OwningCard.Controller == card.Controller;
               }));
+            
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
 
             p.Effect = () => new TapTargets();
             p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.Opponent).On.Battlefield());
