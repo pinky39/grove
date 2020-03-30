@@ -24,7 +24,7 @@
       public static readonly ResourceFolder Clipart = "images";
       public static readonly ResourceFolder Cards = "cards";
       public static readonly ResourceFolder Sets = "sets";
-      public static readonly ResourceFolder Avatars = "avatars";      
+      public static readonly ResourceFolder Avatars = "avatars";
 
       public static long GetSize()
       {
