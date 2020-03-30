@@ -27,7 +27,7 @@
               () => new AddPowerAndToughness(1, 0) {UntilEot = true},
               () => new AddStaticAbility(Static.Trample) {UntilEot = true});
 
-            p.TimingRule(new PumpOwningCardTimingRule(1, 0));
+            p.TimingRule(new AfterOpponentDeclaresBlockers());          
             p.RepetitionRule(new RepeatMaxTimes());
           });
     }

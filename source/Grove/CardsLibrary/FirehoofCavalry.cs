@@ -27,7 +27,7 @@
           p.Effect = () => new ApplyModifiersToSelf(
             () => new AddPowerAndToughness(2, 0){UntilEot = true},
             () => new AddStaticAbility(Static.Trample) { UntilEot = true }).SetTags(EffectTag.IncreasePower);
-          p.TimingRule(new PumpOwningCardTimingRule(2, 0));
+          p.TimingRule(new AfterOpponentDeclaresBlockers());
           p.RepetitionRule(new RepeatMaxTimes());
         });
     }
