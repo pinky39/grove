@@ -63,6 +63,11 @@
           return Name + RandomEx.Next(1, Settings.Readonly.BasicLandVersions + 1);
         }
 
+        if (Type.Token)
+        {
+          return $"{Name} token";
+        }
+
         return Name;
       }
     }
