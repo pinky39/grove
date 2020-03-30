@@ -27,7 +27,8 @@
     public static NullToCollapsedConverter NullToCollapsed = new NullToCollapsedConverter();
     public static ZeroToCollapsedConverter ZeroToCollapsed = new ZeroToCollapsedConverter();
     public static NonZeroToCollapsedConverter NonZeroToCollapsed = new NonZeroToCollapsedConverter();
-    public static RatingConverter Rating = new RatingConverter();   
+    public static RatingConverter Rating = new RatingConverter();
+    public static BaseStrenghtChangeToColorConverter BaseStrenghtChangeToColor = new BaseStrenghtChangeToColorConverter();
 
     public class AutoPassToImageConverter : IValueConverter
     {
@@ -378,6 +379,35 @@
       {
         throw new NotImplementedException();
       }
+    }
+  }
+
+  public class BaseStrenghtChangeToColorConverter : IMultiValueConverter
+  {
+    private readonly SolidColorBrush _noChange = new SolidColorBrush(Color.FromArgb(0xff, 0xff, 0xff, 0xff));
+    private readonly SolidColorBrush _decrease = new SolidColorBrush(Color.FromArgb(0xff, 0xe3, 0x00, 0x00));
+    private readonly SolidColorBrush _increase = new SolidColorBrush(Color.FromArgb(0xff, 0xb1, 0xff, 0x00));
+
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+      if (values.Any(x => x == null || DependencyProperty.UnsetValue.Equals(x)))
+        return _noChange;
+
+      var baseStrenght = (int)values[0];
+      var currentStrenght = (int)values[1];
+
+      if (baseStrenght == currentStrenght)
+        return _noChange;
+
+      if (baseStrenght > currentStrenght)
+        return _decrease;
+
+      return _increase;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+      throw new NotImplementedException();
     }
   }
 
