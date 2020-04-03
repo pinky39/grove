@@ -72,8 +72,12 @@
     public virtual void SelectCard(Card card)
     {
       PickedCard = card;
-      _library.Add(card);
+          
+      var index = _library
+        .TakeWhile(c => c.CompareTo(card) <= 0)
+        .Count();
 
+      _library.Insert(index, card);
       _blocker.Completed();
     }
 

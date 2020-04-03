@@ -9,7 +9,7 @@
   using Infrastructure;
   using Modifiers;
 
-  public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife, IModifiable
+  public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife, IModifiable, IComparable<Card>
   {
     private readonly ActivatedAbilities _activatedAbilities;
     private readonly Trackable<Card> _attachedTo = new Trackable<Card>();    
@@ -1240,6 +1240,70 @@
       ClearDamage();
       HasRegenerationShield = false;
       Combat.Remove(this);
+    }
+
+    // Used for ordering cards in UI (e.g for decks, libraries)
+    public int CompareTo(Card other)
+    {
+      if (Is().Land != other.Is().Land)
+      {
+        return Is().Land.CompareTo(other.Is().Land);
+      }
+
+      if (ConvertedCost != other.ConvertedCost)
+      {
+        return ConvertedCost.CompareTo(other.ConvertedCost);
+      }
+
+      if (ConvertedCost == 0)
+        return 0;
+
+      if (IsColorless() != other.IsColorless())
+      {
+        return IsColorless().CompareTo(other.IsColorless());
+      }
+
+      if (Colors[0] != other.Colors[0])
+      {
+        return Colors[0].CompareTo(other.Colors[0]);
+      }
+
+      var amounts = ManaCost.ToList();
+      var otherAmounts = other.ManaCost.ToList();
+
+      if (amounts.Count != otherAmounts.Count)
+      {                              
+        
+        // special case when no colorless in cost
+        // put it last
+        if (amounts.Count == 1)
+        {
+          return 1;
+        }
+        if (otherAmounts.Count == 1)
+        {
+          return -1;
+        }
+        
+        return amounts.Count.CompareTo(otherAmounts.Count);
+      }
+
+      for (int i = 0; i < amounts.Count; i++)
+      {
+        if (amounts[i].Color == otherAmounts[i].Color)
+        {
+          return amounts[i].Count.CompareTo(otherAmounts[i].Count);
+        }      
+        else
+        {
+          var color = amounts[i].Color.Indices.Sum();
+          var otherColor = otherAmounts[i].Color.Indices.Sum();
+
+          return color.CompareTo(otherColor);
+        }
+      }
+            
+      return 0;
     }
   }
 }

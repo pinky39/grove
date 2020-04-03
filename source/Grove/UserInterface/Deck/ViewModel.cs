@@ -158,7 +158,7 @@
 
     private IEnumerable<DeckRow> FilterRows(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
     {
-      return DeckRow.Group(FilterCards(cards, predicate)).OrderBy(x => x.Card.Name);
+      return DeckRow.Group(FilterCards(cards, predicate));
     }
 
     private IEnumerable<CardInfo> FilterCards(IEnumerable<CardInfo> cards, Func<Card, bool> predicate)
