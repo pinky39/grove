@@ -81,30 +81,32 @@
       }
     }
 
-    private List<ManaUnit> GetAdditionalManaSources(bool canUseConvoke, bool canUseDelve)
+    private List<ManaUnit> GetAdditionalManaSources(
+      ConvokeAndDelveOptions convokeAndDelve)
     {
       var additional = new List<ManaUnit>();
+      convokeAndDelve = convokeAndDelve ?? ConvokeAndDelveOptions.NoConvokeAndDelve;
 
-      if (canUseConvoke)
+      if (convokeAndDelve.CanUseConvoke)
       {
-        additional.AddRange(GetConvokeSources());
+        additional.AddRange(GetConvokeSources(convokeAndDelve.UiConvokeSources));
       }
 
-      if (canUseDelve)
+      if (convokeAndDelve.CanUseDelve)
       {
-        additional.AddRange(GetDelveSources());
+        additional.AddRange(GetDelveSources(convokeAndDelve.UiDelveSources));
       }
 
       return additional;
     }
     
-    public List<ManaColor> GetAvailableMana(ManaUsage usage, bool canUseConvoke, bool canUseDelve)
+    public List<ManaColor> GetAvailableMana(ManaUsage usage, ConvokeAndDelveOptions convokeAndDelve)
     {
       var restricted = new HashSet<ManaUnit>();
       var allocated = new List<ManaUnit>();
 
       var units = _units
-        .Concat(GetAdditionalManaSources(canUseConvoke, canUseDelve))
+        .Concat(GetAdditionalManaSources(convokeAndDelve))
         .ToList();      
       
       foreach (var manaUnit in units)
@@ -121,20 +123,47 @@
       return allocated.Select(x => x.Color).ToList();
     }
 
-    private IEnumerable<ManaUnit> GetConvokeSources()
+    private IEnumerable<ManaUnit> GetConvokeSources(List<Card> uiSelected)
     {
-      return _controller.Battlefield.Creatures
-        .OrderBy(x => x.Power)
-        .SelectMany(x => new ConvokeManaSource(x).GetUnits())
-        .ToList();
+      // first candidates are the one that were selected by ui
+      // if any
+      var convokeSources = new List<ConvokeManaSource>();
+      
+      if (uiSelected?.Count > 0)
+      {
+        // rank should be lower that 0 so it will be used before mana from pool        
+        convokeSources.AddRange(uiSelected.Select(x => 
+          new ConvokeManaSource(x, rank: - 1))); 
+      }
+
+      convokeSources.AddRange(
+        _controller.Battlefield.Creatures
+          .OrderBy(x => x.Power)
+          .Where(x => !convokeSources.Any(y => y.OwningCard == x))
+          .Select(x => new ConvokeManaSource(x)));
+
+      return convokeSources.SelectMany(x => x.GetUnits()).ToList();
     }
 
-    private IEnumerable<ManaUnit> GetDelveSources()
+    private IEnumerable<ManaUnit> GetDelveSources(List<Card> uiSelected)
     {
-      return _controller.Graveyard
-        .OrderBy(x => x.Score)
-        .SelectMany(x => new DelveManaSource(x).GetUnits())
-        .ToList();
+      // first candidates are the one that were selected by ui
+      // if any
+      var convokeSources = new List<DelveManaSource>();
+
+      if (uiSelected?.Count > 0)
+      {
+        // rank should be lower that 0 so it will be used before mana from pool        
+        convokeSources.AddRange(uiSelected.Select(x =>
+          new DelveManaSource(x, rank: -1)));
+      }
+
+      convokeSources.AddRange(
+          _controller.Graveyard.OrderBy(x => x.Score)
+          .Where(x => !convokeSources.Any(y => y.OwningCard == x))
+          .Select(x => new DelveManaSource(x)));
+
+      return convokeSources.SelectMany(x => x.GetUnits()).ToList();      
     }
 
     private void RestrictUsingDifferentSourcesFromSameCard(ManaUnit allocated, HashSet<ManaUnit> restricted,
@@ -197,16 +226,25 @@
       RemovePermanently(unit);
     }
 
-    public bool Has(ManaAmount amount, ManaUsage usage, bool canUseConvoke, bool canUseDelve)
+    public bool Has(
+      ManaAmount amount, 
+      ManaUsage usage, 
+      ConvokeAndDelveOptions convokeAndDelveOptions)
     {
-      var allocated = TryToAllocateAmount(amount, usage, canUseConvoke, canUseDelve);
+      var allocated = TryToAllocateAmount(
+        amount,
+        usage,
+        convokeAndDelveOptions);
 
       return allocated != null && allocated.Lifeloss < _controller.Life;
     }
 
-    public void Consume(ManaAmount amount, ManaUsage usage, bool canUseConvoke, bool canUseDelve)
+    public void Consume(
+      ManaAmount amount, 
+      ManaUsage usage, 
+      ConvokeAndDelveOptions convokeAndDelveOptions)
     {
-      var allocated = TryToAllocateAmount(amount, usage, canUseConvoke, canUseDelve);
+      var allocated = TryToAllocateAmount(amount, usage, convokeAndDelveOptions);
       Asrt.True(allocated != null, "Not enough mana available.");
 
       var sources = GetSourcesToActivate(allocated.Units);
@@ -279,12 +317,15 @@
       public int Lifeloss;
     }
 
-    private AllocatedAmount TryToAllocateAmount(ManaAmount amount, ManaUsage usage, bool canUseConvoke, bool canUseDelve)
+    private AllocatedAmount TryToAllocateAmount(
+      ManaAmount amount, 
+      ManaUsage usage, 
+      ConvokeAndDelveOptions convokeAndDelveOptions)
     {
       var restricted = new HashSet<ManaUnit>();
       var allocated = new AllocatedAmount();
 
-      var additional = GetAdditionalManaSources(canUseConvoke, canUseDelve);
+      var additional = GetAdditionalManaSources(convokeAndDelveOptions);
       var additionalGrouped = GroupAdditionalSources(additional);
       var units = _units.Concat(additional).ToList();
 

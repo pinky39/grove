@@ -262,16 +262,18 @@
       _battlefield.Add(card);
     }
 
-    public int GetAvailableManaCount(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
-      bool canUseDelve = false)
+    public int GetAvailableManaCount(
+      ConvokeAndDelveOptions convokeAndDelveOptions = null,
+      ManaUsage usage = ManaUsage.Any)
     {
-      return GetAvailableMana(usage, canUseConvoke, canUseDelve).Count;
+      return GetAvailableMana(convokeAndDelveOptions, usage).Count;
     }
 
-    public List<ManaColor> GetAvailableMana(ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
-      bool canUseDelve = false)
-    {
-      return ManaCache.GetAvailableMana(usage, canUseConvoke, canUseDelve);
+    public List<ManaColor> GetAvailableMana( 
+      ConvokeAndDelveOptions convokeAndDelveOptions = null,
+      ManaUsage usage = ManaUsage.Any)
+    {      
+      return ManaCache.GetAvailableMana(usage, convokeAndDelveOptions);
     }
 
     public void AddManaToManaPool(ManaAmount manaAmount, ManaUsage usageRestriction = ManaUsage.Any)
@@ -279,9 +281,9 @@
       ManaCache.AddManaToPool(manaAmount, usageRestriction);
     }
 
-    public void Consume(ManaAmount amount, ManaUsage usage, bool canUseConvoke = false, bool canUseDelve = false)
+    public void Consume(ManaAmount amount, ManaUsage usage, ConvokeAndDelveOptions convokeAndDelveOptions = null)
     {
-      ManaCache.Consume(amount, usage, canUseConvoke, canUseDelve);
+      ManaCache.Consume(amount, usage, convokeAndDelveOptions);
     }
 
     public void DiscardCard(Card card)
@@ -357,15 +359,18 @@
       _library.GenerateZoneTargets(zoneFilter, targets);
     }
 
-    public bool HasMana(int amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false)
+    public bool HasMana(
+      int amount, 
+      ManaUsage usage = ManaUsage.Any, 
+      ConvokeAndDelveOptions convokeAndDelveOptions = null)
     {
-      return HasMana(amount.Colorless(), usage, canUseConvoke);
+      return HasMana(amount.Colorless(), usage, convokeAndDelveOptions);
     }
 
-    public bool HasMana(ManaAmount amount, ManaUsage usage = ManaUsage.Any, bool canUseConvoke = false,
-      bool canUseDelve = false)
+    public bool HasMana(ManaAmount amount, ManaUsage usage = ManaUsage.Any,
+      ConvokeAndDelveOptions convokeAndDelveOptions = null)
     {
-      return ManaCache.Has(amount, usage, canUseConvoke, canUseDelve);
+      return ManaCache.Has(amount, usage, convokeAndDelveOptions);
     }
 
     public void PutCardToGraveyard(Card card)

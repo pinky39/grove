@@ -25,8 +25,11 @@
         return false;
 
       var availableMana = p.Controller.GetAvailableManaCount(
-        canUseConvoke: p.Card.Has().Convoke, 
-        canUseDelve: p.Card.Has().Delve);
+        new ConvokeAndDelveOptions
+        {
+          CanUseConvoke = p.Card.Has().Convoke,
+          CanUseDelve = p.Card.Has().Delve
+        });
 
       return SpellsNeedMana(p, availableMana) || AbilitiesNeedMana(p, availableMana);
     }

@@ -753,6 +753,7 @@
     <Compile Include="Core\Effects\PreventDamageToEquipedCreature.cs" />
     <Compile Include="Core\Events\EmblemAddedEvent.cs" />
     <Compile Include="Core\Events\EmblemRemovedEvent.cs" />
+    <Compile Include="Core\Mana\ConvokeAndDelveOptions.cs" />
     <Compile Include="Core\Modifiers\EmblemLifetime.cs" />
     <Compile Include="Infrastructure\ReentryGuard.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />

@@ -39,19 +39,28 @@
 
       int? maxX = null;
       var maxRepetitions = 1;
-      
+
       var canPay = Controller.HasMana(
         actualCost,
         GetManaUsage(),
-        canUseConvoke: Card.Has().Convoke,
-        canUseDelve: Card.Has().Delve);
+        new ConvokeAndDelveOptions
+        {
+          CanUseConvoke = Card.Has().Convoke,
+          CanUseDelve = Card.Has().Delve
+        });
 
       if (canPay)
       {
         if (_hasX)
         {
-          var availableMana = Controller.GetAvailableManaCount(GetManaUsage(), canUseConvoke: Card.Has().Convoke,
-            canUseDelve: Card.Has().Delve);
+          var availableMana = Controller.GetAvailableManaCount(            
+            new ConvokeAndDelveOptions
+            {
+              CanUseConvoke = Card.Has().Convoke,
+              CanUseDelve = Card.Has().Delve
+            },
+            GetManaUsage());
+          
           maxX = availableMana - actualCost.Converted;
         }
 
@@ -105,7 +114,16 @@
         }
       }
 
-      Controller.Consume(amount, GetManaUsage(), canUseConvoke: Card.Has().Convoke, canUseDelve: Card.Has().Delve);
+      Controller.Consume(
+        amount,
+        GetManaUsage(),
+        new ConvokeAndDelveOptions
+        {
+          CanUseConvoke = Card.Has().Convoke,
+          CanUseDelve = Card.Has().Delve,
+          UiConvokeSources = p.ConvokeTargets,
+          UiDelveSources = p.DelveTargets
+        });        
     }
   }
 }

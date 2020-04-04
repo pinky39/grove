@@ -6,12 +6,12 @@
   {
     private readonly ManaUnit[] _units;
 
-    public ConvokeManaSource(Card card)
+    public ConvokeManaSource(Card card, int rank = 100)
     {
       OwningCard = card;
       _units = new[]
         {
-          new ManaUnit(ManaColor.FromCardColors(card.Colors), rank: 100, source: this)
+          new ManaUnit(ManaColor.FromCardColors(card.Colors), rank: rank, source: this)
         };
     }
 

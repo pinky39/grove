@@ -103,24 +103,24 @@
 
     private void Consume(string manaAmount)
     {
-      _cache.Consume(manaAmount.Parse(), ManaUsage.Any, false, false);
+      _cache.Consume(manaAmount.Parse(), ManaUsage.Any, ConvokeAndDelveOptions.NoConvokeAndDelve);
     }
 
     private void AssertHas(int count)
     {
-      var amount = _cache.GetAvailableMana(ManaUsage.Any, false, false).Count;
+      var amount = _cache.GetAvailableMana(ManaUsage.Any, ConvokeAndDelveOptions.NoConvokeAndDelve).Count;
       Assert.Equal(count, amount);
     }
 
     private void AssertAvailable(string amount)
     {
-      var has = _cache.Has(amount.Parse(), ManaUsage.Any, false, false);
+      var has = _cache.Has(amount.Parse(), ManaUsage.Any, ConvokeAndDelveOptions.NoConvokeAndDelve);
       Assert.True(has);
     }
 
     private void AssertNotAvailable(string amount)
     {
-      var has = _cache.Has(amount.Parse(), ManaUsage.Any, false, false);
+      var has = _cache.Has(amount.Parse(), ManaUsage.Any, ConvokeAndDelveOptions.NoConvokeAndDelve);
       Assert.False(has);
     }
   }

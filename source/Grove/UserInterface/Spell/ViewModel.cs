@@ -127,8 +127,12 @@
 
     var proceed = SelectX(activation.Prerequisites, activationParameters) &&
       SelectTargets(activation.Prerequisites, activationParameters) &&
-      ManuallySelectRequiredConvokeTargets() &&
-      ManuallySelectRequiredDelveTargets();
+      // TODO this needs to be fixed, because selecting convoke & delve targets
+      // this way does not save decisions to game recording, later this
+      // can cause that the save game will be corrupted, because auto mana
+      // payment will not always tap or exile same cards!
+      SelectConvokeTargets(activationParameters) &&
+      SelectDelveTargets(activationParameters);
     
       if (!proceed)
         return;
@@ -138,7 +142,7 @@
       Publisher.Publish(new PlayableSelected {Playable = playable});
     }
 
-    private bool ManuallySelectRequiredConvokeTargets()
+    private bool SelectConvokeTargets(ActivationParameters parameters)
     {
       if (!Card.Has().Convoke)
         return true;
@@ -161,23 +165,17 @@
       validator.Initialize(Game, Card.Controller);
 
       var dialog = ShowSelectorDialog(validator, null);
+      
       if (dialog.WasCanceled)
       {
         return false;
       }
 
-      foreach (var target in dialog.Selection)
-      {
-        target.Card().Tap();
-        var manaColor = ManaColor.FromCardColors(target.Card().Colors);
-
-        Card.Controller.AddManaToManaPool(new SingleColorManaAmount(manaColor, 1));
-      }
-
+      parameters.ConvokeTargets.AddRange(dialog.Selection.Cast<Card>());    
       return true;
     }
 
-    private bool ManuallySelectRequiredDelveTargets()
+    private bool SelectDelveTargets(ActivationParameters parameters)
     {
       if (!Card.Has().Delve)
         return true;
@@ -204,13 +202,7 @@
         return false;
       }
 
-      foreach (var target in dialog.Selection)
-      {
-        target.Card().Exile();
-
-        Card.Controller.AddManaToManaPool(new SingleColorManaAmount(ManaColor.Colorless, 1));
-      }
-      
+      parameters.DelveTargets.AddRange(dialog.Selection.Cast<Card>());            
       return true;
     }
 

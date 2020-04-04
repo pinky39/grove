@@ -6,12 +6,12 @@
   {
     private readonly ManaUnit[] _units;
 
-    public DelveManaSource(Card card)
+    public DelveManaSource(Card card, int rank = 100)
     {
       OwningCard = card;
       _units = new[]
         {
-          new ManaUnit(ManaColor.Colorless, rank: 100, source: this)
+          new ManaUnit(ManaColor.Colorless, rank: rank, source: this)
         };
     }
 

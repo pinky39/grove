@@ -151,9 +151,10 @@
         {
           Targets = p.Targets, 
           X = p.X, 
-          PayManaCost = p.PayManaCost
-        });
-      
+          PayManaCost = p.PayManaCost,
+          ConvokeTargets = p.ConvokeTargets,
+          DelveTargets = p.DelveTargets
+        });      
 
       if (p.SkipStack)
       {
