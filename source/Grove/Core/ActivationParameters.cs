@@ -26,8 +26,7 @@
     protected ActivationParameters(SerializationInfo info, StreamingContext context)
     {
       var ctx = (SerializationContext)context.Context;
-
-      PayManaCost = (bool) info.GetValue("PayManaCost", typeof(bool));
+      
       Repeat = (int)info.GetValue("Repeat", typeof(int));
       SkipStack = (bool)info.GetValue("SkipStack", typeof(bool));
       Targets = (Targets)info.GetValue("Targets", typeof(Targets));
@@ -35,10 +34,11 @@
 
       // backward compatibility, convoke, delve
       try
-      {                
+      {        
         var convokeTargetsIds = (List<int>)info.GetValue("convokeTargets", typeof(List<int>));
         var delveTargetsIds = (List<int>)info.GetValue("delveTargets", typeof(List<int>));
 
+        PayManaCost = (bool)info.GetValue("PayManaCost", typeof(bool));
         ConvokeTargets.AddRange(convokeTargetsIds.Select(id => (Card)ctx.Recorder.GetObject(id)));
         DelveTargets.AddRange(delveTargetsIds.Select(id => (Card)ctx.Recorder.GetObject(id)));
       }
