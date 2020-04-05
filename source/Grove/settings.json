@@ -1,7 +1,14 @@
 {
   // Num of different illustrations used for Basic lands
-  
-  "BasicLandVersions": 30
+
+  "BasicLandVersions": 30,
+
+  // Default tournament packs
+
+  "DefaultStarterPack": "M15",
+  "DefaultBoosterPack1": "M15",
+  "DefaultBoosterPack2": "M15",
+  "DefaultBoosterPack3": "M15"
 
   // Ai configuration
 

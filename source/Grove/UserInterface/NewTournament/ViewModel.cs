@@ -17,10 +17,10 @@
       _previousScreen = previousScreen;
       _sets = MediaLibrary.GetSetsNames();
 
-      StarterPack = "Urza's Saga";
-      BoosterPack1 = _sets[0];
-      BoosterPack2 = _sets[0];
-      BoosterPack3 = _sets[0];
+      StarterPack = Settings.Readonly.DefaultStarterPack;
+      BoosterPack1 = Settings.Readonly.DefaultBoosterPack1;
+      BoosterPack2 = Settings.Readonly.DefaultBoosterPack2;
+      BoosterPack3 = Settings.Readonly.DefaultBoosterPack3;
       YourName = "You";
       TypeOfTournament = TournamentType.Sealed;
       TournamentDescription = TournamentDescriptions.Sealed;

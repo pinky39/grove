@@ -23,6 +23,11 @@ namespace Grove
       }
     }
     public int BasicLandVersions = 4;
+    
+    public string DefaultStarterPack = "M15";
+    public string DefaultBoosterPack1 = "M15";
+    public string DefaultBoosterPack2 = "M15";
+    public string DefaultBoosterPack3 = "M15";
 
     public AiConfiguration Ai = new AiConfiguration
     {
