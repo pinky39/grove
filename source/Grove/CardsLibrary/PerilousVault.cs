@@ -17,8 +17,10 @@
         .FlavorText("The spirit dragon Ugin arranged the hedrons of Zendikar to direct leylines of energy. To disrupt one is to unleash devastation and chaos.")
         .ActivatedAbility(p =>
         {
+          p.Text = "{5},{T}, Exile Perilous Vault: Exile all nonland permanents.";
+
           p.Cost = new AggregateCost(
-            new PayMana("{5}".Parse()),
+            new PayMana("{5}".Parse()), 
             new Tap(),
             new ExileOwnerCost());
 

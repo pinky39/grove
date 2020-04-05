@@ -27,11 +27,12 @@
 
             p.Effect = () => new ApplyModifiersToSelf(
               () =>
-                {
+                {                  
                   var tp = new TriggeredAbility.Parameters
                     {
                       Effect = () => new PutOwnerToBattlefield(from: Zone.Graveyard, tap: true),
-                    };
+                      Text = "When Phytotitan dies, return it to the battlefield tapped under its owner's control at the beginning of his or her next upkeep."
+                  };
 
                   tp.Trigger(new OnStepStart(
                     step: Step.Upkeep,
