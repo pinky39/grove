@@ -9,6 +9,11 @@
 
   public static class DeckEvaluator
   {
+    public static Deck GetFirstDeck(List<Deck> decks)
+    {
+      return decks.First();
+    }
+    
     public static Deck GetBestDeck(List<Deck> decks)
     {
       var bestDecks = decks

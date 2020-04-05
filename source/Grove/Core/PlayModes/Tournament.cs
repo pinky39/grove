@@ -447,7 +447,7 @@
 
     private void CreateSealedDecks()
     {
-      AggregateException exception = null;
+      AggregateException exception = null;      
 
       Task.Factory.StartNew(() =>
         {
@@ -455,23 +455,31 @@
           var limitedCode = MagicSet.GetLimitedCode(_p.TournamentPack, _p.BoosterPacks);
           var pregeneratedCount = NonHumanPlayers.Count() - minNumberOfGeneratedDecks;
 
-          var pregenerated = PregeneratedDecks
-            .GetRandom(limitedCode, pregeneratedCount);
-
+          var pregenerated = PregeneratedDecks.GetRandom(limitedCode, pregeneratedCount);
           var nonHumanPlayers = NonHumanPlayers.ToList();
           var decksToGenerate = NonHumanPlayers.Count() - pregenerated.Count;
+
+          Deck EvaluateDeck(List<Deck> decks)
+          {
+            if (decksToGenerate > 10)
+            {
+              return DeckEvaluator.GetFirstDeck(decks);
+            }
+
+            return DeckEvaluator.GetBestDeck(decks);
+          }
 
           for (var i = 0; i < pregenerated.Count; i++)
           {
             nonHumanPlayers[i].Deck = pregenerated[i];
           }
 
-
           for (var count = 0; count < decksToGenerate; count++)
           {
             var player = nonHumanPlayers[count + pregenerated.Count];
             var library = GenerateLibrary();
-            var deck = DeckBuilder.BuildDeck(library, _cardRatings);
+                                    
+            var deck = DeckBuilder.BuildDeck(library, _cardRatings, EvaluateDeck);
             deck.LimitedCode = limitedCode;
             player.Deck = deck;
 
@@ -479,8 +487,8 @@
             PregeneratedDecks.Write(deck);
 
             Ui.Publisher.Publish(new DeckGenerationStatus
-              {
-                PercentCompleted = (int) Math.Round((100*(count + 1.0))/decksToGenerate)
+            {
+                PercentCompleted = (int)Math.Round((100*(count + 1.0))/ decksToGenerate)
               });
 
             if (_shouldStop)
