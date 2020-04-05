@@ -346,7 +346,10 @@
             });
 
             Ui.Shell.ShowModalDialog(selectPlaneswalker, DialogType.Small, InteractionState.SelectTarget);
-            planeswalker = (Card)selectPlaneswalker.Selection[0];
+            if (selectPlaneswalker.Selection.Count > 0)
+            {
+              planeswalker = (Card)selectPlaneswalker.Selection[0];
+            }            
           }
 
           availableMana -= attacker.CombatCost;          
