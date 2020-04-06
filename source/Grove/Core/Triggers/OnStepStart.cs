@@ -9,46 +9,57 @@
     private readonly bool _onlyOnce;
     private readonly bool _passiveTurn;
     private readonly Step _step;
-    private readonly Trackable<bool> _wasTriggered = new Trackable<bool>();
+    private readonly Trackable<bool> _canTrigger = new Trackable<bool>();
 
     private OnStepStart() {}
 
-    public OnStepStart(Step step, bool activeTurn = true, bool passiveTurn = false, bool onlyOnce = false)
+    public OnStepStart(
+      Step step, 
+      bool activeTurn = true, 
+      bool passiveTurn = false, 
+      bool onlyOnceAfterActivated = false)
     {
       _activeTurn = activeTurn;
       _step = step;
       _passiveTurn = passiveTurn;
-      _onlyOnce = onlyOnce;
+      _onlyOnce = onlyOnceAfterActivated;
     }
 
     public void Receive(ControllerChangedEvent message)
     {
       if (_onlyOnce && message.Card == Ability.OwningCard)
       {
-        _wasTriggered.Value = false;
+        _canTrigger.Value = true;
       }
     }
 
     public void Receive(StepStartedEvent message)
     {
+      if (!_canTrigger)
+        return;
+      
       if (message.Step != _step)
         return;
 
       if (_activeTurn && Controller.IsActive || _passiveTurn && !Controller.IsActive)
       {
         Set();
-        _wasTriggered.Value = true;
+        
+        if (_onlyOnce)
+        {
+          _canTrigger.Value = false;
+        }        
       }
     }
 
     protected override void OnActivate()
     {
-      _wasTriggered.Value = false;
+      _canTrigger.Value = true;
     }
 
     protected override void Initialize()
     {
-      _wasTriggered.Initialize(ChangeTracker);
+      _canTrigger.Initialize(ChangeTracker);
     }
   }
 }
