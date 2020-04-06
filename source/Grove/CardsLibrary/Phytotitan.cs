@@ -20,27 +20,33 @@
         .Toughness(2)
         .TriggeredAbility(p =>
           {
-            p.Text =
-              "When Phytotitan dies, return it to the battlefield tapped under its owner's control at the beginning of his or her next upkeep.";
+            p.Text = "When Phytotitan dies, return it to the battlefield tapped under its " +
+              "owner's control at the beginning of his or her next upkeep.";
 
             p.Trigger(new OnZoneChanged(from: Zone.Battlefield, to: Zone.Graveyard));
 
             p.Effect = () => new ApplyModifiersToSelf(
               () =>
-                {                  
+                {                
                   var tp = new TriggeredAbility.Parameters
-                    {
-                      Effect = () => new PutOwnerToBattlefield(from: Zone.Graveyard, tap: true),
-                      Text = "When Phytotitan dies, return it to the battlefield tapped under its owner's control at the beginning of his or her next upkeep."
+                  {
+                    Text = "When Phytotitan dies, return it to the battlefield tapped under " +
+                      "its owner's control at the beginning of his or her next upkeep.",
+                    
+                    Effect = () => new PutOwnerToBattlefield(from: Zone.Graveyard, tap: true),                      
                   };
 
                   tp.Trigger(new OnStepStart(
-                    step: Step.Upkeep,
-                    onlyOnce: true,
+                    step: Step.Upkeep,                  
                     passiveTurn: false,
                     activeTurn: true));
 
-                  return new AddTriggeredAbility(new TriggeredAbility(tp));
+                  var modifier = new AddTriggeredAbility(new TriggeredAbility(tp));
+
+                  modifier.AddLifetime(new EndOfStep(Step.Upkeep,
+                    l => l.Modifier.SourceCard.Controller.IsActive));
+
+                  return modifier;
                 });
           });
     }
