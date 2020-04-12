@@ -115,7 +115,7 @@
 
         if (HasLost)
         {
-          score -= (1000 - Turn.TurnCount)*1000;
+          score -= (1000 - Turn.TurnCount)*10000;
         }
 
         return IsMax ? score : -score;
