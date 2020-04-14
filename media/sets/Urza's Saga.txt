@@ -11,317 +11,332 @@ Uncommons: 3
 Commons: 11
 
 !Cards
-Absolute Grace;U;3
-Absolute Law;U;2.5
-Abyssal Horror;R;3.5
-Academy Researchers;U;3
-Acidic Soil;U;3.2
-Acridian;C;3.5
-Albino Troll;U;4
-Anaconda;U;3.8
-Angelic Chorus;R;2.5
-Angelic Page;C;3.8
-Annul;C;3.5
-Antagonism;R;3
-Arc Lightning;C;4
-Argothian Elder;U;3
-Argothian Enchantress;R;3
-Argothian Swine;C;3.8
+Absolute Grace;U;1
+Absolute Law;U;1
+#Abundance;R;2
+Abyssal Horror;R;1.5
+Academy Researchers;U;1.5
+Acidic Soil;U;1.5
+Acridian;C;2.5
+Albino Troll;U;3.5
+Anaconda;U;2
+Angelic Chorus;R;1.5
+Angelic Page;C;2.5
+Annul;C;0.5
+Antagonism;R;1
+Arc Lightning;C;3.5
+#Arcane Laboratory;U;0.5
+Argothian Elder;U;1.5
+Argothian Enchantress;R;2
+Argothian Swine;C;2
 Argothian Wurm;R;4
-Attunement;R;3.5
-Back to Basics;R;2
-Barrin, Master Wizard;R;3.8
-Barrin's Codex;R;3.8
-Bedlam;R;3.5
-Befoul;C;3.9
-Bereavement;U;2
-Blanchwood Armor;U;4
-Blanchwood Treefolk;C;3.8
-Blasted Landscape;U;3.5
-Blood Vassal;C;3.3
-Bog Raiders;C;3.6
-Brand;R;2
-Bravado;C;3.4
-Breach;C;3
-Brilliant Halo;C;3.8
-Bull Hippo;U;3.5
-Bulwark;R;3
-Cackling Fiend;C;3
-Carrion Beetles;C;3
-Catalog;C;3.5
-Catastrophe;R;4.5
-Cathodion;U;3.8
-Cave Tiger;C;3.3
-Child of Gaea;R;4.5
-Chimeric Staff;R;4
-Citanul Centaurs;R;4
-Citanul Flute;R;4
-Citanul Hierophants;R;3
-Claws of Gix;U;3.5
-Clear;U;3.8
-Cloak of Mists;C;3.5
-Confiscate;U;4
-Congregate;C;3.8
-Copper Gnomes;R;3
-Coral Merfolk;C;2
-Corrupt;C;4
-Cradle Guard;U;4
-Crater Hellion;R;4.5
-Crazed Skirge;U;3.5
-Crosswinds;U;2.5
-Crystal Chimes;U;3.2
-Curfew;C;3.4
-Dark Hatchling;R;4
-Dark Ritual;C;3.1
-Darkest Hour;R;2.5
-Despondency;C;3.5
-Destructive Urge;U;3.5
-Diabolic Servitude;U;3.8
-Disciple of Grace;C;3.5
-Disciple of Law;C;3.2
-Discordant Dirge;R;2.5
-Disenchant;C;3.5
-Disorder;U;3.2
-Disruptive Student;C;3.5
-Douse;U;3
-Dragon Blood;U;4
-Drifting Djinn;R;4
-Drifting Meadow;C;3.3
-Dromosaur;C;3.3
-Duress;C;3.8
-Eastern Paladin;R;3.8
-Electryte;R;3.2
-Elite Archers;R;4
-Elvish Herder;C;3.3
-Elvish Lyrist;C;3.4
-Endless Wurm;R;3.4
-Endoskeleton;U;3.5
-Energy Field;R;3
-Exhaustion;U;3.8
-Exhume;C;3.5
-Exploration;R;3.5
-Expunge;C;4
-Faith Healer;R;3.1
-Falter;C;4
-Fault Line;R;4
-Fecundity;U;3
-Fertile Ground;C;3.4
-Fiery Mantle;C;3.8
-Fire Ants;U;4
-Flesh Reaver;U;3.1
-Fog Bank;U;4
-Fortitude;C;3.2
-Gaea's Bounty;C;3.5
-Gaea's Cradle;R;3.6
-Gaea's Embrace;U;4
-Gamble;R;3.3
-Gilded Drake;R;3.7
-Glorious Anthem;R;4.2
-Goblin Cadets;U;3
-Goblin Lackey;U;3
-Goblin Matron;C;3
-Goblin Offensive;U;4
-Goblin Patrol;C;3.4
-Goblin Raider;C;3.3
-Goblin Spelunkers;C;3.2
-Goblin War Buggy;C;3.6
-Gorilla Warrior;C;3.5
-Grafted Skullcap;R;3.5
-Great Whale;R;3.8
-Greater Good;R;3.3
-Greener Pastures;R;3.5
-Guma;U;3.3
-Hawkeater Moth;U;3.5
-Headlong Rush;C;3.3
-Healing Salve;C;3.3
-Heat Ray;C;4
-Herald of Serra;R;4
-Hermetic Study;C;4
-Hibernation;C;3.3
-Hidden Ancients;U;3.6
-Hidden Guerrillas;U;3.2
-Hidden Herd;R;3
-Hidden Predators;R;3.5
-Hidden Spider;C;3.4
-Hidden Stag;R;3.4
-Hollow Dogs;C;3.4
-Hopping Automaton;U;3.5
-Horseshoe Crab;C;3.6
-Humble;U;3.8
-Hush;C;3.8
-Ill-Gotten Gains;R;3.9
-Imaginary Pet;R;3.2
-Intrepid Hero;R;3.8
-Jagged Lightning;U;4
-Karn, Silver Golem;R;4.2
-Launch;C;3.6
-Lay Waste;C;3.5
-Lightning Dragon;R;4.5
-Lilting Refrain;U;3.5
-Lingering Mirage;U;2
-Looming Shade;C;4
-Lotus Blossom;R;2.5
-Lull;C;3.5
-Lurking Evil;R;3.2
-Mana Leech;U;3.2
-Meltdown;U;3
-Midsummer Revel;R;3.8
-Mishra's Helix;R;3.5
-Mobile Fort;U;3.6
-Monk Idealist;U;3.7
-Monk Realist;C;3.7
-Morphling;R;4
-No Rest for the Wicked;U;3.4
-Noetic Scales;R;3
-Opal Acrolith;U;4
-Opal Archangel;R;4
-Opal Caryatid;C;3
-Opal Gargoyle;C;3.8
-Opal Titan;R;4
-Oppression;R;3.4
-Order of Yawgmoth;U;4.1
-Outmaneuver;U;3.8
-Pacifism;C;4
-Parasitic Bond;U;3.8
-Pariah;R;3.8
-Path of Peace;C;4
-Pegasus Charger;C;4
-Pendrell Drake;C;3.8
-Pendrell Flux;C;3.8
-Peregrine Drake;U;3.9
-Persecute;R;3.8
-Pestilence;C;4
-Phyrexian Colossus;R;3.8
-Phyrexian Ghoul;C;3.7
-Phyrexian Processor;R;4
-Phyrexian Tower;R;3.8
-Pit Trap;U;3.8
-Planar Birth;R;2.8
-Planar Void;U;3
-Polluted Mire;C;3.3
-Pouncing Jaguar;C;3.4
-Power Sink;C;3.6
-Power Taint;C;3.5
-Presence of the Master;U;3.4
-Priest of Gix;U;3.2
-Priest of Titania;C;3.5
-Purging Scythe;R;3.6
-Rain of Filth;U;2.8
-Rain of Salt;U;3.6
-Ravenous Skirge;C;4
-Raze;C;3.3
-Recantation;R;3.2
-Reclusive Wight;U;2.8
-Redeem;U;3.3
-Reflexes;C;2.8
-Rejuvenate;C;3.3
-Remembrance;R;3.4
-Remote Isle;C;3.3
-Reprocess;R;3.6
-Rescind;C;3.7
-Retaliation;U;3.6
-Retromancer;C;3.7
-Rewind;C;3.7
-Rumbling Crescendo;R;3.6
-Rune of Protection: Artifacts;U;3
-Rune of Protection: Black;C;3.7
-Rune of Protection: Blue;C;3.1
-Rune of Protection: Green;C;3.2
-Rune of Protection: Lands;R;2.9
-Rune of Protection: Red;C;3.3
-Rune of Protection: White;C;3.1
-Sanctum Custodian;C;3.6
-Sanctum Guardian;U;3.7
-Sandbar Merfolk;C;2.5
-Sandbar Serpent;U;3.7
-Sanguine Guard;U;4
-Scald;U;2.9
-Scoria Wurm;R;3.7
-Scrap;C;3.7
-Seasoned Marshal;U;3.8
-Serra Avatar;R;4
-Serra Zealot;C;3.6
-Serra's Embrace;U;4
-Serra's Liturgy;R;3.3
-Serra's Sanctum;R;3
-Shimmering Barrier;U;3.6
-Shivan Gorge;R;3.8
-Shivan Hellkite;R;4.2
-Shivan Raptor;U;3.9
-Shiv's Embrace;U;4
-Show and Tell;R;3
-Shower of Sparks;C;3.2
-Sicken;C;3.3
-Silent Attendant;C;3.3
-Skirge Familiar;U;3.6
-Skittering Skirge;C;3.8
-Sleeper Agent;R;3.4
-Slippery Karst;C;3.3
-Smokestack;R;3.6
-Smoldering Crater;C;3.3
-Sneak Attack;R;3.4
-Somnophore;R;4
-Songstitcher;U;3.6
-Soul Sculptor;R;3.6
-Spined Fluke;U;3.7
-Spire Owl;C;3.7
-Sporogenesis;R;3.7
-Spreading Algae;U;3.3
-Steam Blast;U;3.8
-Stern Proctor;U;3.3
-Stroke of Genius;R;4
-Sunder;R;3.6
-Symbiosis;C;4
-Tainted Aether;R;3.4
-Thran Quarry;R;3
-Thran Turbine;U;3
-Thundering Giant;U;3.9
-Time Spiral;R;4
-Titania's Boon;U;3.6
-Titania's Chosen;U;3.6
-Tolarian Academy;R;3.4
-Tolarian Winds;C;3.6
-Torch Song;U;3.8
-Treefolk Seedlings;U;3.6
-Treetop Rangers;C;3.8
-Turnabout;U;3.8
-Umbilicus;R;3.2
-Unnerve;C;3.7
-Unworthy Dead;C;3.8
-Urza's Armor;U;3.6
-Vampiric Embrace;U;4
-Vebulid;R;3.6
-Veil of Birds;C;3.4
-Veiled Apparition;U;3.8
-Veiled Crocodile;R;3.8
-Veiled Sentry;U;3.7
-Veiled Serpent;C;3.6
-Venomous Fangs;C;3.3
-Vernal Bloom;R;3.5
-Viashino Outrider;C;3.7
-Viashino Runner;C;3.5
-Viashino Sandswimmer;R;3.5
-Viashino Weaponsmith;C;3.5
-Victimize;U;3.7
-Vile Requiem;U;3.7
-Voice of Grace;U;3.7
-Voice of Law;U;3.7
-Voltaic Key;U;3
-Vug Lizard;U;3.7
-Wall of Junk;U;3.5
-War Dance;U;3.2
-Waylay;U;3.8
-Western Paladin;R;3.8
-Whetstone;R;3.2
-Whirlwind;R;3.7
-Wild Dogs;C;3.5
-Wildfire;R;4
-Windfall;U;4
-Winding Wurm;C;3.8
-Witch Engine;R;3.8
-Wizard Mentor;C;3.7
-Worn Powerstone;U;3.6
-Worship;R;4.2
-Yawgmoth's Edict;U;2.8
-Zephid;R;3.7
-Zephid's Embrace;U;4
+Attunement;R;1.5
+Back to Basics;R;1
+Barrin, Master Wizard;R;2
+Barrin's Codex;R;2
+Bedlam;R;2.5
+Befoul;C;3
+Bereavement;U;0.5
+Blanchwood Armor;U;2
+Blanchwood Treefolk;C;2.5
+Blasted Landscape;U;1.5
+Blood Vassal;C;1.5
+Bog Raiders;C;2
+Brand;R;1
+Bravado;C;1.5
+Breach;C;1.5
+Brilliant Halo;C;2
+Bull Hippo;U;2
+Bulwark;R;2
+Cackling Fiend;C;2
+#Carpet of Flowers;U;0.5
+Carrion Beetles;C;1
+Catalog;C;2
+Catastrophe;R;3.5
+Cathodion;U;3
+Cave Tiger;C;2
+Child of Gaea;R;3.5
+Chimeric Staff;R;2.5
+Citanul Centaurs;R;3.5
+Citanul Flute;R;3
+Citanul Hierophants;R;2.5
+Claws of Gix;U;1
+Clear;U;2
+Cloak of Mists;C;2.5
+Confiscate;U;3
+Congregate;C;2
+#Contamination;R;2
+Copper Gnomes;R;0.5
+Coral Merfolk;C;1.5
+Corrupt;C;2.5
+Cradle Guard;U;3.5
+Crater Hellion;R;4
+Crazed Skirge;U;2.5
+Crosswinds;U;1
+Crystal Chimes;U;1
+Curfew;C;1.5
+Dark Hatchling;R;3.5
+Dark Ritual;C;0.5
+Darkest Hour;R;0.5
+#Defensive Formation;U;1
+Despondency;C;2
+Destructive Urge;U;2
+Diabolic Servitude;U;3.5
+Disciple of Grace;C;1.5
+Disciple of Law;C;1.5
+Discordant Dirge;R;1
+Disenchant;C;1
+Disorder;U;1
+Disruptive Student;C;1.5
+Douse;U;1
+Dragon Blood;U;2.5
+Drifting Djinn;R;3.5
+Drifting Meadow;C;2
+Dromosaur;C;2
+Duress;C;1.5
+Eastern Paladin;R;3
+Electryte;R;1.5
+Elite Archers;R;2
+Elvish Herder;C;2.5
+Elvish Lyrist;C;1.5
+#Enchantment Alteration;U;1
+Endless Wurm;R;1.5
+Endoskeleton;U;1.5
+Energy Field;R;1
+Exhaustion;U;2.5
+Exhume;C;1
+Exploration;R;1.5
+Expunge;C;3.5
+Faith Healer;R;1
+Falter;C;1.5
+Fault Line;R;3.5
+Fecundity;U;1
+Fertile Ground;C;2.5
+Fiery Mantle;C;2
+Fire Ants;U;2.5
+Flesh Reaver;U;1.5
+#Fluctuator;R;1
+Fog Bank;U;3
+Fortitude;C;1.5
+Gaea's Bounty;C;2.5
+Gaea's Cradle;R;2.5
+Gaea's Embrace;U;3
+Gamble;R;1.5
+Gilded Drake;R;1.5
+Glorious Anthem;R;3.5
+Goblin Cadets;U;1
+Goblin Lackey;U;1
+Goblin Matron;C;2
+Goblin Offensive;U;2.5
+Goblin Patrol;C;2
+Goblin Raider;C;1.5
+Goblin Spelunkers;C;1.5
+Goblin War Buggy;C;2.5
+Gorilla Warrior;C;1.5
+Grafted Skullcap;R;2
+Great Whale;R;2
+Greater Good;R;1.5
+Greener Pastures;R;1.5
+Guma;U;1.5
+Hawkeater Moth;U;1.5
+Headlong Rush;C;1
+Healing Salve;C;1.5
+Heat Ray;C;3
+Herald of Serra;R;3.5
+Hermetic Study;C;2
+Hibernation;C;0.5
+Hidden Ancients;U;1
+Hidden Guerrillas;U;1
+Hidden Herd;R;1
+Hidden Predators;R;2.5
+Hidden Spider;C;2
+Hidden Stag;R;1.5
+Hollow Dogs;C;2
+Hopping Automaton;U;2
+Horseshoe Crab;C;2
+Humble;U;2
+Hush;C;1.5
+Ill-Gotten Gains;R;1
+Imaginary Pet;R;1.5
+Intrepid Hero;R;3
+Jagged Lightning;U;3
+Karn, Silver Golem;R;3
+Launch;C;2
+Lay Waste;C;1
+#Lifeline;R;1
+Lightning Dragon;R;4
+Lilting Refrain;U;1
+Lingering Mirage;U;0.5
+Looming Shade;C;2
+Lotus Blossom;R;0.5
+Lull;C;1.5
+Lurking Evil;R;1.5
+Mana Leech;U;1
+Meltdown;U;1
+#Metrognome;R;2
+Midsummer Revel;R;2
+Mishra's Helix;R;2
+Mobile Fort;U;2
+Monk Idealist;U;2
+Monk Realist;C;1.5
+Morphling;R;3.5
+No Rest for the Wicked;U;1.5
+Noetic Scales;R;1.5
+Opal Acrolith;U;2.5
+Opal Archangel;R;3
+Opal Caryatid;C;1.5
+Opal Gargoyle;C;2.5
+Opal Titan;R;3.5
+Oppression;R;1
+Order of Yawgmoth;U;3
+Outmaneuver;U;1
+Pacifism;C;3
+Parasitic Bond;U;2
+Pariah;R;2.5
+Path of Peace;C;3
+Pegasus Charger;C;2.5
+Pendrell Drake;C;2
+Pendrell Flux;C;2
+Peregrine Drake;U;2
+Persecute;R;1.5
+Pestilence;C;3.5
+Phyrexian Colossus;R;2.5
+Phyrexian Ghoul;C;2.5
+Phyrexian Processor;R;3.5
+Phyrexian Tower;R;1
+Pit Trap;U;2
+Planar Birth;R;1
+Planar Void;U;1
+Polluted Mire;C;2
+Pouncing Jaguar;C;2
+Power Sink;C;1.5
+Power Taint;C;1.5
+Presence of the Master;U;1
+Priest of Gix;U;1.5
+Priest of Titania;C;2.5
+Purging Scythe;R;2
+Rain of Filth;U;0.5
+Rain of Salt;U;1.5
+Ravenous Skirge;C;3
+Raze;C;0.5
+Recantation;R;1.5
+Reclusive Wight;U;2
+Redeem;U;1.5
+Reflexes;C;1
+Rejuvenate;C;1.5
+Remembrance;R;1
+Remote Isle;C;2
+Reprocess;R;1
+Rescind;C;2
+Retaliation;U;1.5
+Retromancer;C;2
+Rewind;C;1.5
+Rumbling Crescendo;R;1.5
+Rune of Protection: Artifacts;U;1
+Rune of Protection: Black;C;1
+Rune of Protection: Blue;C;1
+Rune of Protection: Green;C;1
+Rune of Protection: Lands;R;0.5
+Rune of Protection: Red;C;1
+Rune of Protection: White;C;1
+Sanctum Custodian;C;2
+Sanctum Guardian;U;2
+Sandbar Merfolk;C;1.5
+Sandbar Serpent;U;2
+Sanguine Guard;U;2.5
+Scald;U;0.5
+Scoria Wurm;R;2
+Scrap;C;2
+Seasoned Marshal;U;2
+Serra Avatar;R;3
+Serra Zealot;C;1.5
+Serra's Embrace;U;2
+#Serra's Hymn;U;1
+Serra's Liturgy;R;1
+Serra's Sanctum;R;1
+Shimmering Barrier;U;1.5
+Shivan Gorge;R;2
+Shivan Hellkite;R;3
+Shivan Raptor;U;3
+Shiv's Embrace;U;2
+Show and Tell;R;1
+Shower of Sparks;C;1.5
+Sicken;C;1.5
+Silent Attendant;C;1
+Skirge Familiar;U;2
+Skittering Skirge;C;3
+Sleeper Agent;R;1
+Slippery Karst;C;2
+Smokestack;R;1
+Smoldering Crater;C;2
+Sneak Attack;R;1
+Somnophore;R;3
+Songstitcher;U;2
+Soul Sculptor;R;3
+Spined Fluke;U;2.5
+Spire Owl;C;2
+Sporogenesis;R;2
+Spreading Algae;U;0.5
+Steam Blast;U;2.5
+Stern Proctor;U;2
+Stroke of Genius;R;3.5
+#Sulfuric Vapors;R;1
+Sunder;R;2
+Symbiosis;C;2
+Tainted Aether;R;1
+#Telepathy;U;1
+#Temporal Aperture;R;3
+Thran Quarry;R;2
+Thran Turbine;U;0.5
+Thundering Giant;U;2
+Time Spiral;R;0.5
+Titania's Boon;U;2
+Titania's Chosen;U;2.5
+Tolarian Academy;R;0.5
+Tolarian Winds;C;1
+Torch Song;U;2
+Treefolk Seedlings;U;2
+Treetop Rangers;C;2.5
+Turnabout;U;3
+Umbilicus;R;0.5
+Unnerve;C;1.5
+Unworthy Dead;C;2
+Urza's Armor;U;2
+Vampiric Embrace;U;2
+Vebulid;R;1.5
+Veil of Birds;C;1.5
+Veiled Apparition;U;2
+Veiled Crocodile;R;1.5
+Veiled Sentry;U;2
+Veiled Serpent;C;1.5
+Venomous Fangs;C;1
+Vernal Bloom;R;2
+Viashino Outrider;C;3
+Viashino Runner;C;2
+Viashino Sandswimmer;R;1.5
+Viashino Weaponsmith;C;1.5
+Victimize;U;2
+Vile Requiem;U;3
+Voice of Grace;U;2
+Voice of Law;U;2
+Voltaic Key;U;0.5
+Vug Lizard;U;3
+Wall of Junk;U;2.5
+War Dance;U;1.5
+Waylay;U;2
+Western Paladin;R;2.5
+Whetstone;R;1
+Whirlwind;R;1
+Wild Dogs;C;1.5
+Wildfire;R;3
+Windfall;U;3
+Winding Wurm;C;3
+#Wirecat;U;2
+Witch Engine;R;1.5
+Wizard Mentor;C;3
+Worn Powerstone;U;2
+Worship;R;3.5
+Yawgmoth's Edict;U;1
+#Yawgmoth's Will;R;3
+Zephid;R;2.5
+Zephid's Embrace;U;3
