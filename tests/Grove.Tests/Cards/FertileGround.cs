@@ -5,6 +5,26 @@
 
   public class FertileGround
   {
+    public class Ai : AiScenario
+    {
+      [Fact]
+      public void CastBear()
+      {
+        var mountain = C("Mountain");
+        var forest = C("Forest");
+
+        var bear = C("Grizzly Bears");
+
+        Hand(P1, bear);
+        Battlefield(P1, mountain.IsEnchantedWith("Fertile Ground")/*, forest*/);
+
+        RunGame(1);
+
+        Equal(Zone.Battlefield, C(bear).Zone);
+        //False(C(forest).IsTapped);
+      }
+    }
+    
     public class Predefined : PredefinedScenario
     {
       [Fact]

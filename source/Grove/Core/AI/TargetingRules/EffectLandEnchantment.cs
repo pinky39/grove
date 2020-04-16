@@ -17,7 +17,8 @@
     protected override IEnumerable<Targets> SelectTargets(TargetingRuleParameters p)
     {
       var candidates = p.Candidates<Card>(_controlledBy)
-        .OrderBy(c => c.IsTapped ? 1 : 0);
+        .OrderBy(c => c.HasAttachments ? 1 : 0)
+        .ThenBy(c => c.IsTapped ? 1 : 0);
         
       return Group(candidates, 1);
     }
