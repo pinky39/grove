@@ -15,14 +15,16 @@
       _count = count;
       _discardCount = discardCount;
       _lifeloss = lifeloss;
-      _player = player;
+      
+      _player = player ?? new DynParam<Player>(
+        (e, g) => e.Controller);
 
-      RegisterDynamicParameters(count, player);
+      RegisterDynamicParameters(count, _player);
     }
 
     protected override void ResolveEffect()
     {
-      Player player = _player ?? Controller;
+      Player player = _player;
 
       player.DrawCards(_count.Value);
 
