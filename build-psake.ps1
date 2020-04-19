@@ -66,6 +66,7 @@ task DoRelease -depends Compile {
   cp "$build_dir\System.Windows.Interactivity.dll" $release_dir
   cp "$build_dir\Caliburn.Micro.dll" $release_dir
   cp "$build_dir\Ionic.Zip.dll" $release_dir
+  cp "$build_dir\Newtonsoft.Json.dll" $release_dir
   
   cp "$base_dir\readme.md" "$release_dir\readme.txt"
   cp "$base_dir\license" $release_dir
