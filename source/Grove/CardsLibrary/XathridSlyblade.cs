@@ -29,7 +29,7 @@
             () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true},
             () => new AddStaticAbility(Static.Deathtouch) { UntilEot = true });
 
-          p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
+          p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new AfterOpponentDeclaresBlockers()));
           p.TimingRule(new WhenCardHas(c => !c.Has().Deathtouch));
         });
     }
