@@ -21,7 +21,7 @@
       BoosterPack1 = Settings.Readonly.DefaultBoosterPack1;
       BoosterPack2 = Settings.Readonly.DefaultBoosterPack2;
       BoosterPack3 = Settings.Readonly.DefaultBoosterPack3;
-      YourName = "You";
+      YourName = Settings.Readonly.YourName;
       TypeOfTournament = TournamentType.Sealed;
       TournamentDescription = TournamentDescriptions.Sealed;
     }

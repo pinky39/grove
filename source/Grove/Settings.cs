@@ -22,6 +22,10 @@ namespace Grove
         return _global;
       }
     }
+
+    public string YourName = "You";
+    public bool FullScreen = true;
+    
     public int BasicLandVersions = 4;
     
     public string DefaultStarterPack = "M15";
@@ -33,11 +37,7 @@ namespace Grove
     {
       SearchDepth = 60,
       TargetCount = 2,
-#if DEBUG
-      Strategy = MultithreadStrategy.SingleThreaded
-#else
       Strategy = MultithreadStrategy.MultiThreaded2
-#endif
     };
 
     public class AiConfiguration
@@ -61,6 +61,9 @@ namespace Grove
 
     private SearchPartitioningStrategy GetPartitioningStrategy()
     {
+#if DEBUG
+      return SearchPartitioningStrategies.SingleThreaded;
+#else
       switch (Ai.Strategy)
       {
         case (MultithreadStrategy.MultiThreaded1):
@@ -68,8 +71,8 @@ namespace Grove
         case (MultithreadStrategy.MultiThreaded2):
           return SearchPartitioningStrategies.MultiThreaded2;
       }
-
       return SearchPartitioningStrategies.SingleThreaded;
+#endif
     }
 
     public static Settings Load()

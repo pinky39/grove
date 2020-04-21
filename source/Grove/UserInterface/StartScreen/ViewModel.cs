@@ -12,7 +12,7 @@
 
   public class ViewModel : ViewModelBase
   {
-    private const string YourName = "You";
+    private string YourName => Settings.Readonly.YourName;
 
     public string Version
     {

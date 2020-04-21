@@ -32,9 +32,16 @@
 
       Window.SizeChanged += delegate { OnResized(); };
 
-#if (DEBUG == FALSE)
-      Window.Loaded += delegate { Window.WindowState = WindowState.Maximized; };
+      var fullscreen = Settings.Readonly.FullScreen;
+
+#if DEBUG
+      fullscreen = false;
 #endif
+
+      if (fullscreen)
+      {
+        Window.Loaded += delegate { Window.WindowState = WindowState.Maximized; };
+      }
     }
 
     protected override void OnDetaching()
@@ -48,7 +55,7 @@
       Window.WindowStyle = WindowStyle.None;
       Window.ResizeMode = ResizeMode.NoResize;
       Window.Hide();
-      Window.Show();
+      Window.Show();      
     }
 
     private void OnResized()
@@ -93,7 +100,7 @@
       {
         Window.WindowState = Window.WindowState == WindowState.Normal
           ? WindowState.Maximized
-          : WindowState.Normal;
+          : WindowState.Normal;        
       }
     }
 
