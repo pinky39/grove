@@ -1,17 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:UserInterface="clr-namespace:Grove.UserInterface"
                     xmlns:grove="clr-namespace:Grove">
-    
-    <DataTemplate x:Key="CardTemplate">
-        <DataTemplate.Resources>
-            <Style TargetType="StackPanel" x:Key="PowerThougness">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=Power}" Value="{x:Null}">
-                        <Setter Property="Visibility" Value="Hidden" />
-                    </DataTrigger>
 
-                </Style.Triggers>
-            </Style>
+  <DataTemplate x:Key="CardTemplate">
+    <DataTemplate.Resources>
+      <Style TargetType="StackPanel" x:Key="PowerThougness">
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding Path=Power}" Value="{x:Null}">
+            <Setter Property="Visibility" Value="Hidden" />
+          </DataTrigger>
+
+        </Style.Triggers>
+      </Style>
 
       <Style TargetType="Grid" x:Key="Loyality">
         <Style.Triggers>
@@ -23,186 +23,214 @@
       </Style>
 
       <Style TargetType="StackPanel" x:Key="DealtDamage">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=Damage}" Value="0">
-                        <Setter Property="Visibility" Value="Hidden" />
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding Path=Damage}" Value="0">
+            <Setter Property="Visibility" Value="Hidden" />
+          </DataTrigger>
+
+        </Style.Triggers>
+
+      </Style>
+
+      <Style TargetType="Grid" x:Key="Counters">
+        <Style.Triggers>
+          <DataTrigger Binding="{Binding Path=Counters}" Value="0">
+            <Setter Property="Visibility" Value="Hidden" />
+          </DataTrigger>
+        </Style.Triggers>
+      </Style>
+     
+    </DataTemplate.Resources>
+
+    <Viewbox>
+      <Border Background="#000"  Width="320" Height="458">
+        <StackPanel>
+          <StackPanel.Background>
+            <ImageBrush ImageSource="{Binding Path=Colors, Converter={x:Static UserInterface:Converters.CardColorToCardTemplate}}" />
+          </StackPanel.Background>
+          <Grid>
+
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Margin="10,4,0,0" Orientation="Horizontal" Grid.Column="0">
+
+              <StackPanel.Resources>
+                <Style x:Key="Level" TargetType="TextBlock">
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding Level}" Value="{x:Null}">
+                      <Setter Property="Visibility" Value="Collapsed"></Setter>
                     </DataTrigger>
 
-                </Style.Triggers>
-
-            </Style>
-
-            <Style TargetType="Grid" x:Key="Counters">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding Path=Counters}" Value="0">
-                        <Setter Property="Visibility" Value="Hidden" />
+                    <DataTrigger Binding="{Binding Level}" Value="0">
+                      <Setter Property="Visibility" Value="Collapsed"></Setter>
                     </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </DataTemplate.Resources>
 
-        <Viewbox>
-            <Border Background="#000"  Width="320" Height="458">
-                <StackPanel>
-                    <StackPanel.Background>
-                        <ImageBrush ImageSource="{Binding Path=Colors, Converter={x:Static UserInterface:Converters.CardColorToCardTemplate}}" />
-                    </StackPanel.Background>
-                    <Grid>
+                  </Style.Triggers>
+                </Style>
+              </StackPanel.Resources>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+              <TextBlock Foreground="White" FontSize="17" FontFamily="Arial" Text="{Binding Path=Name}" />
+              <TextBlock Style="{StaticResource Level}" Foreground="White" FontSize="17" FontFamily="Arial" Text="{Binding Path=Level, StringFormat=' - Level {0}'}" />
+            </StackPanel>
 
-                        <StackPanel Margin="10,4,0,0" Orientation="Horizontal" Grid.Column="0">
+            <Image Source="{UserInterface:Media 'x.png'}" Height="20" Grid.Column="2" Margin="0,3,2,0" Visibility="{Binding Path=HasXInCost, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />
 
-                            <StackPanel.Resources>
-                                <Style x:Key="Level" TargetType="TextBlock">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Level}" Value="{x:Null}">
-                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                        </DataTrigger>
+            <ItemsControl Grid.Column="3" Margin="0,3,10,0" ItemsSource="{Binding Path=ManaCost, Converter={x:Static UserInterface:Converters.ManaCostToManaSymbolImages}}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Image Source="{Binding Path=.}" Height="20" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </Grid>
 
-                                        <DataTrigger Binding="{Binding Level}" Value="0">
-                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                        </DataTrigger>
+          <Grid Margin="0,6,0,0">
+            <Image Source="{Binding Path=Illustration, Converter={x:Static UserInterface:Converters.CardIllustrationNameToCardImage}}" Width="273" Height="220" Stretch="UniformToFill" />
+            <Image Width="200" Source="{UserInterface:Media 'summoning-sickness.png'}" Visibility="{Binding Path=HasSummoningSickness, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />
 
-                                    </Style.Triggers>
-                                </Style>
-                            </StackPanel.Resources>
+            <Grid Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,3" Style="{StaticResource Counters}">
+              <Image Source="{UserInterface:Media 'counter.png'}" Height="40" Opacity="0.7" />
+              <TextBlock FontSize="20" Foreground="#eee" Text="{Binding Counters}" 
+                         FontWeight="Bold" VerticalAlignment="Center" 
+                         HorizontalAlignment="Center" 
+                         FontFamily="Arial" />
+            </Grid>
 
-                            <TextBlock Foreground="White" FontSize="17" FontFamily="Arial" Text="{Binding Path=Name}" />
-                            <TextBlock Style="{StaticResource Level}" Foreground="White" FontSize="17" FontFamily="Arial" Text="{Binding Path=Level, StringFormat=' - Level {0}'}" />
-                        </StackPanel>
 
-                        <Image Source="{UserInterface:Media 'x.png'}" Height="20" Grid.Column="2" Margin="0,3,2,0" Visibility="{Binding Path=HasXInCost, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />
+            <ItemsControl VerticalAlignment="Bottom" 
+                          HorizontalAlignment="Left" 
+                          Margin="25,0,0,3"                            
+                          ItemsSource="{Binding Path=SimpleAbilities}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <WrapPanel Width="100" Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Grid Margin="5,0,0,5">
+                    <Image Source="{UserInterface:Media 'counter.png'}" Height="40" Opacity="0.7" />
+                    
+                    <TextBlock FontSize="20" Foreground="#eee" Text="{Binding .}" FontWeight="Bold" 
+                               VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               FontFamily="Arial" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
-                        <ItemsControl Grid.Column="3" Margin="0,3,10,0" ItemsSource="{Binding Path=ManaCost, Converter={x:Static UserInterface:Converters.ManaCostToManaSymbolImages}}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Image Source="{Binding Path=.}" Height="20" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Grid>
+          </Grid>
 
-                    <Grid Margin="0,6,0,0">
-                        <Image Source="{Binding Path=Illustration, Converter={x:Static UserInterface:Converters.CardIllustrationNameToCardImage}}" Width="273" Height="220" Stretch="UniformToFill" />
-                        <Image Width="200" Source="{UserInterface:Media 'summoning-sickness.png'}" Visibility="{Binding Path=HasSummoningSickness, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}" />
+          <Grid Margin="20,4,20,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-                        <Grid Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30,0,0,5" Style="{StaticResource Counters}">
-                            <Image Source="{UserInterface:Media 'counter.png'}" />
-                            <TextBlock FontSize="25" Foreground="#000" Text="{Binding Counters}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Arial" Margin="0,0,1,0" />
-                        </Grid>
-                    </Grid>
+            <TextBlock Grid.Column="0" Foreground="White" FontFamily="Arial" FontSize="14" Margin="0,2,0,0"  Text="{Binding Path=Type}" />
+            <Image Grid.Column="2" Margin="0,2,0,0" Height="17"  >
+              <Image.Source>
+                <MultiBinding Converter="{x:Static UserInterface:Converters.SetAndRaritytoSetImage}">
+                  <Binding Path="Set" />
+                  <Binding Path="Rarity" />
+                </MultiBinding>
+              </Image.Source>
+            </Image>
+          </Grid>
+          <Viewbox Height="136" Margin="30,8,23,0" Stretch="Uniform" HorizontalAlignment="Left">
 
-                    <Grid Margin="20,4,20,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+            <Border>
+              <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                <StackPanel.Resources>
+                  <DataTemplate DataType="{x:Type grove:TextToken}">
+                    <TextBlock Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" />
+                  </DataTemplate>
+                  <DataTemplate DataType="{x:Type grove:ReminderTextToken}">
+                    <TextBlock FontStyle="Italic" Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" />
+                  </DataTemplate>
+                  <DataTemplate DataType="{x:Type grove:ImportantTextToken}">
+                    <TextBlock FontWeight="Bold" Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" />
+                  </DataTemplate>
+                  <DataTemplate DataType="{x:Type grove:EolToken}">
+                    <TextBlock Width="258" FontSize="4" />
+                  </DataTemplate>
+                  <DataTemplate DataType="{x:Type grove:ManaSymbolGroupStartToken}">
+                    <TextBlock Margin="2,0,0,0" />
+                  </DataTemplate>
+                  <DataTemplate DataType="{x:Type grove:ManaSymbolGroupEndToken}">
+                    <TextBlock Margin="0,0,6,0" />
+                  </DataTemplate>
+                  <DataTemplate DataType="{x:Type grove:ManaSymbolToken}">
+                    <Image Source="{Binding Path=Image}" Height="16" Margin="0,0,0,0" />
+                  </DataTemplate>
+                </StackPanel.Resources>
 
-                        <TextBlock Grid.Column="0" Foreground="White" FontFamily="Arial" FontSize="14" Margin="0,2,0,0"  Text="{Binding Path=Type}" />
-                        <Image Grid.Column="2" Margin="0,2,0,0" Height="17"  >
-                            <Image.Source>
-                                <MultiBinding Converter="{x:Static UserInterface:Converters.SetAndRaritytoSetImage}">
-                                    <Binding Path="Set" />
-                                    <Binding Path="Rarity" />
-                                </MultiBinding>
-                            </Image.Source>
-                        </Image>
-                    </Grid>
-                    <Viewbox Height="136" Margin="30,8,23,0" Stretch="Uniform" HorizontalAlignment="Left">
+                <ItemsControl ItemsSource="{Binding Path=Text}" FontSize="{Binding CharacterCount, Converter={x:Static UserInterface:Converters.CharacterCountToFontSize}}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <WrapPanel Width="258" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                </ItemsControl>
 
-                        <Border>
-                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <StackPanel.Resources>
-                                    <DataTemplate DataType="{x:Type grove:TextToken}">
-                                        <TextBlock Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" />
-                                    </DataTemplate>
-                                    <DataTemplate DataType="{x:Type grove:ReminderTextToken}">
-                                        <TextBlock FontStyle="Italic" Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" />
-                                    </DataTemplate>
-                                    <DataTemplate DataType="{x:Type grove:ImportantTextToken}">
-                                        <TextBlock FontWeight="Bold" Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" />
-                                    </DataTemplate>
-                                    <DataTemplate DataType="{x:Type grove:EolToken}">
-                                        <TextBlock Width="258" FontSize="4" />
-                                    </DataTemplate>
-                                    <DataTemplate DataType="{x:Type grove:ManaSymbolGroupStartToken}">
-                                        <TextBlock Margin="2,0,0,0" />
-                                    </DataTemplate>
-                                    <DataTemplate DataType="{x:Type grove:ManaSymbolGroupEndToken}">
-                                        <TextBlock Margin="0,0,6,0" />
-                                    </DataTemplate>
-                                    <DataTemplate DataType="{x:Type grove:ManaSymbolToken}">
-                                        <Image Source="{Binding Path=Image}" Height="16" Margin="0,0,0,0" />
-                                    </DataTemplate>
-                                </StackPanel.Resources>
+                <ItemsControl ItemsSource="{Binding Path=FlavorText}" FontSize="{Binding CharacterCount, Converter={x:Static UserInterface:Converters.CharacterCountToFontSize}}">
+                  <ItemsControl.Resources>
+                    <DataTemplate DataType="{x:Type grove:TextToken}">
+                      <TextBlock Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" FontStyle="Italic" />
+                    </DataTemplate>
+                  </ItemsControl.Resources>
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <WrapPanel Width="258" Orientation="Horizontal" Margin="0,5,0,0" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                </ItemsControl>
+              </StackPanel>
+            </Border>
+          </Viewbox>
 
-                                <ItemsControl ItemsSource="{Binding Path=Text}" FontSize="{Binding CharacterCount, Converter={x:Static UserInterface:Converters.CharacterCountToFontSize}}">
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Width="258" Orientation="Horizontal" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
+          <Grid Margin="0,9,0,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto" />
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-                                <ItemsControl ItemsSource="{Binding Path=FlavorText}" FontSize="{Binding CharacterCount, Converter={x:Static UserInterface:Converters.CharacterCountToFontSize}}">
-                                    <ItemsControl.Resources>
-                                        <DataTemplate DataType="{x:Type grove:TextToken}">
-                                            <TextBlock Foreground="#000" Margin="0,0,4,0" Text="{Binding Path=.}" FontStyle="Italic" />
-                                        </DataTemplate>
-                                    </ItemsControl.Resources>
-                                    <ItemsControl.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Width="258" Orientation="Horizontal" Margin="0,5,0,0" />
-                                        </ItemsPanelTemplate>
-                                    </ItemsControl.ItemsPanel>
-                                </ItemsControl>
-                            </StackPanel>
-                        </Border>
-                    </Viewbox>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource DealtDamage}">
+              <Image Source="{UserInterface:Media 'blood-drop.png'}" Height="27" />
+              <TextBlock Margin="5,0,0,0" Foreground="#F81717" FontSize="20" FontFamily="Arial" Text="{Binding Path=Damage, StringFormat='x {0}'}" />
+            </StackPanel>
 
-                    <Grid Margin="0,9,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="2" Style="{StaticResource PowerThougness}" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,15,0">
+              <TextBlock FontSize="22" FontFamily="Arial" Text="{Binding Path=Power}" >
+                <TextBlock.Foreground>
+                  <MultiBinding Converter="{x:Static UserInterface:Converters.BaseStrenghtChangeToColor}">
+                    <Binding Path="BasePower" />
+                    <Binding Path="Power" />
+                  </MultiBinding>
+                </TextBlock.Foreground>
+              </TextBlock>
 
-                        <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,0,0,0" VerticalAlignment="Center" Style="{StaticResource DealtDamage}">
-                            <Image Source="{UserInterface:Media 'blood-drop.png'}" Height="27" />
-                            <TextBlock Margin="5,0,0,0" Foreground="#F81717" FontSize="20" FontFamily="Arial" Text="{Binding Path=Damage, StringFormat='x {0}'}" />
-                        </StackPanel>
-
-                        <StackPanel Grid.Column="2" Style="{StaticResource PowerThougness}" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,15,0">
-                            <TextBlock FontSize="22" FontFamily="Arial" Text="{Binding Path=Power}" >
-                                <TextBlock.Foreground>
-                                  <MultiBinding Converter="{x:Static UserInterface:Converters.BaseStrenghtChangeToColor}">
-                                      <Binding Path="BasePower" />
-                                      <Binding Path="Power" />
-                                  </MultiBinding>
-                              </TextBlock.Foreground>                              
-                            </TextBlock>
-                          
-                            <TextBlock FontSize="22" FontFamily="Arial" Text="{Binding Path=Toughness, StringFormat=/{0}}" >
-                              <TextBlock.Foreground>
-                                  <MultiBinding Converter="{x:Static UserInterface:Converters.BaseStrenghtChangeToColor}">
-                                      <Binding Path="BaseToughness" />
-                                      <Binding Path="Toughness" />
-                                  </MultiBinding>
-                              </TextBlock.Foreground> 
-                            </TextBlock>
-                        </StackPanel>
+              <TextBlock FontSize="22" FontFamily="Arial" Text="{Binding Path=Toughness, StringFormat=/{0}}" >
+                <TextBlock.Foreground>
+                  <MultiBinding Converter="{x:Static UserInterface:Converters.BaseStrenghtChangeToColor}">
+                    <Binding Path="BaseToughness" />
+                    <Binding Path="Toughness" />
+                  </MultiBinding>
+                </TextBlock.Foreground>
+              </TextBlock>
+            </StackPanel>
 
             <Grid Grid.Column="2" Style="{StaticResource Loyality}" Margin="0,0,0,0">
               <Grid.ColumnDefinitions>
@@ -211,31 +239,31 @@
               <TextBlock Foreground="White" FontSize="22" FontFamily="Arial" Text="{Binding Path=Loyality}" HorizontalAlignment="Center" Margin="0,0,20,0" />
             </Grid>
           </Grid>
-                </StackPanel>
-            </Border>
-        </Viewbox>
-    </DataTemplate>    
+        </StackPanel>
+      </Border>
+    </Viewbox>
+  </DataTemplate>
 
   <Style x:Key="Card" TargetType="ContentControl">
-		<Style.Triggers>
+    <Style.Triggers>
 
-			<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content.IsVisibleInUi}" Value="False">
-				<Setter Property="ContentTemplate">
-					<Setter.Value>
-						<DataTemplate>
-						</DataTemplate>
-					</Setter.Value>
-				</Setter>   
-			</DataTrigger>
+      <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content.IsVisibleInUi}" Value="False">
+        <Setter Property="ContentTemplate">
+          <Setter.Value>
+            <DataTemplate>
+            </DataTemplate>
+          </Setter.Value>
+        </Setter>
+      </DataTrigger>
 
-			<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content.IsVisibleInUi}" Value="True">
-                <Setter Property="ContentTemplate" Value="{StaticResource CardTemplate}"/>                                    
-            </DataTrigger>
-		</Style.Triggers>
-	</Style>
-    
-    <Style x:Key="AlwaysVisibleCard" TargetType="ContentControl">
+      <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content.IsVisibleInUi}" Value="True">
         <Setter Property="ContentTemplate" Value="{StaticResource CardTemplate}"/>
-    </Style>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
+  <Style x:Key="AlwaysVisibleCard" TargetType="ContentControl">
+    <Setter Property="ContentTemplate" Value="{StaticResource CardTemplate}"/>
+  </Style>
 
 </ResourceDictionary>

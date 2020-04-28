@@ -1,6 +1,8 @@
-﻿namespace Grove
+﻿using System.Collections.Generic;
+
+namespace Grove
 {
-  public interface ISimpleAbilities
+  public interface ISimpleAbilities : IEnumerable<Static>
   {
     bool Convoke { get; }
     bool Dash { get; }
@@ -43,6 +45,6 @@
     bool Lure { get; }
     bool Echo { get; }
     bool CannotBeBlockedByMoreThanOne { get; }
-    bool Has(Static ability);
+    bool Has(Static ability);    
   }
 }

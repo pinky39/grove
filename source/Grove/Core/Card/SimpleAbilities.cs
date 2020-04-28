@@ -1,6 +1,7 @@
 ﻿namespace Grove
 {
   using System;
+  using System.Collections;
   using System.Collections.Generic;
   using System.Linq;
   using Infrastructure;
@@ -251,7 +252,7 @@
     {
       return _abilities.Value.Any(x => x == ability);
     }
-
+    
     public void Initialize(IHashDependancy hashDependancy, Game game)
     {
       Game = game;
@@ -273,6 +274,16 @@
     public void AfterMemberCopy(object original)
     {
       _cardBase.Changed += OnCardBaseChanged;
+    }
+
+    public IEnumerator<Static> GetEnumerator()
+    {
+      return _abilities.Value.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
     }
   }
 }

@@ -1,18 +1,44 @@
 ﻿namespace Grove.UserInterface
 {
   using System;
-  using System.Linq;
+    using System.Collections.Generic;
+    using System.Linq;
   using System.Threading;
 
   public class CardViewModel : ViewModelBase, IDisposable
   {
     private readonly Timer _timer;
 
+    private static readonly Dictionary<Static, string> AbilitiesToDisplay = new Dictionary<Static, string>
+      {
+        { Static.Flying, "FL" },
+        {Static.Hexproof, "HX"},
+        {Static.Lifelink, "LL"},
+        {Static.Deathtouch, "DT"},
+        {Static.Trample, "TR"},
+        {Static.Fear, "FE"},
+        {Static.Unblockable, "UB"},
+        {Static.Indestructible, "ID"},
+        {Static.Defender, "DF"},
+        {Static.Shroud, "SH"},
+        {Static.FirstStrike, "FS"},
+        {Static.DoubleStrike, "DS"},
+        {Static.Reach, "RE"},
+        {Static.Vigilance, "VI"},
+        {Static.Swampwalk, "SW"},
+        {Static.Islandwalk, "IW"},
+        {Static.Mountainwalk, "MW"},
+        {Static.Forestwalk, "FW"},
+        {Static.Intimidate, "IN"},
+        {Static.Lure, "LU"},
+      };  
+
     public CardViewModel(Card card)
     {
       Card = card;
       Colors = new CardColor[] {};
-      
+      SimpleAbilities = new List<string> {};      
+
       Update();
 
       _timer = new Timer(delegate { Update(); }, null,
@@ -36,6 +62,7 @@
     public virtual bool IsVisibleInUi { get; protected set; }
     public virtual CardColor[] Colors { get; protected set; }
     public virtual int Counters { get; protected set; }
+    public virtual List<string> SimpleAbilities { get; protected set; }
     public virtual int? Level { get; protected set; }
     public virtual CardType Type { get; protected set; }
     public virtual int Damage { get; protected set; }
@@ -62,8 +89,8 @@
         {
           Toughness = Card.Toughness;
           BaseToughness = Card.BaseToughness;
-        });
-
+        });            
+      
       Update(() => IsVisibleInUi != Card.IsVisibleInUi, () => IsVisibleInUi = Card.IsVisibleInUi);
       Update(() => !Colors.SequenceEqual(Card.Colors), () => Colors = Card.Colors);
       Update(() => Counters != Card.Counters, () => Counters = Card.Counters);
@@ -73,8 +100,28 @@
       Update(() => IsTapped != Card.IsTapped, () => IsTapped = Card.IsTapped);
       Update(() => Loyality != Card.Loyality, () => Loyality = Card.Loyality);
 
+      var simpleAbilities = GetSimpleAbilities();
+      Update(() => !SimpleAbilities.SequenceEqual(simpleAbilities), () => SimpleAbilities = simpleAbilities);
+
       Update(() => HasSummoningSickness != (Card.HasSummoningSickness && Card.Is().Creature && !Card.Has().Haste),
         () => HasSummoningSickness = Card.HasSummoningSickness && Card.Is().Creature && !Card.Has().Haste);
+    }
+
+    private List<string> GetSimpleAbilities()
+    {
+      var result = new List<string>();
+            
+      foreach (var ability in Card.Has())
+      {
+        AbilitiesToDisplay.TryGetValue(ability, out var a);
+        
+        if (a != null)
+        {
+          result.Add(a);
+        }
+      }
+
+      return result;
     }
 
     private static void Update(Func<bool> condition, Action update)
