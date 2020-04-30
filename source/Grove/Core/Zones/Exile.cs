@@ -1,6 +1,6 @@
 ﻿namespace Grove
 {
-  public class Exile : UnorderedZone
+  public class Exile : UnorderedZone, IZoneQuery
   {
     public Exile(Player owner) : base(owner) {}
 

@@ -11,6 +11,9 @@
     public Library.ViewModel YourLibrary { get; private set; }
     public Library.ViewModel OpponentsLibrary { get; private set; }
 
+    public Exile.ViewModel YourExile { get; private set; }
+    public Exile.ViewModel OpponentsExile { get; private set; }
+
     public override void Initialize()
     {
       OpponentsHand = ViewModels.Hand.Create(Players.Computer);
@@ -21,6 +24,9 @@
 
       OpponentsLibrary = ViewModels.Library.Create(Players.Computer);
       YourLibrary = ViewModels.Library.Create(Players.Human);
+
+      OpponentsExile = ViewModels.Exile.Create(Players.Computer);
+      YourExile = ViewModels.Exile.Create(Players.Human);
     }
 
     public void Dispose()
@@ -31,6 +37,8 @@
       OpponentsGraveyard.Dispose();
       YourLibrary.Dispose();
       OpponentsLibrary.Dispose();
+      YourExile.Dispose();
+      OpponentsExile.Dispose();
     }
   }
 }

@@ -23,7 +23,7 @@
 				<RowDefinition Height="32" />
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="302" />
+				<ColumnDefinition Width="273" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 			<!-- Topbar -->
@@ -34,7 +34,7 @@
 						<ColumnDefinition Width="Auto" />
 						<ColumnDefinition Width="*" />
 					</Grid.ColumnDefinitions>
-                    <ContentControl x:Name="ManaPool" Grid.Column="0" Margin="10,0,0,0" />               
+                    <ContentControl x:Name="ManaPool" Grid.Column="0" Margin="0,0,0,0" />               
                     <ContentControl x:Name="TurnNumber" Grid.Column="1" Margin="0,0,0,0" />
                     <ContentControl x:Name="Steps" Grid.Column="2" Margin="0,0,0,0" />
 				</Grid>
@@ -44,7 +44,7 @@
 			<Border Grid.Row="1" Background="{StaticResource BarBackground}">
 				<Grid>
 					<Grid.RowDefinitions>
-						<RowDefinition Height="420" />
+						<RowDefinition Height="380" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 					<ContentControl x:Name="MagnifiedCard" Grid.Row="0" />

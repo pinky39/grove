@@ -1,6 +1,6 @@
 ﻿<UserControl x:Class="Grove.UserInterface.SelectableCard.View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro" xmlns:UserInterface="clr-namespace:Grove.UserInterface">
 
-    <Border Margin="0,-295,0,0" Visibility="{Binding IsVisibleInUi, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}">
+    <Border Margin="0,-272,0,0" Visibility="{Binding IsVisibleInUi, Converter={x:Static UserInterface:Converters.BooleanToVisibility}}">
 		<ContentControl Style="{StaticResource SelectableContent}">
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName="MouseEnter">

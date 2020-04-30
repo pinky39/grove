@@ -1938,6 +1938,10 @@
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\DraftScreen\ViewModel.cs" />
+    <Compile Include="UserInterface\Exile\View.xaml.cs">
+      <DependentUpon>View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\Exile\ViewModel.cs" />
     <Compile Include="UserInterface\Leaderboard\View.xaml.cs">
       <DependentUpon>View.xaml</DependentUpon>
     </Compile>
@@ -2355,6 +2359,10 @@
     <Page Include="UserInterface\CardActivation\View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\Exile\View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserInterface\Leaderboard\View.xaml">
       <SubType>Designer</SubType>

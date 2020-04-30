@@ -68,7 +68,7 @@
 
     public IBattlefieldQuery Battlefield { get { return _battlefield; } }
 
-    public IEnumerable<Card> Exile { get { return _exile; } }
+    public IZoneQuery Exile { get { return _exile; } }
 
     public bool CanMulligan { get { return _hand.CanMulligan && HasMulligan; } }
 

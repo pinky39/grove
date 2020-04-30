@@ -57,10 +57,22 @@
 				</Style>
 			</TabControl.Resources>
 
-			<TabItem>
+      <TabItem>
+        <TabItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Style="{StaticResource OpponentZoneName}" Text="Exile" />
+            <!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsExile.Cards.Count}" />-->
+          </StackPanel>
+        </TabItem.Header>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True">
+          <ContentControl x:Name="OpponentsExile" />
+        </ScrollViewer>
+      </TabItem>
+
+      <TabItem>
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Style="{StaticResource OpponentZoneName}" Text="Library" />
+						<TextBlock Style="{StaticResource OpponentZoneName}" Text="Lib" />
 						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsLibrary.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>
@@ -85,7 +97,7 @@
 			<TabItem>
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Style="{StaticResource OpponentZoneName}" Text="Graveyard" />
+						<TextBlock Style="{StaticResource OpponentZoneName}" Text="Grave" />
 						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding OpponentsGraveyard.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>
@@ -95,10 +107,22 @@
 
 			</TabItem>
 
-			<TabItem>
+      <TabItem>
+        <TabItem.Header>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Style="{StaticResource ZoneName}" Text="Exile" />
+            <!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourExile.Cards.Count}" />-->
+          </StackPanel>
+        </TabItem.Header>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True">
+          <ContentControl x:Name="YourExile" />
+        </ScrollViewer>
+      </TabItem>
+
+      <TabItem>
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Style="{StaticResource ZoneName}" Text="Library" />
+						<TextBlock Style="{StaticResource ZoneName}" Text="Lib" />
 						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourLibrary.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>
@@ -110,7 +134,7 @@
 			<TabItem>
 				<TabItem.Header>
 					<StackPanel Orientation="Horizontal">
-						<TextBlock Style="{StaticResource ZoneName}" Text="Graveyard" />
+						<TextBlock Style="{StaticResource ZoneName}" Text="Grave" />
 						<!--<TextBlock Style="{StaticResource ZoneCount}" Text="{Binding YourGraveyard.Cards.Count}" />-->
 					</StackPanel>
 				</TabItem.Header>

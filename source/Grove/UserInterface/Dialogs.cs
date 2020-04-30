@@ -30,6 +30,7 @@
     public Step.ViewModel.IFactory Step { get; set; }
     public Hand.ViewModel.IFactory Hand { get; set; }
     public Graveyard.ViewModel.IFactory Graveyard { get; set; }
+    public Exile.ViewModel.IFactory Exile { get; set; }
     public Library.ViewModel.IFactory Library { get; set; }
     public LibraryFilter.ViewModel.IFactory LibraryFilter { get; set; }
     public BuildLimitedDeck.ViewModel.IFactory BuildLimitedDeck { get; set; }
