@@ -67,7 +67,7 @@
 
     public void ChangePlayersInterest()
     {
-      ChangePlayersInterest(Card);
+      ChangePlayersInterest(this);
     }
 
     public void Select()

@@ -59,7 +59,7 @@
 
     public void ChangePlayersInterest()
     {
-      ChangePlayersInterest(Card);
+      ChangePlayersInterest(this);
     }
 
     public interface IFactory
