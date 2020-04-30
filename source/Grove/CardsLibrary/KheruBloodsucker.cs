@@ -34,6 +34,8 @@
             p.Effect = () => new CompoundEffect(
               new ChangeLife(2, P(e => e.Controller)),
               new ChangeLife(-2, P(e => e.Controller.Opponent)));
+
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           })
         .ActivatedAbility(p =>
           {
