@@ -23,7 +23,9 @@
               from: Zone.Battlefield,
               to: Zone.Graveyard,
               selector: (c, ctx) => c.Controller == ctx.You && c.Is().Creature && c.Toughness >= 4));
+            
             p.Effect = () => new ChangeLife(4, whos: P(e => e.Controller));
+            p.TriggerOnlyIfOwningCardIsInPlay = true;
           });
     }
   }
