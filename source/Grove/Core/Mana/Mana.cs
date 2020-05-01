@@ -48,7 +48,7 @@
 
     public static ManaAmount GetBasicLandMana(string name)
     {
-      switch (name.ToLowerInvariant())
+      switch (name)
       {
         case ("plains"):
           return White;

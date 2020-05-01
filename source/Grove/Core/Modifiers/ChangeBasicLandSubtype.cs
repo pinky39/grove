@@ -12,11 +12,20 @@
     private CardTypeSetter _cardTypeModifier;
     private PropertyModifier<List<ActivatedAbility>> _modifier;
 
+    private static Dictionary<string, string> BasicLandTypeToManaSymbol = new Dictionary<string, string>()
+    {
+      {"swamp", "{B}"},
+      {"island", "{U}"},
+      {"mountain", "{R}"},
+      {"forest", "{G}"},
+      {"plains", "{W}"},
+    };
+
     private ChangeBasicLandSubtype() {}
 
     public ChangeBasicLandSubtype(string landSubtype, bool replace)
     {
-      _landSubtype = landSubtype;
+      _landSubtype = landSubtype.ToLowerInvariant();
       _replace = replace;
     }
 
@@ -26,7 +35,8 @@
 
       var ap = new ManaAbilityParameters
         {
-          Text = "{{T}}: Add {0} to your mana pool.",
+          Text = string.Format("{{T}}: Add {0} to your mana pool.", 
+          BasicLandTypeToManaSymbol[_landSubtype]),
         };
 
       ap.ManaAmount(Mana.GetBasicLandMana(_landSubtype));
