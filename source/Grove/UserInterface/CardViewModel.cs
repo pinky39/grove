@@ -31,6 +31,7 @@
         {Static.Forestwalk, "FW"},
         {Static.Intimidate, "IN"},
         {Static.Lure, "LU"},
+        {Static.Haste, "HA" }
       };  
 
     public CardViewModel(Card card)
