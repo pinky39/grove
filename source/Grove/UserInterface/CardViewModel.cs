@@ -112,7 +112,7 @@
     {
       var result = new List<string>();
             
-      foreach (var ability in Card.Has())
+      foreach (var ability in Card.Has().Distinct())
       {
         AbilitiesToDisplay.TryGetValue(ability, out var a);
         
