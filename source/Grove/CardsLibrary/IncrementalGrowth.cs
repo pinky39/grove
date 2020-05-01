@@ -27,7 +27,8 @@
               trg.MaxCount = 3;            
             });
 
-          p.TargetingRule(new EffectOrCostRankBy(c => c.Score));
+          p.TargetingRule(new EffectOrCostRankBy(c => -c.Power.GetValueOrDefault(), 
+            ControlledBy.SpellOwner));
           p.TimingRule(new OnFirstMain());
         });
     }
