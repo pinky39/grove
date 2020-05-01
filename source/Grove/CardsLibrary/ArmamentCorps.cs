@@ -20,6 +20,7 @@
         .Toughness(4)
         .TriggeredAbility(p =>
         {
+          p.Text = "When Armament Corps enters the battlefield, distribute two +1/+1 counters among one or two target creatures you control.";
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
           
           p.DistributeAmount = 2;
