@@ -1,6 +1,7 @@
 # magicgrove
-magicgrove allows you to play trading card game: *Magic: The Gathering* against your computer. 
+Magicgrove allows you to play trading card game: `Magic: The Gathering` against your computer. 
 
+## Demo
 ![Demo](doc/demo.gif)
 
 ## How to play
