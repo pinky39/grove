@@ -1,5 +1,7 @@
 # magicgrove
-Magicgrove allows you to play trading card game: *Magic: The Gathering* against your computer. 
+magicgrove allows you to play trading card game: *Magic: The Gathering* against your computer. 
+
+![Demo](doc/demo.gif)
 
 ## How to play
 The most fun game feature are limited tournaments.
@@ -160,7 +162,7 @@ We almost did it back in 2015. In July 2015 work was 80% done, almost all the ca
 
 In January 2020 I decided I would finish what we started back almost 6 years ago. I migrated the project to latest Visual Studio and I reviewed what was left. I also improved the deck building and drafting algorithms and added some UI features which we decided back in 2015 would be great.
 
-In may 2020 version 4 was released, featuring Magic 2015 Core Set and 1114 cards.
+In May 2020 version 4 was released, featuring Magic 2015 Core Set and 1114 cards.
 
 ## License
 
