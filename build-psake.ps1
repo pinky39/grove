@@ -69,7 +69,7 @@ task DoRelease -depends Compile {
   cp "$build_dir\Newtonsoft.Json.dll" $release_dir
   
   cp "$base_dir\README.md" $release_dir
-  cp "$base_dir\LICENCE" $release_dir
+  cp "$base_dir\LICENSE" $release_dir
   cp "$base_dir\HISTORY.md" $release_dir
   cp "$base_dir\CARDS.md" $release_dir
 
