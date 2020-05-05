@@ -68,10 +68,10 @@ task DoRelease -depends Compile {
   cp "$build_dir\Ionic.Zip.dll" $release_dir
   cp "$build_dir\Newtonsoft.Json.dll" $release_dir
   
-  cp "$base_dir\readme.md" "$release_dir\readme.txt"
-  cp "$base_dir\license" $release_dir
-  cp "$base_dir\history.md" "$release_dir\history.txt"
-  cp "$base_dir\cards.txt" $release_dir
+  cp "$base_dir\README.md" $release_dir
+  cp "$base_dir\LICENCE" $release_dir
+  cp "$base_dir\HISTORY.md" $release_dir
+  cp "$base_dir\CARDS.md" $release_dir
 
   cp -recurse "$media_dir\decks" "$release_dir\media\decks"
   new-item "$release_dir\media\logs" -itemType directory
