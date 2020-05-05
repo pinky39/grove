@@ -19,6 +19,8 @@
         .Toughness(2)
         .TriggeredAbility(p =>
           {
+            p.Text = "When Heliod's Pilgrim enters the battlefield, you may search your library for an Aura card, reveal it, put it into your hand, then shuffle your library.";
+
             p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
 
             p.Effect = () => new SearchLibraryPutToZone(
