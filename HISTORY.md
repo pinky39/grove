@@ -11,6 +11,8 @@
 * Sorting of decks and libraries by mana cost & color
 * Show mana cost in deck editor
 * Mark p/t with different color, when they change
+* Show simple abilities (flying, trample) markers
+* Add exile zone tab to zones
 
 ### Improved AI
 
