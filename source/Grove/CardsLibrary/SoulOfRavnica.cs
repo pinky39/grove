@@ -33,6 +33,8 @@
             new PayMana("{5}{U}{U}".Parse()),
             new ExileOwnerCost());
 
+          p.ActivationZone = Zone.Graveyard;
+
           p.Effect = () => new DrawCards(P(e => e.Controller.Battlefield.PermanentsColors.Count()));
         });
     }

@@ -79,6 +79,8 @@
                   return vp.Effect[0].Player() == vp.Effect[1].Card().Controller;
                 };
 
+            p.ActivationZone = Zone.Graveyard;
+
             p.TargetingRule(new EffectDealDamage(3));
             p.TimingRule(new TargetRemovalTimingRule(removalTag: EffectTag.DealDamage));
           });

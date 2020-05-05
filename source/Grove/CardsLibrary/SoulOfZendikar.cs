@@ -46,6 +46,8 @@
             new PayMana("{3}{G}{G}".Parse()),
             new ExileOwnerCost());
 
+          p.ActivationZone = Zone.Graveyard;
+
           p.Effect = () => new CreateTokens(
               count: 1,
               token: Card
