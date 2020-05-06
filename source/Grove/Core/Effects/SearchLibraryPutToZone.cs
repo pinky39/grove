@@ -76,7 +76,7 @@
 
         if (_revealCards)
         {
-          Publish(new CardWasRevealedEvent(card));
+          card.Reveal();
         }
         else
         {
