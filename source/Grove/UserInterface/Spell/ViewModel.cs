@@ -127,10 +127,6 @@
 
     var proceed = SelectX(activation.Prerequisites, activationParameters) &&
       SelectTargets(activation.Prerequisites, activationParameters) &&
-      // TODO this needs to be fixed, because selecting convoke & delve targets
-      // this way does not save decisions to game recording, later this
-      // can cause that the save game will be corrupted, because auto mana
-      // payment will not always tap or exile same cards!
       SelectConvokeTargets(activationParameters) &&
       SelectDelveTargets(activationParameters);
     
