@@ -8,8 +8,8 @@
 
   public class ViewModel : ViewModelBase, IDisposable
   {
-    private readonly BindableCollection<SelectableCard.ViewModel> _cards =
-      new BindableCollection<SelectableCard.ViewModel>();
+    private readonly BindableCollection<Spell.ViewModel> _cards =
+      new BindableCollection<Spell.ViewModel>();
 
     private readonly Player _owner;
 
@@ -18,7 +18,7 @@
       _owner = owner;
     }
 
-    public IEnumerable<SelectableCard.ViewModel> Cards { get { return _cards; } }
+    public IEnumerable<Spell.ViewModel> Cards { get { return _cards; } }
 
     public override void Initialize()
     {
@@ -37,7 +37,7 @@
 
       _cards.Remove(viewModel);
       viewModel.Close();
-      ViewModels.SelectableCard.Destroy(viewModel);
+      ViewModels.Spell.Destroy(viewModel);
     }
 
     private void OnCardAdded(object sender, ZoneChangedEventArgs e)
@@ -47,7 +47,7 @@
 
     private void AddCard(Card card)
     {
-      _cards.Add(ViewModels.SelectableCard.Create(card));
+      _cards.Add(ViewModels.Spell.Create(card));
     }
 
     public interface IFactory
