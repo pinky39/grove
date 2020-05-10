@@ -35,7 +35,7 @@
               (c, ctx) => c.Is().Creature && ctx.You == c.Controller,
               () => new AddPowerAndToughness(1, 1) {UntilEot = true});
 
-            p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new BeforeYouDeclareAttackers()));
+            p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new AfterOpponentDeclaresBlockers()));
             p.RepetitionRule(new RepeatMaxTimes());
           });
     }
