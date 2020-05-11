@@ -39,7 +39,7 @@
               .On.Battlefield());
 
           p.TimingRule(new OnFirstMain());
-          p.TargetingRule(new EffectOrCostRankBy(c => -c.Score, controlledBy: ControlledBy.SpellOwner));
+          p.TargetingRule(new EffectOrCostRankBy(c => c.Has().Vigilance ? c.Score : -c.Score, controlledBy: ControlledBy.SpellOwner));
         });
     }
   }
