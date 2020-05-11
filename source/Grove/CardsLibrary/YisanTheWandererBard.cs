@@ -19,6 +19,9 @@
         .Toughness(3)
         .ActivatedAbility(p =>
           {
+
+            p.Text = "{2}{G}, {T}, Put a verse counter on Yisan, the Wanderer Bard: Search your library for a creature card with converted mana cost equal to the number of verse counters on Yisan, put it onto the battlefield, then shuffle your library.";
+
             p.Cost = new AggregateCost(
               new PayMana("{2}{G}".Parse()),
               new Tap(),
