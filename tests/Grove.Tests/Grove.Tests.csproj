@@ -300,6 +300,7 @@
     <Compile Include="Cards\Gamble.cs" />
     <Compile Include="Cards\Gamekeeper.cs" />
     <Compile Include="Cards\GargoyleSentinel.cs" />
+    <Compile Include="Cards\GarrukApexPredator.cs" />
     <Compile Include="Cards\GatherCourage.cs" />
     <Compile Include="Cards\GhituFireEater.cs" />
     <Compile Include="Cards\GhituWarCry.cs" />

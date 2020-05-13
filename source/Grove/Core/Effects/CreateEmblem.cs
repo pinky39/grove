@@ -9,7 +9,7 @@
     private readonly string _text;
     private readonly int _score;
     private readonly DynParam<Player> _controller;
-    private readonly List<GameModifierFactory> _modifiers = new List<GameModifierFactory>();
+    private readonly List<ModifierFactory> _modifiers = new List<ModifierFactory>();
 
     private CreateEmblem() {}
 
@@ -17,7 +17,8 @@
       string text,
       int score,
       DynParam<Player> controller,
-      params GameModifierFactory[] modifiers)
+      params ModifierFactory[] modifiers
+      )
     {
       _text = text;
       _score = score;
@@ -44,7 +45,15 @@
         lifetime.Initialize(Game);
         
         modifier.AddLifetime(lifetime);
-        Game.AddModifier(modifier, p);
+
+        if (modifier is IGameModifier gameModifier)
+        {
+          Game.AddModifier(gameModifier, p);
+        }
+        else if (modifier is IPlayerModifier playerModifier)
+        {
+          _controller.Value.AddModifier(playerModifier, p);
+        }
       }
 
       _controller.Value.AddEmblem(emblem);

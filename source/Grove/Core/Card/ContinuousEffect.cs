@@ -28,7 +28,8 @@
       _selector = p.Selector;
       _applyOnlyToPermanents = p.ApplyOnlyToPermanents;
     }
-
+    
+    public Player Owner { get; private set; }
     public Card Source { get; private set; }
     public Effect SourceEffect { get; private set; }
 
@@ -72,7 +73,7 @@
       }
     }
 
-    public void Initialize(Card source, Game game, Effect sourceEffect = null)
+    public void Initialize(Card source, Game game, Player owner, Effect sourceEffect)
     {
       Game = game;
 
@@ -190,9 +191,11 @@
         _effect = effect;
         _game = game;
       }
-
+      
+      // this should matter only when using emblems
+      public Player EffectOwner { get { return _effect.Owner; } }
       public Player You { get { return _effect.Source.Controller; } }
-      public Card Source { get { return _effect.Source; } }
+      public Card Source { get { return _effect.Source; } }      
       public Player Opponent { get { return You.Opponent; } }
     }
   }

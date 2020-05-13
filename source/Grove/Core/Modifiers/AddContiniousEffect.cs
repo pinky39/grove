@@ -14,7 +14,7 @@
 
     protected override void Initialize()
     {
-      _continiousEffect.Initialize(SourceCard, Game, SourceEffect);
+      _continiousEffect.Initialize(SourceCard, Game, (Player) Owner, SourceEffect);
     }
 
     public override void Apply(ContiniousEffects continiousEffects)
