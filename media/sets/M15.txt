@@ -87,7 +87,7 @@ Frost Lynx;C;3
 Fugitive Wizard;C;1
 Furnace Whelp;U;2.5
 Gargoyle Sentinel;U;2
-#Garruk, Apex Predator;R;4.00
+Garruk, Apex Predator;R;4.00
 Garruk's Packleader;U;3.5
 Gather Courage;U;1.5
 Geist of the Moors;U;3
