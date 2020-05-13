@@ -53,7 +53,7 @@
         })
         .ActivatedAbility(p =>
          {
-           p.Text = "{−3}: Destroy target creature. You gain life equal to its toughness.";
+           p.Text = "{-3}: Destroy target creature. You gain life equal to its toughness.";
 
            p.Cost = new RemoveCounters(CounterType.Loyality, 3);
            p.Effect = () => new CompoundEffect(
@@ -71,7 +71,7 @@
         .ActivatedAbility(p =>
         {
           p.Text =
-            "{−8}: Target opponent gets an emblem with 'Whenever a creature attacks you, it gets +5/+5 and gains trample until end of turn.'";
+            "{-8}: Target opponent gets an emblem with 'Whenever a creature attacks you, it gets +5/+5 and gains trample until end of turn.'";
 
           p.Cost = new RemoveCounters(CounterType.Loyality, 8);
 
