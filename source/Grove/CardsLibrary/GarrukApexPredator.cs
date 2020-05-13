@@ -16,14 +16,14 @@
         .Named("Garruk, Apex Predator")
         .ManaCost("{5}{B}{G}")
         .Type("Planeswalker Garruk")
-        .Text("+1: Destroy another target planeswalker.{EOL}" +
-        "+1: Create a 3/3 black Beast creature token with deathtouch.{EOL}" +
-        "−3: Destroy target creature.You gain life equal to its toughness.{EOL}" +
-        "−8: Target opponent gets an emblem with 'Whenever a creature attacks you, it gets +5/+5 and gains trample until end of turn.'")
+        .Text("{+1}: Destroy another target planeswalker.{EOL}" +
+        "{+1}: Create a 3/3 black Beast creature token with deathtouch.{EOL}" +
+        "{-3}: Destroy target creature.You gain life equal to its toughness.{EOL}" +
+        "{-8}: Target opponent gets an emblem with 'Whenever a creature attacks you, it gets +5/+5 and gains trample until end of turn.'")
         .Loyality(5)
         .ActivatedAbility(p =>
         {
-          p.Text = "+1: Destroy another target planeswalker.";
+          p.Text = "{+1}: Destroy another target planeswalker.";
 
           p.Cost = new AddCountersCost(CounterType.Loyality, 1);
           p.Effect = () => new DestroyTargetPermanents();
@@ -35,7 +35,7 @@
         })
         .ActivatedAbility(p =>
         {
-          p.Text = "+1: Create a 3/3 black Beast creature token with deathtouch.";
+          p.Text = "{+1}: Create a 3/3 black Beast creature token with deathtouch.";
           p.Cost = new AddCountersCost(CounterType.Loyality, 1);
 
           p.Effect = () => new CreateTokens(
@@ -53,7 +53,7 @@
         })
         .ActivatedAbility(p =>
          {
-           p.Text = "−3: Destroy target creature. You gain life equal to its toughness.";
+           p.Text = "{−3}: Destroy target creature. You gain life equal to its toughness.";
 
            p.Cost = new RemoveCounters(CounterType.Loyality, 3);
            p.Effect = () => new CompoundEffect(
@@ -71,7 +71,7 @@
         .ActivatedAbility(p =>
         {
           p.Text =
-            "−8: Target opponent gets an emblem with 'Whenever a creature attacks you, it gets +5/+5 and gains trample until end of turn.'";
+            "{−8}: Target opponent gets an emblem with 'Whenever a creature attacks you, it gets +5/+5 and gains trample until end of turn.'";
 
           p.Cost = new RemoveCounters(CounterType.Loyality, 8);
 

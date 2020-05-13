@@ -12,6 +12,12 @@
   public class CardText : IEnumerable<Token>
   {
     private static readonly Regex Brackets = new Regex("{(.*)}", RegexOptions.Compiled);
+    private static readonly string[] ManaSymbols = new[] { 
+      "w", "u", "b", "r", "g", "wp", "up", "bp", "rp", "gp", "t", "x",
+      "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+      "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-10",
+      "+1", "+2", "+3", "+4", "+5", "+6", "+7", "+8", "+9", "+10",
+    };
     
     private static readonly List<Func<string, Token>> TokenFactoy = new List<Func<string, Token>>
       {
@@ -20,10 +26,7 @@
           {
             token = token.ToLowerInvariant();
 
-            if (token == "w" || token == "u" || token == "b" || token == "r" || token == "g" ||
-              token == "wp" || token == "up" || token == "bp" || token == "rp" || token == "gp" ||
-              token == "t" || token == "x" ||
-              token == "1" || token == "2" || token == "3" || token == "4" || token == "5" || token == "6" || token == "7" || token == "8" || token == "9")
+            if (ManaSymbols.Contains(token))
             {
               return new ManaSymbolToken(token);
             }

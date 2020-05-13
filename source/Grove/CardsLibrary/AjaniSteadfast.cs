@@ -16,12 +16,14 @@
         .ManaCost("{3}{W}")
         .Type("Planeswalker Ajani")
         .Text(
-          "+1: Until end of turn, up to one target creature gets +1/+1 and gains first strike, vigilance, and lifelink.{EOL}-2: Put a +1/+1 counter on each creature you control and a loyalty counter on each other planeswalker you control.{EOL}-7: You get an emblem with 'If a source would deal damage to you or a planeswalker you control, prevent all but 1 of that damage.'")
+          "{+1}: Until end of turn, up to one target creature gets +1/+1 and gains first strike, vigilance, and lifelink.{EOL}" +
+          "{-2}: Put a +1/+1 counter on each creature you control and a loyalty counter on each other planeswalker you control.{EOL}" +
+          "{-7}: You get an emblem with 'If a source would deal damage to you or a planeswalker you control, prevent all but 1 of that damage.'")
         .Loyality(4)
         .ActivatedAbility(p =>
           {
             p.Text =
-              "+1: Until end of turn, up to one target creature gets +1/+1 and gains first strike, vigilance, and lifelink.";
+              "{+1}: Until end of turn, up to one target creature gets +1/+1 and gains first strike, vigilance, and lifelink.";
 
             p.Cost = new AddCountersCost(CounterType.Loyality, 1);
 
@@ -40,7 +42,7 @@
         .ActivatedAbility(p =>
           {
             p.Text =
-              "-2: Put a +1/+1 counter on each creature you control and a loyalty counter on each other planeswalker you control.{EOL}";
+              "{-2}: Put a +1/+1 counter on each creature you control and a loyalty counter on each other planeswalker you control.{EOL}";
 
             p.Cost = new RemoveCounters(CounterType.Loyality, 2);
 
@@ -58,7 +60,7 @@
         .ActivatedAbility(p =>
           {                        
             p.Text =
-              "-7: You get an emblem with 'If a source would deal damage to you or a planeswalker you control, prevent all but 1 of that damage.'";
+              "{-7}: You get an emblem with 'If a source would deal damage to you or a planeswalker you control, prevent all but 1 of that damage.'";
 
             p.Cost = new RemoveCounters(CounterType.Loyality, 7);
 
