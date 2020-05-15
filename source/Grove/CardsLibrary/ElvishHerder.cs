@@ -24,7 +24,7 @@
           {
             p.Text = "{G}: Target creature gains trample until end of turn.";
             p.Cost = new PayMana(Mana.Green);
-            p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Trample) {UntilEot = true});
+            p.Effect = () => new ApplyModifiersToTargets(() => new AddSimpleAbility(Static.Trample) {UntilEot = true});
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new OnYourTurn(Step.DeclareBlockers));

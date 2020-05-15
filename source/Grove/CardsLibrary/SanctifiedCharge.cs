@@ -26,7 +26,7 @@
                 .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness),
               new ApplyModifiersToPermanents(
                 selector: (c, ctx) => c.Is().Creature && c.HasColor(CardColor.White) && ctx.You == c.Controller,                
-                modifier: () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true}));
+                modifier: () => new AddSimpleAbility(Static.FirstStrike) {UntilEot = true}));
 
             p.TimingRule(new Any(
               new AfterOpponentDeclaresAttackers(),

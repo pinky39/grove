@@ -33,7 +33,7 @@
             p.Text = "{U}: Morphling gains flying until end of turn.";
             p.Cost = new PayMana(Mana.Blue);
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new AddStaticAbility(Static.Flying) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Flying) {UntilEot = true});
 
             p.TimingRule(new Any(
               new BeforeYouDeclareAttackers(),
@@ -46,7 +46,7 @@
             p.Text = "{U}: Morphling gains shroud until end of turn.";
             p.Cost = new PayMana(Mana.Blue);
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new AddStaticAbility(Static.Shroud) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Shroud) {UntilEot = true});
 
             p.TimingRule(new WhenCardHas(c => !c.Has().Shroud));
             p.TimingRule(new WhenOwningCardWillBeDestroyed(targetOnly: true, considerCombat: false));

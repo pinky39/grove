@@ -50,8 +50,8 @@
             new RemoveCounters(CounterType.Gem, count: 1));
           
           p.Effect = () => new ApplyModifiersToTargets(
-            () => new AddStaticAbility(Static.CannotBlock) { UntilEot = true },
-            () => new AddStaticAbility(Static.CannotAttack) { UntilEot = true }).SetTags(EffectTag.CombatDisabler);
+            () => new AddSimpleAbility(Static.CannotBlock) { UntilEot = true },
+            () => new AddSimpleAbility(Static.CannotAttack) { UntilEot = true }).SetTags(EffectTag.CombatDisabler);
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

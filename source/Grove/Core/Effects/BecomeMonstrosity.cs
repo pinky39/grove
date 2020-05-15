@@ -29,7 +29,7 @@
       };
 
       var modifier1 = new AddCounters(() => new PowerToughness(1, 1), count: _counterCount);
-      var modifier2 = new AddStaticAbility(Static.Monstrosity);
+      var modifier2 = new AddSimpleAbility(Static.Monstrosity);
 
       Source.OwningCard.AddModifier(modifier1, p);
       Source.OwningCard.AddModifier(modifier2, p);

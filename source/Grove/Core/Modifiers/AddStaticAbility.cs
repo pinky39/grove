@@ -2,25 +2,27 @@
 {
   public class AddStaticAbility : Modifier, ICardModifier
   {
-    private readonly Static _staticAbility;
-    private SimpleAbilities _abilities;
-    private AddToList<Static> _modifier;
+    private readonly StaticAbility _staticAbility;
+    private StaticAbilities _abilities;
+    private AddToList<StaticAbility> _modifier;
+    private AddStaticAbility()
+    {
+    }
 
-    private AddStaticAbility() {}
-
-    public AddStaticAbility(Static staticAbility)
+    public AddStaticAbility(StaticAbility staticAbility)
     {
       _staticAbility = staticAbility;
     }
-
-    public override void Apply(SimpleAbilities abilities)
+    
+    public override void Apply(StaticAbilities abilities)
     {
-      _modifier = new AddToList<Static>(_staticAbility);
-      _modifier.Initialize(ChangeTracker);
       _abilities = abilities;
-      _abilities.AddModifier(_modifier);
-    }
+      _modifier = new AddToList<StaticAbility>(_staticAbility);
+      _modifier.Initialize(ChangeTracker);
+      _staticAbility.Initialize(OwningCard, Game);
 
+      abilities.AddModifier(_modifier);
+    }
     protected override void Unapply()
     {
       _abilities.RemoveModifier(_modifier);

@@ -19,8 +19,8 @@
         .Toughness(3)
         .StaticAbility(p =>
         {
-          p.Modifier(() => new AddStaticAbility(Static.Hexproof));
-          p.Modifier(() => new AddStaticAbility(Static.Indestructible));
+          p.Modifier(() => new AddSimpleAbility(Static.Hexproof));
+          p.Modifier(() => new AddSimpleAbility(Static.Indestructible));
           p.Condition = cond => cond.OwningCardHas(Static.Monstrosity);
         })
         .ActivatedAbility(p =>

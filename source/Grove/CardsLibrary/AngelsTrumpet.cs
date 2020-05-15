@@ -24,7 +24,7 @@
         .ContinuousEffect(p =>
           {
             p.Selector = (card, ctx) => card.Is().Creature;
-            p.Modifier = () => new AddStaticAbility(Static.Vigilance);
+            p.Modifier = () => new AddSimpleAbility(Static.Vigilance);
           })
         .TriggeredAbility(p =>
           {

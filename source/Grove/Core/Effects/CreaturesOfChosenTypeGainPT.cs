@@ -13,7 +13,6 @@
     private readonly int _toughness;
     private readonly ControlledBy _controlledBy;
 
-
     private CreaturesOfChosenTypeGainPT() {}
 
     public CreaturesOfChosenTypeGainPT(int power, int toughness, ControlledBy controlledBy = ControlledBy.Any)
@@ -35,25 +34,29 @@
 
     public override void ProcessResults(ChosenOptions results)
     {
-      var chosenType = (string)results.Options[0];
-
-      var cp = new ContinuousEffectParameters
+      var chosenType = (string)results.Options[0];      
+      
+      var sp = new StaticAbilityParameters();      
+      sp.Modifier(() =>
+      {
+        var cp = new ContinuousEffectParameters
         {
           Modifier = () => new AddPowerAndToughness(_power, _toughness),
           Selector = (card, effect) => card.Is().Creature && card.Is(chosenType) && IsValidController(card)
         };
+        
+        return new AddContiniousEffect(new ContinuousEffect(cp));
+      });
 
-      var modifier = new AddContiniousEffect(
-        new ContinuousEffect(cp));
-
+      var modifier = new AddStaticAbility(new StaticAbility(sp));      
 
       var mp = new ModifierParameters
         {
           SourceCard = Source.OwningCard,
-          SourceEffect = this
+          SourceEffect = this          
         };
 
-      Source.OwningCard.Controller.AddModifier(modifier, mp);
+      Source.OwningCard.AddModifier(modifier, mp);
     }
 
     public override string GetText()

@@ -58,7 +58,7 @@
               trg => trg.Message = "Select a non-Spirit creature to gain indestructible.");
 
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddStaticAbility(Static.Indestructible) {UntilEot = true})
+              () => new AddSimpleAbility(Static.Indestructible) {UntilEot = true})
               .SetTags(EffectTag.Indestructible);
 
             p.TargetingRule(new CostSacrificeEffectGiveIndestructible());

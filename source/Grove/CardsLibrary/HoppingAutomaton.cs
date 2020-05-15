@@ -24,7 +24,7 @@
             p.Cost = new PayMana(Mana.Zero);
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(-1, -1) {UntilEot = true},
-              () => new AddStaticAbility(Static.Flying) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Flying) {UntilEot = true});
 
             p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
             p.TimingRule(new WhenCardHas(c => c.Toughness > 1 && !c.Has().Flying));

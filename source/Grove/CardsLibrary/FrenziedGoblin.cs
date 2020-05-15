@@ -27,7 +27,7 @@
             p.Effect = () => new PayManaThen(
               amount: Mana.Red,
               effect: new ApplyModifiersToTargets(() =>
-                new AddStaticAbility(Static.CannotBlock) {UntilEot = true}));
+                new AddSimpleAbility(Static.CannotBlock) {UntilEot = true}));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TargetingRule(new EffectTapCreature());

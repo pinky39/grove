@@ -27,7 +27,7 @@
             p.Cost = new PayMana("{W}{W}".Parse());
 
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddStaticAbility(Static.Indestructible) {UntilEot = true})
+              () => new AddSimpleAbility(Static.Indestructible) {UntilEot = true})
               .SetTags(EffectTag.Indestructible);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

@@ -18,7 +18,7 @@
         .Cast(p => p.TimingRule(new OnSecondMain()))
         .ContinuousEffect(p =>
           {
-            p.Modifier = () => new AddStaticAbility(Static.DoesNotUntap);
+            p.Modifier = () => new AddSimpleAbility(Static.DoesNotUntap);
             p.Selector = (card, ctx) => card.Is().NonBasicLand;
           });
     }

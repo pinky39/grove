@@ -9,12 +9,12 @@
 
     public AddContiniousEffect(ContinuousEffect continiousEffect)
     {
-      _continiousEffect = continiousEffect;
+      _continiousEffect = continiousEffect;      
     }
 
     protected override void Initialize()
     {
-      _continiousEffect.Initialize(SourceCard, Game, (Player) Owner, SourceEffect);
+      _continiousEffect.Initialize(SourceCard, Game, (Player) Owner, SourceEffect);      
     }
 
     public override void Apply(ContiniousEffects continiousEffects)
@@ -27,8 +27,7 @@
 
     protected override void Unapply()
     {
-      _continiousEffects.Remove(_continiousEffect);
-      _continiousEffect.Dispose();
+      _continiousEffects.Remove(_continiousEffect);      
     }
   }
 }

@@ -129,7 +129,7 @@
         if (UntilEot)
         {
           _lifetimes.Add(new EndOfTurnLifetime());
-        }
+        }       
 
         if (SourceCard.Is().Attachment &&
           /* when attachment applies modifier to itself e.g Avarice Amulet this should not apply */

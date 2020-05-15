@@ -30,7 +30,7 @@
               validator: c => c.Is().Creature,
               fromZone: Zone.Hand,
               modifiers: L(
-                () => new AddStaticAbility(Static.Haste) {UntilEot = true},
+                () => new AddSimpleAbility(Static.Haste) {UntilEot = true},
                 () =>
                   {
                     var tp = new TriggeredAbility.Parameters

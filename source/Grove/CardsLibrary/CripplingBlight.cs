@@ -22,7 +22,7 @@
           {
             p.Effect = () => new Attach(
               () => new AddPowerAndToughness(-1, -1),
-              () => new AddStaticAbility(Static.CannotBlock))
+              () => new AddSimpleAbility(Static.CannotBlock))
               .SetTags(EffectTag.ReduceToughness);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

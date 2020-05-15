@@ -39,7 +39,7 @@
               .TriggeredAbility(tp =>
               {
                 tp.Trigger(new OnZoneChanged(to: Zone.Battlefield));
-                tp.Effect = () => new ApplyModifiersToSelf(() => new AddStaticAbility(Static.FirstStrike){UntilEot = true});
+                tp.Effect = () => new ApplyModifiersToSelf(() => new AddSimpleAbility(Static.FirstStrike){UntilEot = true});
                 tp.UsesStack = false;
               }));
           

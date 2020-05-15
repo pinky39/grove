@@ -18,7 +18,7 @@
         .Toughness(3)
         .StaticAbility(p =>
           {
-            p.Modifier(() => new AddStaticAbility(Static.Flying));
+            p.Modifier(() => new AddSimpleAbility(Static.Flying));
             p.Condition = cond => cond.OwnerControlsPermanent(c => c.Is().Artifact);
           });
     }

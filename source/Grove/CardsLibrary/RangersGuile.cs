@@ -21,7 +21,7 @@
         {
           p.Effect = () => new ApplyModifiersToTargets(
             () => new AddPowerAndToughness(1, 1){UntilEot = true},
-            () => new AddStaticAbility(Static.Hexproof) { UntilEot = true }).SetTags(
+            () => new AddSimpleAbility(Static.Hexproof) { UntilEot = true }).SetTags(
               EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature(controlledBy: ControlledBy.SpellOwner).On.Battlefield());

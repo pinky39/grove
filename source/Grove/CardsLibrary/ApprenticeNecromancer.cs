@@ -34,7 +34,7 @@
               text: "Select a creature card in your graveyard.",
               validator: c => c.Is().Creature,              
               modifiers: L( 
-              () => new AddStaticAbility(Static.Haste) {UntilEot = true},
+              () => new AddSimpleAbility(Static.Haste) {UntilEot = true},
               () =>
                 {
                   var tp = new TriggeredAbility.Parameters

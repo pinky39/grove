@@ -22,9 +22,9 @@
         {
           p.Effect = () => new FerociousEffect(
             L(new ApplyModifiersToTargets(
-                () => new AddStaticAbility(Static.Lure) { UntilEot = true })),
+                () => new AddSimpleAbility(Static.Lure) { UntilEot = true })),
             L(new ApplyModifiersToTargets(
-                () => new AddStaticAbility(Static.Indestructible) { UntilEot = true })
+                () => new AddSimpleAbility(Static.Indestructible) { UntilEot = true })
               .SetTags(EffectTag.Indestructible)));
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

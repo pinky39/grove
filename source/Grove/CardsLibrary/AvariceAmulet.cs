@@ -26,7 +26,7 @@
 
           p.Effect = () => new Attach(
             () => new AddPowerAndToughness(2, 0),
-            () => new AddStaticAbility(Static.Vigilance),
+            () => new AddSimpleAbility(Static.Vigilance),
             () =>
             {
               var tp = new TriggeredAbility.Parameters();

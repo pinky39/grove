@@ -25,8 +25,8 @@
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(2, 0) {UntilEot = true},
-              () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true},
-              () => new AddStaticAbility(Static.Haste) {UntilEot = true}).SetTags(EffectTag.IncreasePower,
+              () => new AddSimpleAbility(Static.FirstStrike) {UntilEot = true},
+              () => new AddSimpleAbility(Static.Haste) {UntilEot = true}).SetTags(EffectTag.IncreasePower,
                 EffectTag.IncreaseToughness);
 
             p.Trigger(new OnZoneChanged(

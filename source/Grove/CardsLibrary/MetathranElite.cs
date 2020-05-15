@@ -24,7 +24,7 @@
 
             p.Effect = () => new ApplyModifiersToSelf(() =>
               {
-                var modifier = new AddStaticAbility(Static.Unblockable);
+                var modifier = new AddSimpleAbility(Static.Unblockable);
 
                 modifier.AddLifetime(new AttachmentLifetime(self =>
                   self.Modifier.SourceEffect.TriggerMessage<AttachmentAttachedEvent>().Attachment));

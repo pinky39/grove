@@ -25,7 +25,7 @@
                 .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness),
               new ApplyModifiersToPermanents(
                 selector: (c, ctx) => c.Is("warrior") && ctx.You == c.Controller,                
-                modifier: () => new AddStaticAbility(Static.Lifelink) { UntilEot = true }));
+                modifier: () => new AddSimpleAbility(Static.Lifelink) { UntilEot = true }));
 
           p.TimingRule(new OnFirstMain());
         });

@@ -20,7 +20,7 @@
         .Cast(p =>
         {
           p.Effect = () => new Attach(
-            () => new AddStaticAbility(Static.Vigilance),
+            () => new AddSimpleAbility(Static.Vigilance),
             () => new AddPowerAndToughness(2, 2))
             .SetTags(EffectTag.IncreasePower, EffectTag.IncreasePower);
 

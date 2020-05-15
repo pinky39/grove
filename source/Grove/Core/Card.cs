@@ -286,6 +286,7 @@
         yield return _triggeredAbilities;
         yield return _activatedAbilities;
         yield return _simpleAbilities;
+        yield return _staticAbilities;
         yield return _controller;
         yield return _base;
       }
@@ -538,6 +539,7 @@
           _isPeeked.Value.GetHashCode(),
           _isHidden.Value.GetHashCode(),
           calc.Calculate(_simpleAbilities),
+          calc.Calculate(_staticAbilities),
           calc.Calculate(_triggeredAbilities),
           calc.Calculate(_activatedAbilities),
           calc.Calculate(_protections),

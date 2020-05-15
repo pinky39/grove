@@ -26,7 +26,7 @@
 
           p.Effect = () => new ApplyModifiersToTargets(() =>
             {
-              var modifier = new AddStaticAbility(Static.Indestructible);
+              var modifier = new AddSimpleAbility(Static.Indestructible);
               modifier.AddLifetime(new PermanentLeavesBattlefieldLifetime(l => l.Modifier.SourceCard));
               return modifier;
             }).SetTags(EffectTag.Indestructible);

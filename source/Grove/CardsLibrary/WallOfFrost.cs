@@ -31,7 +31,7 @@
               card: P(e => e.TriggerMessage<BlockerJoinedCombatEvent>().Attacker.Card),              
               modifiers: () =>
                 {
-                  var modifier = new AddStaticAbility(Static.DoesNotUntap);
+                  var modifier = new AddSimpleAbility(Static.DoesNotUntap);
 
                   modifier.AddLifetime(new EndOfStep(
                     Step.Untap,

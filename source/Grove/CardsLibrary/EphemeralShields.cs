@@ -22,7 +22,7 @@
           p.Text = "Target creature gains indestructible until end of turn.";
 
           p.Effect = () => new ApplyModifiersToTargets(
-            () => new AddStaticAbility(Static.Indestructible) { UntilEot = true }).SetTags(
+            () => new AddSimpleAbility(Static.Indestructible) { UntilEot = true }).SetTags(
               EffectTag.Indestructible);
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

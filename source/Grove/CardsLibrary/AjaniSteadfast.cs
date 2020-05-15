@@ -29,9 +29,9 @@
 
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddPowerAndToughness(1, 1) {UntilEot = true},
-              () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true},
-              () => new AddStaticAbility(Static.Vigilance) {UntilEot = true},
-              () => new AddStaticAbility(Static.Lifelink) {UntilEot = true});
+              () => new AddSimpleAbility(Static.FirstStrike) {UntilEot = true},
+              () => new AddSimpleAbility(Static.Vigilance) {UntilEot = true},
+              () => new AddSimpleAbility(Static.Lifelink) {UntilEot = true});
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

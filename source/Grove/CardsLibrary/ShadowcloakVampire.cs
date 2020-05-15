@@ -27,7 +27,7 @@
             p.Cost = new PayLife(2);
 
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new AddStaticAbility(Static.Flying) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Flying) {UntilEot = true});
 
             p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
             p.TimingRule(new WhenCardHas(c => !c.Has().Flying && !c.IsTapped));

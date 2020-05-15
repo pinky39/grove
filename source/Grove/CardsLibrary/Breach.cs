@@ -19,7 +19,7 @@
         .Cast(p =>
           {
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddStaticAbility(Static.Fear) {UntilEot = true},
+              () => new AddSimpleAbility(Static.Fear) {UntilEot = true},
               () => new AddPowerAndToughness(2, 0) {UntilEot = true});
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

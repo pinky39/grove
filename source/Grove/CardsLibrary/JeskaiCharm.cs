@@ -39,7 +39,7 @@
             selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
             modifiers: L(            
               () => new AddPowerAndToughness(1, 1){UntilEot = true},
-              () => new AddStaticAbility(Static.Lifelink){UntilEot = true}
+              () => new AddSimpleAbility(Static.Lifelink){UntilEot = true}
             ));
 
           p.TimingRule(new Any(new AfterOpponentDeclaresBlockers(), 

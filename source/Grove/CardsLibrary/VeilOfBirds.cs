@@ -31,7 +31,7 @@
                 toughness: 1,
                 type: t => t.Change(baseTypes: "creature", subTypes: "bird"),
                 colors: L(CardColor.Blue)),
-              () => new AddStaticAbility(Static.Flying));
+              () => new AddSimpleAbility(Static.Flying));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

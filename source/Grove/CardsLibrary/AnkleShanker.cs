@@ -28,8 +28,8 @@
               selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,               
               modifiers: new CardModifierFactory[]
               {
-                () => new AddStaticAbility(Static.FirstStrike) { UntilEot = true },
-                () => new AddStaticAbility(Static.Deathtouch) { UntilEot = true },
+                () => new AddSimpleAbility(Static.FirstStrike) { UntilEot = true },
+                () => new AddSimpleAbility(Static.Deathtouch) { UntilEot = true },
               });
           });
     }

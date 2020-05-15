@@ -26,7 +26,7 @@
             p.Cost = new PayMana(4.Colorless());
 
             p.Effect = () => new Attach(
-              () => new AddStaticAbility(Static.Trample),
+              () => new AddSimpleAbility(Static.Trample),
               () => new AddPowerAndToughness(2, 2))
               .SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 

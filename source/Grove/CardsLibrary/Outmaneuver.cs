@@ -21,7 +21,7 @@
           {
             p.Text = "X target blocked creatures assign their combat damage this turn as though they weren't blocked.";
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddStaticAbility(Static.AssignsDamageAsThoughItWasntBlocked) {UntilEot = true});
+              () => new AddSimpleAbility(Static.AssignsDamageAsThoughItWasntBlocked) {UntilEot = true});
 
             p.TargetSelector.AddEffect(
               trg => trg.Is.Card(c => c.HasBlockers).On.Battlefield(),

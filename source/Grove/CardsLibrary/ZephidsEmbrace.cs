@@ -22,8 +22,8 @@
           {
             p.Effect = () => new Attach(
               () => new AddPowerAndToughness(2, 2),
-              () => new AddStaticAbility(Static.Flying),
-              () => new AddStaticAbility(Static.Shroud)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+              () => new AddSimpleAbility(Static.Flying),
+              () => new AddSimpleAbility(Static.Shroud)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());

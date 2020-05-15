@@ -25,7 +25,7 @@
           p.Trigger(new OnCastedSpell((c, ctx) =>
             c.Controller == ctx.You && !c.Is().Creature));
 
-          p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Flying) { UntilEot = true });
+          p.Effect = () => new ApplyModifiersToTargets(() => new AddSimpleAbility(Static.Flying) { UntilEot = true });
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
           p.TargetingRule(new EffectBigWithoutEvasions(x => !x.Has().Flying));

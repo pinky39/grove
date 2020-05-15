@@ -25,7 +25,7 @@
           p.Cost = new PayMana("{1}{W}".Parse());
 
           p.Effect = () => new ApplyModifiersToSelf(
-            () => new AddStaticAbility(Static.FirstStrike) { UntilEot = true });
+            () => new AddSimpleAbility(Static.FirstStrike) { UntilEot = true });
 
           p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));
           p.TimingRule(new WhenCardHas(c => !c.Has().FirstStrike && !c.IsTapped));

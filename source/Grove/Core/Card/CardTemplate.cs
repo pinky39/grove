@@ -77,8 +77,8 @@
         p.Effect = () => new CompoundEffect(
            new CastPermanent(),
            new ApplyModifiersToSelf(
-             () => new AddStaticAbility(Static.Haste),
-             () => new AddStaticAbility(Static.Dash),
+             () => new AddSimpleAbility(Static.Haste),
+             () => new AddSimpleAbility(Static.Dash),
              () =>
              {
                var tp = new TriggeredAbility.Parameters
@@ -415,7 +415,7 @@
           p.Effect = () => new ApplyModifiersToSelf(
             () =>
             {
-              var modifier = new AddStaticAbility(lvl.StaticAbility);
+              var modifier = new AddSimpleAbility(lvl.StaticAbility);
               modifier.AddLifetime(new LevelLifetime(lvl.Min, lvl.Max));
               return modifier;
             },

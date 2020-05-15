@@ -22,7 +22,7 @@
           {
             p.Effect = () => new Attach(
               () => new AddPowerAndToughness(2, 0),
-              () => new AddStaticAbility(Static.Trample));
+              () => new AddSimpleAbility(Static.Trample));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());

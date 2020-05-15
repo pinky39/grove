@@ -29,7 +29,7 @@
 
             p.Cost = new PayMana("{1}{B}".Parse());
 
-            p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Lifelink) { UntilEot = true });
+            p.Effect = () => new ApplyModifiersToTargets(() => new AddSimpleAbility(Static.Lifelink) { UntilEot = true });
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

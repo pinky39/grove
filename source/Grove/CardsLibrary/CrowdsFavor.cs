@@ -24,7 +24,7 @@
 
             p.Effect = () => new ApplyModifiersToTargets(
               () => new AddPowerAndToughness(1, 0) {UntilEot = true},
-              () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true}).SetTags(
+              () => new AddSimpleAbility(Static.FirstStrike) {UntilEot = true}).SetTags(
                 EffectTag.IncreasePower);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

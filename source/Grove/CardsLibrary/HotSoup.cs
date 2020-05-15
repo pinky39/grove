@@ -25,7 +25,7 @@
           p.Cost = new PayMana(3.Colorless());
 
           p.Effect = () => new Attach(
-            () => new AddStaticAbility(Static.Unblockable));
+            () => new AddSimpleAbility(Static.Unblockable));
 
           p.TargetSelector.AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());
 

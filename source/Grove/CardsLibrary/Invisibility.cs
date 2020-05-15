@@ -19,7 +19,7 @@
           "Verick held his breath. Breathing wouldn't reveal his position, but it would force him to smell the goblins.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new AddStaticAbility(Static.CanOnlyBeBlockedByWalls));
+            p.Effect = () => new Attach(() => new AddSimpleAbility(Static.CanOnlyBeBlockedByWalls));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
             p.TimingRule(new OnFirstMain());

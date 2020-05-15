@@ -21,7 +21,7 @@
             card.Is().Creature &&
             card.CountersCount(CounterType.PowerToughness) > 0 &&
             card.Controller == ctx.You;
-          p.Modifier = () => new AddStaticAbility(Static.Reach);
+          p.Modifier = () => new AddSimpleAbility(Static.Reach);
         });
     }
   }

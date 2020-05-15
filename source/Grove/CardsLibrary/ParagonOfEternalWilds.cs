@@ -35,7 +35,7 @@
             new PayMana("{G}".Parse()),
             new Tap());
 
-          p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Trample) { UntilEot = true });
+          p.Effect = () => new ApplyModifiersToTargets(() => new AddSimpleAbility(Static.Trample) { UntilEot = true });
 
           p.TargetSelector.AddEffect(trg => trg
               .Is.Card(c => c.Is().Creature && c.HasColor(CardColor.Green), controlledBy: ControlledBy.SpellOwner, canTargetSelf: false)

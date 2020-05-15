@@ -30,7 +30,7 @@
                 toughness: 2,
                 type: t => t.Change(baseTypes: "creature", subTypes: "gargoyle"),
                 colors: L(CardColor.White)),
-              () => new AddStaticAbility(Static.Flying));
+              () => new AddSimpleAbility(Static.Flying));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

@@ -8,8 +8,7 @@
   using Modifiers;
 
   [Copyable]
-  public class ContinuousEffect : GameObject, IReceive<ZoneChangedEvent>, IReceive<PermanentModifiedEvent>,
-    ICopyContributor, IDisposable
+  public class ContinuousEffect : GameObject, IReceive<ZoneChangedEvent>, IReceive<PermanentModifiedEvent>
   {
     public delegate bool CardSelector(Card card, Context ctx);
 
@@ -32,11 +31,6 @@
     public Player Owner { get; private set; }
     public Card Source { get; private set; }
     public Effect SourceEffect { get; private set; }
-
-    public void AfterMemberCopy(object original)
-    {
-      SubscribeToEvents();
-    }
 
     public void Receive(PermanentModifiedEvent message)
     {
@@ -83,18 +77,12 @@
 
       Source = source;
       SourceEffect = sourceEffect;
+      Owner = owner;
 
       Subscribe(this);
-      SubscribeToEvents();
     }
 
     private Context Ctx { get { return new Context(this, Game); } }
-
-    private void SubscribeToEvents()
-    {
-      Source.JoinedBattlefield += Activate;
-      Source.LeftBattlefield += Deactivate;
-    }
 
     private bool ShouldPermanentBeUpdated(Card permanent, IModifier modifier)
     {
@@ -173,12 +161,6 @@
       {
         RemoveModifier(modifier);
       }
-    }
-
-    public void Dispose()
-    {
-      Source.JoinedBattlefield -= Activate;
-      Source.LeftBattlefield -= Deactivate;
     }
 
     public class Context

@@ -35,7 +35,7 @@
             new PayMana("{2}{B}".Parse()),
             new Tap());
 
-          p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Deathtouch) { UntilEot = true });
+          p.Effect = () => new ApplyModifiersToTargets(() => new AddSimpleAbility(Static.Deathtouch) { UntilEot = true });
 
           p.TargetSelector.AddEffect(trg => trg
               .Is.Card(c => c.Is().Creature && c.HasColor(CardColor.Black), controlledBy: ControlledBy.SpellOwner, canTargetSelf: false)

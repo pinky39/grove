@@ -35,7 +35,7 @@
                 toughness: 2,
                 type: t => t.Add(baseTypes: "creature", subTypes: "elemental"),
                 colors: L(CardColor.Blue, CardColor.Black)) {UntilEot = true},
-              () => new AddStaticAbility(Static.Unblockable) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Unblockable) {UntilEot = true});
 
             p.TimingRule(new WhenStackIsEmpty());
             p.TimingRule(new WhenCardHas(c => !c.Is().Creature));

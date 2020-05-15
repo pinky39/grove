@@ -24,7 +24,7 @@
                   var pr = new ContinuousEffectParameters
                     {
                       Selector = (card, effect) => card.Is().Creature && !card.Has().Flying,
-                      Modifier = () => new AddStaticAbility(Static.CannotBlock)
+                      Modifier = () => new AddSimpleAbility(Static.CannotBlock)
                     };
                     
                   return new AddContiniousEffect(new ContinuousEffect(pr)) {UntilEot = true};

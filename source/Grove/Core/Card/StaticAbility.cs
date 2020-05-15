@@ -180,7 +180,7 @@
       _isEnabled.Initialize(ChangeTracker);
       _isActivated.Initialize(ChangeTracker);
 
-      if (_enabledInAllZones)
+      if (_enabledInAllZones || owningCard.Zone == Zone.Battlefield)
       {
         Enable();
       }

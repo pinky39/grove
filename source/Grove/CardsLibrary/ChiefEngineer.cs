@@ -19,7 +19,7 @@
         {
           p.ApplyOnlyToPermanents = false;
           p.Selector = (card, ctx) => card.Is().Artifact && card.Owner == ctx.You;
-          p.Modifier = () => new AddStaticAbility(Static.Convoke);
+          p.Modifier = () => new AddSimpleAbility(Static.Convoke);
         });
     }
   }

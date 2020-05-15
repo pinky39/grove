@@ -755,6 +755,7 @@
     <Compile Include="Core\Events\EmblemAddedEvent.cs" />
     <Compile Include="Core\Events\EmblemRemovedEvent.cs" />
     <Compile Include="Core\Mana\ConvokeAndDelveOptions.cs" />
+    <Compile Include="Core\Modifiers\AddStaticAbility.cs" />
     <Compile Include="Core\Modifiers\EmblemLifetime.cs" />
     <Compile Include="Infrastructure\ReentryGuard.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfEnchantedCreaturesAbilities.cs" />
@@ -2055,7 +2056,7 @@
     <Compile Include="Core\Effects\ShuffleOwningCardIntoLibrary.cs" />
     <Compile Include="Core\Effects\UntapAllLands.cs" />
     <Compile Include="Core\Damage\DamagePrevention.cs" />
-    <Compile Include="Core\Modifiers\AddStaticAbility.cs" />
+    <Compile Include="Core\Modifiers\AddSimpleAbility.cs" />
     <Compile Include="Core\Modifiers\AddProtectionFromColors.cs" />
     <Compile Include="Core\Modifiers\AddTriggeredAbility.cs" />
     <Compile Include="Core\Modifiers\ChangeToCreature.cs" />

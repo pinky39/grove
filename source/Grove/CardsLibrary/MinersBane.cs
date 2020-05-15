@@ -25,7 +25,7 @@
             p.Cost = new PayMana("{2}{R}".Parse(), supportsRepetitions: true);
             p.Effect = () => new ApplyModifiersToSelf(
               () => new AddPowerAndToughness(1, 0) {UntilEot = true},
-              () => new AddStaticAbility(Static.Trample) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Trample) {UntilEot = true});
 
             p.TimingRule(new AfterOpponentDeclaresBlockers());          
             p.RepetitionRule(new RepeatMaxTimes());

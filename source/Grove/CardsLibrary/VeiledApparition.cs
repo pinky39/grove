@@ -30,7 +30,7 @@
                 toughness: 3,
                 type: t => t.Change(baseTypes: "creature", subTypes: "illusion"),
                 colors: L(CardColor.Blue)),
-              () => new AddStaticAbility(Static.Flying),
+              () => new AddSimpleAbility(Static.Flying),
               () =>
                 {
                   var tp = new TriggeredAbility.Parameters();

@@ -38,7 +38,7 @@
                   return new AddActivatedAbility(new ActivatedAbility(ap));
                 },
               () => new AddPowerAndToughness(2, 2),
-              () => new AddStaticAbility(Static.Flying)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+              () => new AddSimpleAbility(Static.Flying)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());

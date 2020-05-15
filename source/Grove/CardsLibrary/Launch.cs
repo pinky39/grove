@@ -19,7 +19,7 @@
           "Enchanted creature has flying.{EOL}When Launch is put into a graveyard from the battlefield, return Launch to its owner's hand.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new AddStaticAbility(Static.Flying));
+            p.Effect = () => new Attach(() => new AddSimpleAbility(Static.Flying));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());
             p.TargetingRule(new EffectCombatEnchantment(filter: x => !x.Has().Flying));

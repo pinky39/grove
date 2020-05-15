@@ -57,7 +57,7 @@
         ability = Static.Lifelink;
       }
 
-      var modifier = new AddStaticAbility(ability) { UntilEot = true };
+      var modifier = new AddSimpleAbility(ability) { UntilEot = true };
 
       Source.OwningCard.AddModifier(modifier, p);
     }

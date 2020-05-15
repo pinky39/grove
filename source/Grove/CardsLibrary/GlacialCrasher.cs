@@ -18,7 +18,7 @@
         .SimpleAbilities(Static.Trample)
         .StaticAbility(p =>
           {
-            p.Modifier(() => new AddStaticAbility(Static.CannotAttack));
+            p.Modifier(() => new AddSimpleAbility(Static.CannotAttack));
             p.Condition = cp => !cp.PermanentExists(c => c.Is("mountain"));
           });
     }

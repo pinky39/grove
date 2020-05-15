@@ -20,7 +20,7 @@
           {
             p.Effect = () => new ApplyModifiersToPermanents(
               selector: (c, ctx) => c.IsAttacker,
-              modifier: () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true});
+              modifier: () => new AddSimpleAbility(Static.FirstStrike) {UntilEot = true});
             
             p.TimingRule(new OnYourTurn(Step.DeclareBlockers));            
           });

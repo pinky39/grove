@@ -30,8 +30,8 @@
                 toughness: 5,
                 type: t => t.Change(baseTypes: "creature", subTypes: "angel"),
                 colors: L(CardColor.White)),
-              () => new AddStaticAbility(Static.Flying),
-              () => new AddStaticAbility(Static.Vigilance));
+              () => new AddSimpleAbility(Static.Flying),
+              () => new AddSimpleAbility(Static.Vigilance));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

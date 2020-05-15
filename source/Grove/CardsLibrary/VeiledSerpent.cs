@@ -31,7 +31,7 @@
                 toughness: 4,
                 type: t => t.Change(baseTypes: "creature", subTypes: "serpent"),
                 colors: L(CardColor.Blue)),
-              () => new AddStaticAbility(Static.CanAttackOnlyIfDefenderHasIslands));      
+              () => new AddSimpleAbility(Static.CanAttackOnlyIfDefenderHasIslands));      
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

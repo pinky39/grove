@@ -43,19 +43,19 @@
                     },
                   () =>
                     {
-                      var modifier = new AddStaticAbility(Static.Flying);
+                      var modifier = new AddSimpleAbility(Static.Flying);
                       modifier.AddLifetime(UntilAttached());
                       return modifier;
                     },
                   () =>
                     {
-                      var modifier = new AddStaticAbility(Static.FirstStrike);
+                      var modifier = new AddSimpleAbility(Static.FirstStrike);
                       modifier.AddLifetime(UntilAttached());
                       return modifier;
                     },
                   () =>
                     {
-                      var modifier = new AddStaticAbility(Static.Trample);
+                      var modifier = new AddSimpleAbility(Static.Trample);
                       modifier.AddLifetime(UntilAttached());
                       return modifier;
                     });

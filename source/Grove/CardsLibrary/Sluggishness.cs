@@ -20,7 +20,7 @@
         .Cast(p =>
           {
             p.Effect = () => new Attach(
-              () => new AddStaticAbility(Static.CannotBlock));
+              () => new AddSimpleAbility(Static.CannotBlock));
           
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());

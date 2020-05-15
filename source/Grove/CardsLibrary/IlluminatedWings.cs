@@ -19,7 +19,7 @@
         .FlavorText("For a moment, Urza thought not of war and destruction, but of the freedom of the skies.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new AddStaticAbility(Static.Flying));
+            p.Effect = () => new Attach(() => new AddSimpleAbility(Static.Flying));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());
             p.TargetingRule(new EffectCombatEnchantment(filter: x => !x.Has().Flying));

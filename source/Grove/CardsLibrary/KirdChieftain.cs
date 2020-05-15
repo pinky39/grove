@@ -33,7 +33,7 @@
 
           p.Effect = () => new ApplyModifiersToTargets(
             () => new AddPowerAndToughness(2, 2){UntilEot = true},
-            () => new AddStaticAbility(Static.Trample){UntilEot = true}).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+            () => new AddSimpleAbility(Static.Trample){UntilEot = true}).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 

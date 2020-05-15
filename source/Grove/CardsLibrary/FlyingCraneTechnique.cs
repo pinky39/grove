@@ -23,8 +23,8 @@
               selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,              
               modifiers: new CardModifierFactory[]
               {
-                () => new AddStaticAbility(Static.Flying){UntilEot = true}, 
-                () => new AddStaticAbility(Static.DoubleStrike){UntilEot = true}, 
+                () => new AddSimpleAbility(Static.Flying){UntilEot = true}, 
+                () => new AddSimpleAbility(Static.DoubleStrike){UntilEot = true}, 
               }));
 
           p.TimingRule(new Any(new BeforeYouDeclareAttackers(), new AfterOpponentDeclaresAttackers()));

@@ -18,7 +18,7 @@
         .ContinuousEffect(p =>
         {
           p.Selector = (card, ctx) => card.Is("Sliver") && card.Controller == ctx.You;
-          p.Modifier = () => new AddStaticAbility(Static.Indestructible);
+          p.Modifier = () => new AddSimpleAbility(Static.Indestructible);
         });
     }
   }

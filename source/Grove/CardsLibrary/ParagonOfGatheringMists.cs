@@ -35,7 +35,7 @@
             new PayMana("{U}".Parse()), 
             new Tap());
 
-          p.Effect = () => new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Flying) { UntilEot = true });
+          p.Effect = () => new ApplyModifiersToTargets(() => new AddSimpleAbility(Static.Flying) { UntilEot = true });
 
           p.TargetSelector.AddEffect(trg => trg
               .Is.Card(c => c.Is().Creature && c.HasColor(CardColor.Blue), controlledBy: ControlledBy.SpellOwner, canTargetSelf: false)

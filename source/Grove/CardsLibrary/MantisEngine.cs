@@ -24,7 +24,7 @@
             p.Text = "{2}: Mantis Engine gains flying until end of turn.";
             p.Cost = new PayMana(2.Colorless());
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new AddStaticAbility(Static.Flying) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Flying) {UntilEot = true});
 
             p.TimingRule(new Any(
               new BeforeYouDeclareAttackers(),
@@ -37,7 +37,7 @@
             p.Text = "{2}: Mantis Engine gains first strike until end of turn.";
             p.Cost = new PayMana(2.Colorless());
             p.Effect = () => new ApplyModifiersToSelf(
-              () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true});
+              () => new AddSimpleAbility(Static.FirstStrike) {UntilEot = true});
 
             p.TimingRule(new Any(
               new AfterOpponentDeclaresAttackers(),

@@ -18,7 +18,7 @@
         .Toughness(3)
         .StaticAbility(p =>
           {                        
-            p.Modifier(() => new AddStaticAbility(Static.Trample));
+            p.Modifier(() => new AddSimpleAbility(Static.Trample));
             p.Modifier(() => new AddPowerAndToughness(2, 0));
             p.Condition = cond => cond.OwnerControlsPermanent(c => c.Is().Artifact);
           });

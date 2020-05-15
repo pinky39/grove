@@ -17,7 +17,7 @@
         .Toughness(2)
         .StaticAbility(p =>
         {
-          p.Modifier(() => new AddStaticAbility(Static.FirstStrike));
+          p.Modifier(() => new AddSimpleAbility(Static.FirstStrike));
           p.Modifier(() => new AddPowerAndToughness(1, 0));
           p.Condition = cond => cond.OwnerControlsPermanent(c => c.HasColor(CardColor.Red) || c.HasColor(CardColor.White));
         });

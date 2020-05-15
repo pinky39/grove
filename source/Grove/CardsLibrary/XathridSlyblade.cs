@@ -26,8 +26,8 @@
 
           p.Effect = () => new ApplyModifiersToSelf(
             () => new RemoveAbility(Static.Hexproof) {UntilEot = true},
-            () => new AddStaticAbility(Static.FirstStrike) {UntilEot = true},
-            () => new AddStaticAbility(Static.Deathtouch) { UntilEot = true });
+            () => new AddSimpleAbility(Static.FirstStrike) {UntilEot = true},
+            () => new AddSimpleAbility(Static.Deathtouch) { UntilEot = true });
 
           p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new AfterOpponentDeclaresBlockers()));
           p.TimingRule(new WhenCardHas(c => !c.Has().Deathtouch));

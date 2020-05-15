@@ -19,7 +19,7 @@
           "All we could lose, we did. All we could keep, we do. And both are shrouded by mists.")
         .Cast(p =>
           {
-            p.Effect = () => new Attach(() => new AddStaticAbility(Static.Unblockable));
+            p.Effect = () => new Attach(() => new AddSimpleAbility(Static.Unblockable));
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());
             p.TargetingRule(new EffectCombatEnchantment(filter: x => !x.Has().Unblockable));

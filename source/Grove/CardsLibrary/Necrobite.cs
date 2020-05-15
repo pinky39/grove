@@ -18,7 +18,7 @@
         .Cast(p =>
         {
           p.Effect = () => new CompoundEffect(
-            new ApplyModifiersToTargets(() => new AddStaticAbility(Static.Deathtouch){UntilEot = true}),
+            new ApplyModifiersToTargets(() => new AddSimpleAbility(Static.Deathtouch){UntilEot = true}),
             new RegenerateTarget());
 
           p.TargetSelector.AddEffect(s => s.Is.Creature().On.Battlefield());

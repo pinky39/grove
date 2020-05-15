@@ -23,7 +23,7 @@
           p.Text = "{B}: Mardu Hateblade gains deathtouch until end of turn.";
           p.Cost = new PayMana(Mana.Black);
           p.Effect = () => new ApplyModifiersToSelf(
-            () => new AddStaticAbility(Static.Deathtouch) { UntilEot = true });
+            () => new AddSimpleAbility(Static.Deathtouch) { UntilEot = true });
                     
           p.TimingRule(new Any(new AfterOpponentDeclaresBlockers(), new AfterOpponentDeclaresAttackers()));
           p.TimingRule(new WhenCardHas(c => !c.Has().Deathtouch));

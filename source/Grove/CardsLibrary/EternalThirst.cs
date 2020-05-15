@@ -20,7 +20,7 @@
         .Cast(p =>
         {
           p.Effect = () => new Attach(
-            () => new AddStaticAbility(Static.Lifelink),
+            () => new AddSimpleAbility(Static.Lifelink),
             () =>
             {
               var tp = new TriggeredAbility.Parameters()

@@ -21,7 +21,7 @@
         {
           p.Effect = () => new Attach(
             () => new AddPowerAndToughness(1, 1),
-            () => new AddStaticAbility(Static.Haste)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
+            () => new AddSimpleAbility(Static.Haste)).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
 
@@ -35,7 +35,7 @@
           p.Trigger(new OnZoneChanged(to: Zone.Battlefield));
 
           p.Effect = () => new ApplyModifiersToTargets(
-            () => new AddStaticAbility(Static.CannotBlock){UntilEot = true});
+            () => new AddSimpleAbility(Static.CannotBlock){UntilEot = true});
           p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
           p.TargetingRule(new EffectCannotBlockAttack(blockOnly: true));
         });

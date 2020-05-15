@@ -29,7 +29,7 @@
 
             p.Effect = () => new ApplyModifiersToSelf(
               () => new RemoveAbility(Static.Defender) {UntilEot = true},
-              () => new AddStaticAbility(Static.Flying) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Flying) {UntilEot = true});
 
             p.TimingRule(new BeforeYouDeclareAttackers());
           });

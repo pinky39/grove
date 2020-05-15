@@ -23,7 +23,7 @@
             L(new TapTargets()),
             L(new ApplyModifiersToTargets(() =>
             {
-              var modifier = new AddStaticAbility(Static.DoesNotUntap);
+              var modifier = new AddSimpleAbility(Static.DoesNotUntap);
 
               modifier.AddLifetime(new EndOfStep(
                 Step.Untap,

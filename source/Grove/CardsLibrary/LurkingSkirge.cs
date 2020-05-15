@@ -35,7 +35,7 @@
                 toughness: 2,
                 type: t => t.Change(baseTypes: "creature", subTypes: "imp"),
                 colors: L(CardColor.Black)),
-              () => new AddStaticAbility(Static.Flying));
+              () => new AddSimpleAbility(Static.Flying));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }

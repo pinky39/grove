@@ -19,7 +19,7 @@
           .ContinuousEffect(p =>
           {
             p.Selector = (card, ctx) => card.Is("Goblin") && card.Controller == ctx.You && card != ctx.Source;
-            p.Modifier = () => new AddStaticAbility(Static.AttacksEachTurnIfAble);
+            p.Modifier = () => new AddSimpleAbility(Static.AttacksEachTurnIfAble);
           })
           .TriggeredAbility(p =>
           {

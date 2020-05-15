@@ -30,7 +30,7 @@
                 toughness: 3,
                 type: t => t.Change(baseTypes: "creature", subTypes: "knight"),
                 colors: L(CardColor.White)),
-                () => new AddStaticAbility(Static.FirstStrike));
+                () => new AddSimpleAbility(Static.FirstStrike));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           });

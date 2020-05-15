@@ -26,7 +26,7 @@
 
           p.Effect = () => new ApplyModifiersToPermanents(
             selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,             
-            modifier: () => new AddStaticAbility(Static.Lifelink) { UntilEot = true });
+            modifier: () => new AddSimpleAbility(Static.Lifelink) { UntilEot = true });
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });

@@ -24,7 +24,7 @@
             
             p.Effect = () => new ApplyModifiersToSelf(() =>
               {
-                var modifier = new AddStaticAbility(Static.Flying);
+                var modifier = new AddSimpleAbility(Static.Flying);
                 
                 modifier.AddLifetime(new AttachmentLifetime(self => 
                   self.Modifier.SourceEffect.TriggerMessage<AttachmentAttachedEvent>().Attachment));

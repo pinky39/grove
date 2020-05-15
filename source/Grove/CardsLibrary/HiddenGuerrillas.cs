@@ -30,7 +30,7 @@
                 toughness: 3,
                 type: t => t.Change(baseTypes: "creature", subTypes: "soldier"),
                 colors: L(CardColor.Green)),
-              () => new AddStaticAbility(Static.Trample));
+              () => new AddSimpleAbility(Static.Trample));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }

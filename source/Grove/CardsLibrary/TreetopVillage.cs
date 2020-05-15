@@ -35,7 +35,7 @@
                 toughness: 3,
                 colors: L(CardColor.Green),
                 type: t => t.Add(baseTypes: "creature", subTypes: "ape")) {UntilEot = true},
-              () => new AddStaticAbility(Static.Trample) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Trample) {UntilEot = true});
 
             p.TimingRule(new WhenStackIsEmpty());
             p.TimingRule(new WhenCardHas(c => !c.Is().Creature));

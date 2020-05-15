@@ -26,7 +26,7 @@
                     Selector = (card, ctx) =>
                       card.Controller == ctx.Opponent &&
                         (card.Is().Creature || card.Is().Land),
-                    Modifier = () => new AddStaticAbility(Static.DoesNotUntap)};                    
+                    Modifier = () => new AddSimpleAbility(Static.DoesNotUntap)};                    
 
                   var modifier = new AddContiniousEffect(new ContinuousEffect(cp));
 

@@ -24,8 +24,8 @@
             p.Text = "{2}: Attach to target creature you control. Equip only as a sorcery.";
             p.Cost = new PayMana(2.Colorless());
             p.Effect = () => new Attach(
-              () => new AddStaticAbility(Static.Deathtouch),
-              () => new AddStaticAbility(Static.Lifelink));
+              () => new AddSimpleAbility(Static.Deathtouch),
+              () => new AddSimpleAbility(Static.Lifelink));
             p.TargetSelector
               .AddEffect(trg => trg.Is.ValidEquipmentTarget().On.Battlefield());
             p.TargetingRule(new EffectCombatEquipment());

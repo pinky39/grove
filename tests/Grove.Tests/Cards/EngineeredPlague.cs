@@ -4,7 +4,7 @@
   using Infrastructure;
   using Xunit;
 
-  public class EngineeredPlague
+  public partial class EngineeredPlague
   {
     public class Ai : AiScenario
     {
@@ -21,6 +21,24 @@
         Equal(0, P2.Battlefield.Count);
         Equal(2, P2.Graveyard.Count);
       }
+
+      [Fact]
+      public void TakeAwayM1M1()
+      {
+        var plague = C("Engineered Plague");
+
+        Hand(P1, plague);
+        Hand(P2, "Naturalize", "Llanowar Elves", "Llanowar Elves");
+        
+        Battlefield(P1, "Swamp", "Swamp", "Swamp", "Unworthy Dead");
+        Battlefield(P2, "Llanowar Elves", "Llanowar Elves", "Forest", "Forest", "Forest", "Forest");
+
+        RunGame(2);
+        
+        Equal(2, P2.Battlefield.Creatures.Count());
+        Equal(3, P2.Graveyard.Count);
+        Equal(Zone.Graveyard, C(plague).Zone);
+      }     
     }
   }
 }

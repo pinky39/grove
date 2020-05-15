@@ -21,7 +21,7 @@
           })
         .ContinuousEffect(p =>
           {
-            p.Modifier = () => new AddStaticAbility(Static.FirstStrike);
+            p.Modifier = () => new AddSimpleAbility(Static.FirstStrike);
             p.Selector = (card, ctx) => card.Controller == ctx.You && card.Is().Creature;
           });
     }

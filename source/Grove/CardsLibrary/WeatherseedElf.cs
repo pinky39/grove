@@ -25,7 +25,7 @@
             p.Text = "{T}: Target creature gains forestwalk until end of turn.";
             p.Cost = new Tap();
             p.Effect = () => new ApplyModifiersToTargets(
-              () => new AddStaticAbility(Static.Forestwalk) {UntilEot = true});
+              () => new AddSimpleAbility(Static.Forestwalk) {UntilEot = true});
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             

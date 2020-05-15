@@ -21,7 +21,7 @@
           {
             p.Effect = () => new Attach(new ModifierFactory[]
               {
-                () => new AddStaticAbility(Static.DoesNotUntap),
+                () => new AddSimpleAbility(Static.DoesNotUntap),
                 () => new DisableAllAbilities(activated: true),
               });
 

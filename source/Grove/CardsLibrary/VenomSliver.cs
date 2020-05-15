@@ -18,7 +18,7 @@
         .ContinuousEffect(p =>
         {
           p.Selector = (card, ctx) => card.Is("Sliver") && card.Controller == ctx.You;
-          p.Modifier = () => new AddStaticAbility(Static.Deathtouch);
+          p.Modifier = () => new AddSimpleAbility(Static.Deathtouch);
         });
     }
   }

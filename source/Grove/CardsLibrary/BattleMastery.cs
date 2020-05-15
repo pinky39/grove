@@ -21,7 +21,7 @@
         .Cast(p =>
           {
             p.Effect = () => new Attach(
-              () => new AddStaticAbility(Static.DoubleStrike));
+              () => new AddSimpleAbility(Static.DoubleStrike));
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
             p.TimingRule(new OnFirstMain());

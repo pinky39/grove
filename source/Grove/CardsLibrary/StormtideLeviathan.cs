@@ -18,7 +18,7 @@
         .SimpleAbilities(Static.Islandwalk)
         .ContinuousEffect(p =>
           {
-            p.Modifier = () => new AddStaticAbility(Static.CannotAttack);
+            p.Modifier = () => new AddSimpleAbility(Static.CannotAttack);
             p.Selector = (card, effect) => (card.Is().Creature && !card.Has().Flying && !card.Has().Islandwalk);
           })
         .ContinuousEffect(p =>

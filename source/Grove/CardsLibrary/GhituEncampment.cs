@@ -35,7 +35,7 @@
                 toughness: 1,
                 colors: L(CardColor.Red),
                 type: t => t.Add(baseTypes: "creature", subTypes: "warrior")) { UntilEot = true },
-              () => new AddStaticAbility(Static.FirstStrike) { UntilEot = true });
+              () => new AddSimpleAbility(Static.FirstStrike) { UntilEot = true });
 
             p.TimingRule(new WhenStackIsEmpty());
             p.TimingRule(new WhenCardHas(c => !c.Is().Creature));

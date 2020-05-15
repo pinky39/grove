@@ -30,7 +30,7 @@
               new TapTargets(),
               new ApplyModifiersToTargets(() =>
                 {
-                  var modifier = new AddStaticAbility(Static.DoesNotUntap);
+                  var modifier = new AddSimpleAbility(Static.DoesNotUntap);
                   modifier.AddLifetime(new ModifierSourceGetsUntapedLifetime());
                   return modifier;
                 }));

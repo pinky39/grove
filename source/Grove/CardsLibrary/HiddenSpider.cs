@@ -31,7 +31,7 @@
               toughness: 5,
               type: t => t.Change(baseTypes: "creature", subTypes: "spider"),
               colors: L(CardColor.Green)),
-              () => new AddStaticAbility(Static.Reach));
+              () => new AddSimpleAbility(Static.Reach));
 
             p.TriggerOnlyIfOwningCardIsInPlay = true;
           }

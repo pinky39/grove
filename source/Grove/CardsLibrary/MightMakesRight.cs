@@ -33,7 +33,7 @@
           p.Effect = () => new CompoundEffect(
             new ApplyModifiersToTargets(
               () => new ChangeController(m => m.SourceCard.Controller) {UntilEot = true},
-              () => new AddStaticAbility(Static.Haste) {UntilEot = true}),
+              () => new AddSimpleAbility(Static.Haste) {UntilEot = true}),
             new UntapTargetPermanents());
 
           p.TargetSelector.AddEffect(trg => trg.Is.Creature(ControlledBy.Opponent).On.Battlefield());

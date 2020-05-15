@@ -24,7 +24,7 @@
           p.Trigger(new OnCastedSpell((c, ctx) =>
             c.Controller == ctx.You && !c.Is().Creature));
 
-          p.Effect = () => new ApplyModifiersToSelf(() => new AddStaticAbility(Static.Lifelink) { UntilEot = true });
+          p.Effect = () => new ApplyModifiersToSelf(() => new AddSimpleAbility(Static.Lifelink) { UntilEot = true });
 
           p.TriggerOnlyIfOwningCardIsInPlay = true;
         });

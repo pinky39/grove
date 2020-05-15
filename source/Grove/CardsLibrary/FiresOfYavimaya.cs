@@ -25,7 +25,7 @@
           })
         .ContinuousEffect(p =>
           {
-            p.Modifier = () => new AddStaticAbility(Static.Haste);
+            p.Modifier = () => new AddSimpleAbility(Static.Haste);
             p.Selector = (card, ctx) => card.Controller == ctx.You && card.Is().Creature;
           })
         .ActivatedAbility(p =>

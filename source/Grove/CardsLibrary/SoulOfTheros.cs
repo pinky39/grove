@@ -28,8 +28,8 @@
             selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
             modifiers: L(
               () => new AddPowerAndToughness(2, 2){UntilEot = true},
-              () => new AddStaticAbility(Static.FirstStrike){UntilEot = true},
-              () => new AddStaticAbility(Static.Lifelink){UntilEot = true})
+              () => new AddSimpleAbility(Static.FirstStrike){UntilEot = true},
+              () => new AddSimpleAbility(Static.Lifelink){UntilEot = true})
             ).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
           p.TimingRule(new Any(new AfterOpponentDeclaresAttackers(), new BeforeYouDeclareAttackers()));
@@ -46,8 +46,8 @@
             modifiers: new CardModifierFactory[]
             {
               () => new AddPowerAndToughness(2, 2){UntilEot = true},
-              () => new AddStaticAbility(Static.FirstStrike){UntilEot = true},
-              () => new AddStaticAbility(Static.Lifelink){UntilEot = true}
+              () => new AddSimpleAbility(Static.FirstStrike){UntilEot = true},
+              () => new AddSimpleAbility(Static.Lifelink){UntilEot = true}
             }).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
           p.ActivationZone = Zone.Graveyard;

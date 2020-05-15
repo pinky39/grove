@@ -36,7 +36,8 @@
         {
           SourceEffect = this,
           SourceCard = Source.OwningCard,
-          X = X
+          X = X,
+          IsStatic = true
         };
 
       foreach (var modifier in _modifiers.Select(modifierFactory => modifierFactory()))

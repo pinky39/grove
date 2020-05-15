@@ -26,7 +26,7 @@
 
           p.Effect = () => new ApplyModifiersToPermanents(
             selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
-            modifier: () => new AddStaticAbility(Static.Indestructible){UntilEot = true}
+            modifier: () => new AddSimpleAbility(Static.Indestructible){UntilEot = true}
             ).SetTags(EffectTag.Indestructible);
 
           p.TimingRule(new Any(
@@ -43,7 +43,7 @@
 
           p.Effect = () => new ApplyModifiersToPermanents(
             selector: (c, ctx) => c.Is().Creature && ctx.You == c.Controller,            
-            modifier: () => new AddStaticAbility(Static.Indestructible){UntilEot = true}
+            modifier: () => new AddSimpleAbility(Static.Indestructible){UntilEot = true}
             ).SetTags(EffectTag.Indestructible);
 
           p.ActivationZone = Zone.Graveyard;

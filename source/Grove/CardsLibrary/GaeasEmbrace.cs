@@ -36,7 +36,7 @@
                   return new AddActivatedAbility(new ActivatedAbility(ap));
                 },
               () => new AddPowerAndToughness(3, 3),
-              () => new AddStaticAbility(Static.Trample)
+              () => new AddSimpleAbility(Static.Trample)
               ).SetTags(EffectTag.IncreasePower, EffectTag.IncreaseToughness);
 
             p.TargetSelector.AddEffect(trg => trg.Is.Creature().On.Battlefield());
