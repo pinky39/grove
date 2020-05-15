@@ -93,7 +93,7 @@
                       () => new AddSimpleAbility(Static.Trample) { UntilEot = true })
                   };
 
-                  tp.Trigger(new WhenThisAttacks());
+                  tp.Trigger(new WhenThisAttacks(ap => ap.Attacker.Planeswalker == null));
                   return new AddTriggeredAbility(new TriggeredAbility(tp));
                 },
                

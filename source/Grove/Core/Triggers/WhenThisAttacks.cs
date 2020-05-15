@@ -17,15 +17,19 @@
 
     public void Receive(AttackersDeclaredEvent e)
     {
-      if (!OwningCard.IsAttacker)
-        return;                  
+      var attacker = Combat.FindAttacker(OwningCard);
 
-      if (_predicate(new Parameters()))
+      if (attacker == null)
+        return;      
+      
+      if (_predicate(new Parameters { Attacker = attacker }))
       {
         Set();
       }
     }
 
-    public class Parameters {}
+    public class Parameters {
+      public Attacker Attacker;
+    }
   }
 }

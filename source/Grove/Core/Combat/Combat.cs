@@ -139,7 +139,7 @@
     public bool IsAttacker(Card card)
     {
       return FindAttacker(card) != null;
-    }
+    }    
 
     public bool IsBlocker(Card card)
     {
@@ -322,7 +322,7 @@
       return new Blocker(blocker, attacker, Game);
     }
 
-    private Attacker FindAttacker(Card cardAttacker)
+    public Attacker FindAttacker(Card cardAttacker)
     {
       return _attackers.FirstOrDefault(a => a.Card == cardAttacker);
     }
