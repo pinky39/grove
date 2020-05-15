@@ -87,7 +87,7 @@
                 {
                   var tp = new TriggeredAbility.Parameters
                   {
-                    Text = "Whenever a creature attacks you, it gets +5/+5 and gains trample until end of turn.",
+                    Text = "Whenever this creature attacks, it gets +5/+5 and gains trample until end of turn.",
                     Effect = () => new ApplyModifiersToSelf(
                       () => new AddPowerAndToughness(5, 5) { UntilEot = true },
                       () => new AddSimpleAbility(Static.Trample) { UntilEot = true })
