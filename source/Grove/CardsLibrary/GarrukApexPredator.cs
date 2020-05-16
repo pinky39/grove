@@ -18,7 +18,7 @@
         .Type("Planeswalker Garruk")
         .Text("{+1}: Destroy another target planeswalker.{EOL}" +
         "{+1}: Create a 3/3 black Beast creature token with deathtouch.{EOL}" +
-        "{-3}: Destroy target creature.You gain life equal to its toughness.{EOL}" +
+        "{-3}: Destroy target creature. You gain life equal to its toughness.{EOL}" +
         "{-8}: Target opponent gets an emblem with 'Whenever a creature attacks you, it gets +5/+5 and gains trample until end of turn.'")
         .Loyality(5)
         .ActivatedAbility(p =>
