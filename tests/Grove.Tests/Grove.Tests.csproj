@@ -365,6 +365,7 @@
     <Compile Include="Cards\IronMaiden.cs" />
     <Compile Include="Cards\IvorytuskFortress.cs" />
     <Compile Include="Cards\IvySeer.cs" />
+    <Compile Include="Cards\JaceTheLivingGuildpact.cs" />
     <Compile Include="Cards\JaggedLightning.cs" />
     <Compile Include="Cards\JaliraMasterPolymorphist.cs" />
     <Compile Include="Cards\JasmineSeer.cs" />

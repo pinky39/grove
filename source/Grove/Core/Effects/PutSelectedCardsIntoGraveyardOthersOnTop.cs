@@ -10,12 +10,16 @@
     IChooseDecisionResults<List<Card>, ChosenCards>, IProcessDecisionResults<Ordering>, IChooseDecisionResults<List<Card>, Ordering>
   {
     private readonly int _count;
+    private readonly int? _countGraveyard;
 
     private PutSelectedCardsIntoGraveyardOthersOnTop() {}
 
-    public PutSelectedCardsIntoGraveyardOthersOnTop(int count)
+    public PutSelectedCardsIntoGraveyardOthersOnTop(
+      int count, 
+      int? countGraveyard = null)
     {
       _count = count;
+      _countGraveyard = countGraveyard;
     }
 
     protected override void ResolveEffect()
@@ -34,9 +38,9 @@
         {
           p.SetValidator(c => cards.Contains(c));
           p.Zone = Zone.Library;
-          p.MinCount = 0;
-          p.MaxCount = null;
-          p.Text = "Select any number of cards to put them into graveyard.";
+          p.MinCount = _countGraveyard ?? 0;
+          p.MaxCount = _countGraveyard;
+          p.Text = "Select cards to put into graveyard.";
           p.OwningCard = Source.OwningCard;
           p.ProcessDecisionResults = this;
           p.ChooseDecisionResults = this;

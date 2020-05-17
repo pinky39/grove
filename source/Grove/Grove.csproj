@@ -384,6 +384,7 @@
     <Compile Include="CardsLibrary\IvorytuskFortress.cs" />
     <Compile Include="CardsLibrary\IvySeer.cs" />
     <Compile Include="CardsLibrary\JacesIngenuity.cs" />
+    <Compile Include="CardsLibrary\JaceTheLivingGuildpact.cs" />
     <Compile Include="CardsLibrary\JaliraMasterPolymorphist.cs" />
     <Compile Include="CardsLibrary\JasmineSeer.cs" />
     <Compile Include="CardsLibrary\JeskaiBanner.cs" />

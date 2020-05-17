@@ -119,7 +119,7 @@ Inspired Charge;C;2
 Into the Void;U;2
 Invasive Species;C;2.5
 Invisibility;C;1.5
-#Jace, the Living Guildpact;R;3.50
+Jace, the Living Guildpact;R;3.50
 Jace's Ingenuity;U;3.5
 Jalira, Master Polymorphist;R;2.5
 Jorubai Murk Lurker;U;2

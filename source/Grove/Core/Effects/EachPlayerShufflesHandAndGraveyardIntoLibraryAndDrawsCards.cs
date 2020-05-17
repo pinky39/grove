@@ -5,12 +5,14 @@
   public class EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards : Effect
   {
     private readonly int _count;
+    private readonly bool _onlyYouDraw;
 
     private EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards() {}
 
-    public EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards(int count)
+    public EachPlayerShufflesHandAndGraveyardIntoLibraryAndDrawsCards(int count, bool onlyYouDraw = false)
     {
       _count = count;
+      _onlyYouDraw = onlyYouDraw;
     }
 
     protected override void ResolveEffect()
@@ -33,7 +35,10 @@
 
       player.ShuffleLibrary();
 
-      player.DrawCards(_count);
+      if (!_onlyYouDraw || player == Controller)
+      {
+        player.DrawCards(_count);
+      }  
     }
   }
 }
