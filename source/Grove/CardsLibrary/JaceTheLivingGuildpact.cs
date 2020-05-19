@@ -4,6 +4,7 @@
   using AI.TimingRules;
   using Costs;
   using Effects;
+  using Grove.Decisions;
   using System.Collections.Generic;
 
   public class JaceTheLivingGuildpact : CardTemplateSource

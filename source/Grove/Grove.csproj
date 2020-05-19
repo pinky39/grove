@@ -413,6 +413,7 @@
     <Compile Include="CardsLibrary\LeechingSliver.cs" />
     <Compile Include="CardsLibrary\LifesLegacy.cs" />
     <Compile Include="CardsLibrary\LightningStrike.cs" />
+    <Compile Include="CardsLibrary\LilianaVess.cs" />
     <Compile Include="CardsLibrary\LivingTotem.cs" />
     <Compile Include="CardsLibrary\LlanowarWastes.cs" />
     <Compile Include="CardsLibrary\LongshotSquad.cs" />
@@ -751,6 +752,7 @@
     <Compile Include="Core\Decisions\ChosenAttackers.cs" />
     <Compile Include="Core\Effects\CreateEmblem.cs" />
     <Compile Include="Core\Effects\OwnerGainsVigilanceLifelinkOrHaste.cs" />
+    <Compile Include="Core\Effects\PutCreaturesFromGraveyardsToBattlefield.cs" />
     <Compile Include="Core\Emblem.cs" />
     <Compile Include="Core\Effects\PreventDamageToEquipedCreature.cs" />
     <Compile Include="Core\Events\EmblemAddedEvent.cs" />

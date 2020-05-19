@@ -325,7 +325,7 @@
 
       Publish(new PlayerDrawsCardEvent(this));
 
-      if (Ai.IsSearchInProgress)
+      if (Ai.IsSearchInProgress && !card.IsPeeked)
       {
         card.Hide();
       }

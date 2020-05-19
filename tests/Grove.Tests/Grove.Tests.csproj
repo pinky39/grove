@@ -390,6 +390,7 @@
     <Compile Include="Cards\LayWaste.cs" />
     <Compile Include="Cards\LeechingSliver.cs" />
     <Compile Include="Cards\LightningStrike.cs" />
+    <Compile Include="Cards\LilianaVess.cs" />
     <Compile Include="Cards\LiltingRefrain.cs" />
     <Compile Include="Cards\LingeringMirage.cs" />
     <Compile Include="Cards\LivingDestiny.cs" />

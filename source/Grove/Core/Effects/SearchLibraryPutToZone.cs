@@ -74,18 +74,25 @@
 
         PutToZone(card, attachTo);
 
+        // if we search library for a card this card should
+        // be visible when the tree search runs, because
+        // we know what we have that card in library in advance         
+        // this allows game ai to correctly use tutor kind cards
+
         if (_revealCards)
-        {
-          card.Reveal();
+        {          
+          card.Reveal(allowPeekDuringSearch: true);
         }
         else
         {
-          card.ResetVisibility();
+          card.Peek(allowPeekDuringSearch: true);
         }
       }
 
-
-      Controller.ShuffleLibrary();
+      if (_zone != Zone.Library)
+      {
+        Controller.ShuffleLibrary();
+      }      
     }
 
     private void PutToZone(Card card, Card attachTo)
@@ -116,6 +123,12 @@
         case (Zone.Exile):
           {
             card.Exile();
+            break;
+          }
+        case (Zone.Library):
+          {
+            Controller.ShuffleLibrary();
+            card.PutOnTopOfLibrary();
             break;
           }
         default:

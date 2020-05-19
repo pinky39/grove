@@ -427,6 +427,11 @@
       get { return _attachments.Any(x => x.Is().Aura); }
     }    
 
+    public bool IsPeeked
+    {
+      get { return _isPeeked.Value; }
+    }    
+
     public void ReceiveDamage(Damage damage)
     {      
       if (!(Is().Creature || Is().Planeswalker) || !IsPermanent)
@@ -1109,29 +1114,29 @@
       return player == Controller;
     }
 
-    public void Reveal()
+    public void Reveal(bool allowPeekDuringSearch = false)
     {
       // Reveal should only work during actual game.
       // Revealing cards during simulation should have no 
       // effect.
 
+      Peek(allowPeekDuringSearch);
+
       if (Ai.IsSearchInProgress)
         return;
 
-      _isRevealed.Value = true;
-      _isPeeked.Value = true;
-      _isHidden.Value = false;
+      _isRevealed.Value = true;      
 
       Publish(new CardWasRevealedEvent(this));
     }
 
-    public void Peek()
+    public void Peek(bool allowPeekDuringSearch = false)
     {
       // Peek should only work during actual game.
       // Peeking at cards during simulation should have no 
       // effect.
 
-      if (Ai.IsSearchInProgress)
+      if (Ai.IsSearchInProgress && !allowPeekDuringSearch)
         return;
 
       _isHidden.Value = false;
