@@ -15,7 +15,7 @@
         .ManaCost("{3}{B}{B}")
         .Type("Planeswalker Liliana")
         .Text("{+1}: Target player discards a card.{EOL}" +
-        "{−2}: Search your library for a card, then shuffle your library and put that card on top of it.{EOL}" +
+        "{-2}: Search your library for a card, then shuffle your library and put that card on top of it.{EOL}" +
         "{-8}: Put all creature cards from all graveyards onto the battlefield under your control.{EOL}")
         .Loyality(5)
         .ActivatedAbility(p =>
