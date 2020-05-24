@@ -134,7 +134,7 @@ Lava Axe;C;1.50
 Leeching Sliver;U;2
 Life's Legacy;R;3
 Lightning Strike;C;3.5
-#Liliana Vess;R;4.00
+Liliana Vess;R;4.00
 Living Totem;C;2
 Llanowar Wastes;R;2
 Mahamoti Djinn;R;4
