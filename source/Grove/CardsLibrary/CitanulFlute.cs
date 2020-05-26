@@ -30,7 +30,7 @@
               minCount: 0,
               maxCount: 1,
               validator: (c, ctx) => c.Is().Creature && c.ConvertedCost <= ctx.X,
-              text: "Search you library for a creature card.");
+              text: "Search your library for a creature card.");
 
             p.TimingRule(new OnEndOfOpponentsTurn());
             p.CostRule(new XIsMaxCostInYourLibrary(c => c.Is().Creature));
