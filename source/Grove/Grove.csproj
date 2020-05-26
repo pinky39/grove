@@ -466,6 +466,7 @@
     <Compile Include="CardsLibrary\Nightmare.cs" />
     <Compile Include="CardsLibrary\NimbusOfTheIsles.cs" />
     <Compile Include="CardsLibrary\NissasExpedition.cs" />
+    <Compile Include="CardsLibrary\NissaWorldwaker.cs" />
     <Compile Include="CardsLibrary\NobleHierarch.cs" />
     <Compile Include="CardsLibrary\NomadOutpost.cs" />
     <Compile Include="CardsLibrary\ObeliskOfUrd.cs" />

@@ -444,6 +444,7 @@
     <Compile Include="Cards\NightfireGiant.cs" />
     <Compile Include="Cards\NightshadeSeer.cs" />
     <Compile Include="Cards\NissasExpedition.cs" />
+    <Compile Include="Cards\NissaWorldwaker.cs" />
     <Compile Include="Cards\NobleHierarch.cs" />
     <Compile Include="Cards\NoeticScales.cs" />
     <Compile Include="Cards\NoRestForTheWicked.cs" />

@@ -160,7 +160,7 @@ Netcaster Spider;C;2.5
 Nightfire Giant;U;2.5
 Nightmare;R;2
 Nimbus of the Isles;C;2
-#Nissa, Worldwaker;R;4.00
+Nissa, Worldwaker;R;4.00
 Nissa's Expedition;U;2.5
 Ob Nixilis, Unshackled;R;4.5
 Obelisk of Urd;R;1.5
