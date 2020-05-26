@@ -12,7 +12,7 @@ The most fun game feature are limited tournaments.
 
 If you don't have the time to finish the game, you can save it at any time, by pressing `alt-q` and choosing `Save game` menu option.
 
-Currently (version 4) there are 1114 cards implemented. The following sets can be played in limited tournaments: 
+Currently (version 4) there are 1118 cards implemented. The following sets can be played in limited tournaments: 
 * Magic 2015 Core Set
 * Urza's Saga
 * Urza's Legacy
@@ -153,7 +153,7 @@ Version 1.9 added sealed tournament game mode and version 2 added draft tourname
 
 With version 3 (Jul 14, 2014), I added one more set: Urza's Destiny, that concluded the Urza's block, bringing the total card count to 690. I also improved AI and UI. The project was migrated to github (from [googlecode](https://code.google.com/archive/p/magicgrove/)).
 
-### Version 4 (2014 - 2015, 2020) - 1114 cards
+### Version 4 (2014 - 2015, 2020) - 1118 cards
 
 After the version 3, I decided that I would take a break, the game had all the features I wanted and was fun and engaging.
 

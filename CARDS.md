@@ -1,7 +1,7 @@
 # Card list
 ---
 *The following cards can be used to construct new decks:*
-
+ 
 * About Face
 * Abrupt Decay
 * Absolute Grace
@@ -356,6 +356,7 @@
 * Gamekeeper
 * Gang of Elk
 * Gargoyle Sentinel
+* Garruk, Apex Predator
 * Garruk's Packleader
 * Gather Courage
 * Geist of the Moors
@@ -476,6 +477,7 @@
 * Island
 * Ivorytusk Fortress
 * Ivy Seer
+* Jace, the Living Guildpact
 * Jace's Ingenuity
 * Jagged Lightning
 * Jalira, Master Polymorphist
@@ -521,6 +523,7 @@
 * Lightning Bolt
 * Lightning Dragon
 * Lightning Strike
+* Liliana Vess
 * Liliana's Specter
 * Lilting Refrain
 * Lingering Mirage
@@ -615,6 +618,7 @@
 * Nightmare
 * Nightshade Seer
 * Nimbus of the Isles
+* Nissa, Worldwaker
 * Nissa's Expedition
 * No Mercy
 * No Rest for the Wicked

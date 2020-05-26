@@ -124,7 +124,9 @@ Wall of Mulch, Wandering Champion, War Flare, Warden of the Beyond,
 Warden of the Eye, War-Name Aspirant, Waste Not, Weave Fate, Welkin Tern, 
 Whirlwind Adept, Whisk Away, Will-Forged Golem, Wind-Scarred Crag, Windstorm, 
 Windswept Heath, Witch's Familiar, Xathrid Slyblade, Yavimaya Coast, 
-Yisan, the Wanderer Bard, Zof Shade
+Yisan, the Wanderer Bard, Zof Shade, Garruk, Apex Predator, Liliana Vess,
+Jace, the Living Guildpact, Nissa, Worldwaker
+ 
 
 ## Version 3.0 (2014/08/11)
 
