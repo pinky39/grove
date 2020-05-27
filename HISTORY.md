@@ -13,6 +13,7 @@
 * Mark p/t with different color, when they change
 * Show simple abilities (flying, trample) markers
 * Add exile zone tab to zones
+* Add new rarity: mythic rare
 
 ### Improved AI
 

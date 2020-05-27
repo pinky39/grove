@@ -12,6 +12,7 @@
     private readonly Dictionary<string, int> _boosterPack = new Dictionary<string, int>();
     private readonly List<string> _commons = new List<string>();
     private readonly List<string> _rares = new List<string>();
+    private readonly List<string> _mythics = new List<string>();
     private readonly Dictionary<string, double> _ratings = new Dictionary<string, double>();
     private readonly Dictionary<string, int> _tournamentPack = new Dictionary<string, int>();
     private readonly List<string> _uncommons = new List<string>();
@@ -49,6 +50,9 @@
           break;
         case (Rarity.R):
           _rares.Add(name);
+          break;
+        case (Rarity.M):
+          _mythics.Add(name);
           break;
       }
     }
@@ -132,6 +136,11 @@
       return new CardInfo(_rares[RandomEx.Next(0, _rares.Count)], Rarity.R, Name);
     }
 
+    private CardInfo GetRandomMythic()
+    {
+      return new CardInfo(_mythics[RandomEx.Next(0, _mythics.Count)], Rarity.M, Name);
+    }
+
     public List<CardInfo> GenerateMixedPack(int boosterCount, int tournamentCount)
     {
       var pack = new List<CardInfo>();
@@ -157,13 +166,24 @@
     private List<CardInfo> GeneratePack(Dictionary<string, int> settings)
     {
       var cards = new Dictionary<string, CardInfo>();
+      bool hasMythics = _mythics.Count > 0;
 
       for (var i = 0; i < settings["Rares"]; i++)
       {
         CardInfo random;
         do
         {
-          random = GetRandomRare();
+          var isMythic = RandomEx.Next(8) == 0;
+          
+          if (hasMythics && isMythic)
+          {
+            random = GetRandomMythic();
+          }
+          else
+          {
+            random = GetRandomRare();
+          }
+          
         } while (cards.ContainsKey(random.Name));
 
         cards.Add(random.Name, random);

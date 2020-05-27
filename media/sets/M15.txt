@@ -17,7 +17,7 @@ Aegis Angel;R;4.5
 Aeronaut Tinkerer;C;2.0
 AEtherspouts;R;3.00
 Aggressive Mining;R;0.5
-Ajani Steadfast;R;4.5
+Ajani Steadfast;M;4.5
 Ajani's Pridemate;U;3.0
 Altac Bloodseeker;U;1.5
 Amphin Pathmage;C;1.5
@@ -87,7 +87,7 @@ Frost Lynx;C;3
 Fugitive Wizard;C;1
 Furnace Whelp;U;2.5
 Gargoyle Sentinel;U;2
-Garruk, Apex Predator;R;4.00
+Garruk, Apex Predator;M;4.00
 Garruk's Packleader;U;3.5
 Gather Courage;U;1.5
 Geist of the Moors;U;3
@@ -119,7 +119,7 @@ Inspired Charge;C;2
 Into the Void;U;2
 Invasive Species;C;2.5
 Invisibility;C;1.5
-Jace, the Living Guildpact;R;3.50
+Jace, the Living Guildpact;M;3.50
 Jace's Ingenuity;U;3.5
 Jalira, Master Polymorphist;R;2.5
 Jorubai Murk Lurker;U;2
@@ -134,7 +134,7 @@ Lava Axe;C;1.50
 Leeching Sliver;U;2
 Life's Legacy;R;3
 Lightning Strike;C;3.5
-Liliana Vess;R;4.00
+Liliana Vess;M;4.00
 Living Totem;C;2
 Llanowar Wastes;R;2
 Mahamoti Djinn;R;4
@@ -160,7 +160,7 @@ Netcaster Spider;C;2.5
 Nightfire Giant;U;2.5
 Nightmare;R;2
 Nimbus of the Isles;C;2
-Nissa, Worldwaker;R;4.00
+Nissa, Worldwaker;M;4.00
 Nissa's Expedition;U;2.5
 Ob Nixilis, Unshackled;R;4.5
 Obelisk of Urd;R;1.5
@@ -174,7 +174,7 @@ Paragon of Gathering Mists;U;3.5
 Paragon of New Dawns;U;3
 Paragon of Open Graves;U;3.5
 Peel from Reality;C;2
-Perilous Vault;R;4
+Perilous Vault;M;4
 #Phyrexian Revoker;R;2.50
 Phytotitan;R;3.5
 Pillar of Light;C;3
@@ -216,14 +216,14 @@ Shrapnel Blast;U;1.5
 Siege Dragon;R;3.5
 Siege Wurm;C;3
 Sign in Blood;C;2.5
-Sliver Hivelord;R;1
+Sliver Hivelord;M;1
 Solemn Offering;C;1.5
-Soul of Innistrad;R;4
-Soul of New Phyrexia;R;4
-Soul of Ravnica;R;4
-Soul of Shandalar;R;4
-Soul of Theros;R;4.00
-Soul of Zendikar;R;4
+Soul of Innistrad;M;4
+Soul of New Phyrexia;M;4
+Soul of Ravnica;M;4
+Soul of Shandalar;M;4
+Soul of Theros;M;4.00
+Soul of Zendikar;M;4
 Soulmender;C;1.5
 Spectra Ward;R;2
 Spirit Bonds;R;3.5

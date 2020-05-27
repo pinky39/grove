@@ -75,16 +75,19 @@
 										<ControlTemplate TargetType="{x:Type ListBoxItem}">
                                             <ControlTemplate.Resources>                                                
                                                 <Style x:Key="Rarity" TargetType="Border">
-                                                    <Setter Property="Background" Value="#22000000"/>
+                                                     <Setter Property="Background" Value="#22000000"/>
                                                      <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding View.Card.Rarity}" Value="M">
+                                                            <Setter Property="Background" Value="#44ff5b00"></Setter>
+                                                        </DataTrigger>
                                                         <DataTrigger Binding="{Binding View.Card.Rarity}" Value="R">
-                                                            <Setter Property="Background" Value="#11FFA500"></Setter>                                                             
+                                                            <Setter Property="Background" Value="#33FFA500"></Setter>                                                             
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding View.Card.Rarity}" Value="C">
                                                             <Setter Property="Background" Value="#22000000"></Setter>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding View.Card.Rarity}" Value="U">
-                                                            <Setter Property="Background" Value="#11cccccc"></Setter>
+                                                            <Setter Property="Background" Value="#22cccccc"></Setter>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
