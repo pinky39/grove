@@ -573,11 +573,24 @@
       add(this);
 
       if (destination.Name != source.Name)
-      {                        
+      {                                
         if (destination.Name == Zone.Battlefield)
         {
           HasSummoningSickness = true;
           JoinedBattlefield.Raise();
+        }        
+        
+        // if card goes to library and it is not hidden, change its default zone visibility
+        if (destination.Name == Zone.Library && !_isHidden)
+        {
+          if (source.Name == Zone.Hand)
+          {
+            Peek(true);
+          }
+          else if (source.Name == Zone.Battlefield || source.Name == Zone.Graveyard || source.Name == Zone.Exile)
+          {
+            Reveal(true);
+          }
         }
                 
         Publish(new ZoneChangedEvent(this, source.Name, destination.Name));                
