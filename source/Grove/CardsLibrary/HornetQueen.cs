@@ -16,7 +16,7 @@
           "{Flying}{EOL}{Deathtouch}{I}(Any amount of damage this deals to a creature is enough to destroy it.){/I}{EOL}When Hornet Queen enters the battlefield, put four 1/1 green Insect creature tokens with flying and deathtouch onto the battlefield.")
         .Power(2)
         .Toughness(2)
-        .SimpleAbilities(Static.Deathtouch)
+        .SimpleAbilities(Static.Deathtouch, Static.Flying)
         .TriggeredAbility(p =>
           {
             p.Text =
