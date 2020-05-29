@@ -592,6 +592,14 @@
             Reveal(true);
           }
         }
+
+        if (destination.Name == Zone.Hand && !_isHidden)
+        {
+          if (source.Name == Zone.Battlefield || source.Name == Zone.Graveyard || source.Name == Zone.Exile)
+          {
+            Reveal(true);
+          }
+        }
                 
         Publish(new ZoneChangedEvent(this, source.Name, destination.Name));                
         
