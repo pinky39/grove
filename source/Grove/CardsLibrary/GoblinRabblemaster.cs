@@ -47,7 +47,7 @@
               toughness: 0,
               filter: (c, ctx) => c.Is("Goblin") && c.IsAttacker && c != ctx.OwningCard,
               modifier: () => new IntegerIncrement()
-              ));
+              ){ UntilEot = true });
           });
     }
   }
