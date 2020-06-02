@@ -1,5 +1,5 @@
 # Card list
----
+
 *The following cards can be used to construct new decks:*
  
 * About Face
