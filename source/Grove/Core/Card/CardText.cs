@@ -13,7 +13,7 @@
   {
     private static readonly Regex Brackets = new Regex("{(.*)}", RegexOptions.Compiled);
     private static readonly string[] ManaSymbols = new[] { 
-      "w", "u", "b", "r", "g", "wp", "up", "bp", "rp", "gp", "t", "x",
+      "w", "u", "b", "r", "g", "pw", "up", "bp", "rp", "gp", "t", "x",
       "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
       "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-10",
       "+1", "+2", "+3", "+4", "+5", "+6", "+7", "+8", "+9", "+10",

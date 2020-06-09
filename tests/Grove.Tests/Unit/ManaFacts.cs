@@ -89,6 +89,28 @@
       AssertAvailable("{G}{B}");
     }
 
+    [Fact]
+    public void DoNotPayLife()
+    {
+      P1.Life = 20;
+      
+      Add("{B}{B}{R}");
+      Consume("{PB}{PB}{1}");
+
+      Equal(20, P1.Life);
+    }
+
+    [Fact]
+    public void Pay2Life()
+    {
+      P1.Life = 20;
+
+      Add("{B}{R}{B}");
+      Consume("{B}{PB}{PB}{1}");
+
+      Equal(18, P1.Life);
+    }
+
     public ManaFacts()
     {
       _cache = new ManaCache(P1);

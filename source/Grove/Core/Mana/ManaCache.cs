@@ -331,18 +331,16 @@
 
       var checkAmount = amount
         .Select(x => new
-          {
-            Color = GetColorIndex(x),
-            Count = x.Count,
-            IsPhyrexian = x.Color.IsPhyrexian
-          })
-        
-        // if cost has phyrexian mana, check it at the end
-        .OrderBy(x => x.IsPhyrexian ? 2 : 1) 
-        
+        {
+          Color = GetColorIndex(x),
+          Count = x.Count,
+          IsPhyrexian = x.Color.IsPhyrexian
+        })
         // first check for mana which has only few mana sources
-        .ThenBy(x => _groups[x.Color].Count)
+        .OrderBy(x => _groups[x.Color].Count)
         .ToArray();
+
+      var allocatedPhyrexian = new List<ManaUnit>();
 
       foreach (var manaOfSingleColor in checkAmount)
       {
@@ -355,6 +353,7 @@
         {
           var allocatedUnit = ordered.FirstOrDefault(unit => IsAvailable(unit, restricted, usage));
 
+          // allocation failed
           if (allocatedUnit == null)
           {
             if (manaOfSingleColor.IsPhyrexian)
@@ -363,7 +362,26 @@
               continue;
             }
 
+            // if pyrexian is holding the slot, release it and pay life
+            if (allocatedPhyrexian.Count > 0)
+            {
+              var restrictedWithoutPhyrexian = restricted.Where(x => !allocatedPhyrexian.Contains(x)).ToHashSet();
+              allocatedUnit = ordered.FirstOrDefault(unit => IsAvailable(unit, restrictedWithoutPhyrexian, usage));
+
+              if (allocatedUnit != null)
+              {
+                allocated.Lifeloss += 2;
+                allocatedPhyrexian.Remove(allocatedUnit);
+                continue;
+              }
+            }
+            
             return null;
+          }
+
+          if (manaOfSingleColor.IsPhyrexian)
+          {
+            allocatedPhyrexian.Add(allocatedUnit);
           }
 
           restricted.Add(allocatedUnit);
