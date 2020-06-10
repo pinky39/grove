@@ -1,6 +1,6 @@
 # Release notes
 
-## Version 4.0 (2020/05/**)
+## Version 4.0 (2020/06/10)
 
 ### New sets
 
