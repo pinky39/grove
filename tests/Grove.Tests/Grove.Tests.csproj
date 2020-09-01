@@ -656,6 +656,7 @@
     <Compile Include="Cards\Ulcerate.cs" />
     <Compile Include="Cards\Umbilicus.cs" />
     <Compile Include="Cards\UndergrowthScavenger.cs" />
+    <Compile Include="Cards\UntamedKavu.cs" />
     <Compile Include="Cards\UnworthyDead.cs" />
     <Compile Include="Cards\UrzasArmor.cs" />
     <Compile Include="Cards\UrzasIncubator.cs" />
