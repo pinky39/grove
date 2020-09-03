@@ -322,6 +322,7 @@
     <Compile Include="CardsLibrary\ForgeDevil.cs" />
     <Compile Include="CardsLibrary\FoundryStreetDenizen.cs" />
     <Compile Include="CardsLibrary\FrenziedGoblin.cs" />
+    <Compile Include="CardsLibrary\FrilledSandwalla.cs" />
     <Compile Include="CardsLibrary\FrontierBivouac.cs" />
     <Compile Include="CardsLibrary\FrostLynx.cs" />
     <Compile Include="CardsLibrary\FugitiveWizard.cs" />

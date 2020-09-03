@@ -169,7 +169,7 @@
         .CombatRule(() => new RegenerateCombatRule(cost));
     }
 
-    public CardTemplate Pump(ManaAmount cost, string text, int powerIncrease, int toughnessIncrease)
+    public CardTemplate Pump(ManaAmount cost, string text, int powerIncrease, int toughnessIncrease, bool onlyOnceEachTurn = false)
     {
       return ActivatedAbility(p =>
       {
@@ -188,10 +188,17 @@
 
           return effect;
         };
+        
         p.TimingRule(new PumpOwningCardTimingRule(powerIncrease, toughnessIncrease));
-        p.RepetitionRule(new RepeatMaxTimes());
+        
+        if (!onlyOnceEachTurn)
+        {
+          p.RepetitionRule(new RepeatMaxTimes());
+        }
+        
+        p.ActivateOnlyOnceEachTurn = onlyOnceEachTurn;
       })
-        .CombatRule(() => new PumpCombatRule(powerIncrease, toughnessIncrease, cost));
+      .CombatRule(() => new PumpCombatRule(powerIncrease, toughnessIncrease, cost));
     }
 
     public CardTemplate ActivatedAbility(Action<ActivatedAbilityParameters> set)
