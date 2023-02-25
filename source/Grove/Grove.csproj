@@ -1008,7 +1008,7 @@
     <Compile Include="CardsLibrary\WildColos.cs" />
     <Compile Include="CardsLibrary\YavimayaElder.cs" />
     <Compile Include="Core\Player\SkipSteps.cs" />
-    <Compile Include="Core\Card\Strenght.cs" />
+    <Compile Include="Core\Card\Strength.cs" />
     <Compile Include="Core\Costs\CostModifier.cs" />
     <Compile Include="Core\Costs\CostModifiers.cs" />
     <Compile Include="Core\Costs\ChangeManaCostOfSpellsOrAbilities.cs" />

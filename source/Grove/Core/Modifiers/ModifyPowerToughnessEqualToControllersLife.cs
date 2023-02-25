@@ -6,39 +6,39 @@
   public class ModifyPowerToughnessEqualToControllersLife : Modifier, IReceive<LifeChangedEvent>,
     IReceive<ControllerChangedEvent>, ICardModifier
   {
-    private readonly IntegerSetter _strenghtModifier = new IntegerSetter();
-    private Strenght _strenght;
+    private readonly IntegerSetter _strengthModifier = new IntegerSetter();
+    private Strength _strength;
 
-    public override void Apply(Strenght strenght)
+    public override void Apply(Strength strength)
     {
-      _strenght = strenght;
-      _strenght.AddPowerModifier(_strenghtModifier);
-      _strenght.AddToughnessModifier(_strenghtModifier);
+      _strength = strength;
+      _strength.AddPowerModifier(_strengthModifier);
+      _strength.AddToughnessModifier(_strengthModifier);
     }
 
     public void Receive(ControllerChangedEvent message)
     {
-      _strenghtModifier.Value = SourceCard.Controller.Life;
+      _strengthModifier.Value = SourceCard.Controller.Life;
     }
 
     public void Receive(LifeChangedEvent message)
     {
       if (message.Player == SourceCard.Controller)
       {
-        _strenghtModifier.Value = SourceCard.Controller.Life;
+        _strengthModifier.Value = SourceCard.Controller.Life;
       }
     }
 
     protected override void Unapply()
     {
-      _strenght.RemovePowerModifier(_strenghtModifier);
-      _strenght.RemoveToughnessModifier(_strenghtModifier);
+      _strength.RemovePowerModifier(_strengthModifier);
+      _strength.RemoveToughnessModifier(_strengthModifier);
     }
 
     protected override void Initialize()
     {
-      _strenghtModifier.Initialize(ChangeTracker);
-      _strenghtModifier.Value = SourceCard.Controller.Life;
+      _strengthModifier.Initialize(ChangeTracker);
+      _strengthModifier.Value = SourceCard.Controller.Life;
     }
   }
 }

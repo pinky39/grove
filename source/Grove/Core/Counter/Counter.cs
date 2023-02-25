@@ -6,7 +6,7 @@
   public abstract class Counter : GameObject
   {
     public abstract CounterType Type { get; }
-    public virtual void ModifyStrenght(Strenght strenght) { }
+    public virtual void ModifyStrength(Strength strength) { }
 
     public virtual Counter Initialize(Game game)
     {

@@ -8,7 +8,7 @@
     public class Ai : AiScenario
     {
       [Fact]
-      public void DragonHasIncreasedStrenght()
+      public void DragonHasIncreasedStrength()
       {
         Battlefield(P1, "Crucible Of Fire", "Shivan Dragon");
 

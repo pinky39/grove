@@ -215,7 +215,7 @@
             <StackPanel Grid.Column="2" Style="{StaticResource PowerThougness}" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,15,0">
               <TextBlock FontSize="22" FontFamily="Arial" Text="{Binding Path=Power}" >
                 <TextBlock.Foreground>
-                  <MultiBinding Converter="{x:Static UserInterface:Converters.BaseStrenghtChangeToColor}">
+                  <MultiBinding Converter="{x:Static UserInterface:Converters.BaseStrengthChangeToColor}">
                     <Binding Path="BasePower" />
                     <Binding Path="Power" />
                   </MultiBinding>
@@ -224,7 +224,7 @@
 
               <TextBlock FontSize="22" FontFamily="Arial" Text="{Binding Path=Toughness, StringFormat=/{0}}" >
                 <TextBlock.Foreground>
-                  <MultiBinding Converter="{x:Static UserInterface:Converters.BaseStrenghtChangeToColor}">
+                  <MultiBinding Converter="{x:Static UserInterface:Converters.BaseStrengthChangeToColor}">
                     <Binding Path="BaseToughness" />
                     <Binding Path="Toughness" />
                   </MultiBinding>

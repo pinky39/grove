@@ -9,21 +9,21 @@
     IReceive<CounterAddedEvent>, IReceive<CounterRemovedEvent>, ICardModifier
   {
     private readonly CounterType _counterType;
-    private readonly IntegerIncrement _strenghtModifier = new IntegerIncrement();
-    private Strenght _strenght;
+    private readonly IntegerIncrement _strengthModifier = new IntegerIncrement();
+    private Strength _strength;
 
-    private IncreasePowerToughnessEqualToAttachedCounterCount() {}
+    private IncreasePowerToughnessEqualToAttachedCounterCount() { }
 
     public IncreasePowerToughnessEqualToAttachedCounterCount(CounterType counterType)
     {
-      _counterType = counterType;      
+      _counterType = counterType;
     }
 
     public void Receive(CounterAddedEvent message)
     {
       if (OwningCard.Attachments.Contains(message.OwningCard) && message.Counter.Type == _counterType)
       {
-        _strenghtModifier.Value++;
+        _strengthModifier.Value++;
       }
     }
 
@@ -31,27 +31,27 @@
     {
       if (OwningCard.Attachments.Contains(message.OwningCard) && message.Counter.Type == _counterType)
       {
-        _strenghtModifier.Value--;
+        _strengthModifier.Value--;
       }
     }
 
-    public override void Apply(Strenght strenght)
+    public override void Apply(Strength strength)
     {
-      _strenght = strenght;
-      _strenght.AddPowerModifier(_strenghtModifier);
-      _strenght.AddToughnessModifier(_strenghtModifier);
+      _strength = strength;
+      _strength.AddPowerModifier(_strengthModifier);
+      _strength.AddToughnessModifier(_strengthModifier);
     }
 
     protected override void Initialize()
-    {      
-      _strenghtModifier.Initialize(ChangeTracker);
-      _strenghtModifier.Value = OwningCard.CountersCount(_counterType);
+    {
+      _strengthModifier.Initialize(ChangeTracker);
+      _strengthModifier.Value = OwningCard.CountersCount(_counterType);
     }
 
     protected override void Unapply()
     {
-      _strenght.RemovePowerModifier(_strenghtModifier);
-      _strenght.RemoveToughnessModifier(_strenghtModifier);
+      _strength.RemovePowerModifier(_strengthModifier);
+      _strength.RemoveToughnessModifier(_strengthModifier);
     }
   }
 }

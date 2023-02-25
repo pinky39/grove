@@ -5,7 +5,7 @@
   using Events;
   using Infrastructure;
 
-  public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChangedEvent>, 
+  public class ModifyPowerToughnessForEachPermanent : Modifier, IReceive<ZoneChangedEvent>,
     IReceive<PermanentModifiedEvent>, ICardModifier
   {
     private readonly ControlledBy _controlledBy;
@@ -14,9 +14,9 @@
     private readonly int? _modifyToughness;
     private readonly IntegerModifier _powerModifier;
     private readonly IntegerModifier _toughnessModifier;
-    private Strenght _strenght;
+    private Strength _strength;
 
-    protected ModifyPowerToughnessForEachPermanent() {}
+    protected ModifyPowerToughnessForEachPermanent() { }
 
     public ModifyPowerToughnessForEachPermanent(int? power, int? toughness, CardSelector filter,
       Func<IntegerModifier> modifier, ControlledBy controlledBy = ControlledBy.SpellOwner)
@@ -30,18 +30,18 @@
       _powerModifier = modifier();
     }
 
-    public override void Apply(Strenght strenght)
+    public override void Apply(Strength strength)
     {
-      _strenght = strenght;
+      _strength = strength;
 
       if (_modifyPower.HasValue)
       {
-        _strenght.AddPowerModifier(_powerModifier);
+        _strength.AddPowerModifier(_powerModifier);
       }
 
       if (_modifyToughness.HasValue)
       {
-        _strenght.AddToughnessModifier(_toughnessModifier);
+        _strength.AddToughnessModifier(_toughnessModifier);
       }
     }
 
@@ -122,12 +122,12 @@
     {
       if (_modifyPower.HasValue)
       {
-        _strenght.RemovePowerModifier(_powerModifier);
+        _strength.RemovePowerModifier(_powerModifier);
       }
 
       if (_modifyToughness.HasValue)
       {
-        _strenght.RemoveToughnessModifier(_toughnessModifier);
+        _strength.RemoveToughnessModifier(_toughnessModifier);
       }
     }
 
@@ -152,8 +152,8 @@
     {
       var count = GetPermanentCount();
 
-      SetPowerIfModified(count*_modifyPower);
-      SetToughnessIfModified(count*_modifyToughness);
+      SetPowerIfModified(count * _modifyPower);
+      SetToughnessIfModified(count * _modifyToughness);
     }
   }
 }
