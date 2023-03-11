@@ -8,14 +8,14 @@
   public class Counters : GameObject, IAcceptsCardModifier
   {
     private readonly TrackableList<Counter> _counters = new TrackableList<Counter>();
-    private readonly Strenght _strenght;
+    private readonly Strength _strength;
     private Card _owningCard;
 
-    private Counters() {}
+    private Counters() { }
 
-    public Counters(Strenght strenght)
+    public Counters(Strength strength)
     {
-      _strenght = strenght;
+      _strength = strength;
     }
 
     public int Count
@@ -42,7 +42,7 @@
 
     public void Add(Counter counter)
     {
-      counter.ModifyStrenght(_strenght);
+      counter.ModifyStrength(_strength);
       _counters.Add(counter);
 
       Publish(new CounterAddedEvent(counter, _owningCard));

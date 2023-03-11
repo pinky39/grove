@@ -19,7 +19,7 @@
     public bool UntilEot;
     public Card SourceCard { get; private set; }
     public Effect SourceEffect { get; private set; }
-    public Card OwningCard { get { return (Card) Owner; } }
+    public Card OwningCard { get { return (Card)Owner; } }
     public int? X { get; private set; }
 
     void ICopyContributor.AfterMemberCopy(object original)
@@ -68,27 +68,27 @@
       _lifetimes.Add(lifetime);
     }
 
-    public virtual void Apply(CardController controller) {}
-    public virtual void Apply(TriggeredAbilities abilities) {}
-    public virtual void Apply(SimpleAbilities abilities) {}
-    public virtual void Apply(ActivatedAbilities abilities) {}
-    public virtual void Apply(ColorsOfCard colors) {}
-    public virtual void Apply(DamagePreventions damagePreventions) {}
-    public virtual void Apply(Protections protections) {}
-    public virtual void Apply(TypeOfCard typeOfCard) {}
-    public virtual void Apply(Counters counters) {}
-    public virtual void Apply(Level level) {}
-    public virtual void Apply(DamageRedirections damageRedirections) {}
-    public virtual void Apply(ContiniousEffects continiousEffects) {}
-    public virtual void Apply(LandLimit landLimit) {}
-    public virtual void Apply(Strenght strenght) {}
-    public virtual void Apply(SkipSteps skipSteps) {}
-    public virtual void Apply(CostModifiers costModifiers) {}
-    public virtual void Apply(MinimumBlockerCount count) {}
-    public virtual void Apply(CardBase cardBase) {}
-    public virtual void Apply(StaticAbilities abilities) {}
-    public virtual void Apply(NamedGameModifiers namedGameModifiers) {}
-    public virtual void Apply(CombatCost combatCost) {}
+    public virtual void Apply(CardController controller) { }
+    public virtual void Apply(TriggeredAbilities abilities) { }
+    public virtual void Apply(SimpleAbilities abilities) { }
+    public virtual void Apply(ActivatedAbilities abilities) { }
+    public virtual void Apply(ColorsOfCard colors) { }
+    public virtual void Apply(DamagePreventions damagePreventions) { }
+    public virtual void Apply(Protections protections) { }
+    public virtual void Apply(TypeOfCard typeOfCard) { }
+    public virtual void Apply(Counters counters) { }
+    public virtual void Apply(Level level) { }
+    public virtual void Apply(DamageRedirections damageRedirections) { }
+    public virtual void Apply(ContiniousEffects continiousEffects) { }
+    public virtual void Apply(LandLimit landLimit) { }
+    public virtual void Apply(Strength strength) { }
+    public virtual void Apply(SkipSteps skipSteps) { }
+    public virtual void Apply(CostModifiers costModifiers) { }
+    public virtual void Apply(MinimumBlockerCount count) { }
+    public virtual void Apply(CardBase cardBase) { }
+    public virtual void Apply(StaticAbilities abilities) { }
+    public virtual void Apply(NamedGameModifiers namedGameModifiers) { }
+    public virtual void Apply(CombatCost combatCost) { }
 
     protected abstract void Unapply();
 
@@ -111,7 +111,7 @@
       Owner.RemoveModifier(this);
     }
 
-    protected virtual void Initialize() {}
+    protected virtual void Initialize() { }
 
     private void InitializeLifetimes(bool isStatic)
     {
@@ -129,12 +129,12 @@
         if (UntilEot)
         {
           _lifetimes.Add(new EndOfTurnLifetime());
-        }       
+        }
 
         if (SourceCard.Is().Attachment &&
-          /* when attachment applies modifier to itself e.g Avarice Amulet this should not apply */
+            /* when attachment applies modifier to itself e.g Avarice Amulet this should not apply */
             SourceCard != Owner)
-        {                              
+        {
           // when modifier is given by an attachment
           // it should become invalid when attachment
           // becomes detached

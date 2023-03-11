@@ -4,16 +4,16 @@
   using Modifiers;
 
   [Copyable]
-  public class Strenght : IAcceptsCardModifier, ICopyContributor, IHashable
+  public class Strength : IAcceptsCardModifier, ICopyContributor, IHashable
   {
     private readonly CardBase _cardBase;
     private readonly Characteristic<int?> _power;
     private readonly Trackable<bool> _switchPowerAndToughness = new Trackable<bool>();
     private readonly Characteristic<int?> _toughness;
 
-    private Strenght() {}
+    private Strength() { }
 
-    public Strenght(CardBase cardBase)
+    public Strength(CardBase cardBase)
     {
       _cardBase = cardBase;
 

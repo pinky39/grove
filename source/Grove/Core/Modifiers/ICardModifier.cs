@@ -7,12 +7,12 @@
     void Apply(SimpleAbilities abilities);
     void Apply(StaticAbilities abilities);
     void Apply(ActivatedAbilities abilities);
-    void Apply(ColorsOfCard colors);    
+    void Apply(ColorsOfCard colors);
     void Apply(Protections protections);
     void Apply(TypeOfCard typeOfCard);
     void Apply(Counters counters);
-    void Apply(Level level);    
-    void Apply(Strenght strenght);
+    void Apply(Level level);
+    void Apply(Strength strength);
     void Apply(MinimumBlockerCount count);
     void Apply(CombatCost combatCost);
     void Apply(CardBase cardBase);

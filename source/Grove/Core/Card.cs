@@ -12,7 +12,7 @@
   public class Card : GameObject, ITarget, IDamageable, IHashDependancy, IHasColors, IHasLife, IModifiable, IComparable<Card>
   {
     private readonly ActivatedAbilities _activatedAbilities;
-    private readonly Trackable<Card> _attachedTo = new Trackable<Card>();    
+    private readonly Trackable<Card> _attachedTo = new Trackable<Card>();
     private readonly TrackableList<Card> _attachments = new TrackableList<Card>();
     private readonly CardBase _base;
     private readonly CastRules _castRules;
@@ -35,7 +35,7 @@
     private readonly Protections _protections;
     private readonly SimpleAbilities _simpleAbilities;
     private readonly StaticAbilities _staticAbilities;
-    private readonly Strenght _strenght;
+    private readonly Strength _strength;
     private readonly TriggeredAbilities _triggeredAbilities;
     private readonly TypeOfCard _typeOfCard;
     private readonly Trackable<int> _usageScore = new Trackable<int>();
@@ -45,16 +45,16 @@
     private CardController _controller;
     private bool _isPreview = true;
 
-    protected Card() {}
+    protected Card() { }
 
     public Card(CardTemplate template)
     {
       _base = new CardBase(template.CreateCardParameters());
 
-      _strenght = new Strenght(_base);
+      _strength = new Strength(_base);
       _level = new Level(_base);
       _combatCost = new CombatCost(_base);
-      _counters = new Counters(_strenght);
+      _counters = new Counters(_strength);
       _typeOfCard = new TypeOfCard(_base);
       _colors = new ColorsOfCard(_base);
 
@@ -65,7 +65,7 @@
       _activatedAbilities = new ActivatedAbilities(_base);
       _staticAbilities = new StaticAbilities(_base);
       _castRules = new CastRules(_base);
-      _combatRules = new CombatRules(_base);      
+      _combatRules = new CombatRules(_base);
 
       JoinedBattlefield = new TrackableEvent();
       LeftBattlefield = new TrackableEvent();
@@ -90,7 +90,7 @@
     {
       get { return _attachedTo.Value; }
       private set { _attachedTo.Value = value; }
-    }    
+    }
 
     public IEnumerable<Card> Attachments
     {
@@ -187,7 +187,7 @@
     {
       get
       {
-        return Is().Planeswalker 
+        return Is().Planeswalker
           ? CountersCount(CounterType.Loyality) - _counters.Count
           : _counters.Count;
       }
@@ -276,7 +276,7 @@
       get
       {
         yield return _minimumBlockerCount;
-        yield return _strenght;
+        yield return _strength;
         yield return _level;
         yield return _combatCost;
         yield return _counters;
@@ -299,12 +299,12 @@
 
     public int? BasePower
     {
-      get { return _strenght.BasePower; }
+      get { return _strength.BasePower; }
     }
 
     public int? Power
     {
-      get { return _strenght.Power; }
+      get { return _strength.Power; }
     }
 
     public int? Loyality
@@ -312,7 +312,7 @@
       get
       {
         return Zone == Zone.Battlefield && Is().Planeswalker
-          ? CountersCount(CounterType.Loyality) 
+          ? CountersCount(CounterType.Loyality)
           : _base.Value.Loyality;
       }
     }
@@ -364,12 +364,12 @@
 
     public int? Toughness
     {
-      get { return _strenght.Toughness; }
+      get { return _strength.Toughness; }
     }
 
     public int? BaseToughness
     {
-      get { return _strenght.BaseToughness; }
+      get { return _strength.BaseToughness; }
     }
 
     public CardType Type
@@ -425,15 +425,15 @@
     public bool IsEnchanted
     {
       get { return _attachments.Any(x => x.Is().Aura); }
-    }    
+    }
 
     public bool IsPeeked
     {
       get { return _isPeeked.Value; }
-    }    
+    }
 
     public void ReceiveDamage(Damage damage)
-    {      
+    {
       if (!(Is().Creature || Is().Planeswalker) || !IsPermanent)
         return;
 
@@ -443,14 +443,14 @@
       }
 
       var amountToPrevent = Game.PreventDamage(new PreventDamageParameters
-        {
-          Amount = damage.Amount,
-          Source = damage.Source,
-          Target = this,
-          IsCombat = damage.IsCombat,
-          CanBePrevented = damage.CanBePrevented,
-          QueryOnly = false
-        });
+      {
+        Amount = damage.Amount,
+        Source = damage.Source,
+        Target = this,
+        IsCombat = damage.IsCombat,
+        CanBePrevented = damage.CanBePrevented,
+        QueryOnly = false
+      });
 
       damage.Amount -= amountToPrevent;
 
@@ -473,9 +473,9 @@
         if (Damage >= Toughness || damage.IsLeathal)
         {
           _hasLeathalDamage.Value = true;
-        }  
+        }
       }
-            
+
       if (damage.Source.Has().Lifelink)
       {
         var controller = damage.Source.Controller;
@@ -508,7 +508,7 @@
 
     void IModifiable.RemoveModifier(IModifier modifier)
     {
-      RemoveModifier((ICardModifier) modifier);
+      RemoveModifier((ICardModifier)modifier);
     }
 
     public int Id { get; private set; }
@@ -535,7 +535,7 @@
           Damage,
           HasRegenerationShield.GetHashCode(),
           HasLeathalDamage.GetHashCode(),
-          calc.Calculate(_strenght),
+          calc.Calculate(_strength),
           Level.GetHashCode(),
           Counters.GetHashCode(),
           calc.Calculate(_typeOfCard.Value),
@@ -573,13 +573,13 @@
       add(this);
 
       if (destination.Name != source.Name)
-      {                                
+      {
         if (destination.Name == Zone.Battlefield)
         {
           HasSummoningSickness = true;
           JoinedBattlefield.Raise();
-        }        
-        
+        }
+
         // if card goes to library and it is not hidden, change its default zone visibility
         if (destination.Name == Zone.Library && !_isHidden)
         {
@@ -600,9 +600,9 @@
             Reveal(true);
           }
         }
-                
-        Publish(new ZoneChangedEvent(this, source.Name, destination.Name));                
-        
+
+        Publish(new ZoneChangedEvent(this, source.Name, destination.Name));
+
         if (source.Name == Zone.Battlefield)
         {
           Combat.Remove(this);
@@ -656,7 +656,7 @@
     {
       _modifiers.Add(modifier);
       ActivateModifier(modifier, p);
-      
+
       if (IsPermanent)
       {
         Publish(new PermanentModifiedEvent(this, modifier));
@@ -687,9 +687,9 @@
       _controller = new CardController(owner);
       _controller.Initialize(game, this);
 
-      _strenght.Initialize(game, this);
+      _strength.Initialize(game, this);
       _level.Initialize(game, this);
-      _combatCost.Initialize(game,this);
+      _combatCost.Initialize(game, this);
       _counters.Initialize(this, game);
       _typeOfCard.Initialize(game, this);
       _colors.Initialize(game, this);
@@ -698,7 +698,7 @@
       _modifiers.Initialize(ChangeTracker);
 
       _isTapped.Initialize(ChangeTracker, this);
-      _attachedTo.Initialize(ChangeTracker, this);      
+      _attachedTo.Initialize(ChangeTracker, this);
       _attachments.Initialize(ChangeTracker, this);
       _hasRegenerationShield.Initialize(ChangeTracker, this);
       _damage.Initialize(ChangeTracker, this);
@@ -734,13 +734,13 @@
       }
 
       var damage = new PreventDamageParameters
-        {
-          Amount = totalAmount,
-          QueryOnly = true,
-          Source = source,
-          IsCombat = isCombat,
-          Target = this,
-        };
+      {
+        Amount = totalAmount,
+        QueryOnly = true,
+        Source = source,
+        IsCombat = isCombat,
+        Target = this,
+      };
 
       return Game.PreventDamage(damage);
     }
@@ -932,10 +932,10 @@
     public void EnchantWithoutPayingCost(Card target)
     {
       var activationParameters = new ActivationParameters
-        {
-          PayManaCost = false,
-          SkipStack = true
-        };
+      {
+        PayManaCost = false,
+        SkipStack = true
+      };
 
       activationParameters.Targets.Effect.Add(target);
 
@@ -945,10 +945,10 @@
     public void EquipWithoutPayingCost(Card target)
     {
       var activationParameters = new ActivationParameters
-        {
-          PayManaCost = false,
-          SkipStack = true
-        };
+      {
+        PayManaCost = false,
+        SkipStack = true
+      };
 
       activationParameters.Targets.Effect.Add(target);
 
@@ -978,7 +978,7 @@
     public bool HasProtectionFrom(CardColor color)
     {
       return _protections.HasProtectionFrom(color);
-    }    
+    }
 
     public bool HasProtectionFromAny(IEnumerable<CardColor> colors)
     {
@@ -1146,7 +1146,7 @@
       if (Ai.IsSearchInProgress)
         return;
 
-      _isRevealed.Value = true;      
+      _isRevealed.Value = true;
 
       Publish(new CardWasRevealedEvent(this));
     }
@@ -1236,7 +1236,7 @@
       var total = Power.GetValueOrDefault() + powerIncrease;
 
       if (Has().DoubleStrike && !singleDamageStep)
-        return total*2;
+        return total * 2;
 
       return total;
     }
@@ -1300,8 +1300,8 @@
       var otherAmounts = other.ManaCost.ToList();
 
       if (amounts.Count != otherAmounts.Count)
-      {                              
-        
+      {
+
         // special case when no colorless in cost
         // put it last
         if (amounts.Count == 1)
@@ -1312,7 +1312,7 @@
         {
           return -1;
         }
-        
+
         return amounts.Count.CompareTo(otherAmounts.Count);
       }
 
@@ -1321,7 +1321,7 @@
         if (amounts[i].Color == otherAmounts[i].Color)
         {
           return amounts[i].Count.CompareTo(otherAmounts[i].Count);
-        }      
+        }
         else
         {
           var color = amounts[i].Color.Indices.Sum();
@@ -1330,7 +1330,7 @@
           return color.CompareTo(otherColor);
         }
       }
-            
+
       return 0;
     }
   }

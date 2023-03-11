@@ -6,11 +6,11 @@
   {
     private readonly int _power;
     private readonly int _toughness;
-    private Strenght _strenght;
+    private Strength _strength;
     private IntegerIncrement _powerIntegerIncrement;
     private IntegerIncrement _toughnessIntegerIncrement;
 
-    private PowerToughness() {}
+    private PowerToughness() { }
 
     public PowerToughness(int power, int toughness)
     {
@@ -20,25 +20,25 @@
 
     public override CounterType Type { get { return CounterType.PowerToughness; } }
 
-    public override void ModifyStrenght(Strenght strenght)
+    public override void ModifyStrength(Strength strength)
     {
-      _strenght = strenght;
+      _strength = strength;
 
       _powerIntegerIncrement = new IntegerIncrement(_power);
       _powerIntegerIncrement.Initialize(ChangeTracker);
 
-      _strenght.AddPowerModifier(_powerIntegerIncrement);
+      _strength.AddPowerModifier(_powerIntegerIncrement);
 
       _toughnessIntegerIncrement = new IntegerIncrement(_toughness);
       _toughnessIntegerIncrement.Initialize(ChangeTracker);
 
-      _strenght.AddToughnessModifier(_toughnessIntegerIncrement);            
-    }        
+      _strength.AddToughnessModifier(_toughnessIntegerIncrement);
+    }
 
     public override void Remove()
     {
-      _strenght.RemovePowerModifier(_powerIntegerIncrement);
-      _strenght.RemoveToughnessModifier(_toughnessIntegerIncrement);      
+      _strength.RemovePowerModifier(_powerIntegerIncrement);
+      _strength.RemoveToughnessModifier(_toughnessIntegerIncrement);
     }
   }
 }

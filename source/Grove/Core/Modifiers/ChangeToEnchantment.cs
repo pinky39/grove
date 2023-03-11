@@ -2,7 +2,7 @@
 {
   public class ChangeToEnchantment : Modifier, ICardModifier
   {
-    private Strenght _strenght;
+    private Strength _strength;
     private TypeOfCard _typeOfCard;
     private readonly IntegerSetter _integerSetter = new IntegerSetter();
     private CardTypeSetter _typeSetter;
@@ -10,7 +10,7 @@
     public override void Apply(TypeOfCard typeOfCard)
     {
       _typeOfCard = typeOfCard;
-      _typeSetter = new CardTypeSetter("enchantment");      
+      _typeSetter = new CardTypeSetter("enchantment");
       _typeSetter.Initialize(ChangeTracker);
       _typeOfCard.AddModifier(_typeSetter);
     }
@@ -20,18 +20,18 @@
       _integerSetter.Initialize(ChangeTracker);
     }
 
-    public override void Apply(Strenght strenght)
+    public override void Apply(Strength strength)
     {
-      _strenght = strenght;
-      _strenght.AddPowerModifier(_integerSetter);
-      _strenght.AddToughnessModifier(_integerSetter);
-    }        
+      _strength = strength;
+      _strength.AddPowerModifier(_integerSetter);
+      _strength.AddToughnessModifier(_integerSetter);
+    }
 
     protected override void Unapply()
     {
       _typeOfCard.RemoveModifier(_typeSetter);
-      _strenght.RemovePowerModifier(_integerSetter);
-      _strenght.RemoveToughnessModifier(_integerSetter);      
+      _strength.RemovePowerModifier(_integerSetter);
+      _strength.RemoveToughnessModifier(_integerSetter);
     }
   }
 }

@@ -2,17 +2,17 @@
 {
   public class SwitchPowerAndToughness : Modifier, ICardModifier
   {
-    private Strenght _strenght;
+    private Strength _strength;
 
-    public override void Apply(Strenght strenght)
+    public override void Apply(Strength strength)
     {
-      _strenght = strenght;
-      _strenght.SwitchPowerAndToughness();
+      _strength = strength;
+      _strength.SwitchPowerAndToughness();
     }
-    
+
     protected override void Unapply()
     {
-      _strenght.SwitchPowerAndToughness();
+      _strength.SwitchPowerAndToughness();
     }
   }
 }

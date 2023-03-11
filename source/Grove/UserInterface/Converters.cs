@@ -15,11 +15,11 @@
   {
     public static AutoPassToImageConverter AutoPassToImage = new AutoPassToImageConverter();
     public static BooleanToVisibilityConverter BooleanToVisibility = new BooleanToVisibilityConverter();
-    public static CardColorToCardTemplateConverter CardColorToCardTemplate = new CardColorToCardTemplateConverter();    
+    public static CardColorToCardTemplateConverter CardColorToCardTemplate = new CardColorToCardTemplateConverter();
     public static CardNameToCardImageConverter CardIllustrationNameToCardImage = new CardNameToCardImageConverter();
     public static CharacterCountToFontSizeConverter CharacterCountToFontSize = new CharacterCountToFontSizeConverter();
     public static LifeToColorConverter LifeToColor = new LifeToColorConverter();
-    public static AvatarIdToAvatarImageConverter AvatarIdToAvatarImage = new AvatarIdToAvatarImageConverter();    
+    public static AvatarIdToAvatarImageConverter AvatarIdToAvatarImage = new AvatarIdToAvatarImageConverter();
     public static ManaCostToManaSymbolImagesConverter ManaCostToManaSymbolImages = new ManaCostToManaSymbolImagesConverter();
     public static SetAndRarityToSetImageConverter SetAndRaritytoSetImage = new SetAndRarityToSetImageConverter();
     public static ManaSymbolListToImagesConverter ManaSymbolListToImages = new ManaSymbolListToImagesConverter();
@@ -28,7 +28,7 @@
     public static ZeroToCollapsedConverter ZeroToCollapsed = new ZeroToCollapsedConverter();
     public static NonZeroToCollapsedConverter NonZeroToCollapsed = new NonZeroToCollapsedConverter();
     public static RatingConverter Rating = new RatingConverter();
-    public static BaseStrenghtChangeToColorConverter BaseStrenghtChangeToColor = new BaseStrenghtChangeToColorConverter();
+    public static BaseStrengthChangeToColorConverter BaseStrengthChangeToColor = new BaseStrengthChangeToColorConverter();
 
     public class AutoPassToImageConverter : IValueConverter
     {
@@ -42,7 +42,7 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var pass = (Pass) value;
+        var pass = (Pass)value;
         return MediaLibrary.GetImage(_imageNames[pass]);
       }
 
@@ -56,7 +56,7 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var id = (int) value;
+        var id = (int)value;
         return MediaLibrary.GetAvatar(id);
       }
 
@@ -77,7 +77,7 @@
           invert = Boolean.Parse(parameter.ToString());
         }
 
-        var booleanValue = (bool) value;
+        var booleanValue = (bool)value;
 
         return ((booleanValue && !invert) || (!booleanValue && invert))
           ? Visibility.Visible
@@ -104,7 +104,7 @@
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
         return MediaLibrary.GetImage(
-          GetTemplateName((CardColor[]) value) + ".png");
+          GetTemplateName((CardColor[])value) + ".png");
       }
 
       public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -145,7 +145,7 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var cardName = (string) value;
+        var cardName = (string)value;
         return MediaLibrary.GetCardImage(GetCardImageName(cardName));
       }
 
@@ -164,7 +164,7 @@
 
         return new string(invalidCharsRemoved)
           .Trim()
-          .ToLower();        
+          .ToLower();
       }
     }
 
@@ -172,7 +172,7 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var characterCount = (int) value;
+        var characterCount = (int)value;
 
         if (characterCount < 40)
           return 18;
@@ -217,7 +217,7 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var life = (int) value;
+        var life = (int)value;
 
         return life > 9 ? _highLife : _lowLife;
       }
@@ -244,10 +244,10 @@
         var manaAmount = (ManaAmount)value;
 
         if (manaAmount == null)
-          return new ImageSource[] {};
+          return new ImageSource[] { };
 
         if (manaAmount.Converted == 0)
-          return new[] {MediaLibrary.GetImage("0.png")};
+          return new[] { MediaLibrary.GetImage("0.png") };
 
         var images = new List<string>();
 
@@ -293,10 +293,10 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var symbols = (IEnumerable<string>) value;
+        var symbols = (IEnumerable<string>)value;
 
         if (symbols.None())
-          return new ImageSource[] {};
+          return new ImageSource[] { };
 
         return symbols.Select(symbolName => MediaLibrary.GetImage(symbolName + ".png"));
       }
@@ -316,19 +316,19 @@
 
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var state = (int) value;
+        var state = (int)value;
 
         if (state == 0)
           return _default;
 
-        int marker;        
+        int marker;
         if (!_idToMarker.TryGetValue(state, out marker))
         {
           marker = _nextMarker++;
-          _idToMarker.Add(state, marker);          
+          _idToMarker.Add(state, marker);
         }
-        
-        var h = (GoldenRatioConjugate * marker)%1;
+
+        var h = (GoldenRatioConjugate * marker) % 1;
         var rgb = ColorUtils.HsvToRgb(h, 0.7f, 0.95f);
 
         return new SolidColorBrush(Color.FromArgb(0xcc, rgb[0], rgb[1], rgb[2]));
@@ -344,7 +344,7 @@
     {
       public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
       {
-        var rating = (int) value;
+        var rating = (int)value;
 
         var stars = new List<ImageSource>();
 
@@ -369,8 +369,8 @@
         if (values.Any(x => DependencyProperty.UnsetValue.Equals(x)))
           return DependencyProperty.UnsetValue;
 
-        var set = (string) values[0];
-        var rarity = (Rarity?) values[1];
+        var set = (string)values[0];
+        var rarity = (Rarity?)values[1];
 
         return MediaLibrary.GetSetImage(set, rarity);
       }
@@ -382,7 +382,7 @@
     }
   }
 
-  public class BaseStrenghtChangeToColorConverter : IMultiValueConverter
+  public class BaseStrengthChangeToColorConverter : IMultiValueConverter
   {
     private readonly SolidColorBrush _noChange = new SolidColorBrush(Color.FromArgb(0xff, 0xff, 0xff, 0xff));
     private readonly SolidColorBrush _decrease = new SolidColorBrush(Color.FromArgb(0xff, 0xe3, 0x00, 0x00));
@@ -393,13 +393,13 @@
       if (values.Any(x => x == null || DependencyProperty.UnsetValue.Equals(x)))
         return _noChange;
 
-      var baseStrenght = (int)values[0];
-      var currentStrenght = (int)values[1];
+      var baseStrength = (int)values[0];
+      var currentStrength = (int)values[1];
 
-      if (baseStrenght == currentStrenght)
+      if (baseStrength == currentStrength)
         return _noChange;
 
-      if (baseStrenght > currentStrenght)
+      if (baseStrength > currentStrength)
         return _decrease;
 
       return _increase;

@@ -7,13 +7,13 @@
     private readonly Func<Player, Value> _power;
     private readonly Func<Player, Value> _toughness;
     private IntegerIncrement _powerIntegerIncrement;
-    private Strenght _strenght;
+    private Strength _strength;
     private IntegerIncrement _toughnessIntegerIncrement;
 
-    private AddPowerAndToughness() {}
+    private AddPowerAndToughness() { }
 
     public AddPowerAndToughness(Value power, Value toughness)
-      : this(getPower: (p) => power, getToughness: (p) => toughness) {}
+      : this(getPower: (p) => power, getToughness: (p) => toughness) { }
 
     public AddPowerAndToughness(Func<Player, Value> getPower, Func<Player, Value> getToughness)
     {
@@ -21,23 +21,23 @@
       _toughness = getToughness;
     }
 
-    public override void Apply(Strenght strenght)
+    public override void Apply(Strength strength)
     {
-      _strenght = strenght;
+      _strength = strength;
 
       _powerIntegerIncrement = new IntegerIncrement(_power(OwningCard.Controller).GetValue(X));
       _powerIntegerIncrement.Initialize(ChangeTracker);
-      _strenght.AddPowerModifier(_powerIntegerIncrement);
+      _strength.AddPowerModifier(_powerIntegerIncrement);
 
       _toughnessIntegerIncrement = new IntegerIncrement(_toughness(OwningCard.Controller).GetValue(X));
       _toughnessIntegerIncrement.Initialize(ChangeTracker);
-      _strenght.AddToughnessModifier(_toughnessIntegerIncrement);
+      _strength.AddToughnessModifier(_toughnessIntegerIncrement);
     }
 
     protected override void Unapply()
     {
-      _strenght.RemovePowerModifier(_powerIntegerIncrement);
-      _strenght.RemoveToughnessModifier(_toughnessIntegerIncrement);
+      _strength.RemovePowerModifier(_powerIntegerIncrement);
+      _strength.RemoveToughnessModifier(_toughnessIntegerIncrement);
     }
   }
 }
