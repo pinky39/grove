@@ -31,6 +31,7 @@
             trg => trg.MustBeTargetable = false);
 
           p.TargetingRule(new EffectOrCostRankBy(rank: c => -c.Score, controlledBy: ControlledBy.SpellOwner));
+          p.TriggerOnlyIfOwningCardIsInPlay = true;
         });
     }
   }
